@@ -1,0 +1,20 @@
+﻿<table ng-show="eligArray.length > 0" class="table table-striped table-hover table-sortable">
+    <thead>
+        <tr class="header sorting">
+            <th ng-click="order('EffectiveDate', reverse)">{{'form_effectiveDate'|translate}}</th>
+            <th ng-click="order('TerminationDate', reverse)">{{'form_termDate'|translate}}</th>
+            <th ng-click="order('PcpName', reverse)">{{'form_PCPName'|translate}}</th>
+            <th ng-click="order('PcpId', reverse)">{{'form_PCPID'|translate}}</th> 
+            <th ng-click="order('StatusDescription', reverse)">{{'form_status'|translate}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-if="item.StatusDescription =='Active'" ng-repeat="item in eligArray | orderBy: 'TerminationDate':reverse " ng-class="{'info':(item.TerminationDate == null)}">
+            <td>{{item.EffectiveDate | date:'MM/dd/yy'}}</td>
+            <td>{{item.TerminationDate | date:'MM/dd/yy'}}</td>
+            <td>{{item.PcpName | obfuscateValue}}</td>
+            <td>{{item.PcpId | obfuscateValue }}</td>
+            <td>{{item.StatusDescription}}</td>
+        </tr>
+    </tbody>
+</table>

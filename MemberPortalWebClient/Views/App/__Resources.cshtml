@@ -1,0 +1,101 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="row contentContainer">  
+
+    <div class="contentRight col-lg-9 col-md-8 col-sm-12 col-xs-12 col-lg-push-3 col-md-push-3">
+ 
+        <div class="contentPanel">
+            <h1 class="pageTitle"> {{"page_res_resources_title" | translate}} </h1>
+            <p class="pageIntro">  {{"page_res_resources_intro" | translate}} </p>
+ 
+                <div class="panel panelMed" > 
+                    <div class="panelImageCont col-lg-5 col-md-6 col-sm-12 col-xs-12" > 
+                        <img class="panelImage" src="@Url.Content("~/Content/Images/sm_Resources.png")" />
+                    </div>  
+
+
+                    <div class="form-group col-lg-6">
+                        <h3 class="underlined  ng-binding"> {{"form_materialRequest_selectMaterialsToOrder" | translate}} </h3>
+
+                           <div class="col-lg-12  ">
+                            <div class="whitePanel">
+                                 <ul>
+                                     <li><input type="checkbox" /> Lorem option1</li>
+                                     <li><input type="checkbox" /> Lorem option2</li>
+                                     <li><input type="checkbox" /> Lorem option3</li>
+                                     <li><input type="checkbox" /> Lorem option4</li> 
+                                 </ul> 
+                            </div> 
+                        </div>
+                        <div class="row formButtons ">
+                            <input type="submit" value="Request" class="btn btn-lg btn-primary  marginTop20" ng-click="SubmitMaterialRequest()">
+                        </div>
+                    </div>
+           
+
+
+                
+                    @*<ul class="resourceList list-unstyled col-lg-7 col-md-6 col-sm-12 col-xs-12">
+                        <li>
+                            <a href=""><img src="@Url.Content("~/Content/Images/ico_pdf.png")" /> PDF Link resource1</a>
+                        </li>
+                        <li>
+                            <a href=""><img src="@Url.Content("~/Content/Images/ico_www.png")" /> Website resource1 Lorem dipsum entra netum es</a>
+                        </li>
+                        <li>
+                            <a href=""><img src="@Url.Content("~/Content/Images/ico_pdf.png")" /> PDF Link resource2</a>
+                        </li>
+                    </ul>*@
+                </div> 
+           </div>
+    </div>
+
+    <div class="contentLeft   col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-pull-9 col-md-pull-8 col-sm-pull-0 col-xs-pull-0 ">
+        <div class="contentPanel leftPanel_large">
+            <div class="pageBannerContainer" ng-controller="SideNavCtrl">
+
+                <div ng-if="currentLanguage == 'en-us'">
+                    <div class="leftBanner_TOCL_Yellow _3em textShadow ">
+                        IEHP<br />Community<br />Resource<br />Center.
+                        <br /><span class="_p7em  fontRed  fontTOCL fontBold">Learn more<br /> about healthcare</span>
+                    </div>
+                    <div class="leftBanner_TOCL_Yellow _2em textShadow">Our doors are open</div>
+                    <div class="leftBanner_Verdana_White">
+                        <ul>
+                            <li>Learn your IEHP benefits</li>
+                            <li>Take health classes</li>
+                            <li>Get health coverage</li>
+                        </ul>
+                    </div>
+                </div>
+                <div ng-if="currentLanguage == 'es-mx'">
+                    <div class="leftBanner_TOCL_Yellow _3em textShadow  ">
+                        Centro de Recursos para la Comunidad.
+                        <br /><br /><span class="_p7em  fontRed  fontTOCL fontBold">Aprenda más<br />sobre atención médica</span>
+                    </div>
+                    <div class="leftBanner_TOCL_Yellow _2em textShadow">Nuestras Puertas están abiertas</div>
+                    <div class="leftBanner_Verdana_White">
+                        <ul>
+                            <li>Conozca sus beneficios con IEHP </li>
+                            <li>Tome clases sobre salud</li>
+                            <li>Obtenga cobertura médica</li>
+                        </ul>
+                    </div>
+                </div> 
+                  <div class="center"> 
+                      <img class="vertBanner" src="@Url.Content("~/Content/Images/banner_Resources.png")" /> 
+                  </div> 
+                </div>
+        </div>
+    </div>  
+
+
+</div> 
+
+
+<script>
+    $('.navItemSelected').removeClass('navItemSelected');
+    $('#navbtn4 div').addClass('navItemSelected');
+</script>

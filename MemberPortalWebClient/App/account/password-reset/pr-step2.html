@@ -1,0 +1,10 @@
+﻿<h1 class="pad-md text-center">
+	Step 2: <span class="step-color">Verify Email</span>
+</h1>
+<div class="help-text text-center">
+	A verification link has been sent to your email. <br/>Please check your email to continue to the next step.
+</div>
+<div ng-if="alert" class="center-block col-md-3 float-none form-group">
+	<button class="btn btn-block btn-lg btn-primary" ui-sref="password-reset">Back</button>
+</div>
+<uib-alert close="alert=''" ng-hide="!alert" type="danger">{{alert}}</uib-alert>  

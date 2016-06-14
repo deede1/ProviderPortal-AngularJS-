@@ -1,0 +1,43 @@
+﻿<div class="col-md-6">
+    <table class="table table-hover">
+        <!--<thead ng-if="$index == '2'" ng-repeat="q in ActiveSection.Questions track by $index">
+        <tr>
+            <th class="survey-table-header">&nbsp;</th>
+            <th class="survey-table-header" ng-repeat="a in q.Answers">
+                <span>{{a.ItemDisplayValue}}</span>
+            </th>
+
+        </tr>
+        </thead>-->
+        <tbody>
+            <ng-form name="innerForm">
+                <tr ng-if="$index >'0' && qs.DisplayTypeCode == 'Table'" ng-class="{radioTableRequired: !qs.isChecked && nextClicked}" ng-repeat="qs in ActiveSection.Questions track by $index">
+
+                    <th>
+                        <span>{{qs.QuestionText}}</span>
+
+                    </th>
+
+                    <td class="survey-td-small" ng-repeat="as in qs.Answers">
+
+                        <div class="radio-table-cell">
+
+                            <label class="btn btn-primary survey-ui-button" ng-class="{active:as.isChecked}">
+                                <input type="radio"
+                                       style="display: none"
+                                       class="btn btn-primary small-radio"
+                                       ng-click="RecordRadioClickTable(this, qs );"
+                                       ng-model="qs.Title"
+                                       ng-required="true"
+                                       value="{{as.ItemDisplayValue}}" />
+                                <span class="survey-answer">{{as.ItemDisplayName}}</span>
+                            </label>
+
+                        </div>
+
+                    </td>
+                </tr>
+            </ng-form>
+        </tbody>
+    </table>
+</div>

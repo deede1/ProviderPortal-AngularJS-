@@ -1,0 +1,29 @@
+﻿<div class="row survey-question-bottom-border">
+    <div class="survey-question-span-inner col-md-8 col-sm-8 col-xs-12" ng-bind-html="question.QuestionText"></div>
+
+
+    <div class="survey-input-render survey-ui-user-input survey-ui-button-background col-md-3 col-sm-3 col-xs-12 " ng-repeat="answer in question.Answers track by $index">
+            <ng-form name="innerForm">
+
+
+                <input class="survey-user-input-flat"
+                       name="inputText"
+                       type="text"
+                       ng-blur="RecordInput(this, question)"
+                       ng-model="answer.ValueId"
+                       ng-focus="answer.ValueId = ''"
+                       ng-pattern="/^[A-Za-z\s\.,]+$/"
+                       ng-required="question.IsRequired && !question.Answers.isChecked "
+                       ng-disabled="question.Answers.isDisabled" />
+                <span class="survey-answer" ng-if="answer.ItemDisplayValue != 'Blank'">{{answer.ItemDisplayName}}</span>
+                
+
+                <span ng-if="language =='EN'" ng-show="innerForm.$error.pattern" class="help-block survey-required-value">letters only, no special charcters or numbers allowed.</span>
+                <span ng-if="language =='ES'" ng-show="innerForm.$error.pattern" class="help-block survey-required-value">letras solamente, no se permite caracteres especiales o números.</span>
+  
+                <span ng-if="language == 'EN'" ng-show="innerForm.$invalid && nextClicked" class="help-block survey-required-value">Enter a value</span>
+                <span ng-if="language=='ES'" ng-show="innerForm.$invalid && nextClicked" class="help-block survey-required-value">Introduzca un valor</span>
+            </ng-form>
+        </div>
+
+</div>

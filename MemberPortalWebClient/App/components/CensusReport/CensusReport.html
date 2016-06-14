@@ -1,0 +1,166 @@
+﻿<div id="censusReport">
+    <div simple-ajax-loader show="loading"></div>
+    <div class="contentPanel1">
+        
+        <div class="panel">
+            <div class="non-printable" >
+                <h1 class="pageTitle"> Census Report </h1>
+                <p style="font-weight: bold; margin: 0;">UM Daily Inpatient Census Report (by Admitting Hospital) - All Inpatient</p>
+                <p style="font-weight: bold; margin: 0;">Date of Report: {{today}}</p>
+                <p style="font-weight: bold; margin: 0;">
+
+                 
+                    Total Inpatient Stays for {{today}} : {{totalAuthCount}}
+                </p>
+            </div>
+            <danger-box message="{{errorMessage}}"></danger-box>
+
+            <div class="alignCenter" id="censusReport">
+                <nav style="text-align: right; position: relative;" class="non-printable" ng-if="totalPages > 1">
+                    <p class="pager-info">
+                        {{startItem(currentPage)}} - {{endItem(currentPage)}} of {{totalItems}}
+                    </p>
+                    <div style="display: inline-block; margin: 0;" uib-pagination boundary-links="true" class="pagination-sm" previous-text="&lsaquo;"
+                         next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" total-items="totalPages*rowsPerPage" max-size="5"
+                         ng-model="currentPage" items-per-page="rowsPerPage" ng-change="pageChanged(currentPage)"></div>
+                </nav>
+
+
+                <table id="hospTable" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th ng-click="order('AdmittingHospital')" class="header sorting">
+                            <span class="glyphicon"
+                                      ng-class="{'glyphicon-arrow-up': !reverse && sortCol === 'AdmittingHospital', 'glyphicon-arrow-down': reverse && sortCol === 'AdmittingHospital'}">
+                                </span>Admitting Hospital
+                        </th>
+                        <th ng-click="order('AdmittingHospitalId')" class="header sorting">
+                            <span class="glyphicon"
+                                      ng-class="{'glyphicon-arrow-up': !reverse && sortCol === 'AdmittingHospitalId', 'glyphicon-arrow-down': reverse  && sortCol === 'AdmittingHospitalId'}">
+                                </span>Admitting Hospital ID
+                        </th>
+                        <th ng-click="order('authCount')" class="header sorting">
+                            <span class="glyphicon"
+                                      ng-class="{'glyphicon-arrow-up': !reverse && sortCol === 'authCount', 'glyphicon-arrow-down': reverse  && sortCol === 'authCount'}">
+                                </span> Total Auths
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat-start="h in hosp| orderBy:sortCol:reverse" ng-click="DisplayAuths(h)"
+                        ng-class="h.showDetails ? 'clicked' : ''">
+                        <td>
+                            <span class="glyphicon" ng-class="h.showDetails ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right'">
+                                </span> {{h.AdmittingHospital}}
+                        </td>
+                        <td>{{h.AdmittingHospitalId}}</td>
+                        <td>{{h.authCount}}</td>
+
+                    </tr>
+                    <tr ng-repeat-end="" ng-if="h.showDetails">
+                        <td colspan="100%" class="bordered">
+                            <div simple-ajax-loader show="loadingAuths"></div>
+                            <table id="censusReportTbl" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th >
+                                        <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'AuthNumber', 'glyphicon-arrow-down': sortDirection=== 'descending'  && sortCol === 'AuthNumber'}">
+                                                </span>Auth #
+                                    </th>
+                                    <th >
+                                        <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'MemberFullName', 'glyphicon-arrow-down': sortDirection=== 'descending'  && sortCol === 'MemberFullName'}">
+                                                </span> Member
+                                    </th>
+                                    <th >
+                                        <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'IEHPID', 'glyphicon-arrow-down': sortDirection=== 'descending'  && sortCol === 'IEHPID'}">
+                                                </span>IEHP ID
+                                    </th>
+                                    <th>
+                                        <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'dDateOfBirth', 'glyphicon-arrow-down': sortDirection=== 'descending'  && sortCol === 'dDateOfBirth'}">
+                                                </span>DOB
+                                    </th>
+                                    <th>
+                                        <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'LineOfBusiness', 'glyphicon-arrow-down': sortDirection=== 'descending'  && sortCol === 'LineOfBusiness'}">
+                                                </span> LOB
+                                    </th>
+                                    <th>
+                                        <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'AssignedIpa', 'glyphicon-arrow-down': sortDirection=== 'descending'  && sortCol === 'AssignedIpa'}">
+                                                </span>Assigned IPA
+                                    </th>
+                                    <th >
+                                        <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'AssignedHospital', 'glyphicon-arrow-down': sortDirection=== 'descending'  && sortCol === 'AssignedHospital'}">
+                                                </span>Assigned Hospital
+                                    </th>
+                                    <th>
+                                        <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'dActualAdmissionDate', 'glyphicon-arrow-down': sortDirection=== 'descending'  && sortCol === 'dActualAdmissionDate'}">
+                                                </span>Actual Date Admitted
+                                    </th>
+                                    <th>
+                                        <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'ActualLOS', 'glyphicon-arrow-down': sortDirection=== 'descending'  && sortCol === 'ActualLOS'}">
+                                                </span>LOS
+                                    </th>
+                                    <th> Diagnosis</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat-start="auth in h.Authorizations" ng-click="GetDiagnosisList(h,auth)" style="border: none;">
+                                    <td>{{auth.AuthNumber}}</td>
+                                    <td>{{auth.MemberFullName | titleCase}}</td>
+                                    <td>{{auth.IEHPID}}</td>
+                                    <td>{{auth.DateOfBirth.format("MM/DD/YYYY")}}</td>
+                                    <td>{{auth.LineOfBusiness}}</td>
+                                    <td>{{auth.AssignedIpa}}</td>
+                                    <td>{{auth.AssignedHospital}}</td>
+                                    <td>{{auth.ActualAdmissionDate}}</td>
+                                    <td>{{auth.ActualLOS}}</td>
+                                    <td>
+                                        <span class="glyphicon"
+                                                      ng-class="auth.showDetails ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right'">
+                                                </span>&nbsp;Diagnosis
+
+                                    </td>
+                                </tr>
+                                <tr ng-repeat-end="" uib-collapse="!auth.showDetails" style="background-color: #FFF !important; border: none !important;">
+                                    <td colspan="100%" style="border: none;">
+                                        <div simple-ajax-loader show="loadingDiagnosis"></div>
+                                        <div class="subview" style="background-color: #F0F8FF;">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <ul id="diagnosisList">
+                                                        <li ng-repeat="d in auth.DiagnosisList"> Diagnosis {{d.DiagnosisSequence}}: (<span style="color: #ff0000;">{{d.DiagnosisCode}}</span>) - {{d.DiagnosisDescription}}</li>
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </td>
+
+                    </tr>
+                 
+                    </tbody>
+                </table>
+                <div id="censusNoDataFound" class="text-center alert alert-danger" ng-if="nodatafound !=''" >{{nodatafound}}</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+

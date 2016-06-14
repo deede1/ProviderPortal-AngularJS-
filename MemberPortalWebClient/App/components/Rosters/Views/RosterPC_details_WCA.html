@@ -1,0 +1,51 @@
+﻿ 
+<div class="posRelative">
+ 
+
+
+
+    <h1 class="WorkInProgress">!!WORK IN PROGRESS!!</h1>
+
+
+    <roster-title-header title=" Well Care Adolescent (Details)  "></roster-title-header>
+
+
+    <p class="pageIntro">    </p>
+
+
+    <results-pagination ng-show="data.List"></results-pagination>
+
+ 
+
+     
+        <div class="row alignCenter padTop15"> 
+            <table class="roster col-sm-12  table table-striped table-sortable">
+                <thead>
+                    <tr class="header sorting">
+                        <th >Name</th> 
+                        <th >IEHP ID</th>
+                        <th >Date of Service</th>
+                        <th >Service Name</th>
+                        <th >Service Type</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in detailData   ">
+                        <td>{{ item.MemberFName }}  {{   item.MemberLName }} </td>
+                        <td>{{ item.IEHPID }} </td>
+                        <td>{{ item.DateOfService  | date:'MM/dd/yyyy' }}      </td>
+                        <td>{{ item.ServiceName }}      </td>
+                        <td>{{ item.ServiceType }}       </td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+                    </div>
+
+
+    <div simple-ajax-loader show="loading"></div>
+    <danger-box message="{{errorMessage}}"></danger-box>
+ 
+</div>

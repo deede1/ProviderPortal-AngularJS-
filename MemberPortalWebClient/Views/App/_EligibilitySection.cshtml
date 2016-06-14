@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+
+<h2>Eligibility</h2>
+
+<p>What is Eligibility?</p>
+<p>Eligibility is a member's status within a given Health Plan. The <em>Eligibility Status</em> indicates whether or not that member is eligible to receive benefits under that program. For public health programs such as Medicare and Medi-cal, eligibility is determined by the Government and then that status is provided to IEHP. When a member has an <em>Active</em> eligibility status, then they may receive benefits through IEHP. If a members eligibility status is <em>"disenrolled"</em> or on<em>"hold"</em> then the government has informed IEHP that the member is not currenly qualified for the program, or that they require further information to reinstate their benefits.</p>
+<p>See the links below to check your current status, or review your eligibility history.</p>
+<ul>
+    <li>
+        <a href="@Url.RouteUrl("App", new{angularroutes="Eligibility/Current"})">Current Eligibility</a>
+    </li>
+    <li>
+        <a href="@Url.RouteUrl("App", new { angularroutes = "Eligibility/Historical" })">Historical Eligibility</a>
+    </li>
+    <li>
+        <a href="@Url.RouteUrl("App", new { angularroutes = "Eligibility/MyDoctor" })">My Doctor</a>
+    </li>
+</ul>
+
+

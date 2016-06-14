@@ -1,0 +1,92 @@
+﻿<!-- Medication Info -->
+<div class="row">
+    <div class="col-md-12 infoIcon">
+        <h3 class="underlinedBorder print-header">
+            {{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_RequestTitle" | translate}}
+            <i id="iconIPADef" class="glyphicon glyphicon-question-sign @*iconOnLeft*@" onclick="toggleBubble('IPADef');"></i>
+        </h3>
+        <info-box id="IPADef" class="infoBox hidden-print padLeft15" message="{{'page_healthrec_rxPrescriptions_DrugCoverageDetermination_RequestHelp' | translate}}" onclick="toggleBubble('IPADef');"></info-box>
+        <div class="padTop10 padBottom15 hidden-print">
+            <a target="_blank" ng-show="data.lobName == 'Medicare'" href="https://ww3.iehp.org/en/providers/pharmaceutical-services/formulary/medicare-formulary/">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_FormularyLink" | translate}}</a>
+            <a target="_blank" ng-show="data.lobName == 'Medi-Cal'" href="https://ww3.iehp.org/en/providers/pharmaceutical-services/formulary/medical-formulary/">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_FormularyLink" | translate}}</a>
+        </div>
+        <!-- Drug Form -->
+        <div class="table-responsive col-md-12" ng-if="drugList.length > 0">
+            <table class="table borderRadius10 table-striped table-hover table-condensed">
+                <tr class="header">
+                    <th>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_MedicationName" | translate}}</th>
+                    <th>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Quantity" | translate}}</th>
+                    <th>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Reason" | translate}}</th>
+                    <th class="hidden-print">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Action" | translate}}</th>
+                </tr>
+                <tr ng-repeat="drug in drugList" ng-class="{'table-update':edit}">
+                    <td>{{ drug.name }}</td>
+                    <td>{{ drug.quantity }}</td>
+                    <td>{{ drug.reason }}</td>
+                    <td class="hidden-print">
+                        <button class="btn btn-sm" type="button" ng-hide="drug.edit" ng-click="editDrug($index)" ng-disabled="edit || successfulSubmit">{{"form_change" | translate}}</button>
+                        <button class="btn btn-sm" type="button" ng-hide="drug.edit" ng-click="deleteDrug($index)" ng-disabled="edit || successfulSubmit">{{"form_remove" | translate}}</button>
+                        <button class="btn btn-sm" type="button" ng-show="drug.edit" ng-click="cancelDrug($index)" ng-disabled="successfulSubmit">{{"form_cancel" | translate}}</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="hidden-print">
+            <div class="row" ng-hide="successfulSubmit || drugList.length > 9 && !edit">
+                <!-- Medication tabs -->
+                <div class="form-group col-md-12">
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                        <li class="active MedicationTab"><a data-target="#medication" data-toggle="tab">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medication" | translate}}</a></li>
+                        <li class="ReasonTab"><a data-target="#unknown" data-toggle="tab">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_UnknownMedication" | translate}}</a></li>
+                    </ul>
+                </div>
+                <!-- Medication tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane MedicationTab active" id="medication">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <strong style="color: #d70024; font-size: 18px;" ng-hide="drugList.length > 0">*</strong>
+                                <span>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_MedicationName" | translate}}</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-class="{'updateYellow':editName}" type="text" name="MedicationTab" ng-model="newDrug.name" placeholder="{{'page_healthrec_rxPrescriptions_DrugCoverageDetermination_MedicationName' | translate}}" maxlength="200" ng-disabled="editReason || successfulSubmit">
+                                <label class="fontRed" ng-show="drugList.length === 0 && submitted">{{"page_healthEd_required_field" | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Quantity" | translate}}</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-class="{'updateYellow':editName}" type="text" ng-model="newDrug.quantity" placeholder="{{'page_healthrec_rxPrescriptions_DrugCoverageDetermination_Quantity' | translate}}" maxlength="60" ng-disabled="editReason || successfulSubmit">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 formButtons">
+                            <button type="button" ng-hide="edit" ng-click="addMedication('medication')" class="btn btn-lg btn-primary hidden-print" ng-disabled="newDrug.name.length < 3 || successfulSubmit">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_AddMedication" | translate}}</button>
+                            <button type="button" ng-show="edit" ng-click="saveDrug()" class="btn btn-lg btn-primary hidden-print" ng-disabled="editReason || successfulSubmit">{{"form_save" | translate}}</button>
+                        </div>
+                    </div>
+                    <div class="tab-pane ReasonTab" id="unknown">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3 padRight0">
+                                <strong style="color: #d70024; font-size: 18px;" ng-hide="drugList.length > 0">*</strong>
+                                <span>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Reason" | translate}}</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-class="{'updateYellow':editReason}" type="text" name="ReasonTab" ng-model="newDrug.reason" placeholder="{{'page_healthrec_rxPrescriptions_DrugCoverageDetermination_Reason' | translate}}" maxlength="120" ng-disabled="editName || successfulSubmit">
+                                <label class="fontRed" ng-show="drugList.length === 0 && submitted">{{"page_healthEd_required_field" | translate}}</label>
+                            </div>
+                            <div class="col-xs-12 padTop15">
+                                <p>If the medication name is unknown please list symptoms for this medication. eg. headache, nausea...</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 formButtons">
+                            <button type="button" ng-hide="edit" ng-click="addMedication('unknown')" class="btn btn-lg btn-primary hidden-print" ng-disabled="newDrug.reason.length < 3 || successfulSubmit">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_AddReason" | translate}}</button>
+                            <button type="button" ng-click="saveDrug()" ng-show="edit" class="btn btn-lg btn-primary hidden-print" ng-disabled="editName || successfulSubmit">{{"form_save" | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

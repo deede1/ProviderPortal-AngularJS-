@@ -1,0 +1,608 @@
+﻿<div id="pdf" class="ra-container" style="background: none !important">
+    <div class="claimsRaBody ">
+        <div class="center bold-font">
+            Inland Empire Health Plan<br /> Remittance Advice
+        </div>
+
+        <div class="contentPanel">
+            <div class="ppSearchResults" style="background: none">
+                <div ng-class="{'loaded': loaded >= 1}" class="rosters_icons non-printable">
+                    <ul class="ulLiHorizontal">
+                        <li id="btnPDFExport" ng-click="getPdf()">
+                            <img src="Content/Images/ico_pdf_file.png">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div ng-if="searchStatus === 1">
+            <div simple-ajax-loader show="searchStatus === 1" class="fixed-loader no-print"></div>
+        </div>
+        <div ng-if="results" class="claimRaDetailsPage">
+            <address class="pull-left bold-font ">
+                {{results.HeaderName1}} {{results.HeaderName2}}<br />
+                {{results.HeaderPaymentAddr1}} <br />
+                {{results.HeaderPaymentCity}} {{results.HeaderPaymentState}} {{results.HeaderPaymentZipCode}} <br />
+                {{results.HeaderTaxId}}
+            </address>
+
+            <dl class="dl-horizontal pull-right">
+                <dt>Check Date:</dt>
+                <dd>{{::results.HeaderCheckDate}}</dd>
+                <dt>Check Amt:</dt>
+                <dd>${{::results.TotalPaid}}</dd>
+                <dt>Check No:</dt>
+                <dd>{{::results.HeaderCheckNumber}}</dd>
+            </dl>
+            <div class="clearfix claimsRaHeader member-info ">
+                <div class="ra-top-header clearfix">
+                    <div class="col-md-7 div-table">
+                        <span class="ra-theader-member">Member#</span>
+                        <span class="ra-theader-patient-lob">LOB</span>
+                        <span class="ra-theader-member-dob text-center">DOB</span>
+                        <span class="ra-theader-member-name">Patient Name</span>
+                    </div>
+                    <div class="col-md-5 div-table">
+                        <span class="ra-bheader-provider-name div-table-col">Provider Name</span>
+                        <span class="div-table-col">Provider ID</span>
+                    </div>
+                </div>
+                <div class="ra-bottom-header clearfix">
+                    <span class="ra-vertical-align-top ra-bheader-claim-number">Claim#</span>
+                    <span class="ra-vertical-align-top ra-bheader-claim-line text-right">Line</span>
+                    <div class="ra-stacked-header ra-bheader-claim-recieved-date text-center">
+                        <div>Received</div>
+                        <div> Date</div>
+                    </div>
+                    <div class="ra-stacked-header ra-bheader-claim-service-date ">
+                        <div class="">Service Date</div>
+                        <div class="inline-block" style="width:50%">From</div><div class="inline-block">To</div>
+                    </div>
+                    <span class="ra-vertical-align-top ra-bheader-claim-proc">Proc Mod</span>
+                    <span class="ra-vertical-align-top ra-bheader-claim-qty">Qty</span>
+                    <div class="ra-stacked-header ra-bheader-claim-reason">
+                        <div>Amount</div>
+                        <div>
+                            Billed
+                        </div>
+                    </div>
+                    <div class="ra-stacked-header ra-bheader-claim-reason">
+                        <div>Amt</div>
+                        <div> Allowed</div>
+                    </div>
+                    <div class="ra-stacked-header ra-bheader-claim-reason">
+                        <div>Not</div>
+                        <div>Covered</div>
+                    </div>
+                    <div class="ra-stacked-header ra-bheader-claim-reason">
+                        <div>Copay</div>
+                        <div> Amt</div>
+                    </div>
+                    <div class="ra-stacked-header ra-bheader-claim-reason">
+                        <div>Deduct</div>
+                        <div>Amt</div>
+                    </div>
+                    <div class="ra-stacked-header ra-bheader-claim-reason">
+                        <div>Withhold</div>
+                        <div>Amt</div>
+                    </div>
+                    <div class="ra-stacked-header  ra-bheader-claim-net text-center">
+                        <div>Net</div>
+                        <div>Paid</div>
+                    </div>
+                    <div class="ra-stacked-header ra-bheader-claim-st">
+                        <div>S</div>
+                        <div>T</div>
+                    </div>
+                    <span class="ra-vertical-align-top ra-bheader-claim-reason-value">Reas</span>
+                    <span class="ra-vertical-align-top ra-bheader-claim-copay">Copay</span>
+                    <span class="ra-vertical-align-top ra-bheader-claim-copay">Deduct</span>
+                    <span class="ra-vertical-align-top ra-bheader-claim-copay">OthCar</span>
+                    <span class="ra-vertical-align-top ra-bheader-claim-copay text-right">Adjust</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="claimRaDetailsPage">
+            <div ng-repeat="provider in results.ProviderArray track by $index" class="col-md-12 provider-div ra-zero-padding">
+
+                <div ng-repeat="member in provider.GroupedMemberData" class="">
+                    <div>
+                        <div class="col-md-7 member-div ra-theader-wrapper">
+                            <span class="member-info ra-theader-member">
+                                {{::member.SubscriberNumber}}-{{::member.PersNo}}
+                            </span>
+                            <span class="member-info ra-theader-member-lob-lower">
+                                {{::member.Lob}}
+                            </span>
+                            <span class="member-info ra-theader-member-dob-lower">
+                                {{::member.Dob | date: 'shortDate' }}
+                            </span>
+                            <span class="member-info ra-theader-member-name">
+                                {{::member.LastName | titleCase}}, {{::member.FirstName | titleCase}}
+                            </span>
+                        </div>
+                        <div class="col-md-5 member-div ra-theader-wrapper">
+                            <div class="provider-info ra-bheader-provider-name ">
+                                {{::provider.RenderingProviderName1 | titleCase}} {{::provider.RenderingProviderName2 | titleCase}}
+                            </div>
+                            <div class="provider-info">
+                                {{::provider.ProviderNumber}}
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-repeat="claim in member.ClaimsPerMember" class="col-md-12 ra-zero-padding">
+
+                        <div ng-repeat="gClaim in claim.GroupedMemberClaims">
+                            <span class="claim-info  ra-bheader-claim-number">
+                                {{::claim.ClaimNumber}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-line text-right">
+                                {{::gClaim.ClaimLineNumber}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-recieved-date text-center">
+                                {{::gClaim.DateReceived | date: 'shortDate'}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-service-date ">
+                                <span class="inline-block" style="width: 50%">{{::gClaim.CheckDate | date: 'shortDate'}}</span>
+
+                                <span>{{::gClaim.ClaimThruDate | date: 'shortDate'}}</span>
+                            </span>
+                            <span class="claim-info ra-bheader-claim-proc">
+                                {{::gClaim.ProcedureCode}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-qty">
+                                {{::gClaim.Quantity | number:1}}
+                            </span>
+                            <span class="claim-info  ra-bheader-claim-reason-amount">
+                                {{::gClaim.BilledAmt | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info  ra-bheader-claim-reason-amount">
+                                {{::gClaim.AllowedAmt | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info  ra-bheader-claim-reason-amount">
+                                {{::gClaim.NotCoveredAmt | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info  ra-bheader-claim-reason-amount">
+                                {{::gClaim.CopaymentAmt | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info  ra-bheader-claim-reason-amount">
+                                {{::gClaim.DeductibleAmt | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info  ra-bheader-claim-reason-amount">
+                                {{::gClaim.WithholdAmt | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info  ra-stacked-header  ra-bheader-claim-net ">
+                                {{::gClaim.NetAmt | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info ra-stacked-header ra-bheader-claim-st">
+                                {{::gClaim.UiStatusCode}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-reason-value ">
+                                {{::gClaim.UiProcessingCode}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-copay ">
+                                {{::gClaim.CopayReasonCode}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-copay ">
+                                {{::gClaim.DedReasonCode}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-copay ">
+                                {{::gClaim.OtherCarrierReason}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-copay">
+                                {{::gClaim.AdjustReasonCode}}
+                            </span>
+                        </div>
+                        <div style="padding-top: 5px;">
+                            <div class="ra-bheader-patient-account" style="display:inline-block">
+                                <span class="member-info">
+                                    Patient Account#
+                                </span>
+                                <span class="claim-info">
+                                    {{claim.GroupedMemberClaims[0].PatientAccount}}
+                                </span>
+                            </div>
+
+                            <span class="member-info ra-theader-patient-lob">
+                                Claim Totals
+                            </span>
+
+                            <span class="claim-info ra-bheader-totals-spacing">
+
+                            </span>
+
+
+                            <span class="claim-info ra-bheader-claim-reason-amount">
+                                {{::claim.ClaimTotal.BilledTotal | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-reason-amount">
+                                {{::claim.ClaimTotal.AllowedTotal | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-reason-amount">
+                                {{::claim.ClaimTotal.NotCoveredTotal | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-reason-amount">
+                                {{::claim.ClaimTotal.CopayTotal | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-reason-amount">
+                                {{::claim.ClaimTotal.DeductibleTotal | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-reason-amount">
+                                {{::claim.ClaimTotal.WithholdTotal | currency: "$" : 2}}
+                            </span>
+                            <span class="claim-info ra-bheader-claim-reason-amount">
+                                {{::claim.ClaimTotal.NetPaidTotal | currency: "$" : 2}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 ra-zero-padding">
+                        <span class="member-info ra-bheader-patient-account">
+
+                        </span>
+                        <span class="member-info ra-theader-patient-lob">
+                            Member Totals
+                        </span>
+                        <span class="claim-info ra-bheader-totals-spacing ">
+
+                        </span>
+
+
+                        <span class="claim-info ra-bheader-claim-reason-amount">
+                            {{::member.MemberTotal.BilledTotal | currency: "$" : 2}}
+                        </span>
+                        <span class="claim-info ra-bheader-claim-reason-amount">
+                            {{::member.MemberTotal.AllowedTotal | currency: "$" : 2}}
+                        </span>
+                        <span class="claim-info ra-bheader-claim-reason-amount">
+                            {{::member.MemberTotal.NotCoveredTotal | currency: "$" : 2}}
+                        </span>
+                        <span class="claim-info ra-bheader-claim-reason-amount">
+                            {{::member.MemberTotal.CopayTotal | currency: "$" : 2}}
+                        </span>
+                        <span class="claim-info ra-bheader-claim-reason-amount">
+                            {{::member.MemberTotal.DeductibleTotal | currency: "$" : 2}}
+                        </span>
+                        <span class="claim-info ra-bheader-claim-reason-amount">
+                            {{::member.MemberTotal.WithholdTotal | currency: "$" : 2}}
+                        </span>
+                        <span class="claim-info ra-bheader-claim-reason-amount">
+                            {{::member.MemberTotal.NetPaidTotal | currency: "$" : 2}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-12  ra-zero-padding ra-provider-total">
+                    <span class="member-info ra-bheader-patient-account">
+
+                    </span>
+                    <span class="member-info ra-theader-patient-lob">
+                        Provider Totals
+                    </span>
+                    <span class="claim-info ra-bheader-totals-spacing ">
+
+                    </span>
+
+
+                    <span class="claim-info ra-bheader-claim-reason-amount">
+                        {{::provider.ProviderTotal.BilledTotal | currency: "$" : 2}}
+                    </span>
+                    <span class="claim-info ra-bheader-claim-reason-amount">
+                        {{::provider.ProviderTotal.AllowedTotal | currency: "$" : 2}}
+                    </span>
+                    <span class="claim-info ra-bheader-claim-reason-amount">
+                        {{::provider.ProviderTotal.NotCoveredTotal | currency: "$" : 2}}
+                    </span>
+                    <span class="claim-info ra-bheader-claim-reason-amount">
+                        {{::provider.ProviderTotal.CopayTotal | currency: "$" : 2}}
+                    </span>
+                    <span class="claim-info ra-bheader-claim-reason-amount">
+                        {{::provider.ProviderTotal.DeductibleTotal | currency: "$" : 2}}
+                    </span>
+                    <span class="claim-info ra-bheader-claim-reason-amount">
+                        {{::provider.ProviderTotal.WithholdTotal | currency: "$" : 2}}
+                    </span>
+                    <span class="claim-info ra-bheader-claim-reason-amount">
+                        {{::provider.ProviderTotal.NetPaidTotal | currency: "$" : 2}}
+                    </span>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="claimRaDetailsPage">
+            <span class="member-info ra-bheader-patient-account">
+
+            </span>
+            <span class="member-info ra-theader-patient-lob">
+                Vendor Account Totals
+            </span>
+            <span class="claim-info ra-bheader-totals-spacing ">
+
+            </span>
+
+            <div class="inline-block ra-vendor-totals">
+                <div class="member-info">
+                    Amount Billed
+                </div>
+                <div class="claim-info text-center">
+                    {{::results.TotalAmount | currency: "$" : 2}}
+                </div>
+            </div>
+
+            <div class="inline-block ra-vendor-totals">
+                <div class="member-info">
+                    Amount Allowed
+                </div>
+                <div class="claim-info  text-center">
+                    {{::results.TotalAllowAmount | currency: "$" : 2}}
+                </div>
+            </div>
+            <div class="inline-block ra-vendor-totals">
+                <div class="member-info">
+                    Not Covered
+                </div>
+                <div class="claim-info  text-center">
+                    {{::results.TotalNotCoveredAmount | currency: "$" : 2}}
+                </div>
+            </div>
+            <div class="inline-block ra-vendor-totals">
+                <div class="member-info">
+                    Copay Amount
+                </div>
+                <div class="claim-info  text-center">
+                    {{::results.TotalCopayAmount | currency: "$" : 2}}
+                </div>
+            </div>
+            <div class="inline-block ra-vendor-totals">
+                <div class="member-info">
+                    Deduct Amount
+                </div>
+                <div class="claim-info  text-center">
+                    {{::results.TotalDeductableAmount | currency: "$" : 2}}
+                </div>
+            </div>
+            <div class="inline-block ra-vendor-totals">
+                <div class="member-info">
+                    Withhold Amount
+                </div>
+                <div class="claim-info  text-center">
+                    {{::results.TotalWithholdAmount | currency: "$" : 2}}
+                </div>
+            </div>
+            <div class="inline-block ra-vendor-totals">
+                <div class="member-info">
+                    Net Paid
+                </div>
+                <div class="claim-info  text-center">
+                    {{::results.TotalNetAmount | currency: "$" : 2}}
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-12 text-center member-info">
+            ** Summary Page **
+        </div>
+    </div>
+
+    <table style="margin:0 auto">
+        <tbody>
+            <tr>
+                <td class="line" colspan="20" style="font-size: 1px; height: 1px;">
+                    &nbsp;
+                </td>
+            </tr>
+
+            <tr>
+                <td class="member-info">
+                    Total Number Of Claims:
+                </td>
+                <td class="member-info">
+                    {{::results.ClaimTotal}}
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="member-info">
+                    Total Number Of Claim Lines:
+                </td>
+                <td class="member-info">
+                    {{::results.ClaimLines}}
+                </td>
+            </tr>
+
+            <tr>
+                <td class="member-info">
+                    Total Payment Amount:
+                </td>
+                <td class="member-info">
+                    {{::results.TotalNetAmount | currency: "$" : 2}}
+                </td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td class="line" colspan="20" style="font-size: 1px; height: 1px;">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr ng-repeat="code in ::results.ClaimsCodeDetail track by $index">
+                <td class="member-info">
+                    {{::code.Code}}
+                </td>
+                <td class="datalbl_legend">
+                    {{::code.CodeDescription | titleCase}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="datalbl" align="center" style="margin: 0 auto;">
+                    <br><br>ST Code Legend:&nbsp;&nbsp;I - Informational, P - Payable, D - Denied, A - Adjustment, H - Claim Received &amp; In Process
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="margin:0 auto">
+        <tbody>
+            <tr>
+                <td>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="datalbl">
+                                    Please Note:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="dataNotes">
+                                    <b>
+                                        <u>Medi-Cal, Healthy Families, Healthy Kids and Commercial</u>
+                                    </b>
+                                    <ul>
+                                        <li>
+                                            Under the Knox-Keene Act, Health and Safety Code 1379 of the State of California and Title 22 of the
+                                            California Code of Regulations, the patient to whom services were provided is not liable for any portion
+                                            of the bill, except non-benefit items or non-covered services.
+                                        </li>
+                                        <li>
+                                            Acknowledgement of claim receipt – Contracted Providers can confirm receipt of submitted claim(s)
+                                            by logging into the provider portal at <a href="https:\\www.iehp.org">
+                                                <u>www.iehp.org</u>
+                                            </a>. To obtain website instructions or a secure password,
+                                            please call IEHP at (909) 890-2054.
+                                        </li>
+                                        <li>
+                                            In Compliance with AB1455, if you disagree with your payment, you may contact the IEHP Provider Team
+                                            at (909)890-2054 or (866) 223-4347 Monday – Friday 8:00am to 5:00pm PST. You may also file a Provider
+                                            Dispute within 365-days from the claim determination date. Disputes should be submitted to IEHP Claims
+                                            Appeals Resolution Unit P.O. Box 4319, Rancho Cucamonga, CA 91729. Please visit <a href="https:\\www.iehp.org" target="_blank">
+                                                <u>www.iehp.org</u>
+                                            </a> to obtain
+                                            a Provider Dispute Resolution form online.
+                                        </li>
+                                        <li>
+                                            In accordance with our agreement, negative balances will be offset against future claims to be paid
+                                            to you.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="dataNotes">
+                                    <b>
+                                        <u>Withhold Amount</u>
+                                    </b>
+                                    <ul>
+                                        By statute enacted in June 2011, (in response to the California budget crisis) effective July 1, 2011,
+                                        Medi-Cal has reduced payments to specific provider types by 10% with a corresponding reduction to Medi-Cal Managed Care Plans.
+                                        Due to this legislative mandate, IEHP has reduced payments to impacted providers referenced in the statute as follows:
+
+                                        <li>
+                                            Services rendered from 10/01/13 to 12/31/14 are reduced by 10%.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="dataNotes">
+                                    <b>
+                                        <u>IEHP Medicare DualChoice (HMO SNP), and IEHP DualChoice Cal MediConnect Plan (Medicare-Medicaid Plan)</u>
+                                    </b><br><br>
+                                    <b>
+                                        <u>Withhold Amount – all providers</u>
+                                    </b>
+                                    <ul>
+                                        <li>
+                                            In accordance with Medicare mandated guidelines, your payment for dates of services on or after 04/01/13,
+                                            may reflect a 2% sequestration reduction.
+                                        </li>
+                                    </ul>
+                                    <br>
+                                    <b>
+                                        <u>Contracted Providers</u>
+                                    </b>
+                                    <ul>
+                                        <li>
+                                            Acknowledgement of claim receipt – Contracted Providers can confirm receipt of submitted claim(s) by
+                                            logging into the provider portal at <a href="https:\\www.iehp.org" target="_blank">
+                                                <u>www.iehp.org</u>
+                                            </a>. To obtain website instructions or a secure password,
+                                            please call IEHP at (909) 890-2054.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            In accordance with our agreement, negative balances will be offset against future claims to be paid to you.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            Appeals and Payment Dispute Requests – can be submitted within the timeframe indicated in your contract
+                                            to: IEHP DualChoice (HMO SNP) Claims Appeals and Resolution Unit P.O. Box 40, Rancho Cucamonga, CA 91729.
+                                            Please visit <a href="https:\\www.iehp.org">
+                                                <u>www.iehp.org</u>
+                                            </a> to obtain a Provider Dispute Resolution form online.
+                                            For more information, please contact IEHP Provider Team at (909)890-2054 or (866) 223-4347.
+                                        </li>
+                                    </ul>
+                                    <b>
+                                        <u>Non Contracted Providers</u>
+                                    </b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Payment Appeals and Disputes for IEHP DualChoice (HMO SNP) and IEHP DualChoice Cal MediConnect Plan (Medicare-Medicaid Plan) members should be submitted to IEHP at P.O. Box 40, Rancho Cucamonga, CA 91729
+                                    <ul>
+                                        <li>
+                                            Appeals - If you disagree with the outcome of a claim, you may submit an appeal attached with a Waiver of
+                                            Liability and any supporting documentation within 60-days from the denial date. The waiver of
+                                            liability form can be found on the CMS website – <a href="http:\\www.cms.hhs.gov/Regulations-and-Guidance/Guidance/Manuals" target="_blank">
+                                                <u>www.cms.hhs.gov/Regulations-and-Guidance/Guidance/Manuals</u>
+                                            </a>
+                                            reference Appendix 7.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            Payment Dispute Resolutions – If you disagree with the payment of a claim, you can submit your PDR with any
+                                            supporting documentation within 120-days from the initial determination date. As a Non Contracted Provider
+                                            you also have the option of sending your dispute to C2C Solutions Inc. For further information check their
+                                            website regarding this process at PDRC@C2Cinc.com.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            Payment Disputes – If you disagree with the payment of a claim, you can submit your PDR with any supporting documentation within 120-days from the initial determination date.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="dataNotes">
+                                    <b>
+                                        <u>Legal Notice</u>
+                                    </b>
+                                    <ul>
+                                        <li>
+                                            Any person who knowingly presents a false or fraudulent claim for payment of a loss or benefit or
+                                            knowingly presents false information in an application for insurance may be guilty of a crime and may be subject
+                                            to civil and criminal penalties in accordance with the State and Federal False Claims Acts.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="dataNotes">
+                                    <ul>
+                                        <li>
+                                            Please assist IEHP in preventing possible benefit abuse. Request another form of identification from
+                                            the Member in addition to the IEHP card.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

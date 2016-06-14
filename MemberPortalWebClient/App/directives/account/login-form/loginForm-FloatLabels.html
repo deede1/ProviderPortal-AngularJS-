@@ -1,0 +1,47 @@
+﻿<form class="form-horizontal form" role="form" name="login" novalidate="novalidate">
+    <div class="row">
+        <div class="col-md-12">
+            <h4> {{'form_signInWithYourIEHPAccount' | translate}} </h4>
+        </div>
+    </div>
+
+    <div class="row marginTop20" ng-if="referrerSite == 'SiteCore'">
+        <info-box class=" col-xs-10 col-xs-offset-1 center" message="{{'form_referrerSiteCoreMessage' | translate}}"></info-box>
+    </div>
+
+
+    <hr />
+    <message-boxes info-message="{{infoMessage}}" success-message="{{successMessage}}" error-message="{{errorMessage}}"></message-boxes>
+
+    <div class="row">
+        <div class="col-md-8 col-md-push-2 clearfix" show-errors>
+            <div class="field">
+                <label ng-show="username != ''" class="show-hide">{{"form_memberIDorUsername" |translate}}</label>
+                <input type="text" name="username" class="form-control" maxlength="12" ng-maxlength="12" ng-minlength="12" ng-model="username" placeholder="{{'form_memberIDorUsername' |translate}}" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-push-2 clearfix" show-errors>
+            <div class="field">
+                <label ng-show="password != ''" class="show-hide">{{"form_password" |translate}}</label>
+                <input type="password" name="password" class="form-control" maxlength="20" ng-maxlength="20" ng-minlength="6" ng-model="password" placeholder="{{'form_password' |translate}}" />
+            </div>
+        </div>
+    </div>
+    <div class="row padTop20">
+        <div class="form-group clearfix" show-errors>
+            <label class="col-sm-3 col-xs-12 control-label">  </label>
+            <div class="col-md-7 col-sm-6 col-sm-offset-4 col-xs-12">
+                <div class="signInCont col-xs-12 col-sm-10 col-sm-offset-0 alignRight">
+
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="submit()" style="right:-5px;bottom:-5px;" ng-disabled="loading">{{'form_signIn' | translate}}</button>
+                    <br /><br />
+                    <a href="App/Account/PasswordReset">{{'form_forgotPassword' | translate}} </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+       
+</form>

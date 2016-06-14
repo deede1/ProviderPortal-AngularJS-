@@ -1,0 +1,50 @@
+﻿<div ng-click="sections['RA'] = !sections['RA']" class="panel-heading">
+    <i class="pull-left glyphicon"
+       ng-class="{'glyphicon-chevron-down': sections['RA'], 'glyphicon-chevron-right': !sections['RA']}">
+    </i>&nbsp;
+    <span class="panel-header-title">Reminders/Alerts</span>
+</div>
+
+<div ng-if="sections['RA']" class="table panel-body">
+    <nav id="memberAletsNav" style="text-align: right; position: relative;" ng-if="totalPages > 1" class="non-printable">
+        <div class="col-xs-12">
+            <div class="pager-info">
+                {{startItem(currentPage)}} - {{endItem(currentPage)}} of {{TotalListCount}}
+            </div>
+        </div>
+    </nav>
+        <table class="table table-striped">
+        <thead ng-if="Alerts.length>0">
+        <tr class="sorting">
+            <th ng-click="changeSort('AlertText')">
+                <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse  && sortCol === 'AlertText', 'glyphicon-arrow-down': sortReverse  && sortCol === 'AlertText'}">
+                    </span> Message:
+            </th>
+            <th ng-click="changeSort('MemberAcknowledgementDate')">
+                <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse  && sortCol === 'MemberAcknowledgementDate', 'glyphicon-arrow-down': sortReverse  && sortCol === 'MemberAcknowledgementDate'}">
+                    </span>Member Acknowledgement Date
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="alert in Alerts | orderBy:sortCol:sortReverse | limitTo: paginationLimit()">
+            <td>{{alert.AlertText}}</td>
+            <td>{{alert.MemberAcknowledgementDate.format("MM/DD/YYYY")}}</td>
+        </tr>
+        <tr ng-if="!Alerts.length>0">
+            <td>No Records</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="100%" ng-show="hasMoreItemsToShow()" ng-click="showMoreItems()"><a href="#" style="color: #157CC4">Show More</a></td>
+
+        </tr>
+        <tr>
+            <td colspan="100%" ng-show="hasLessItemsToShow()" ng-click="showLessItems()"><a href="#" style="color: #157CC4">Show Less</a></td>
+        </tr>
+        </tfoot>
+    </table>
+</div>

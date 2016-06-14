@@ -1,0 +1,488 @@
+﻿
+<div class="Rosters">
+     
+
+    <div class="form panel">
+        <h1 class="pageTitle"> Asthma Roster </h1>
+        <p class="pageIntro ">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat        </p>
+    </div>
+
+<roster-title-header></roster-title-header>
+
+
+
+<div class="ppTitle">
+    <div class="col-sm-2 headerNote">
+        Note:
+    </div>
+    <ul class="headerNoteContent col-sm-10">
+        <li>
+            Leveling determined by encounter and claims data criteria and by individual case review.
+        </li>
+        <li>
+            * Level 1 – Asthma med and Encounter in last 12 months
+        </li>
+        <li>
+            Level 2 - >= 1 Hospital/ED Encounter and on 2 meds in the last 12 months.
+        </li>
+        <li>
+            Level 3 - >= 5 Hospital/ED Encounters and on 2 meds in the last 12 months OR on po corticosteroid
+        </li>
+        <li>
+            ** Long Term control medications – Beclomethasone (Beclovent, Vanceril), Budesonide (Pulmicort), Flunisolide (AeroBid), Fluticasone propionate (Flovent), Triamcinolone acetonide (Azmarcort), Cromolyn Sodium (Intal), Nedocromil (Tilade), Monelukast (Singulair), Salmetrol/Fluticasone propionate (Advair)
+        </li>
+        <li>
+            *** Quick relief medication – Albuterol (Proventil, Ventolin)
+        </li>
+
+    </ul>
+
+</div>
+
+
+
+
+<div class="loaderContainer" simple-ajax-loader show="loading"></div>
+    <div class="row alignCenter resultsContainer">
+
+        <results-pagination ng-show="data.List"></results-pagination> 
+
+        <div class="header" ng-show="data.List.LastUpdatedOn"> Last Updated on {{ data.LastUpdatedOn }} </div> 
+
+        <table class="roster resultTier1 results-accordion col-sm-12  table table-striped table-sortable"
+               ng-show="displayFullView && data.List.length">
+            <thead>
+                <tr class="header sorting">
+                    <th></th>
+                    <th ng-click="RetrieveRoster('ROST.HMAR',1,{Sort:[{name:'ProviderLName', direction:  sortDirection}]})"
+                        roster-tableheader-sort column-label="PCP" column-data="ProviderLName"  ></th>
+                    <th ng-click="RetrieveRoster('ROST.HMAR',1,{Sort:[{name:'ProviderNumber', direction:  sortDirection}]})"
+                        roster-tableheader-sort column-label="PCP ID" column-data="ProviderNumber"></th>
+                    <th ng-click="RetrieveRoster('ROST.HMAR',1,{Sort:[{name:'IPAName', direction: sortDirection}]})"
+                        roster-tableheader-sort column-label="IPA" column-data="IPAName"></th> 
+                </tr>
+            </thead>
+            <tbody ng-repeat="roster in data.List">
+
+                <tr ng-click="expandViewDetails('ROST.HMAR',2, { ProviderNumber: roster.ProviderNumber, IPA: roster.IPA},data.List, roster, 1, 0); ">
+                    <td>
+                        <span class="glyphicon"
+                              ng-class="roster.expand ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+                        </span>
+                    </td>
+                    <td> {{ roster.ProviderLName | titleCase }}, {{ roster.ProviderFName | titleCase }} </td>
+                    <td> {{ roster.ProviderNumber}} </td>  
+                    <td> {{ roster.IPAName }}  ( {{ roster.IPA }} ) </td>
+                     
+
+                </tr>
+
+                <tr ng-if="roster.expand"
+                    class="row-striped roster-result-row line-item ng-scope  collapsable indent"
+                    ng-class="roster.expand ? '  no-hover expanded-header' : ''"
+                    ng-animate="'animate'">
+
+                    <td colspan="100%" class="bordered">
+                        <table class="roster resultTier2 col-sm-12  table table-striped table-sortable"
+                               ng-class="roster.expand ? 'enter' : 'leave'">
+
+
+                            <thead>
+                                <tr class="header sorting">
+                                    <th></th>
+                                    <th ng-click="fetchViewDetails('ROST.HMAR',2,{Sort:[{name:'MemberLName', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="Member" column-data="MemberLName"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.HMAR',2,{Sort:[{name:'SubscriberNumber', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort
+                                        class="alignCenter"
+                                        column-label="IEHPID" column-data="SubscriberNumber"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.HMAR',2,{Sort:[{name:'DateOfBirth', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort
+                                        class="alignCenter"
+                                        column-label="DOB" column-data="DateOfBirth"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.HMAR',2,{Sort:[{name:'MemberSex', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort
+                                        class="alignCenter"
+                                        column-label="Gender" column-data="MemberSex"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.HMAR',2,{Sort:[{name:'Level', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort
+                                        class="alignCenter"
+                                        column-label="Level" column-data="Level"></th>
+
+
+                                    <th ng-click="fetchViewDetails('ROST.HMAR',2,{Sort:[{name:'ED', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort
+                                        class="alignCenter"
+                                        column-label="ED Visist" column-data="ED"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.HMAR',2,{Sort:[{name:'HospitalVisits', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort
+                                        class="alignCenter"
+                                        column-label="Hosp Visits" column-data="HospitalVisits"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.HMAR',2,{Sort:[{name:'AttendedClass', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort
+                                        class="alignCenter"
+                                        column-label="Attended Class" column-data="AttendedClass"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.HMAR',2,{Sort:[{name:'Encounters', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort
+                                        class="alignCenter"
+                                        column-label="Asthma Encounter(s)"
+                                        column-data="Encounters"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.HMAR',2,{Sort:[{name:'AsthmaMeds', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort
+                                        class="alignCenter"
+                                        column-label="Asthma Med(s)" column-data="AsthmaMeds"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody ng-show="roster.dataResultMessageTier1">
+                                <tr>
+                                    <td colspan="100%">
+                                        <danger-box message="{{roster.rosterSubViewLevel1.dataResultMessageTier1}}"></danger-box>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+
+                            <tbody ng-repeat="member in roster.data.List">
+                                <!-- <tr ng-click="expandViewDetails('HMAR',3, { SubscriberNumber: member.SubscriberNumber, PersonNumber:member.PersonNumber}, member);"-->
+                                <tr ng-animate="'animate'"
+                                    ng-class="{ 'no-hover expanded-header'  : member.expand }"
+                                    class="line-item ng-scope alignLeft">
+                                    <td>
+                                        <!--<span class="glyphicon"
+                              ng-class="member.expand ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+                        </span>-->
+                                    </td>
+                                    <td> {{ member.MemberLName | titleCase }}, {{ member.MemberFName | titleCase }} </td>
+                                    <td> {{ member.SubscriberNumber }} </td>
+                                    <td> {{ member.DateOfBirth | date:'MM/dd/yyyy' }} </td>
+                                    <td class="alignCenter"> {{ member.MemberSex }} </td>
+                                    <td class="alignCenter"> {{ member.Level }} </td>
+                                    <td class="alignCenter">
+                                        <div ng-show="member.ED ==0">
+                                            {{ member.ED }}
+                                        </div>
+                                        <div ng-show="member.ED > 0"
+                                             class="anchor urlLink"
+                                             uib-popover="Click to view Encounter Details"
+                                             popover-trigger="mouseenter"
+                                             popover-append-to-body="true"
+                                             ng-click="expandViewDetails('ROST.HMAR',3, { SubscriberNumber: member.SubscriberNumber, PersonNumber: member.PersonNumber  },roster.data.List, member, 3, 1);member.expandTier3=!member.expandTier3; member.clickedED = !member.clickedED"
+                                             ng-class="{anchorClickedA:  member.clickedED == 1}">
+                                            {{ member.ED }}
+                                        </div>
+
+                                    </td>
+                                    <td class="alignCenter">
+
+                                        <div ng-show="member.HospitalVisits ==0">
+                                            {{ member.HospitalVisits }}
+                                        </div>
+                                        <div ng-show="member.HospitalVisits > 0"
+                                             class="anchor urlLink"
+                                             ng-click="expandViewDetails('ROST.HMAR',4, { SubscriberNumber: member.SubscriberNumber, PersonNumber: member.PersonNumber, 1  }, roster.data.List, member, 4, 1);member.expandTier4=!member.expandTier4; member.clickedHosp = !member.clickedHosp">
+                                            {{ member.HospitalVisits }}
+                                        </div> 
+
+                                    </td>
+                                    <td class="alignCenter">
+                                        <div ng-if="member.AttendedClass ==0"> N/A </div>
+                                        <div ng-if="member.AttendedClass !=0"> Yes </div>
+
+                                    </td>
+                                    <td class="alignCenter">
+
+                                        <div ng-show="member.Encounters == '0'">
+                                            No
+                                        </div>
+                                        <div ng-show="member.Encounters !='0'">
+                                            Yes
+                                        </div>
+
+                                    </td>
+                                    <td class="alignCenter">
+                                        <div ng-show="member.AsthmaMeds == '0:'">
+                                            No
+                                        </div>
+
+                                        <div ng-show="member.AsthmaMeds =='1:0' || member.AsthmaMeds =='1:1'"
+                                             class="anchor urlLink"
+                                             uib-popover="Click to view Prescription Details"
+                                             popover-trigger="mouseenter"
+                                             popover-append-to-body="true"
+                                             ng-class="{anchorClickedB : member.clickedAMeds == 1}"
+                                             ng-click="expandViewDetails('ROST.HMAR',5, { SubscriberNumber: member.SubscriberNumber, PersonNumber: member.PersonNumber}, roster.data.List , member ,5, 1 );member.expandTier5=!member.expandTier5; member.clickedAMeds = !member.clickedAMeds;  ">
+
+                                            Yes
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr ng-show="roster.dataResultMessageTier2">
+                                    <td colspan="100%">
+                                        <danger-box message="{{roster.rosterSubViewLevel2.dataResultMessageTier2}}"></danger-box>
+                                    </td>
+                                </tr>
+
+
+                                <!----- TIER3 ED VISIT DETAILS -->
+                                <tr  
+                                    ng-if="member.expandTier3"
+                                    class="row-striped roster-result-row line-item ng-scope  no-hover expanded-header collapsable indent"
+                                    ng-animate="'animate'">
+                                    <td colspan="100%" ng-class="{anchorClickedContentBackgroundA : member.clickedED == 1}">
+                                        <table class="roster resultTier3 col-sm-12  table table-striped table-sortable" ng-show="displayFullView ">
+
+                                            <thead>
+                                                <tr class="header subviewHeader">
+                                                    <th colspan="100%">
+                                                        Encounter Details for {{ member.MemberFName }} {{ member.MemberLName }}
+                                                    </th>
+                                                </tr> 
+                                                <tr class="header sorting alignCenter">
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',3,{Sort:[{name:'BeginDateOfService', direction: resultTier3.sortDirection}]})"
+                                                        roster-tableheader-sort column-label=" DOS" column-data="DateOfService"></th>
+
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',3,{Sort:[{name:'ProcedureCodeBilled', direction: resultTier3.sortDirection}]})"
+                                                        roster-tableheader-sort column-label=" Procedure" column-data="ProcedureCodeBilled"></th>
+
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',3,{Sort:[{name:'PrimDiagnosticCode', direction: resultTier3.sortDirection}]})"
+                                                        roster-tableheader-sort column-label=" DX1" column-data="PrimDiagnosticCode"></th>
+
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',3,{Sort:[{name:'SecDiagnosticCode', direction: resultTier3.sortDirection}]})"
+                                                        roster-tableheader-sort column-label=" DX2" column-data="SecDiagnosticCode"></th>
+
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',3,{Sort:[{name:'TertDiagnosticCode', direction: resultTier3.sortDirection}]})"
+                                                        roster-tableheader-sort column-label=" DX3" column-data="TertDiagnosticCode"></th>
+
+
+                                                </tr>
+                                            </thead>
+
+
+                                            <tr ng-repeat="itemDataTier3 in member.data.List"
+                                                class="no-hover expanded-header alignCenter ">
+                                                <td> {{ itemDataTier3.BeginDateOfService | date:'MM/dd/yyyy' }} </td>
+
+                                                <td>
+                                                    <div class="anchor urlLink"
+                                                         uib-popover='{{ itemDataTier3.PDesc}}'
+                                                         popover-trigger=" mouseenter"
+                                                         popover-append-to-body="true">
+
+                                                        {{ itemDataTier3.ProcedureCodeBilled }}
+
+                                                    </div>
+                                                </td>
+                                                <td> {{ itemDataTier3.PrimDiagnosticCode }} </td>
+                                                <td>
+
+                                                    <div ng-show="itemDataTier3.dx2Desc == null">
+                                                        NA
+                                                    </div>
+
+                                                    <div ng-show="itemDataTier3.dx2Desc != null"
+                                                         class="anchor urlLink"
+                                                         uib-popover='{{ itemDataTier3.PDesc}}'
+                                                         popover-trigger=" mouseenter"
+                                                         popover-append-to-body="true">
+
+                                                        {{ itemDataTier3.SecDiagnosticCode }}
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div ng-show="itemDataTier3.dx3Desc == null">
+                                                        NA
+                                                    </div>
+
+                                                    <div ng-show="itemDataTier3.dx3Desc != null"
+                                                         class="anchor urlLink"
+                                                         uib-popover='{{ itemDataTier3.PDesc}}'
+                                                         popover-trigger=" mouseenter"
+                                                         popover-append-to-body="true">
+
+                                                        {{ itemDataTier3.TertDiagnosticCode }}
+
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            <tr ng-show="member.dataResultMessageTier3">
+                                                <td colspan="100%">
+                                                    <danger-box message="{{member.dataResultMessageTier3}}"></danger-box>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+
+                                <!----- TIER4 HOSPITAL VISIT DETAILS -->
+                                <tr uib-collapse="!member.expandTier4"
+                                    ng-if="member.expandTier4"
+                                    class="row-striped roster-result-row line-item ng-scope    no-hover expanded-header collapsable indent"
+                                    ng-animate="'animate'">
+                                    <td colspan="100%">
+                                        <table class="roster resultTier3 col-sm-12  table table-striped table-sortable"
+                                               ng-show="displayFullView ">
+
+                                            <thead>
+                                                <tr class="header sorting">
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',4,{Sort:[{name:'DateOfService', direction: resultTier4.sortDirection}]})"
+                                                        roster-tableheader-sort column-label=" DOS" column-data="BeginDateOfService"></th>
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',4,{Sort:[{name:'ServiceType', direction: resultTier4.sortDirection}]})"
+                                                        roster-tableheader-sort column-label=" Procedure4" column-data="ServiceType"></th>
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',4,{Sort:[{name:'ServiceType', direction: resultTier4.sortDirection}]})"
+                                                        roster-tableheader-sort column-label=" DX1" column-data="ServiceType"></th>
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',4,{Sort:[{name:'ServiceType', direction: resultTier4.sortDirection}]})"
+                                                        roster-tableheader-sort column-label=" DX2" column-data="ServiceType"></th>
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',4,{Sort:[{name:'ServiceType', direction: resultTier4.sortDirection}]})"
+                                                        roster-tableheader-sort column-label=" DX3" column-data="ServiceType"></th>
+                                                </tr>
+                                            </thead>
+
+
+                                            <tr ng-repeat="itemDataTier4 in member.rosterSubViewLevel3.List" class="no-hover expanded-header ">
+                                                <td> {{ itemDataTier4.BeginDateOfService  | date:'MM/dd/yyyy' }} </td>
+                                                <td>
+
+                                                    <div class="anchor urlLink"
+                                                         ng-show="item.MedicareHIC == null &amp;&amp; item.LobDescription != 'Medi-Cal'"
+                                                         ng-click="viewPCPDetails( item )"
+                                                         uib-popover=" Click to view PCP details"
+                                                         popover-trigger="mouseenter"
+                                                         popover-append-to-body="true">
+
+                                                        {{ itemDataTier4.ProcedureCodeBilled }}
+
+                                                    </div>
+
+                                                </td>
+                                                <td> {{ itemDataTier4.PrimDiagnosticCode }} </td>
+                                                <td>
+
+                                                    <div ng-show="itemDataTier4.dx2Desc == null">
+                                                        NA
+                                                    </div>
+
+                                                    <div ng-show="itemDataTier4.dx2Desc != null">
+                                                        {{ itemDataTier4.SecDiagnosticCode }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div ng-show="itemDataTier4.dx3Desc == null">
+                                                        NA
+                                                    </div>
+
+                                                    <div ng-show="itemDataTier4.dx3Desc != null">
+                                                        {{ itemDataTier4.TertDiagnosticCode }}
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            <tr ng-show="member.dataResultMessageTier4">
+                                                <td colspan="100%">
+                                                    <danger-box message="{{member.dataResultMessageTier4}}"></danger-box>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <!----- TIER5  MED DETAILS -->
+
+                         
+                            <tr ng-if="member.expandTier5"
+                                    class="row-striped roster-result-row line-item ng-scope no-hover expanded-header collapsable indent"
+                                    ng-class="{anchorClickedContentBackgroundB : member.clickedAMeds == 1}"
+                                    ng-animate="'animate'">
+                                    <td colspan="100%">
+                                        <table class="roster resultTier3 col-sm-12  table table-striped table-sortable"
+                                               ng-show="displayFullView ">
+
+
+                                            <thead>
+                                                <tr class="header subviewHeader">
+                                                    <th colspan=" 100%">
+                                                        Prescription Details for {{ member.MemberFName }} {{ member.MemberLName }}
+                                                    </th>
+                                                </tr>
+                                                <tr class="header sorting">
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',5,{Sort:[{name:'FFILLDATE', direction: member.sortDirection}]}, member)"
+                                                        roster-tableheader-sort column-label=" Date Filled" column-data="FFILLDATE"></th>
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',5,{Sort:[{name:'DrugName', direction: member.sortDirection}]}, member)"
+                                                        roster-tableheader-sort column-label=" Rx" column-data="DrugName"></th>
+                                                    <th ng-click="fetchViewDetails('ROST.HMAR',5,{Sort:[{name:'Type', direction: member.sortDirection}]}, member)"
+                                                        roster-tableheader-sort column-label=" Type" column-data="Type"></th>
+                                                </tr>
+                                            </thead>
+
+
+                                            <tr ng-repeat="itemData5 in rosterSubViewLevel5.data.List" class="no-hover expanded-header ">
+
+                                                <td> {{ itemData5.FFILLDATE | subString:4:6  }}/{{ itemData5.FFILLDATE | subString:6:8  }}/{{ itemData5.FFILLDATE | subString:0:4  }} </td>
+                                                <td> {{ itemData5.DrugName }} </td>
+                                                <td>
+
+                                                    <div ng-if="itemData5.Type == 'Quick'">
+                                                        Short
+                                                    </div>
+                                                    <div ng-if="itemData5.Type == 'Long'">
+                                                        Long
+                                                    </div>
+
+
+                                                </td>
+
+                                            </tr>
+                                            <tr ng-show="member.dataResultMessageTier5">
+                                                <td colspan="100%">
+                                                    <danger-box message="{{member.dataResultMessageTier5}}"> </danger-box>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+
+    </div>
+
+
+    <danger-box message="{{dataResultMessageTier1}}"></danger-box>
+
+
+
+    <danger-box message="{{errorMessage}}"></danger-box>
+
+
+
+</div>
+
+
+<!-- MODAL CONTAINER -->
+<div id="modalContainerGeneral" class="modalContainer">
+    <img class="modalCloseButton" src="Content/Images/btn_close.png" onclick="closeModal('modalContainerGeneral')" />
+    <div class="modalContent" ui-view="modalDetails">
+    </div>
+</div>

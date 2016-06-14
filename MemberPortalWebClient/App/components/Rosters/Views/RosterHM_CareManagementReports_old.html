@@ -1,0 +1,307 @@
+﻿<danger-box message="{{errorMessage}}"></danger-box>
+<div class="careplans-panel">
+    <div id="carePlansRes">
+        <div class="posRelative">
+            <nav style="text-align: right; position: relative;">
+                <span style="font-weight: bold; position: absolute; top: 7px; right: 163px;" ng-if="providerData.ListMetaData.TotalListCount > 0">{{startItem()}} - {{endItem()}} of {{providerData.ListMetaData.TotalListCount }}
+                 <span ng-pluralize count="providerData.ListMetaData.TotalListCount" when="{'1': 'Result','other': 'Results'}"></span></span>
+                <div uib-pagination  boundary-links="true" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" total-items="totalPages*rowsPerPage" ng-model="currentPage" items-per-page="rowsPerPage" ng-change="pageChanged() "></div>
+            </nav>
+            <roster-title-header titleHeaderParam="titleHeaderParam"></roster-title-header>
+
+            <div class="row alignCenter">
+                <table class="roster table careplans" id="carePlans-main">
+                    <thead>
+                        <tr class="header sorting">
+                            <th ng-click="changeSortProvider('ProviderLName')">Provider
+                                <span class="glyphicon"
+                                       ng-class="{'glyphicon-arrow-up': sortDirectionP === 'ascending' && sortColP === 'ProviderLName', 'glyphicon-arrow-down': sortDirectionP === 'descending'  && sortColP === 'ProviderLName'}">
+                                </span>
+                            </th>
+                            <th ng-click="changeSortProvider('ProviderNumber')">ProviderNumber
+                                <span class="glyphicon"
+                                      ng-class="{'glyphicon-arrow-up': sortDirectionP === 'ascending' && sortColP === 'ProviderNumber', 'glyphicon-arrow-down': sortDirectionP === 'descending'  && sortColP === 'ProviderNumber'}">
+                                </span>
+                            </th>
+                            <th ng-click="changeSortProvider('ProviderPhone')">ProviderPhone
+                                <span class="glyphicon"
+                                      ng-class="{'glyphicon-arrow-up': sortDirectionP === 'ascending' && sortColP === 'ProviderPhone', 'glyphicon-arrow-down': sortDirectionP === 'descending' && sortColP === 'ProviderPhone'}">
+                                </span>
+                            </th>
+
+                            <th ng-click="changeSortProvider('ProviderTaxID')">ProviderTaxID
+                                <span class="glyphicon"
+                                      ng-class="{'glyphicon-arrow-up': sortDirectionP === 'ascending'&& sortColP === 'ProviderTaxID', 'glyphicon-arrow-down': sortDirectionP === 'descending'&& sortColP === 'ProviderTaxID'}">
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="provider in providerData.List">
+                        <tr class="ng-table-group" ng-click="toggleProvider(provider)"  ng-class="provider.showDetails ? 'rowSelected' : '' ">
+                            <td>
+                                <div>
+                                    <span class="glyphicon"
+                                          ng-class="provider.showDetails ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+                                    </span>
+                                    {{ provider.ProviderLName |titleCase}}, {{ provider.ProviderFName|titleCase }}
+                                </div>
+                            </td>
+                            <td>{{provider.ProviderNumber}}</td>
+                            <td>{{provider.ProviderPhone | tel}} </td>
+                            <td>{{provider.ProviderTaxID}}</td>
+                        </tr>
+                        <tr uib-collapse="!provider.showDetails">
+                            <td colspan="100%" ng-if="provider.showDetails" style="background-color: #354C5A;">
+                                <table id="carePlan-members" class="roster resultTier2 col-sm-12  table table-striped table-sortable">
+                                    <thead>
+                                        <tr class="header sorting">
+                                            <th></th>
+                                            <th ng-click="changeSorMember('MemberLName',provider)"> Member
+                                                <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirectionM === 'ascending' && sortColM === 'MemberLName', 'glyphicon-arrow-down': sortDirectionM === 'descending' && sortColM === 'MemberLName'}">
+                                                </span> </th>
+                                            <th ng-click="changeSorMember('SubscriberNumber',provider)"> IEHP ID
+                                                <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirectionM === 'ascending' && sortColM === 'SubscriberNumber', 'glyphicon-arrow-down': sortDirectionM === 'descending' && sortColM === 'SubscriberNumber'}">
+                                                </span></th>
+                                            <th ng-click="changeSorMember('DateOfBirth',provider)"> DOB
+                                                <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirectionM === 'ascending' && sortColM === 'DateOfBirth', 'glyphicon-arrow-down': sortDirectionM === 'descending' && sortColM === 'DateOfBirth'}">
+                                                </span> </th>
+                                            <th ng-click="changeSorMember('MemberAddress1',provider)"> Address
+                                                <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirectionM === 'ascending'&& sortColM === 'MemberAddress1', 'glyphicon-arrow-down': sortDirectionM === 'descending'&& sortColM === 'MemberAddress1'}">
+                                                </span> </th>
+                                            <th ng-click="changeSorMember('MemberPhone',provider)"> Phone
+                                                <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirectionM === 'ascending'&& sortColM === 'MemberPhone', 'glyphicon-arrow-down': sortDirectionM === 'descending'&& sortColM === 'MemberPhone'}">
+                                                </span></th>
+                                            <th ng-click="changeSorMember('Source',provider)"> Type 
+                                                <span class="glyphicon"
+                                                      ng-class="{'glyphicon-arrow-up': sortDirectionM === 'ascending'&& sortColM === 'Source', 'glyphicon-arrow-down': sortDirectionM === 'descending'&& sortColM === 'Source'}">
+                                                </span></th>
+                                            <td ng-if="print">
+                                                <div id="print" ng-click="printDiv('careplanDetails');">
+                                                    <h3>
+                                                        <img src="Content/Images/ico_print.png" />
+                                                    </h3>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="line-item ng-scope" ng-repeat-start="member in memberData.List">
+                                            <td></td>
+                                            <td> {{ member.MemberLName | titleCase }}, {{ member.MemberFName | titleCase }} </td>
+                                            <td> {{ member.SubscriberNumber }} </td>
+                                            <td> {{ member.DateOfBirth }} </td>
+                                            <td> {{ member.MemberAddress1 }}{{member.MemberAddress2}}<span ng-if="member.MemberCity">,</span> {{member.MemberCity}}<span ng-if="member.MemberState">,</span> {{member.MemberState}} {{member.MemberZipcode}}</td>
+                                            <td> {{ member.MemberPhone | tel}} </td>
+                                            <td ng-if="member.Source =='MedHok'" ng-click="rowSelect(member)">
+                                                <div>
+                                                    <span class="glyphicon" ng-class="member.showDetails ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' "></span>
+                                                    {{member.PlanTypeDesc}}
+                                                </div>
+                                            </td>
+                                            <td ng-if="member.Source == 'HAR'" ng-click="rowSelect(member)">
+                                                <a href="#">{{member.PlanTypeDesc}}</a>
+                                            </td>
+                                        </tr>
+                                        <tr uib-collapse="!member.showDetails && !provider.showDetails" ng-repeat-end="">
+                                            <td colspan="100%" ng-if="member.showDetails" style="background-color: #FBFBFB">
+                                                <div class="loaderContainer" simple-ajax-loader show="detailsLoading && member.showDetails"></div>
+                                                <div id="careplanDetails" ng-if="!loading && member.showDetails && provider.showDetails">
+                                                    <h1>Care Plan Details</h1>
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <span>Member Name:</span>
+                                                            {{carePlanDetailData.MemberFullName|titleCase }}
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <span>IEHP #:</span>
+                                                            {{carePlanDetailData.IEHPId}}
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <span>DOB:</span>
+                                                            {{carePlanDetailData.DOB}}
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <span>LOB:</span>
+                                                            {{carePlanDetailData.LOB}}
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <span>Member IPA:</span>
+                                                            {{carePlanDetailData.MemberIPA}}
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <span>PCP Name:</span>
+                                                            {{carePlanDetailData.PCPName}}
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <span>PCP Phone:</span>
+                                                            {{carePlanDetailData.PCPPhone| tel}}
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <span>Enrollment Date:</span>
+                                                            {{carePlanDetailData.CareplanInsertDate}}
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <span>CM Nurse:</span>
+                                                            {{carePlanDetailData.CaseManagerName}}
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <span>Primary Condition:</span>
+                                                            {{carePlanDetailData.PrimaryCondition}}
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <span>Primary Diagnosis:</span>
+                                                            {{carePlanDetailData.PrimaryDiagnosisDescription}}
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <div class="row">
+                                                        <table class="table col-xs-12" id="problems-table">
+                                                            <thead>
+                                                                <tr class="header sorting">
+                                                                    <td></td>
+                                                                    <th>Problem Description</th>
+                                                                    <th>Start Date</th>
+                                                                    <th>Target Date</th>
+                                                                    <th>Status</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-click="problemRowSelect(model)" ng-repeat-start="model in carePlanDetailData.ProblemModel"  ng-class="model.showDetails ? 'rowSelected' : '' ">
+                                                                    <td>
+                                                                        <div>
+                                                                            <span class="glyphicon" ng-class="model.showDetails ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' "></span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>{{model.ProblemDescrpition}}</td>
+                                                                    <td>{{model.StartDate}}</td>
+                                                                    <td>{{model.EndDate}}</td>
+                                                                    <td>{{model.Status}}</td>
+                                                                </tr>
+                                                                <tr uib-collapse="!model.showDetails && !printAll" ng-repeat-end="">
+                                                                    <td colspan="100%" ng-if="model.showDetails || printAll" style="background-color: #F5F2F2">
+                                                                        <div id="careplanGoalModelDetails" ng-repeat="goal in model.GoalModel" ng-if="model.GoalModel.length>0">
+                                                                            <h1>Goal Model Details</h1>
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12 col-md-4">
+                                                                                    <span>Goal Description:</span>
+                                                                                    {{goal.GoalDescrpition}}
+                                                                                </div>
+                                                                                <div class="col-xs-12 col-md-4">
+                                                                                    <span>Status:</span>
+                                                                                    {{goal.Status}}
+                                                                                </div>
+                                                                                <div class="col-xs-12 col-md-4">
+                                                                                    <span>Focus on Goal:</span>
+                                                                                    {{goal.FocusOnGoal}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <br />
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12 col-md-4">
+                                                                                    <span>Start Date:</span>
+                                                                                    {{goal.StartDate}}
+                                                                                </div>
+                                                                                <div class="col-xs-12 col-md-4">
+                                                                                    <span>End Date:</span>
+                                                                                    {{goal.EndDate}}
+                                                                                </div>
+                                                                                <div class="col-xs-12 col-md-4">
+                                                                                    <span>Target Date:</span>
+                                                                                    {{goal.TargetDate}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <br />
+                                                                            <div class="row">
+                                                                                <h3>Intervention Details</h3>
+                                                                                <table class="table">
+                                                                                    <thead>
+                                                                                        <tr class="header sorting">
+                                                                                            <td> Description </td>
+                                                                                            <td> Status </td>
+                                                                                            <td> ProgressNotes</td>
+                                                                                            <td> Deferred </td>
+                                                                                            <td>Start Date</td>
+                                                                                            <td>End Date</td>
+                                                                                            <td>Target Date</td>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr ng-repeat="intervention in goal.InterventionModel" ng-if="goal.InterventionModel.length>0">
+                                                                                            <td>{{intervention.InterventionDescrpition}}</td>
+                                                                                            <td>{{intervention.Status}}</td>
+                                                                                            <td>{{intervention.ProgressNotes}}</td>
+                                                                                            <td>{{intervention.Deferred}}</td>
+                                                                                            <td>{{intervention.StartDate}}</td>
+                                                                                            <td>{{intervention.EndDate}}</td>
+                                                                                            <td>{{intervention.TargetDate}}</td>
+                                                                                        </tr>
+                                                                                        <tr ng-if="!goal.InterventionModel.length>0">
+                                                                                            <td>no data found!</td>
+                                                                                        </tr>
+                                                                                </table>
+
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <h3>Barrier Details</h3>
+                                                                                <table class="table">
+                                                                                    <thead>
+                                                                                        <tr class="header sorting">
+                                                                                            <td> Description </td>
+                                                                                            <td> Status </td>
+                                                                                            <td>Start Date</td>
+                                                                                            <td>End Date</td>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr ng-repeat="barrier in goal.BarrierModel" ng-if="goal.BarrierModel.length>0">
+                                                                                            <td>{{barrier.BarrierDescrpition}}</td>
+                                                                                            <td>{{barrier.Status}}</td>
+                                                                                            <td>{{barrier.StartDate}}</td>
+                                                                                            <td>{{barrier.EndDate}}</td>
+                                                                                        </tr>
+                                                                                        <tr ng-if="!goal.BarrierModel.length>0">
+                                                                                            <td>no data found!</td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div ng-if="!model.GoalModel.length>0">No data found</div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div simple-ajax-loader show="loading" id="fixed-loader"></div>
+                <!--<div class="loaderContainer" simple-ajax-loader show="loading"></div>-->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+

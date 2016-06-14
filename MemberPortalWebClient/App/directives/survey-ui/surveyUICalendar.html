@@ -1,0 +1,38 @@
+﻿<div class="row survey-question-bottom-border">
+    <div class="col-md-8 col-sm-8 col-xs-12 survey-question-span-inner" ng-bind-html="question.QuestionText"></div>
+
+    <div class="survey-input-render survey-ui-user-input col-md-3 col-sm-3 col-xs-12" ng-repeat="answer in question.Answers track by $index">
+
+        <ng-form name="innerForm">
+            <div class=" input-group survey-ui-calendar">
+                <input name="inputText"
+                       datepicker-popup="{{format}}"
+                       readonly
+                       type="text"
+                       class="form-control survey-user-input-calendar-flat survey-calendar-input-width "
+                       ng-model="answer.ValueId"
+                       is-open="answer.opened"
+                       ng-blur="RecordCalendar(this, question)"
+                       ng-required="!question.Answers.isChecked"
+                       ng-disabled="question.Answers.isDisabled"
+                       show-button-bar="false"
+                       max-date="max"
+                       datepicker-options="dateOptions" />
+
+                <span class="input-group-btn">
+                    <button type="button"
+                            class="btn btn-primary survey-user-input-calendar-flat"
+                            ng-click="open($event,answer)"
+                            ng-disabled="question.Answers.isDisabled">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+
+            </div>
+            <div>
+                <span ng-if="language == 'EN'" ng-show="innerForm.$invalid && nextClicked" class="help-block survey-required-value">Select a date</span>
+                <span ng-if="language=='ES'" ng-show="innerForm.$invalid && nextClicked" class="help-block survey-required-value">Seleccione una fecha</span>
+            </div>
+        </ng-form>
+    </div>
+</div>

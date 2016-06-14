@@ -1,0 +1,21 @@
+﻿<div class="ng-cloak">
+
+    <div class="debug-tool-toggle-btn" ng-init="showBar = false" ng-class="{active:showBar}" ng-click="showBar = !showBar" title="Toggle Debug Tool Visability"><span class="glyphicon glyphicon-wrench"></span></div>
+    <div class="debug-tool-body ngcloak clearfix" ng-show="showBar">
+
+        <h2>Debug Bar</h2><br />
+
+        <hr />
+
+        <debug-tool-data-node name="Authentication Status" data="authStatus"></debug-tool-data-node>
+        
+        <ol>
+            <li ng-repeat="item in items" ng-init="toggle = false">
+                <h3><span class="glyphicon" ng-class="{'glyphicon-eye-open': toggle, 'glyphicon-eye-close' : !toggle}" ng-click="toggle = !toggle" style="cursor:pointer;"></span> {{item.name}}</h3>
+                <pre ng-show="toggle">{{item.dataString}}</pre>
+            </li>
+        </ol>
+
+        <ng-transclude></ng-transclude>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+﻿.style-guide {
+    
+}
+
+
+
+.style-guide section {
+    margin-bottom: 2rem;
+}
+
+.style-guide section > h1 {
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.7rem;
+    margin-bottom: 0.7rem;
+}
+
+    .style-guide hr {
+        border-color: #83B2D2;
+    }
+
+
+
+/**************************************************
+RADIO GROUP 
+***************************************************/
+.style-guide .radio-group.tiles input[type=radio] {
+    display: none;
+    margin: 10px;
+}
+.style-guide .radio-group.tiles input[type=radio] + label {
+    display:inline-block;
+    margin:-2px;
+    padding: 4px 12px;
+    background-color: #007AC9;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+.style-guide .radio-group.tiles input[type=radio]:checked + label { 
+   background-image: none;
+    background-color:#286090;
+}
+/****************************************************/
+
+/**************************************************
+CHECKBOX GROUP
+***************************************************/
+.style-guide .checkbox-group.tiles input[type=checkbox] {
+    display: none;
+    margin: 10px;
+}
+.style-guide .checkbox-group.tiles input[type=checkbox] + label {
+    display:inline-block;
+    margin:-2px;
+    padding: 4px 12px;
+    background-color: #007AC9;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+.style-guide .checkbox-group.tiles input[type=checkbox]:checked + label { 
+   background-image: none;
+    background-color:#286090;
+}
+/****************************************************/
+
+
+
+
+
+
+
+
+/**************************************************
+FORM or FIELD GROUP
+***************************************************/
+.style-guide .required-label {
+    padding: 0;
+}
+.style-guide .validation-message {
+    color: #F44336;
+    font-weight: bold;
+    font-size: .8rem;
+
+
+}
+.style-guide #styleGuideFormId {
+    border: 1px solid #eee;
+    padding: 15px;
+
+}
+.style-guide input, 
+.style-guide input[type='email'],
+.style-guide input[type='password'],
+.style-guide textarea,
+.style-guide select{
+    border: 1px solid #1864A5;
+    height: 30px;
+    margin-right: 3px;
+}
+
+#styleGuideFormId textarea {
+  overflow:hidden;
+}
+/****************************************************/
+

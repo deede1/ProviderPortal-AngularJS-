@@ -1,0 +1,218 @@
+﻿<h2 class="center">{{tableName}} P4P Program Remittance Advice</h2>
+<div class="contentPanel">
+    <div class="ppSearchResults" style="background: none">
+        <div class="non-printable ra-pdf rosters_icons" ng-class="{'loaded': loaded >= 1}">
+            <ul class="ulLiHorizontal">
+                <li id="btnPDFExport" ng-click="getPdf()">
+                    <img src="Content/Images/ico_pdf_file.png">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="fixed-loader" show="searchStatus === 1" simple-ajax-loader></div>
+<div id="pdf" ng-if="results.GroupedData">
+    <!--<div ng-repeat="group in ::results.GroupedData" post-repeat-directive>-->
+    <!-- <div ng-repeat="member in ::group">-->
+    <!-- {{::member.MemberLastName}}{{::member.MemberFirstName}}-->
+    <!-- </div>-->
+    <!--</div>-->
+
+    <dl class="dl-horizontal pull-left">
+        <dt>Vendor:</dt>
+        <dd> {{::results.DetailHeader.VendorName}} ({{::results.DetailHeader.Vendor}},{{::results.DetailHeader.VendorCode}})</dd>
+    </dl>
+    <dl class="dl-horizontal pull-right">
+        <dt>Check Date:</dt>
+        <dd>{{::results.DetailHeader.SubmissionDate | date : 'MM/dd/yyyy'}}</dd>
+    </dl>
+    <table class="table no-collapse">
+        <thead>
+            <tr class="header sorting">
+                <th>Member's Name</th>
+                <th>IEHP ID</th>
+                <th>DOB</th>
+                <th>Detail Number</th>
+                <th>Provider</th>
+                <th>Type of Service</th>
+                <th>Date of Service</th>
+                <th>Amount</th>
+                <th>Reason Code</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="group in results.GroupedData | limitTo: delayLimit">
+            <tr class="line-item"
+                ng-animate="'animate'"
+                ng-repeat="member in ::group track by member.RecordNumber ">
+                <td class="capitalize" ng-class="{'blank-cell': !$first}">
+                    <span ng-if="$first">{{::member.MemberLastName}}, {{::member.MemberFirstName}}</span>
+                </td>
+                <td ng-class="{'blank-cell': !$first}">
+                    <span ng-if="$first">{{::member.SubscriberId}}</span>
+                </td>
+                <td>
+                    <span ng-if="$first">{{::member.DateOfBirth}}</span>
+                </td>
+                <td>{{::member.RecordNumber}}</td>
+                <td>{{::member.ProviderName}}</td>
+                <td>{{::member.Service}}</td>
+                <td>{{::member.DateOfService}}</td>
+                <td>${{::member.Amount | currency: "$": 2}}</td>
+                <td>{{::member.DispositionCode}}</td>
+
+            </tr>
+        </tbody>
+        <tbody>
+            <tr class="line-item">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td>${{::results.Grandtotal | currency: "$": 2}}</td>
+                <td></td>
+
+            </tr>
+        </tbody>
+
+    </table>
+    <table class="">
+        <tbody>
+            <tr>
+                <td colspan="8">
+                    <table cols="5" style="font-family: arial; font-size: 7pt;" width="900px">
+                        <tbody>
+                            <tr>
+                                <td colspan="5" style="border-bottom: 1px solid #000000; font-weight: 600;">
+                                    Reason Code Description
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    1. Pay Per Fee Schedule
+                                </td>
+                                <td>
+                                    8. Provider Not Eligible for P4P Program
+                                </td>
+                                <td>
+                                    15. No Height
+                                </td>
+                                <td>
+                                    22. DOS Before DOB
+                                </td>
+                                <td>
+                                    29. Not a Qualifying Immunization
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    2. Member Not Eligible on Date of Service
+                                </td>
+                                <td>
+                                    9. Submission Not Received Online
+                                </td>
+                                <td>
+                                    16. No Weight
+                                </td>
+                                <td>
+                                    23. Partial Screening/Procedure Recheck Missing
+                                </td>
+                                <td>
+                                    30. Duplicate Submission
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    3. Member's Age Out of Qualifying Range
+                                </td>
+                                <td>
+                                    10. Submission Limit Reached
+                                </td>
+                                <td>
+                                    17. Over 3 Blood Pressure Missing
+                                </td>
+                                <td>
+                                    24. A Component of This Combo Was Denied
+                                </td>
+                                <td>
+                                    31. Missing Required Immunizations
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    4. Previously Paid
+                                </td>
+                                <td>
+                                    11. Missing Service Date
+                                </td>
+                                <td>
+                                    18. Invalid Patient Visit
+                                </td>
+                                <td>
+                                    25. Component of a Valid Combo
+                                </td>
+                                <td>
+                                    32. Erroneous Payment Recouped
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    5. Submission Received Too Late
+                                </td>
+                                <td>
+                                    12. Under 2 Next Visit Missing
+                                </td>
+                                <td>
+                                    19. Invalid Type of Screen
+                                </td>
+                                <td>
+                                    26. Component of an Invalid Combo
+                                </td>
+                                <td>
+                                    33. Not Primary Care Provider on Service Date
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    6. Incompleted Documentation Submitted
+                                </td>
+                                <td>
+                                    13. Ethnic Code Missing
+                                </td>
+                                <td>
+                                    20. Invalid Place of Service
+                                </td>
+                                <td>
+                                    27. Invalid Combo - Treated as Individual Antigens
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    7. Alternate Visit Already Paid
+                                </td>
+                                <td>
+                                    14. Assessment Incomplete
+                                </td>
+                                <td>
+                                    21. No Signature
+                                </td>
+                                <td>
+                                    28. Immunization Info Incomplete
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

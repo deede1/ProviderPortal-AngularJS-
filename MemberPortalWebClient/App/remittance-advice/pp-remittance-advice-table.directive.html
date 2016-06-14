@@ -1,0 +1,43 @@
+﻿<table class="col-sm-12 results-animate roster table table-sortable table-striped" ng-if="tableResults[0].VendorName">
+	<thead>
+	<tr class="header sorting">
+		<th pp-sortable-table-header="CheckDate">Check Date</th>
+		<th pp-sortable-table-header="VendorName">Vendor</th>
+		<th pp-sortable-table-header="CheckNumber">Check Number</th>
+		<th pp-sortable-table-header="TotalAmount">Check Amount</th>
+	</tr>
+	</thead>
+	<tbody>
+
+	<tr class="line-item"
+			ng-animate="'animate'"
+			ng-repeat="item in tableResults">
+		<td>{{ ::item.CheckDate | date:'MM/dd/yyyy'}}</td>
+		<td>{{ ::item.VendorName}}</td>
+		<td>
+			<!-- <a href="App/PPClaimsAndRa/RaDetail-->
+			<!-- /{{tableName ? tableName :'claimsRA'}}-->
+			<!-- /{{item.SubmissionNumber ? item.SubmissionNumber.replace(' ','') : item.CheckNumber.replace(' ','')}}-->
+			<!-- /{{!item.SubmissionNumber ? item.CheckDate : '' | amDateFormat:'YYYYMMDD' }}">-->
+			<!-- {{::item.CheckNumber}}-->
+			<!-- </a>-->
+			<!-- p4p ra-->
+			<a class="cursor-pointer" ng-if="tableName" target="_blank" ui-sref="claims.raDetails({
+				 list:	tableName,
+				 claimId:item.SubmissionNumber.replace(' ','')
+				 })">{{::item.CheckNumber}}</a>
+			<!-- claims ra-->
+			<a class="cursor-pointer" ng-if="!tableName" target="_blank" ui-sref="claims.raDetails({
+				 list:		 'claimsRA',
+				 claimId: item.CheckNumber.replace(' ',''),
+				 date:		 {{item.CheckDate		| amDateFormat: 'YYYYMMDD' }}
+				 })">{{::item.CheckNumber}}</a> 
+		</td>
+		<td align="right">{{ ::item.TotalAmount | currency: "$" : 2}}</td>
+	</tr>
+
+	</tbody>
+</table>
+<div class="col-sm-12 text-center" ng-if="!tableResults[0].VendorName">
+      No Records Found
+</div>

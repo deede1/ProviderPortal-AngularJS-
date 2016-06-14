@@ -1,0 +1,87 @@
+﻿<div ng-click="sections['RxH'] = !sections['RxH']" class="panel-heading">
+    <i class="pull-left glyphicon"
+       ng-class="{'glyphicon-chevron-down': sections['RxH'], 'glyphicon-chevron-right': !sections['RxH']}">
+    </i>&nbsp;
+    <span class="panel-header-title">Rx History</span>
+
+</div>
+
+<div ng-if="sections['RxH']" class="panel-body">
+    <nav id="memberRXNav" style="text-align: right; position: relative;" ng-if="totalPages > 1" class="non-printable">
+        <div class="col-xs-12">
+            <div class="pager-info" style="color: #FFF;">
+                {{startItem(currentPage)}} - {{endItem(currentPage)}} of {{TotalListCount}}
+            </div>
+        </div>
+    </nav>
+    <table class="table table-striped" id="pharmacy-info">
+        <thead ng-if="Rx">
+            <tr class="sorting">
+                <th ng-click="changeSort('OrderDate')">
+                    <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse  && sortCol === 'OrderDate', 'glyphicon-arrow-down': sortReverse   && sortCol === 'OrderDate'}">
+                    </span>OrderDate
+                </th>
+                <th ng-click="changeSort('DrugName')">
+                    <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse  && sortCol === 'DrugName', 'glyphicon-arrow-down': sortReverse  && sortCol === 'DrugName'}">
+                    </span>DrugName
+                </th>
+                <th ng-click="changeSort('NDaysSupply')">
+                    <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse  && sortCol === 'NDaysSupply', 'glyphicon-arrow-down': sortReverse && sortCol === 'NDaysSupply'}">
+                    </span>DaysSupply
+                </th>
+                <th ng-click="changeSort('NMetricQuantity')">
+                    <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse && sortCol === 'NMetricQuantity', 'glyphicon-arrow-down': sortReverse  && sortCol === 'NMetricQuantity'}">
+                    </span>MetricQuantity
+                </th>
+                <th ng-click="changeSort('PhrmName')">
+                    <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse  && sortCol === 'PhrmName', 'glyphicon-arrow-down': sortReverse  && sortCol === 'PhrmName'}">
+                    </span>PhrmName
+                </th>
+
+                <th ng-click="changeSort('PhysLastName')">
+                    <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse  && sortCol === 'PhysLastName', 'glyphicon-arrow-down': sortReverse  && sortCol === 'PhysLastName'}">
+                    </span>Phys Name
+                </th>
+                <th ng-click="changeSort('Type')">
+                    <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse  && sortCol === 'Type', 'glyphicon-arrow-down': sortReverse   && sortCol === 'Type'}">
+                    </span>Type
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="rx in Rx  | orderBy:sortCol:sortReverse | limitTo: paginationLimit()">
+                <td>{{rx.OrderDate.format("MM/DD/YYYY")}}</td>
+                <td>{{rx.DrugName}}</td>
+                <td>{{rx.DaysSupply}}</td>
+                <td>{{rx.MetricQuantity}}</td>
+                <td>{{rx.PhrmName}}</td>
+
+                <td>{{rx.PhysLastName}},{{rx.PhysFirstName}}</td>
+                <td>{{rx.Type}}</td>
+            </tr>
+            <tr ng-if="!Rx">
+                <td>
+                    No Records
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="100%" ng-show="hasMoreItemsToShow()" ng-click="showMoreItems()"><a href="#" style="color: #157CC4">Show More</a></td>
+
+            </tr>
+            <tr>
+                <td colspan="100%" ng-show="hasLessItemsToShow()" ng-click="showLessItems()"><a href="#" style="color: #157CC4">Show Less</a></td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+</div>

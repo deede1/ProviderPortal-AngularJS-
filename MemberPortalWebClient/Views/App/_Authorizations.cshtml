@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+@*<p><a href="@Url.RouteUrl("App", new{angularroutes="Eligibility"})">Back</a></p>*@
+ 
+<div class="contentContainer ">  
+
+    <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs contentLeft leftPanel_large">
+        <div class="pageBannerContainer">
+            <div class="leftBanner_TOCL_Yellow">Power with knowledge. Watch our "<span class="fontWhite">How to Get Care</span>" videos!</div>
+            <div class="leftBanner_Verdana_White">View your health records in this self service portal.</div>
+
+            <img class="vertBanner" ng-src="{{urlBase}}/Content/Images/panel_MedicalClaims.png" />
+
+            <div id="clickYT" class="leftBannerH3">
+                Click: <img ng-src="{{urlBase}}/Content/Images/panel_youTube.png" />
+            </div>
+        </div>
+    </div> 
+
+
+    @*<div class="contentLeft">
+        <img src="@Url.Content("~/Content/Images/panel_HealthRecords.png")"   />
+        <br />
+        <div id="note1"><<h3>IEHP<br /> 24-Hour Nurse<br /> 
+            Advice Line<br /><br /> 1-888-244-IEHP (4347)</h3></div>
+    </div>*@
+
+    <div class="contentRight">
+        <h1>{{"" | translate}} Authorizations</h1>
+        <p>{{"" | translate}}</p>
+        <div class="panel  ">   
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.navItemSelected').removeClass('navItemSelected');
+    $('#navbtn6 div').addClass('navItemSelected');
+</script>
+
+
+
+    @* -------------- Dubug Stuff ---------------  *@
+
+    @*<button ng-click="getCurrentEligibility()">Get Elig</button>*@
+
+    @*<div class='ng-cloak' ng-hide="loading">
+            <hr/>
+            <h2>Debug Tools</h2>
+            <input type="text" ng-model="SubscriberNumber" placeholder="Subscriber Id" />
+            <button ng-click="getDoctor()">Get Doctor</button>
+            <p>201203001195,201205003591,200600011499</p>
+
+
+            <pre class="info" ng-show="dataString.length > 0">{{dataString}}</pre>
+
+        </div>*@
+
+

@@ -1,0 +1,266 @@
+﻿<div class="Rosters">
+
+
+    <div class="form panel">
+        <h1 class="pageTitle"> Direct Ancillary Roster </h1>
+        <p class="pageIntro ">
+            IEHP strives to provide our Direct Providers with current Ancillary Rosters for easy referral. To select an Ancillary by region, please select from the menu below. 
+        </p>
+    </div>
+
+
+
+<roster-title-header></roster-title-header>
+
+<!--- Header Notice -->
+<div class="ppTitle">
+    <p class="titleSubtext">
+        * This listing is limited and not all inclusive
+    </p>
+
+</div>
+
+
+<div class="loaderContainer" simple-ajax-loader show="loading"></div>
+<div class="row alignCenter resultsContainer">
+
+
+<results-pagination ng-show="data.List"></results-pagination>
+
+<div class="header" ng-show="data.List.length && data.LastUpdatedOn"> Last Updated on {{ data.LastUpdatedOn }} </div>
+
+<!-------- TIER1 PAGINATION ------->
+<nav id="providersNav"
+     style="text-align: right; position: relative;"
+     class="non-printable"
+     ng-if="resultTier1.totalPages>1">
+
+    <!--<p class="pager-info">
+        {{startItem(resultTier1.currentPage, resultTier1.rowsPerPage)}} - {{endItem(resultTier1.currentPage, resultTier1.totalListCount, resultTier1.rowsPerPage)}}
+        of {{resultTier1.totalListCount}}
+    </p>-->
+
+    <div style="display: inline-block"
+         uib-pagination
+         boundary-links="true"
+         class="pagination-sm"
+         previous-text="&lsaquo;"
+         next-text="&rsaquo;"
+         first-text="&laquo;"
+         last-text="&raquo;"
+         total-items="roster.totalPages*roster.rowsPerPage"
+         ng-model="roster.currentPage"
+         items-per-page="roster.rowsPerPage"
+         ng-change="pageChanged(1,'ROST.DA',{},roster.currentPage,roster.totalListCount) ">
+    </div>
+</nav>
+<!-------- TIER1 PAGINATION ------->
+
+<table class="roster resultTier1 results-accordion col-sm-12  table table-striped table-sortable"
+       ng-class="roster.expand ? 'expand no-hover' : ''"
+       ng-show="displayFullView &&  data.List.length">
+    <thead>
+    <tr class="header sorting">
+        <th></th>
+        <th ng-click="RetrieveRoster('ROST.DA',1,{Sort:[{name:'PSPContractService', direction:  sortDirection}]}, roster)"
+            roster-tableheader-sort column-label="Specialty" column-data="PSPContractService">
+        </th>
+    </tr>
+    </thead>
+    <tbody ng-repeat="roster in data.List">
+    <tr ng-click="expandViewDetails('ROST.DA',2, { ContractedService: roster.PSPContractService}, data.List, roster, 1, 0); "
+        ng-class="roster.expand ? '  no-hover expanded-header' : ''"
+        ng-animate="'animate'"
+        class="line-item ng-scope">
+        <td>
+            <span class="glyphicon" ng-class="roster.expand ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+            </span>
+        </td>
+
+        <td> {{ roster.PSPContractService}} </td>
+    </tr>
+
+        <tr ng-if="roster.expand"
+            class="row-striped roster-result-row line-item ng-scope  collapsable indent "
+            heading="Dynamic Body Content"
+            ng-class="roster.expand ? '  no-hover expanded-header' : ''"
+            ng-animate="'animate'">
+            <td colspan="100%" class="bordered">
+                <table class="roster resultTier2 col-sm-12  table table-striped table-sortable"
+                       ng-class="roster.expand ? 'enter' : 'leave'">
+
+
+
+                    <thead>
+                        <!-----------TIER2 PAGINATION ---------->
+                    <nav id="membersNav"
+          
+                         class="non-printable" 
+                         ng-if="roster.totalPages>1">
+                            <!--<p class="pager-info">
+                            {{startItem(resultTier2.currentPage, resultTier2.rowsPerPage)}}
+                            - {{endItem(resultTier2.currentPage, resultTier2.totalListCount, resultTier2.rowsPerPage )}}
+                            of {{resultTier2.totalListCount}}
+                        </p>-->
+                            <div uib-pagination
+                                 style="display: inline-block"
+                                 boundary-links="true"
+                                 class="pagination-sm"
+                                 previous-text="&lsaquo;"
+                                 next-text="&rsaquo;"
+                                 first-text="&laquo;"
+                                 last-text="&raquo;"
+                                 max-size="5"
+                                 total-items="roster.totalPages*roster.rowsPerPage"
+                                 ng-model="roster.currentPage"
+                                 items-per-page="roster.rowsPerPage"
+                                 ng-change="pageChanged(2,'ROST.DA',{ ProviderNumber: roster.ProviderNumber},roster.currentPage,roster.TotalListCount, roster) "></div>
+                        </nav>
+                    <!-----------TIER2 PAGINATION ---------->
+
+
+                        <tr class="subHeader1">
+                            <th colspan="100%">
+ 
+
+                                <div class="subHeaderPanel">
+                                    Total Providers: {{ roster.tier2RowsTotal}}
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+
+
+                    <thead>
+
+                    <tr class="header sorting">
+                        <th ng-click="fetchViewDetails('ROST.DA',2,{Sort:[{name:'Contract', direction: roster.sortDirection}]},roster)"
+                            class="col-sm-4"
+                            roster-tableheader-sort column-label="Contract Name/ Provider ID" column-data="Contract"></th>
+                        <th ng-click="fetchViewDetails('ROST.DA',2,{Sort:[{name:'Add1', direction: roster.sortDirection}]},roster)" class="col-sm-4"
+                            roster-tableheader-sort column-label="Address" column-data="Add1"></th>
+                        <th ng-click="fetchViewDetails('ROST.DA',2,{Sort:[{name:'CCPLPhone', direction: roster.sortDirection}]},roster)"
+                            roster-tableheader-sort column-label="Phone" column-data="CCPLPhone"></th>
+                        <th ng-click="fetchViewDetails('ROST.DA',2,{Sort:[{name:'CCPLFax', direction: roster.sortDirection}]},roster)"
+                            roster-tableheader-sort column-label="Fax" column-data="CCPLFax"></th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+                        <tr ng-show="roster.dataResultMessageTier2">
+                            <td colspan="100%">
+                                <danger-box message="{{roster.dataResultMessageTier2}}"></danger-box>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-repeat="member in roster.data.List">
+                        <tr ng-animate="'animate'"
+                            ng-class="member.expand ? '  no-hover expanded-header' : ''"
+                            class="line-item ng-scope ">
+
+                            <td> {{ member.Contract }}<br /> {{member.ProviderNumber}} </td>
+                            <td>
+                                <!--{{ member.Add1 }}
+                                <br ng-if="isEmpty(Add1)" />-->
+                                {{member.Add2}}
+                            </td>
+                            <td> {{ member.CCPLPhone |tel }} </td>
+                            <td>
+                                <span ng-if="member.CCPLFax == ''">
+                                    Not Available
+                                </span> 
+                                {{ member.CCPLFax | tel }}
+
+                            </td>
+
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+<!-- <table id="directAncillary" class="roster col-sm-12"
+            ng-show="displayFullView &&  data.List.length">
+<thead>
+<tr class="header sorting">
+<th pp-sortable-table-header="PSPContractService">Specialty</th>
+<!--<th>Specialty Group</th>
+</tr>
+</thead>
+<tbody ng-repeat="specialty in data.List">
+<tr class="ng-table-group">
+    <td>
+        <div>
+            <span class="glyphicon"
+                                          ng-class="specialty.showDetails ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' "
+                                          ng-click="toggleRoster(specialty)">
+                                    </span>
+            {{ specialty.Specialty }}
+        </div>
+    </td>
+</tr>
+<tr ng-repeat="item in specialty.List" uib-collapse="!specialty.showDetails" class="row-striped roster-result-row">
+    <td colspan="100%">
+        <div class="col-sm-6">
+            <dl class="dl-horizontal">
+                <dt>Contract</dt>
+                <dd>
+                    {{ item.Contract }}
+                    <br/>
+                    <div ng-show="item.ProviderNumber"> ( {{ item.ProviderNumber }} ) </div>
+                </dd>
+                <br/>
+                <dt>PSPContract<br/>Service</dt>
+                <dd> {{item.PSPContractService}} </dd>
+            </dl>
+        </div>
+        <div class="col-sm-6">
+            <dl class="dl-horizontal">
+                <dt>Address </dt>
+                <dd>
+                    <div ng-show="item.Add1 || item.Add2 || item.Add3">
+                        {{iem.Add1 }} {{ item.Add2 }} {{item.Add3}}
+                    </div>
+                </dd>
+                <br/>
+                <dt>Phone</dt>
+                <dd ng-show="item.CCPLPhone != null">{{item.CCPLPhone}}</dd>
+                <dd ng-show="item.CCPLPhone == null">No Phone Available </dd>
+                <br/>
+                <dt>Fax</dt>
+                <dd ng-show="item.CCPLFax != null">{{item.CCPLFax}}</dd>
+                <dd ng-show="item.CCPLFax == null">No Fax Available </dd>
+            </dl>
+        </div>
+    </td>
+</tr>
+</tbody>
+</table>
+--->
+
+
+
+<danger-box message="{{dataResultMessageTier1}}"></danger-box>
+
+
+
+</div>
+
+
+
+<danger-box message="{{errorMessage}}"></danger-box>
+
+
+
+
+</div>

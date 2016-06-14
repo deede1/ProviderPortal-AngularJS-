@@ -1,0 +1,65 @@
+﻿<div ng-click="sections['LR'] = !sections['LR']" class="panel-heading">
+    <i class="pull-left glyphicon"
+       ng-class="{'glyphicon-chevron-down': sections['LR'], 'glyphicon-chevron-right': !sections['LR']}">
+    </i>&nbsp;
+    <span class="panel-header-title">Lab Information</span>
+
+</div>
+
+<div ng-if="sections['LR']" class="panel-body">
+    <nav id="memberLabsNav" style="text-align: right; position: relative;" ng-if="totalPages > 1" class="non-printable">
+        <div class="col-xs-12">
+            <div class="pager-info" style="color: #FFF;">
+                {{startItem(currentPage)}} - {{endItem(currentPage)}} of {{TotalListCount}}
+            </div>
+        </div>
+    </nav>
+    <table class="table table-striped" id="lab-info">
+        <thead ng-if="Labs.length>0">
+        <tr class="sorting">
+
+            <th ng-click="changeSort('dos')">
+                <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse && sortCol === 'dos', 'glyphicon-arrow-down':sortReverse  && sortCol === 'dos'}">
+                    </span>Date Of Service
+            </th>
+            <th ng-click="changeSort('testcode')">
+                <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse && sortCol === 'testcode', 'glyphicon-arrow-down':sortReverse  && sortCol === 'testcode'}">
+                    </span>Test Code
+            </th>
+            <th ng-click="changeSort('desc')">
+                <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse && sortCol === 'desc', 'glyphicon-arrow-down':sortReverse  && sortCol === 'desc'}">
+                    </span> Description
+            </th>
+            <th ng-click="changeSort('result')">
+                <span class="glyphicon"
+                          ng-class="{'glyphicon-arrow-up': !sortReverse && sortCol === 'result', 'glyphicon-arrow-down':sortReverse  && sortCol === 'result'}">
+                    </span> Result
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="lab in Labs  | orderBy:sortCol:sortReverse | limitTo: paginationLimit()">
+            <td>{{lab.dos.format("MM/DD/YYYY")}}</td>
+            <td>{{lab.testcode}}</td>
+            <td>{{lab.desc}}</td>
+            <td>{{lab.result}}</td>
+
+        </tr>
+        <tr ng-if="!Labs.length>0">
+            <td>No Records</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="100%" ng-show="hasMoreItemsToShow()" ng-click="showMoreItems()"><a href="#" style="color: #157CC4">Show More</a></td>
+
+        </tr>
+        <tr>
+            <td colspan="100%" ng-show="hasLessItemsToShow()" ng-click="showLessItems()"><a href="#" style="color: #157CC4">Show Less</a></td>
+        </tr>
+        </tfoot>
+    </table>
+</div>

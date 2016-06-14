@@ -1,0 +1,137 @@
+﻿@{
+    ViewBag.Title = "Vision Auth";
+}
+
+
+
+<div class="panel">
+        <div simple-ajax-loader show="loading"></div> 
+        <div style="position: relative;height:100%;width:100%;min-height:200px;"> 
+            <h2>Vision Auth</h2>  
+            <div id="Authorization" class="ngcloak" ng-hide="loading"> 
+                <div id="AuthHead" class="ContentWrapper container">
+                    <div class="hidden-print" style="margin-bottom:10px;float:left">
+                        <a href="@Url.RouteUrl("App", new { angularroutes = "Authorizations/Vision" })" class="hidden-print displayLoader"><span class="glyphicon glyphicon-circle-arrow-left" style="margin-right: .25em;"></span>Back</a> |
+                        <a href="" class="PrintAuthBtn"><span class="glyphicon glyphicon-print" style="margin-right: .25em;"></span>Print</a>
+                    </div>
+                    <h2 style="float:right;margin:0;">Reference: {{data.caseNumber}}</h2>
+                    <div style="margin-top: 0;margin: 0 auto;width: 100px;margin-bottom: -10px;" class="visible-print">
+                        <img src="https://ww3.iehp.org/Images/IEHP_LOGO_w194xh106.png" style="width:100px;" />
+                    </div>
+                </div> 
+                <div id="AuthBody">
+                    <div class="ContentWrapper container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 style="border-bottom:1px solid #333;">Provider Details</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12 col-sm-12 col-lg-6 col-print-6">
+                                <provider-tile provider="data.member.pcp" title="Requesting" />
+                            </div>
+                            <div class="col-md-6 col-xs-12 col-sm-12 col-lg-6 col-print-6">
+                                <provider-tile provider="data.servicingProvider" title="Servicing Provider" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ContentWrapper container">
+                        <medhok-member-details member="data.member" />
+                    </div>
+
+                    <div class="ContentWrapper container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 style="border-bottom:1px solid #333;">Authorization Details</h3>
+                            </div>
+                        </div>
+
+                        <div ng-show="data.reviews != null && data.reviews.length > 0">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-horizontal form-horizontal-short-groups">
+
+                                        <div class="form-group side-by-side col-xs-12">
+                                            <span>Review Date:</span>
+
+                                            <span ng-if="data.caseStatus == 'Approved'">N/A</span>
+                                            <span ng-if="data.caseStatus != 'Approved'">
+                                                {{data.intakeDate | date:'MM/dd/yy'}}
+                                            </span>
+                                        </div>
+                                        <div class="form-group side-by-side col-xs-12">
+                                            <span>Comments:</span>
+                                            <span>
+                                                <span ng-if="data.caseStatusReason != null && data.caseStatusReason != ''">
+                                                    {{data.caseStatusReason}}
+                                                </span>
+                                                <span ng-if="data.caseStatusReason == null || data.caseStatusReason == ''">N/A</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <table class="VisionLinesTable table table-condensed table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Line</th>
+                                                <th>From</th>
+                                                <th>To</th>
+                                                <th>Qty</th>
+                                                <th>Status</th>
+                                                <th>Diagnosis</th>
+                                                <th>Service</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="item in data.reviews">
+                                            <tr ng-repeat="proc in item.procedures">
+                                                <td><span class="label label-default" style="margin-right:1em;">{{item.sequence}}</span></td>
+                                                <td>{{proc.effectiveDate | date:'MM/dd/yy'}}</td>
+                                                <td>{{proc.termDate | date:'MM/dd/yy'}}</td>
+                                                <td>{{proc.approvedUnits}}</td>
+                                                <td>
+                                                    {{item.status}}
+                                                    <div ng-if="item.statusReason != null && item.statusReason != ''" class="glyphicon glyphicon-info-sign" style="width:1em;height:1em;" title="{{item.statusReason}}"></div>
+                                                </td>
+                                                <td>
+
+                                                    <div ng-if="item.primaryDiagnosis != null && item.primaryDiagnosis.code != null && item.primaryDiagnosis.code != ''">
+                                                        <span>{{item.primaryDiagnosis.code}}</span>
+                                                        <div ng-if="item.primaryDiagnosis.description" class="glyphicon glyphicon-info-sign" style="width:1em;height:1em;" title="{{item.primaryDiagnosis.description}}"></div>
+                                                    </div>
+
+                                                    <div ng-if="item.primaryDiagnosis == null || item.primaryDiagnosis.code == null || item.primaryDiagnosis.code == ''">
+                                                        <span>N/A</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {{proc.code}}
+                                                    <div ng-if="proc.description != null && proc.description != ''" class="glyphicon glyphicon-info-sign" style="width:1em;height:1em;" title="{{proc.description}}"></div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="data.reviews == null || data.reviews.length == 0">
+                            <fieldset>
+                                <legend>Request Lines</legend>
+                                <p>None Available</p>
+                            </fieldset>
+                        </div> 
+                        <div class="ContentWrapper AuthFooter">
+                            <p>UPON ACCEPTANCE OF REFERRAL AND TREATMENT OF THE MEMBER, PHYSICIAN/ PROVIDER AGREES TO ACCEPT IEHP CONTRACTED RATES. This referral/authorization verifies medical necessity only. Payments for services are dependent upon the Member's eligibility at the time services are rendered.</p>
+                        </div>
+                    </div> 
+                </div>
+            </div> 
+            <div debug-tool class="ng-cloak">
+                <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+            </div>
+        </div>
+</div>

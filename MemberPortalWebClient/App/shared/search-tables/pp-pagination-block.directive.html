@@ -1,0 +1,21 @@
+﻿<div class="pagination-block">
+	<div class="ofl padBottom20" ng-transclude></div>
+	<p ng-if="search.totalRows">
+		{{search.range().left}}-{{search.range().right}} of {{search.totalRows}}
+		<ng-pluralize count="search.totalRows" when="{'1': 'Result','other': 'Results'}"></ng-pluralize>
+	</p>
+	<uib-pagination max-size="5"
+					items-per-page="search.pageSize"
+					boundary-links="true"
+					total-items="search.totalRows"
+					force-ellipses="true"
+					ng-model="search.currentPage"
+					ng-click="search.pageChanged()"
+					ng-if="search.totalRows"
+	                class="pagination-sm"
+	                previous-text="&lsaquo;"
+	                next-text="&rsaquo;"
+	                first-text="&laquo;" 
+                    last-text="&raquo;">
+	</uib-pagination>
+</div>

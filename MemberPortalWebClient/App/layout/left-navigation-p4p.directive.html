@@ -1,0 +1,33 @@
+﻿<div class="side-navigation-container non-printable">
+    <div>
+        <nav class="side-navigation"> 
+                <pp-breadcrumbs title="P4P"></pp-breadcrumbs>
+ 
+
+            <div ng-if="!siteItem['P4P.Entry']">
+                <a ui-sref="P4P.Entry" ui-sref-active="active"><pp-chevron-toggle state="P4P.Entry"></pp-chevron-toggle>P4P Entry</a>
+                <div class="sub-section" ng-show="'P4P.Entry' | includedByState">
+                    <a ui-sref="P4P.Entry.AP" ui-sref-active="active"> Asthma </a>
+                    <a ui-sref="P4P.Entry.DIAB" ui-sref-active="active"> Diabetes </a>
+                    <a ui-sref="P4P.Entry.DCAV" ui-sref-active="active"> DualChoice Annual Visit </a>
+                    <a ui-sref="P4P.Entry.PS" ui-sref-active="active"> Pap Screen </a>
+                    <a ui-sref="P4P.Entry.PP" ui-sref-active="active"> Perinatal & Postpartum </a>
+                    <a ui-sref="P4P.Entry.PM160" ui-sref-active="active"> PM160 </a>
+                    <a ui-sref="P4P.Entry.YC" ui-sref-active="active"> Yellow Card </a>
+                </div>
+            </div> 
+            <div ng-if="!siteItem['P4P.Status']">
+                <a ui-sref="P4P.Status" ui-sref-active="active"><pp-chevron-toggle state="P4P.STATUS"></pp-chevron-toggle>P4P Status</a>
+                <div class="sub-section" ng-show="'P4P.Status' | includedByState">
+                    <a ui-sref="P4P.Status.AP" ui-sref-active="active"> Asthma </a>
+                    <a ui-sref="P4P.Status.DIAB" ui-sref-active="active"> Diabetes</a>
+                    <a ui-sref="P4P.Status.DCAV" ui-sref-active="active"> DualChoice Annual Visit</a>
+                    <a ui-sref="P4P.Status.PS" ui-sref-active="active"> Pap Screen </a>
+                    <a ui-sref="P4P.Status.PP" ui-sref-active="active"> Perinatal & Postpartum </a>
+                    <a ui-sref="P4P.Status.PM160" ui-sref-active="active"> PM160 </a>
+                    <a ui-sref="P4P.Status.YC" ui-sref-active="active"> Yellow Card</a>
+                </div>
+            </div>  
+        </nav>
+    </div>  
+</div>

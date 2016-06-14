@@ -1,0 +1,25 @@
+﻿ 
+  
+<!--<div class="contentPanel    "  ng-repeat="item in subnavpages">
+
+    <a href="{{item.path}}" ng-class="{current: currentPath == item.path}">
+        <div class="panelTile alignRight">
+            <h2> {{item.name | translate}}{{item.isCurrent}} </h2>
+            <img src="~/../Content/Images/ico_blob_people_1.png" />
+        </div>
+    </a>
+</div>-->  
+
+
+ 
+    <ul id="authSubNav">
+    <li ng-repeat="item in subnavpages">
+        <a href="{{item.path}}"  ng-class="{current: currentPath == item.path}"> 
+            <div class="   alignCenter "> 
+                <input ng-if="currentPath != item.path"  type="radio" ng-value="currentPath == item.path" />
+                <input ng-if="currentPath == item.path" type="radio" checked="checked" /> 
+                {{item.name | translate}}{{item.isCurrent}} 
+            </div> 
+        </a>
+    </li>
+</ul> 

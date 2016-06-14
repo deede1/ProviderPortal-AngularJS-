@@ -1,0 +1,283 @@
+﻿<h1 class="pad-md text-center">
+	Step 1: <span class="step-color">Register</span>
+</h1>
+
+<ol class="list-group ">
+	<li class="clearfix  list-group-item with-background">
+		<label class="bold-lbl pad-md">Select a provider type</label>
+		<div class="">
+			<div class="col-md-6">
+				<div class="">
+					<button class="btn btn-primary w100" ng-class="{'active': providerType === 'contracted'}" ng-click="providerType = 'contracted'">
+						Contracted Provider
+					</button>
+				</div>
+
+			</div>
+			<div class="col-md-6">
+				<div class="">
+					<button class="btn btn-primary w100" ng-class="{'active': providerType === 'ancillary'}" ng-click="providerType = 'ancillary'"> Ancillary/ Non-Par Provider</button>
+				</div>
+
+			</div>
+		</div>
+	</li>
+</ol>								
+<form uib-collapse="providerType !== 'contracted'" class="pp-form text-left" name="registerFormContracted" ng-submit="submit(registerFormContracted.$valid)" novalidate>
+	<ol class="list-group">
+		<li class="clearfix list-group-item with-background">
+			<div class="col-md-6">
+				<label class="bold-lbl"><span class="redAster">*</span>Provider ID</label>		
+				<input class="form-control" name="ProviderId" ng-model="form.ProviderId" ng-maxlength="12" 	 required
+							 ng-class="{'returned-invalid-input' : [1,2,4,6].indexOf(error) > -1}" type="text"/>
+				<div class="invalid-text">Please enter a valid ID.</div>
+				<div ng-if="[1,2,4,6].indexOf(error) > -1" class="returned-invalid">{{alert}}</div>
+			</div>
+			<div class="col-md-6">
+				<label class="bold-lbl"><span class="redAster">*</span>Tax ID</label>
+				<input class="form-control" name="TaxId" ng-model="form.TaxId" ng-maxlength="12" ng-minlength="7" ng-required="true" type="text"
+							 ng-class="{'returned-invalid-input' : error === 3}">
+				<div class="invalid-text">Please enter a valid ID.</div>
+				<div ng-if="error === 3" class="returned-invalid">{{alert}}</div>
+			</div>
+		</li>
+	</ol>
+	<ol class="list-group">
+		<li class="clearfix list-group-item with-background">
+			<div class="col-md-6">
+				<label class="bold-lbl"><span class="redAster">*</span>Email Address</label>
+				<input class="form-control" name="EmailAddress" maxlength="30" ng-model="form.EmailAddress" ng-required="true" type="email"/>
+				<div class="invalid-text">Please enter a valid email address.</div>
+			</div>
+			<div class="col-md-6">
+				<label class="bold-lbl"><span class="redAster">*</span>Confirm Email Address</label>
+				<input class="form-control" name="chkEmail" maxlength="30" ng-model="form.chkEmail" ng-required="true" same-as="form.EmailAddress" type="email" />
+				<div class="invalid-text" ng-show="registerFormContracted.chkEmail.$invalid && (registerFormContracted.chkEmail.$touched || registerFormContracted.$submitted)">Email does not match</div>
+			</div>
+		</li>
+	</ol>
+	<ol class="list-group">
+		<li class="clearfix list-group-item with-background">
+			<div class="col-md-6">
+				<label class="bold-lbl"><span class="redAster">*</span>Password</label>
+				<input class="form-control" name="Password" ng-model="form.Password" ng-pattern="passwordRegex" ng-required="true" type="password"/>
+				<div class="invalid-text">
+					Password must be:
+					<ul>
+						<li>
+							At least 8 characters
+						</li>
+						<li>At least 1 Uppercase character</li>
+						<li>At least 1 Lowercase character</li>
+						<li>At least 1 Special character</li>
+						<li>At least 1 Number</li><li>No Whitespace character</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<label class="bold-lbl"><span class="redAster">*</span>Confirm Password</label>
+				<input class="form-control" name="chkPassword" ng-model="form.chkPassword" ng-required="true" same-as="form.Password" type="password" />
+				<div class="invalid-text" ng-show="registerFormContracted.chkPassword.$invalid && (registerFormContracted.chkPassword.$touched || registerFormContracted.$submitted)">Please enter a valid password. Passwords do not match.</div>
+			</div>
+		</li>
+	</ol>
+	<div class="form-group col-md-3 float-none center-block">
+		<button class="btn btn-block btn-lg btn-primary" type="submit">Continue</button>
+	</div>
+</form>
+<form uib-collapse="providerType !== 'ancillary'" class="pp-form text-left" name="registerFormAncillary" ng-submit="submit(registerFormAncillary.$valid)" novalidate>
+	<ol class="list-group">
+		<li class="clearfix list-group-item with-background">
+			<div class="col-md-4">
+				<label class="bold-lbl"><span class="redAster">*</span>Facility Name</label>
+				<input class="form-control" name="FacilityName" maxlength="100" ng-model="form2.FacilityName" ng-required="true" type="text"/>
+				<div class="invalid-text">Please enter a valid facility name.</div>
+			</div>
+			<div class="col-md-4">
+				<label class="bold-lbl"><span class="redAster">*</span>Facility Type</label>
+				<select id="FacilityType" ng-model="form2.FacilityType" ng-required="true"
+								name="FacilityType" title="Select The Type of Business Your Company Provides">
+					<option value="">Select</option>
+					<option value="0">Ambulance</option>
+					<option value="1">Emergency Room</option>
+					<option value="2">Home Health</option>
+					<option value="3">Hospital</option>
+					<option value="4">Laboratory</option>
+					<option value="5">Non-Par PCP</option>
+					<option value="6">Pharmacy</option>
+					<option value="7">Radiology</option>
+					<option value="8">SNF</option>
+					<option value="9">Specialist</option>
+					<option value="10">Urgent Care</option>
+					<option value="11">Other</option>
+
+				</select>
+				<div class="invalid-text">Please select a facility type.</div>
+			</div>
+			<div class="col-md-4">
+				<label class="bold-lbl"><span class="redAster">*</span>Reason</label>
+				<select id="RegistrationReason" ng-model="form2.RegistrationReason" name="RegistrationReason" title="Choose The Reason You Are Requesting This Information" required>
+					<option value="">Select</option>
+					<option value="0">Eligibility</option>
+					<option value="1">PCP Information</option>
+					<option value="2">Claims/Billing</option>
+
+				</select>
+				<div class="invalid-text">Please select a reason.</div>
+			</div>
+		</li>
+	</ol>
+
+	<ol class="list-group">
+		<li class="clearfix list-group-item with-background">
+			<div class="col-md-6">
+				<label class="bold-lbl"><span class="redAster">*</span>Address</label>
+				<input class="form-control" name="Address" ng-model="form2.Address" maxlength="100"  ng-required="true" type="text" />
+				<div class="invalid-text">Please enter a valid address.</div>
+			</div>
+			<div class="col-md-3">
+				<label class="bold-lbl"><span class="redAster">*</span>City</label>
+				<input class="form-control" name="City" ng-model="form2.City" maxlength="20" ng-required="true" type="text"/>
+				<div class="invalid-text">Please enter a valid city.</div>
+			</div>
+			<div class="col-md-1">
+				<label class="bold-lbl req">State</label>
+				<select ng-model="form2.State" ng-init="form2.State = 'CA'" ng-required="true" name="State">
+					<option value="AL">AL</option>
+					<option value="AK">AK</option>
+					<option value="AZ">AZ</option>
+					<option value="AR">AR</option>
+					<option value="CA">CA</option>
+					<option value="CO">CO</option>
+					<option value="CT">CT</option>
+					<option value="DE">DE</option>
+					<option value="DC">DC</option>
+					<option value="FL">FL</option>
+					<option value="GA">GA</option>
+					<option value="HI">HI</option>
+					<option value="ID">ID</option>
+					<option value="IL">IL</option>
+					<option value="IN">IN</option>
+					<option value="IA">IA</option>
+					<option value="KS">KS</option>
+					<option value="KY">KY</option>
+					<option value="LA">LA</option>
+					<option value="ME">ME</option>
+					<option value="MD">MD</option>
+					<option value="MA">MA</option>
+					<option value="MI">MI</option>
+					<option value="MN">MN</option>
+					<option value="MS">MS</option>
+					<option value="MO">MO</option>
+					<option value="MT">MT</option>
+					<option value="NE">NE</option>
+					<option value="NV">NV</option>
+					<option value="NH">NH</option>
+					<option value="NJ">NJ</option>
+					<option value="NM">NM</option>
+					<option value="NY">NY</option>
+					<option value="NC">NC</option>
+					<option value="ND">ND</option>
+					<option value="OH">OH</option>
+					<option value="OK">OK</option>
+					<option value="OR">OR</option>
+					<option value="PA">PA</option>
+					<option value="RI">RI</option>
+					<option value="SC">SC</option>
+					<option value="SD">SD</option>
+					<option value="TN">TN</option>
+					<option value="TX">TX</option>
+					<option value="UT">UT</option>
+					<option value="VT">VT</option>
+					<option value="VA">VA</option>
+					<option value="WA">WA</option>
+					<option value="WV">WV</option>
+					<option value="WI">WI</option>
+					<option value="WY">WY</option>
+				</select>
+				<div class="invalid-text">Please enter a valid state.</div>
+			</div>
+			<div class="col-md-2">
+				<label class="bold-lbl req">Zip Code</label>
+				<input class="form-control" name="Zip" ng-model="form2.Zip" maxlength="5" ng-required="true" type="text" />
+				<div class="invalid-text">Please enter a valid zip code.</div>
+			</div>
+		</li>
+
+		<li class="clearfix list-group-item with-background">
+			<div class="col-md-6">
+				<label class="bold-lbl"><span class="redAster">*</span>Phone</label>
+				<input class="form-control" name="Phone" ng-model="form2.Phone"  ng-required="true" type="text" mask='(999) 999-9999' clean="true" placeholder="(555) 555-5555"/>
+				<div class="invalid-text">Please enter a valid phone.</div>
+			</div>
+			<div class="col-md-6">
+				<label class="bold-lbl">Fax</label>
+				<input class="form-control" name="Fax" ng-model="form2.Fax" type="text" mask='(999) 999-9999' clean="true" placeholder="(555) 555-5555"/>
+				<div class="invalid-text">Please enter a valid fax.</div>
+			</div>
+		</li>
+	</ol>
+
+	<ol class="list-group">
+
+		<li class="clearfix list-group-item with-background">
+			<div class="col-md-4">
+				<label class="bold-lbl"><span class="redAster">*</span>User ID</label>
+				<input class="form-control" name="UserName" ng-model="form2.UserName" maxlength="20" ng-required="true" type="text" />
+				<div class="invalid-text">Please enter a valid user id.</div>
+			</div>
+			<div class="col-md-4">
+				<label class="bold-lbl"><span class="redAster">*</span>Email Address</label>
+				<input class="form-control" name="EmailAddress" ng-model="form2.EmailAddress" maxlength="30"  ng-required="true" type="email"/>
+				<div class="invalid-text">Please enter a valid email address.</div>
+			</div>
+			<div class="col-md-4">
+				<label class="bold-lbl"><span class="redAster">*</span>Confirm Email Address</label>
+				<input class="form-control" name="chkEmail" ng-model="form2.chkEmail" maxlength="30"  ng-required="true" same-as="form2.EmailAddress" type="email"/>
+				<div class="invalid-text">Please enter a valid email address. Email Addresses do not match.</div>
+			</div>
+		</li>
+	</ol>
+	<ol class="list-group">
+		<li class="clearfix list-group-item with-background">
+			<div class="col-md-6">
+				<label class="bold-lbl req">Password</label>
+				<input class="form-control" name="Password" ng-model="form2.Password" ng-pattern="passwordRegex" ng-required="true" type="password"/>
+			
+					<div class="invalid-text" form="registerFormAncillary" name="Password">
+						Password must be:
+						<ul>
+							<li>
+								At least 8 characters
+							</li>
+							<li>At least 1 Uppercase character</li>
+							<li>At least 1 Lowercase character</li>
+							<li>At least 1 Special character</li>
+							<li>At least 1 Number</li><li>No Whitespace character</li>
+						</ul>
+					</div>
+				
+			</div>
+			<div class="col-md-6">
+				<label class="bold-lbl"><span class="redAster">*</span>Confirm Password</label>
+				<input class="form-control" name="chkPassword" ng-model="form2.chkPassword" ng-required="true" same-as="form2.Password" type="password" />
+				<div class="invalid-text">Please enter a valid password. Passwords do not match.</div>
+			</div>
+		</li>
+	</ol>
+	<div class="form-group  col-md-3 float-none center-block">
+		<button class="btn btn-block btn-lg btn-primary" type="submit">Continue</button>
+	</div>
+</form>
+<!--<uib-alert close="alert=''" ng-hide="!alert" type="danger">-->
+<!--	{{alert}}-->
+<!--</uib-alert>-->
+		
+
+<!-- Adding this taglib becuase I want to use the spring framework to access the resource bundle -->
+<!-- <div class="form-group text-center">-->
+<!-- <p class="copy-help">-->
+<!-- Need help? Call us.<br>-->
+<!-- <strong>12345678</strong> Mon-Fri, 8am-5:30pm PST-->
+<!-- </p>-->
+<!-- </div>-->

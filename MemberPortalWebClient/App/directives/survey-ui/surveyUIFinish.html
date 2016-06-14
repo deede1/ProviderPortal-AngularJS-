@@ -1,0 +1,60 @@
+﻿
+<div ng-if="SurveySummaryInformation.Summaries.length > 0">
+    <h1 class="survey-summary-title">Survey Summary</h1>
+    <p class="pageIntro ng-binding">{{'form_healthcare_Survey_Finish_Summary' | translate}}</p>
+    <div class="panel">
+        <!--<simple-ajax-loader show="SurveyIsFinshed"></simple-ajax-loader>-->
+        <div class="survey-container survey-print-container">
+            <div>
+
+            </div>
+            <div>
+
+                <div class="non-printable survey-print-button-div">
+                    <button type="button"
+                            class="btn btn-primary"
+                            ng-click="PrintSummary()">
+                        <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print Your Summary
+                    </button>
+                </div>
+                <div>
+                    <div>
+                        <ul class="survey-summary-list">
+                            <li>
+                                <div class="row">
+                                    <div class="survey-summary-item" ng-repeat="summary in SurveySummaryInformation.Summaries">
+                                        <h4 class="survey-summary-name">{{summary.ItemSummaryName}}</h4>
+                                        <h4 class="survey-summary-catagory-score" ng-if="summary.TotalScoreBMI != '' ">{{'form_healthcare_section_Survey_Resource_Catagory_Score' | translate}}: {{summary.TotalScoreBMI}}</h4>
+                                        <h3 class="survey-summary-description">{{summary.SummaryDescrition}}</h3>
+                                        <div class="non-printable" ng-if="summary.ReferenceLinks.length > '0'">
+                                            <div class="survey-summary-resource-links">{{'form_healthcare_section_Survey_Resource_Links' | translate}}</div>
+                                            <div ng-bind-html="summary.ReferenceLinks"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="non-printable survey-print-button-div">
+            <button type="button"
+                    class="btn btn-primary"
+                    ng-click="PrintSummary()">
+                <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print Your Summary
+            </button>
+        </div>
+    </div>
+</div>
+<div>
+    <simple-ajax-loader ng-cloak show="!SurveyIsFinshed"></simple-ajax-loader>
+    <div ng-if="SurveySummaryInformation.Summaries.length == 0">
+        <div class="survey-history-list">
+
+            <!--<simple-error-box ng-cloak show="SurveyError" message="{{ErrorMsg}}"></simple-error-box>-->
+            <h4 style="text-align: center">No summary available for this survey.</h4>
+        </div>
+    </div>
+</div>
+

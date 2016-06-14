@@ -1,0 +1,248 @@
+﻿<div id="rxPrescriptions" class="row contentContainer frmSignIn">
+
+
+
+    <!--  place this in a directive per HealthRecords Category -->
+    <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15">
+        <div class="contentPanel">
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/HealthRecords/RxPrescriptions">
+                <div class="panelTile alignCenter col-xs-6 panelSelected">
+                    {{ 'form_rxPrescriptions' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/MedicalClaims">
+                <div class="panelTile alignCenter col-xs-6">
+                    {{ 'nav_medicalClaims' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/ImmunizationRecords">
+                <div class="panelTile alignCenter col-xs-6">
+                    {{ 'nav_immunizationRecords' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/LabWork">
+                <div class="panelTile alignCenter col-xs-6">
+                    {{ 'nav_labResults' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/Authorizations/All">
+                <div class="panelTile alignCenter col-xs-6 col-xs-offset-3">
+                    {{ 'nav_authorizations' | translate}}
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+    <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12  col-lg-push-3 col-md-push-3">
+        <!--<div class="contentPanel subNavLink">
+            <ul>
+                <li class="subNavSelected"> {{'nav_pharmacyPrescriptions' | translate }} </li>
+                <li><a href="App/HealthRecords/MedicalClaims" class="subNavLink">{{'nav_medicalClaims' | translate }}</a> </li>
+                <li><a href="App/HealthRecords/ImmunizationRecords" class="subNavLink">{{'nav_immunizationRecords' | translate }}</a> </li>
+                <li><a href="App/HealthRecords/LabWork" class="subNavLink">{{'nav_labResults' | translate }}</a> </li>
+                <li><a href="App/HealthRecords/Authorizations/All" class="subNavLink">{{'nav_authorizations' | translate }}</a> </li>
+            </ul>
+        </div>-->
+        <!--<p class="pageDisclaimer"> {{"page_healthrec_rxPrescriptions_disclaimer" | translate}}</p>-->
+        <!--<p class="pageDisclaimer" ng-if="agegroup == 'Age 13-17'">{{'page_healthrec_RxPrescriptions_13thru17' | translate}}</p>-->
+
+        <info-box ng-if="agegroup == 'Age 13-17' " class="center" message="{{'page_healthrec_RxPrescriptions_0thru17' | translate}}"></info-box>
+
+        <info-box ng-if="noResults == 'true'" class=" center" message="{{'form_noResults' | translate}}"></info-box>
+
+
+        <!--<div class="row">
+            <div class="subNavLink  col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a href="App/HealthRecords/ImmunizationRecords" class="subNavLink">{{'form_immunizationRecords' | translate }}</a>
+                <a href="App/HealthRecords/LabWork" class="subNavLink">{{'form_labWork' | translate }}</a>
+                <a href="App/HealthRecords/Authorizations/All" class="subNavLink">{{'form_authorizations' | translate }}</a>
+            </div>
+        </div>-->
+
+        <div class="row panel mobilePanel    solidBackgroundOffwhite noShadow">
+
+            <div class="padLeft0">
+                <h1 class="pageTitle"> {{"page_healthrec_rxPrescriptions_title" | translate}} </h1>
+                <p class="pageIntro">  {{"page_healthrec_rxPrescriptions_intro" | translate}}</p>
+            </div>
+            <p class="col-sm-8 alignLeft"> {{ 'page_healthrec_rxPrescriptions_argusDisclaimer' | translate }}  </p>
+            <br />
+            <ul class="col-sm-7 alignLeft ulLiSquare marginLeft30">
+                <li> {{ 'page_healthrec_rxPrescriptions_argusPoint1' | translate }}</li>
+                <li> {{ 'page_healthrec_rxPrescriptions_argusPoint2' | translate }}</li>
+                <li> {{ 'page_healthrec_rxPrescriptions_argusPoint3' | translate }}</li>
+                <li> {{ 'page_healthrec_rxPrescriptions_argusPoint4' | translate }}</li>
+                <li> {{ 'page_healthrec_rxPrescriptions_argusPoint5' | translate }}</li>
+                <li> {{ 'page_healthrec_rxPrescriptions_argusPoint6' | translate }}</li>
+                <li> {{ 'page_healthrec_rxPrescriptions_argusPoint7' | translate }}</li>
+                <li> {{ 'page_healthrec_rxPrescriptions_argusPoint8' | translate }}</li>
+                <li> {{ 'page_healthrec_rxPrescriptions_argusPoint9' | translate }}</li>
+            </ul>
+            <div class="col-sm-4 infoIcon padTop20 zIndex1000">
+                <simple-ajax-loader show="loadingArgus"></simple-ajax-loader>
+
+                <a id="medicalLink" class=" argusButton floatRight  " href="{{ MediCalURL}}" ng-click="GetArgusRequestToken()" target="_newMediCal">
+                    <div class="btn rxButton ">
+                        {{ 'page_healthrec_rxPrescriptions_mediCal_button' | translate}} &nbsp;&nbsp;&nbsp;
+                    </div>
+                </a>
+                <a id="dualChoiceLink" class=" argusButton    floatRight  " href="{{ DualChoiceURL }}" ng-click="getargusrequesttoken()" target="_newDualChoice">
+                    <div class="btn rxButton ">
+                        {{ 'page_healthrec_rxPrescriptions_dualChoice_button'|translate}}
+                    </div>
+                </a>
+                <a id="calMediConnectLink" class=" argusButton  floatRight  " href="{{ CalMediConnectURL }}" ng-click="getargusrequesttoken()" target="_newCalMediConnect">
+                    <div class="btn rxButton ">
+                        {{ 'page_healthrec_rxPrescriptions_calMediConnect_button'|translate}}
+                    </div>
+                </a>
+
+                <div class=" cancelButton  floatRight  " style="position:relative">
+                    <div id="RxException" class="infoBox">
+                        <info-box message="{{ 'icohelp_RxPrescriptionException' | translate }} "></info-box>
+                    </div>
+                    <a href="App/Info/AskIEHP/RxException">
+                        <div class="rxButton btn"> {{ 'page_healthrec_rxPrescriptions_PrescriptionException'|translate}} </div>
+                    </a>
+
+                    <!--<i id="iconRxException" class="glyphicon glyphicon-question-sign @*iconOnLeft*@"
+                       onclick="toggleBubble('RxException')">
+                    </i>-->
+                    <i id="iconRxException" class="fa fa-question-circle fa-2x" onclick="toggleBubble('RxException')"></i>
+                </div>
+            </div>
+
+            <div class="col-xs-12 padBottom15 padTop15 zIndex1000" ng-if="LobDisplay(Lob) === 'Medicare' || LobDisplay(Lob) === 'Medi-Cal'">
+                <p>By clicking on this button you will be able to request prescription medication:</p>
+                <a class="floatRight alignButtonPharm" href="App/HealthRecords/PrescriptionRequest" ng-if="LobDisplay(Lob) === 'Medicare'">
+                    <div class="rxButton btn">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medicare" | translate}}</div>
+                </a>
+                <a class="floatRight alignButtonPharm" href="App/HealthRecords/PrescriptionRequest" ng-if="LobDisplay(Lob) === 'Medi-Cal'">
+                    <div class="rxButton btn">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medi_Cal" | translate}}</div>
+                </a>
+            </div>
+
+            <div ng-if="agegroup == '18+'" style="z-index:100">
+
+                <div class="col-md-12">
+                    <div class="padLeft15 fontBold padBottom10"> {{ 'page_healthrec_rxPrescriptions_drugHistory'|translate}} </div>
+                    <info-box message="{{infoMessage}}"></info-box>
+                    <danger-box message="{{errorMessage}}"></danger-box>
+
+                    <table class="table borderRadius10 table-striped table-hover table-condensed">
+                        <thead>
+                            <tr class="header">
+                                <th> {{'form_drugName'|translate}} </th>
+                                <th> {{'form_prescriber'|translate}}  </th>
+                                <th> {{'form_filledBy'|translate}} </th>
+                                <th> {{'form_qty'|translate}} </th>
+                                <th> {{'form_filledOn'|translate}} </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="RemoveOnCopy" class="noPrint">
+                        <tr class="rxHistoryItem" ng-cloak ng-repeat="rx in PagedRx[currentPage]">
+                            <td style="width: 300px">{{rx.DrugName}}</td>
+                            <td style="">{{rx.PhysFirstName}} {{rx.PhysLastName}}</td>
+                            <td style="">{{rx.PhrmName}}</td>
+                            <td style="">{{rx.MetricQuantity}}</td>
+                            <td style="">{{rx.OrderDate | date:"MM/dd/yy"}} </td>
+                            <td></td>
+                            <!--<td style=""> <img class="icoRxReminder" ng-click="showReminderOptions( rd.ID, rx.DrugName, rx.OrderDate); " ng-src="{{urlBase}}/Content/Images/ico_reminder.png"/> </td>-->
+                        </tr>
+                    
+                        </tbody>
+                        <tfoot class="noPrint" ng-cloak ng-show="PagedRx.length > 0">
+                            <tr>
+                                <td class="noPrint alignRight" colspan="6" style="padding: 0;">
+                                    <ul id="paginationFooter" ng-if="PagedRx.length >1" class="pagination noPrint" style="margin-top: 5px;">
+                                        <li ng-class="{disabled: currentPage == 0}">
+                                            <a href ng-click="prevPage()">« {{'form_pagingPrevious'|translate}}</a>
+                                        </li>
+                                        <li ng-repeat="n in  range(PagedRx.length, currentPage, currentPage + gap)"
+                                            ng-class="{active: n  == currentPage}"
+                                            ng-click="setPage(n)">
+                                            <a href ng-bind="n + 1">1</a>
+                                        </li>
+                                        <li ng-class="{disabled: (currentPage) == PagedRx.length -1}">
+                                            <a href ng-click="nextPage()">{{'form_padingNext'|translate}} »</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <simple-ajax-loader show="loadingDrugHistory"></simple-ajax-loader>
+                    <info-box message="{{infoMessage}}"></info-box>
+                    <danger-box message="{{errorMessage}}"></danger-box>
+                </div>
+
+            </div>
+            <div debug-tool class="ng-cloak">
+                <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+            </div>
+        </div>
+    </div>
+
+    <!--  place this in a directive per HealthRecords Category -->
+    <div class="  contentLeft leftPanel_large col-lg-3 col-md-3 col-sm-12 col-lg-pull-9 col-md-pull-9 col-sm-pull-0  hidden-xs">
+        <div class="contentPanel leftPanel_large hidden-xs">
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/HealthRecords/RxPrescriptions">
+                <div class="panelTile alignRight panelSelected">
+                    <h2>{{ 'form_rxPrescriptions' | translate}}</h2>
+                    <i class="btn_bak_rx" />
+                </div>
+            </a>
+            <a href="App/HealthRecords/MedicalClaims">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_medicalClaims' | translate}}</h2>
+                    <i class="btn_bak_claims" />
+                </div>
+            </a>
+            <a href="App/HealthRecords/ImmunizationRecords">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_immunizationRecords' | translate}}</h2>
+                    <i class="btn_bak_form" />
+                </div>
+            </a>
+            <a href="App/HealthRecords/LabWork">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_labResults' | translate}}</h2>
+                    <i class="btn_bak_lab" />
+                </div>
+            </a>
+            <a href="App/HealthRecords/Authorizations/All">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_authorizations' | translate}}</h2>
+                    <i class="btn_bak_authorize" />
+                </div>
+            </a>
+
+
+            <!--<div class="pageBannerContainer" ng-controller="SideNavCtrl">
+                 <div ng-if="currentLanguage == 'en-us'">
+                     <div class="leftBanner_TOCL_Yellow textShadow">Power with knowledge. Watch our "<span class="fontWhite">How to Get Care</span>" videos!</div>
+                     <div class="leftBanner_Verdana_White"> </div>
+                 </div>
+                 <div ng-if="currentLanguage == 'es-mx'">
+                     <div class="leftBanner_TOCL_Yellow textShadow">Informarse es la clave. ¡Vea nuestros videos sobre  "<span class="fontWhite">Cómo obtener Atención Médica</span>"!</div>
+                     <div class="leftBanner_Verdana_White"> </div>
+                 </div>
+                 <div id="clickYT" class="leftBannerH3 center">
+                     <img class="vertBanner" ng-src="{{urlBase}}/Content/Images/panel_MedicalClaims.png" /> <br /><br />
+                     <a target="_new" href="https://www.youtube.com/channel/UCrX2w-mgNlvOmyLSBgGCP5A"><img ng-src="{{urlBase}}/Content/Images/panel_youTube.png" /></a>
+                 </div>
+            </div>-->
+        </div>
+    </div>
+
+</div>

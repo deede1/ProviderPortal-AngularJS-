@@ -1,0 +1,38 @@
+﻿<div>
+ 
+    <div class="alert alert-info" role="alert">
+        <span><span class="glyphicon glyphicon-bell"></span> {{ "page_res_resources_youHavePendingRequests" |translate }} </span>
+        <a class="pull-right" href="" ng-click="showDetails = !showDetails">{{"form_details" | translate}}</a>
+        <div ng-show="showDetails" class="row" style="border-top: 1px solid;padding-top: 10px;margin-top: 10px;">
+            <table id="pendingMR" class="table table-condensed table-striped  ">
+                <thead>
+                    <tr>
+
+                        <th>{{"form_name" | translate}}</th>
+                        <th>{{"form_requestedDate" | translate}}</th>
+                        <th>{{"form_sentDate" | translate}}</th>
+                        <th class="center">{{"form_cancel" | translate}}</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="item.Canceled == false" ng-repeat="item in data" ng-class="{'removeHover' : item.DateSent == null}">
+
+                        <td>{{item.DocumentName}} </td>
+
+                        <td>{{item.DateRequested | date:'MM/dd/yy'}}</td>
+                        <td>{{item.DateSent | date:'MM/dd/yy'}} </td>
+
+                        <td class="center">
+                            <span ng-if="item.DateSent == null" class="glyphicon glyphicon-remove cancelButton" ng-click="cancelRequest(item.RequestId)"></span>
+                            <span ng-if="item.DateSent != null"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div debug-tool class="ng-cloak">
+                <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+            </div>
+        </div>
+    </div>
+</div>

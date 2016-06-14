@@ -1,0 +1,143 @@
+﻿<div class="style-guide row">
+    <div class="col-md-12">
+
+
+
+
+
+
+        <section>
+            <h1>Directory Structure</h1>
+            <p>In short, we are aiming for a structure that is as-close-to the <a href="https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure">"Folder-By-Feature"</a> style as we can get. See the John Papa's <a href="https://github.com/johnpapa/angular-styleguide/tree/master/a1">AngularJS Style Guide</a> for more detail.</p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Generic Example:</h2>
+                    <pre>
+/**
+    * recommended
+    */
+app/
+    app.module.js
+    app.config.js
+    components/
+        calendar.directive.js
+        calendar.directive.html
+        user-profile.directive.js
+        user-profile.directive.html
+    layout/
+        shell.html
+        shell.controller.js
+        topnav.html
+        topnav.controller.js
+    people/
+        attendees.html
+        attendees.controller.js
+        people.routes.js
+        speakers.html
+        speakers.controller.js
+        speaker-detail.html
+        speaker-detail.controller.js
+    services/
+        data.service.js
+        localstorage.service.js
+        logger.service.js
+        spinner.service.js
+    sessions/
+        sessions.html
+        sessions.controller.js
+        sessions.routes.js
+        session-detail.html
+        session-detail.controller.js
+</pre>
+                </div>
+                <div class="col-md-6">
+                    <h2>Provider Portal Specific Example</h2>
+                    <pre>
+/**
+    * recommended
+    */
+app/
+    app.module.js
+    app.config.js
+    components/
+        calendar.directive.js
+        calendar.directive.html
+        user-profile.directive.js
+        user-profile.directive.html
+    layout/
+        shell.html
+        shell.controller.js
+        topnav.html
+        topnav.controller.js
+        two-column-wide-right.html
+        header.html
+        footer.html
+        side-nav.html
+    data/
+        provider-data.service.js
+        authentication.service.js
+        logging.service.js
+    rosters/
+        assigned.html
+        ccs.html
+        ccm.html
+        direct-ancillary.html
+        health-management/
+            health-management.controller.js
+            asthma.html
+            care-management.html
+        preventative-care/
+            preventative-care.html
+            preventative-care.controller.js
+            adhd.html
+            well-care-3-6-years.html
+            well-care-0-15-months.html
+            well-care-adolescent.html
+            breast-cancer-screen.html
+            some-directive-name.directive.html
+            some-directive-name.directive.js
+        rosters.routes.js
+        rosters.controller.js
+        rosters.service.js
+        side-navigation.html
+    authorizations/
+        authorizations.html
+        authorizations.controller.js
+        authorizations.routes.js
+        authorizations-search.directive.html
+        authorizations-search.directive.js
+        authorizations-search-result.directive.html
+        authorizations-search-result.directive.js
+    eligibility/
+        eligibility.html
+        eligibility.controller.js
+        eligibility.routes.js
+        eligibility-search.directive.html
+        eligibility-search.directive.js
+        eligibility-search-result.directive.html
+        eligibility-search-result.directive.js
+    claims/
+        claims.routes.js
+        claims-status.html
+        claims-status.controller.js
+    behavioral-health/
+        behavioral-health.html
+        behavioral-health.controller.js
+        behavioral-health.routes.js
+        session-detail.html
+        session-detail.controller.js
+</pre>
+
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h1>New Section Headline</h1>
+            <div>
+                <em>Your stuff here...</em>
+            </div>
+        </section>
+    </div>
+</div>

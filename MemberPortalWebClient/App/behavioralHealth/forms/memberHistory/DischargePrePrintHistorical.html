@@ -1,0 +1,548 @@
+﻿
+
+<!DOCTYPE html>
+<head>
+
+</head>
+<body>
+
+    <div class="noPrint no-pointer-events">
+        <div class="noPrint IE8-no-pointer-events"></div>
+        <form id="frmDischargePre" name="frmDischargePre">
+
+            <table width="600px" border="0">
+                <tr>
+                    <td align="center">
+                        <img src="../HistoricalHTMLImages/ClinicalDischargeSummaryPre.gif" width="509" height="48">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <input type="button" value="BH Form History" id=search name=search class="button">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2">
+                        <table align="left" width="550">
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    MEMBER INFORMATION
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table width="600px" cellpadding="0" cellspacing="3">
+                                        <tr>
+                                            <td id="hdr" name="hdr">
+                                                Name
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                IEHP ID
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                DOB
+                                            </td>  
+                                            <td id="hdr" name="hdr">
+                                                Age
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                Sex
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="info" name="info">
+                                                <span id="memberName"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberSubno"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberDob"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberAge"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberSex"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="hdr" name="hdr" colspan="2">
+                                                Address
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                City
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                ST
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                Zip
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="info" name="info" colspan="2">
+                                                <span id="memberStreet"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberCity"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberState"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberZip"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="hdr" name="hdr">
+                                                Phone
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                County
+                                            </td>
+                                            <td id="hdr" name="hdr" colspan="2">
+                                                Medi-Cal #
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                LOB
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="info" name="info">
+                                                <span id="memberPhone"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberCounty"></span>
+                                            </td>
+                                            <td id="info" name="info" colspan="2">
+                                                <span id="memberMediCalNumber"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberLOB"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    PROVIDER INFORMATION
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table width="600px" cellpadding="0" cellspacing="3">
+                                        <tr>
+                                            <td id="hdr" name="hdr">
+                                                Practitioner Requesting Initial Authorization
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                ID
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="info" name="info">
+                                                <!--Provider Name-->
+                                                <span id="providerName"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <!--Provider ID-->
+                                                <span id="providerId"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table width="600px" cellpadding="0" cellspacing="3">
+                                        <tr>
+                                            <td id="info" name="info" style="font-size: 9pt;">
+                                                Member Signed Release<input type="radio" id="rdoRelease" name="rdoRelease" value="1" style="font-size: 9pt;">Yes<input type="radio" id="rdoRelease" name="rdoRelease" value="0" style="font-size: 9pt;">No
+                                                (If No, this information will NOT be forwarded to the PCP)
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    STATUS OF PROBLEMS AS OF FINAL VISIT
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table border="0" width="600px">
+                                        <tr>
+                                            <td id="info" name="info" style="color: red; font-size: 8pt;">
+                                                (Select At Least One from Below)
+                                            <td id="info" name="info" align="right">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="600px" cellpadding="1px" cellspacing="0px">
+                                        <tr>
+                                            <td colspan="6" align="center" id="hdr3" name="hdr3" nowrap>
+                                                Rating of Level of Severity:
+                                                <a href="LevelofSeverityDesc.asp" target="_blank" title="The member has few symptoms other than the minimum criteria needed. Symptoms result in no more than minor impairment in social or occupational functioning.">1=Mild;</a>
+                                                <a href="LevelofSeverityDesc.asp" target="_blank" title="Intermediate between Mild and Severe.  Symptoms or functional impairment between 'mild' and 'severe' are present.">2=Moderate;</a>
+                                                <a href="LevelofSeverityDesc.asp" target="_blank" title="The member has many more symptoms than the minimum criteria specify, or some symptoms are especially severe, or functioning in society or at work is especially compromised.">3=Severe;</a>
+                                                Leave Blank if not applicable
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="hdr3" name="hdr3">
+                                                &nbsp;
+                                            </td>
+                                            <td id="hdr3" name="hdr3" style="border-right: 1px solid #C3C3C3;">
+                                                1&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;3
+                                            </td>
+                                            <td id="hdr3" name="hdr3">
+                                                &nbsp;
+                                            </td>
+                                            <td id="hdr3" name="hdr3" style="border-right: 1px solid #C3C3C3;">
+                                                1&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;3
+                                            </td>
+                                            <td id="hdr3" name="hdr3">
+                                                &nbsp;
+                                            </td>
+                                            <td id="hdr3" name="hdr3">
+                                                1&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;3
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Anxiety
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoAnxiety" name="rdoAnxiety" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoAnxiety" name="rdoAnxiety" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoAnxiety" name="rdoAnxiety" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Assaultive Behavior
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoAssultive" name="rdoAssultive" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoAssultive" name="rdoAssultive" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoAssultive" name="rdoAssultive" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Hallucination <input type="checkbox" id="chkAuditory" name="chkAuditory" style="font-size: 8pt;">Auditory<input type="checkbox" id="chkVisual" name="chkVisual" style="font-size: 8pt;">Visual
+                                            </td>
+                                            <td nowrap>
+                                                <input type="radio" id="rdoHallucination" name="rdoHallucination" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoHallucination" name="rdoHallucination" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoHallucination" name="rdoHallucination" value="3" style="width: 8pt;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Depression
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoDepression" name="rdoDepression" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoDepression" name="rdoDepression" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoDepression" name="rdoDepression" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Conduct Disorder
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoConduct" name="rdoConduct" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoConduct" name="rdoConduct" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoConduct" name="rdoConduct" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Paranoia
+                                            </td>
+                                            <td nowrap>
+                                                <input type="radio" id="rdoParanoia" name="rdoParanoia" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoParanoia" name="rdoParanoia" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoParanoia" name="rdoParanoia" value="3" style="width: 8pt;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Sleep Disorder
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoSleep" name="rdoSleep" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoSleep" name="rdoSleep" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoSleep" name="rdoSleep" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Attention Problems
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoAttention" name="rdoAttention" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoAttention" name="rdoAttention" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoAttention" name="rdoAttention" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Dissociative Process
+                                            </td>
+                                            <td nowrap>
+                                                <input type="radio" id="rdoDissociative" name="rdoDissociative" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoDissociative" name="rdoDissociative" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoDissociative" name="rdoDissociative" value="3" style="width: 8pt;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Weight Change
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoWeight" name="rdoWeight" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoWeight" name="rdoWeight" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoWeight" name="rdoWeight" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Concentration Difficulty
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoConcentration" name="rdoConcentration" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoConcentration" name="rdoConcentration" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoConcentration" name="rdoConcentration" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Substance Abuse
+                                            </td>
+                                            <td nowrap>
+                                                <input type="radio" id="rdoSubstance" name="rdoSubstance" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoSubstance" name="rdoSubstance" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoSubstance" name="rdoSubstance" value="3" style="width: 8pt;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Isolation
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoIsolation" name="rdoIsolation" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoIsolation" name="rdoIsolation" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoIsolation" name="rdoIsolation" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Confusion
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoConfusion" name="rdoConfusion" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoConfusion" name="rdoConfusion" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoConfusion" name="rdoConfusion" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Eating Disorder
+                                            </td>
+                                            <td nowrap>
+                                                <input type="radio" id="rdoEating" name="rdoEating" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoEating" name="rdoEating" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoEating" name="rdoEating" value="3" style="width: 8pt;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Obsessive/Compulsive
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoObsessive" name="rdoObsessive" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoObsessive" name="rdoObsessive" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoObsessive" name="rdoObsessive" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Dementia
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoDementia" name="rdoDementia" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoDementia" name="rdoDementia" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoDementia" name="rdoDementia" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Other <input type="text" id="txtOther" name="txtOther" style="font-size: 8pt;" maxlength=25>
+                                            </td>
+                                            <td nowrap>
+                                                <input type="radio" id="rdoOtherProblem" name="rdoOtherProblem" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoOtherProblem" name="rdoOtherProblem" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoOtherProblem" name="rdoOtherProblem" value="3" style="width: 8pt;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3" style="border-bottom: 1px solid #c3c3c3;">
+                                                Aggressive Behavior
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3; border-bottom: 1px solid #c3c3c3;">
+                                                <input type="radio" id="rdoAggressive" name="rdoAggressive" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoAggressive" name="rdoAggressive" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoAggressive" name="rdoAggressive" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3" style="border-bottom: 1px solid #C3C3C3;">
+                                                Dizziness, Light-Headed
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3; border-bottom: 1px solid #c3c3c3;">
+                                                <input type="radio" id="rdoDizziness" name="rdoDizziness" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoDizziness" name="rdoDizziness" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoDizziness" name="rdoDizziness" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3" style="border-bottom: 1px solid #C3C3C3;">
+                                                &nbsp;
+                                            </td>
+                                            <td nowrap style="border-bottom: 1px solid #C3C3C3;">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    REASON FOR DISCONTINUATION OF TREATMENT <span style="font-weight: 500; font-size: 8pt; color: red;">(Select One From Below)</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table border="0" width="600px" id=DisconTreat name=DisconTreat>
+                                        <tr>
+                                            <td>
+                                                <input type="radio" id="radDisconRsn" name="radDisconRsn" value=1> Member Completed Treatment Plan.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="radio" id="radDisconRsn" name="radDisconRsn" value=2> Member dropped out of Teatment, reason unknown.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="radio" id="radDisconRsn" name="radDisconRsn" value=3> Member relocated out of the area.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="radio" id="radDisconRsn" name="radDisconRsn" value=4> Member was not interested in or felt no need for further treatment.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="radio" id="radDisconRsn" name="radDisconRsn" value=5> Other/Comments: <input type="text" id="txtDisconOther" name="txtDisconOther" style="font-size: 8pt; width: 463px;" maxlength="100">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    FOLLOW UP INTERVENTIONS <span style="font-weight: 500; font-size: 8pt; color: red;">(Select At Least One From Below)</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table border="0" width="600px" id=Followup1 name=Followup1>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="ckNoAtRisk" name="ckNoAtRisk"> Member is not &quot;at risk&quot; and follow up intervetions are not required at this time.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="ckDissatisfied" name="ckDissatisfied"> Member was dissatisfied with the treatment plan or with Practitioner - referred to IEHP for
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;New Practitioner Referral.
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table border="0" width="600px" id=Followup2 name=Followup2>
+                                        <tr>
+                                            <td>
+                                                Member is considered to be &quot;at risk&quot; and it is against clinician advice for member to discontinue treatment at this time due to:
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 20px;">
+                                                <input type="checkbox" id="ckSeverity" name="ckSeverity"> Severity of Symptoms/Problems
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 20px;">
+                                                <input type="checkbox" id="ckFunction" name="ckFunction"> Functioning Level is significantly impaired
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 20px;">
+                                                <input type="checkbox" id="ckSubstance" name="ckSubstance"> Ongoing Substance Abuse that endangers Member's Health
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 20px;">
+                                                <input type="checkbox" id="ckSuicidal" name="ckSuicidal"> Suicidal Ideation without plan or means
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 20px;">
+                                                <input type="checkbox" id="ckATOther" name="ckATOther"> Other/Comments: <input type="text" id="txtFollowUpOther" name="txtFollowUpOther" style="font-size: 8pt; width: 440px;" maxlength="100">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    FOLLOW UP INTERVENTIONS REQUESTED FOR &quot;AT RISK&quot; MEMBERS <br><span style="font-weight: 500; font-size: 8pt; color: red;">(Select At Least One From Below for "AT RISK" Members)</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table border="0" width="600px" id=DocFollowup name=DocFollowup>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="ckComplex" name="ckComplex"> Clinician Requests IEHP BH Care Management to follow-up with member
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="ckContacted" name="ckContacted"> Clinician has Contacted Member to recommend further treatment
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="ckNotify" name="ckNotify"> Clinician requests IEHP BH Care Manager to notify PCP of unresolved risk factors
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="ckDocOther" name="ckDocOther"> Other/Comments: <input type="text" id="txtDocOther" name="txtDocOther" style="font-size: 8pt; width: 463px;" maxlength="100">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                        </table>
+            </table>
+        </form>
+    </div>
+    <tr>
+        <td style="text-align: center">
+            <br><br>
+            <input value="Print Form" id="sb" name="Print" onclick="window.print();" type="button">
+
+            <br><br><br><br>
+        </td>
+    </tr>
+</body>
+
+<script type="text/javascript">
+
+    var data = @Html.Raw(JsonConvert.SerializeObject(this.Model));
+    $(function() {
+        loadHistoricalFormValues(data);
+    });
+
+</script>

@@ -1,0 +1,84 @@
+﻿<div>
+    
+    <h2>Search</h2>
+    <form ng-submit="vm.search()">
+        
+        <iehp-expression-box model="vm.searchTerm" placeholder="Search by Member or Reference number" class="authorization-search-box"></iehp-expression-box>
+        <span ng-click="vm.toggleAdvanced()">Advanced</span>
+        <div ng-hide="vm.showAdvanced" >
+            <!--Directive?-->
+            <span>Last</span><input type="number" value="5" min="1" max="30"/><span>Days</span>
+        </div>
+        
+        <div class="advanced-search-options" ng-show="vm.showAdvanced">
+            <div>
+                <h4>Date Range:</h4>
+                <div class="form-group">
+                    <label for="date-range-from">From:</label>
+                    <div class="datepicker"
+                         date-max-limit="{{vm.today}}"
+                         date-format="MM/dd/yyyy"
+                         selector="date-input">
+                        <span class="btn btn-default icon input"><i class="glyphicon glyphicon-calendar"></i></span>
+                        <input class="form-control date-input"
+                               ng-model="vm.param.fromDate"
+                               required
+                               name="date-range-from"
+                               type="text" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="date-range-to">To:</label>
+                    <div class="datepicker"
+                         date-max-limit="{{vm.today}}"
+                         date-format="MM/dd/yyyy"
+                         selector="date-input">
+                        <span class="btn btn-default icon input"><i class="glyphicon glyphicon-calendar"></i></span>
+                        <input class="form-control date-input"
+                               ng-model="vm.param.toDate"
+                               required
+                               name="date-range-to"
+                               type="text" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4>Included Types:</h4>
+                <ul class="list-inline">
+                    <li ng-repeat="authType in vm.authorizationTypes">
+                        <label><input type="checkbox" checklist-model="vm.types" checklist-value="authType">{{authType}}</label>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <label><input type="checkbox" ng-model="vm.param.inpatientOnly" />Inptient Only</label>
+            </div>
+            <div>
+                <label>Any Provider Id:</label>
+                <input type="text" placeholder="Any Provider Id" ng-model="vm.param.anyProviderId" />
+            </div>
+            <br/>
+            <fieldset-drawer opened-legend="Less" closed-legend="More">
+                <input type="text" placeholder="Subscriber Number" ng-model="vm.param.subscriberNumber" />
+                <input type="text" placeholder="Requesting Provider Id" ng-model="vm.param.requestingProviderId" />
+                <input type="text" placeholder="Servicing Provider Id" ng-model="vm.param.servicingProviderId" />
+                <input type="text" placeholder="Facility Provider Id" ng-model="vm.param.facilityProviderId" />
+                <input type="text" placeholder="Member Pcp Id" ng-model="vm.param.memberPcpId" />
+                <input type="text" placeholder="Category (make dropdown)" ng-model="vm.param.category" />
+                <input type="text" placeholder="Status (make dropdown)" ng-model="vm.param.status" />
+                <input type="text" placeholder="Status Reason (make dropdown)" ng-model="vm.param.statusReason" />
+                <input type="text" placeholder="Authorization Number" ng-model="vm.param.authorizationNumber" />
+                <input type="text" placeholder="Request Type (make dropdown)" ng-model="vm.param.authRequestType" />
+                <input type="text" placeholder="Priority (make dropdown)" ng-model="vm.param.priority" />
+            </fieldset-drawer>
+            
+            
+            
+        </div>
+
+        <input type="submit" value="Search"/>
+    </form>
+    
+    <authorization-search-results></authorization-search-results>
+
+</div>

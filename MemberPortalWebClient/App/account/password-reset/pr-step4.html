@@ -1,0 +1,45 @@
+﻿<form class="pp-form text-left" name="changePasswordForm" ng-submit="submit(changePasswordForm)" novalidate>
+	<h1 class="pad-md text-center">
+		Step 4: <span class="step-color">New Password</span>
+	</h1>
+	<div class="form-section">
+		<ol class="list-group">
+			<li class="clearfix list-group-item slim-grid with-background">
+				<div class="col-md-6 col-xs-12 text-left">
+					<label class="bold-lbl req">New Password:</label>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<input class="form-control" name="newPassword" ng-model="form.newPassword" ng-pattern="passwordRegex" required tabindex="2" type="password">
+					<div class="invalid-text">
+						Password must be:
+						<ul>
+							<li>
+								At least 8 characters
+							</li>
+							<li>At least 1 Uppercase character</li>
+							<li>At least 1 Lowercase character</li>
+							<li>At least 1 Special character</li>
+							<li>At least 1 Number</li><li>No Whitespace character</li>
+						</ul>
+					</div>
+
+				</div>
+			</li>
+			<li class="clearfix list-group-item slim-grid with-background">
+				<div class="col-md-6 col-xs-12 text-left">
+					<label class="bold-lbl req">Confirm New Password:</label>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<input class="form-control" name="confirmNewPassword" ng-model="form.chkNewPassword" ng-required="true" same-as="form.newPassword" tabindex="3" type="password">
+					<div class="invalid-text">Please enter a valid password. Passwords do not match.</div>
+				</div>
+			</li>
+		</ol>
+	</div>
+
+	<div class="center-block col-md-3 float-none form-group">
+		<button class="btn btn-block btn-lg btn-primary" tabindex="4" type="submit">Submit</button>
+	</div>
+</form>  
+						 
+<uib-alert close="alert=''" ng-hide="!alert" type="danger">{{alert}}</uib-alert>

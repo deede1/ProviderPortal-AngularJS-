@@ -1,0 +1,247 @@
+﻿<div class="contentPanel1 contentRight " id="claims-status">
+	<div class="form  ofl-visible">
+
+
+		<div class="form panel">
+			<h1 class="pageTitle"> Claims Status </h1>
+			<p class="pageIntro ">
+				Inland Empire Health Plan's (IEHP) Claims Status page offers a fast and convenient way to view the status of claims submitted for services.
+			</p>
+		</div>
+
+		<div class="">
+			<div class="col-sm-12 contentPanel eligibilityMemberSearchContainer  row">
+				<div click="search.inputCollapsed" pp-accordion-pane="Search"></div>
+			</div>
+			<div class="contentPanel row">
+				<pp-search-type class="block clearfix" label="Enter IEHP ID, CIN, SSN, {{canUseCheck ? 'Check,' : ''}} or Claim Number">
+					<div class="filter">
+						<div class="col-md-12 input-row"
+								 ng-class="{'active':search.advancedFilter === 'dateRange', 'valid': search.validateRange() === true}">
+							<div class="glyphicon glyphicon-ok-circle selected-input"
+									 ng-class="{'selected': search.advancedFilter === 'dateRange'}"
+									 ng-click="search.advancedFilter = search.advancedFilter === '' ? 'dateRange' : '';search.beganSearch = true"></div>
+							<label class="col-md-4 control-label date-range" for="formGroupInputLarge"
+										 ng-click="search.advancedFilter = search.advancedFilter === '' ? 'dateRange' : '';search.beganSearch = true">Filter Date Range (max 120 days)</label>
+							<p class="input-group">
+								<div class="col-md-3">
+									<div class="datepicker  date-input-align"
+											date-format="MM/dd/yyyy"
+											date-max-limit="{{search.maxRange}}"
+											ng-if="search.advancedPane"
+											selector="min-range">
+										<span class="btn btn-default icon input" ng-click="">
+											<i class="glyphicon glyphicon-calendar hidden-xs hidden-sm hidden-md"></i>
+										</span>
+										<input class="form-control min-range "
+													 ng-blur="search.validateRange();search.checkDate = true;" ng-class="{'invalid':  !search.validateRange(search.minRange) }" ng-model="search.minRange"
+													 ng-click="search.advancedFilter = 'dateRange';search.beganSearch = true; search.checkDate = false" type="text" tabindex=2>
+
+									</div>
+
+								</div>
+								<div class="to-text">to</div>
+								<div class="col-md-3">
+									<div class="datepicker  date-input-align"
+											 date-format="MM/dd/yyyy"
+											 date-max-limit="{{today | date: 'MM/dd/yyyy'}}"
+											 ng-if="search.advancedPane"
+											 selector="max-range">
+										<span class="btn btn-default icon input" ng-click="">
+											<i class="glyphicon glyphicon-calendar hidden-xs hidden-sm hidden-md"></i>
+										</span>
+										<input class="form-control max-range "
+													 ng-blur="search.validateRange();search.checkDate = true" ng-class="{'invalid':  !search.validateRange(search.maxRange) }"
+													 ng-click="search.advancedFilter = 'dateRange';search.beganSearch = true; search.checkDate = false" ng-model="search.maxRange" type="text" tabindex=3>
+									</div>
+								</div>
+							</p>
+							<div class="help-block invalid-text" ng-hide="search.validateRange() === true || !search.checkDate">{{search.validateRange()}}</div>
+						</div>
+
+						<div class="close-btn glyphicon glyphicon-remove"
+								 ng-click="search.advancedFilter = ''" ng-show="search.advancedFilter === 'dateRange'"></div>
+					</div>
+
+				</pp-search-type>
+
+			</div>
+		</div>
+		<div class="contentPanel content-results posRelative row" ng-animate>
+			<div simple-ajax-loader class="fixed-loader" show="search.status === 1"></div>
+
+			<pp-pagination-block ng-if="search.results[0].MemberNumber.length">
+				<div class="col-md-12">
+					<div class="pull-left search-filters">
+						<strong class="pad-md">
+							Search By:
+							<div class="label label-warning" ng-if="search.status === 2 && search.cachedQuery.value.length">
+								{{::search.cachedQuery.value}} ({{::search.cachedQuery.typeName}})
+								<span class="glyphicon glyphicon-remove remove-filter" ng-click="search.updateFilters('value')"></span>
+							</div>
+							<!---->
+							<!-- <div class="label label-warning"-->
+							<!-- ng-if="(!search.cachedQuery.value.length -->
+							<!-- && search.cachedQuery.advancedFilter !== 'dateRange'-->
+							<!-- || search.cachedQuery.advancedFilter === 'displayWithinDays')-->
+							<!-- && search.cachedQuery.advancedFilter !== null">-->
+							<!-- Last {{search.cachedQuery.displayWithinDays}} Days-->
+							<!-- <span class="glyphicon glyphicon-remove remove-filter" ng-click="search.updateFilters('displayWithinDays')"></span>-->
+							<!-- </div>-->
+
+							<div class="label label-warning"
+									 ng-if="(!search.cachedQuery.value.length  || search.cachedQuery.advancedFilter === 'dateRange')
+							 && search.cachedQuery.advancedFilter !== null">
+								{{search.cachedQuery.startDate}} - {{search.cachedQuery.endDate}}
+								(<ng-pluralize count="search.cachedQuery.totalRange"
+															 when="{'1': '1 Day',
+                     'other': '{} Days'}"></ng-pluralize>)
+								<span class="glyphicon glyphicon-remove remove-filter" ng-click="search.updateFilters('dateRange')"></span>
+							</div>
+						</strong>
+<!--						<div>	<strong class="pad-md">Check Total: </strong><small>{{search.totalCheck | currency: "$": 2 }}</small></div>-->
+					</div>
+					<div ng-if="search.totalCheck" class="pull-right search-filters">
+						<strong class="pad-md">Check Total: </strong><small>{{search.totalCheck | currency: "$": 2 }}</small>
+					</div>
+				</div>
+				<!-- <div class="pull-left" ng-if="search.cachedQuery.type === 5">-->
+				<!-- <strong class="pad-md">Filters: Received by ProviderID In Last 120 Days</strong>-->
+				<!-- </div>-->
+			</pp-pagination-block>
+			<table class="col-sm-12 results-accordion roster table " ng-show="search.results[0].MemberNumber.length">
+				<thead>
+					<tr class="header sorting">
+						<th pp-sortable-table-header="PrimaryDateOfService">Primary DOS</th>
+						<th pp-sortable-table-header="ReceivedDate">Received</th>
+						<th pp-sortable-table-header="ProviderName">Provider</th>
+						<th pp-sortable-table-header="LastName">Member</th>
+						<th pp-sortable-table-header="MemberNumber">IEHP ID</th>
+						<th pp-sortable-table-header="ClaimNumber">Claim Number</th>
+						<th class="non-sortable">Billed Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr class="line-item"
+							ng-animate="'animate'"
+							ng-class="item.expand ? 'expand no-hover' : ''"
+							ng-click="search.rowSelect(item)"
+							ng-repeat-start="item in search.results">
+						<td>
+							<span class="accordion-icon glyphicon glyphicon-chevron-right" ng-class="item.expand ? 'active' : ''"></span>
+							{{ ::item.PrimaryDateOfService | date:'MM/dd/yyyy'}}
+						</td>
+						<td>{{ ::item.ReceivedDate | date:'MM/dd/yyyy'}}</td>
+						<td>{{ ::item.ProviderName }} </td>
+						<td>
+							{{ ::item.LastName }}, {{ ::item.FirstName }}
+						</td>
+
+						<td>{{ ::item.MemberNumber }} </td>
+						<td>{{ ::item.ClaimNumber }} </td>
+						<td>{{ ::item.Billed }} </td>
+					</tr>
+					<tr class="claim-details-cell details no-hover" ng-class="item.expand ? 'enter' : 'leave'" ng-repeat-end="">
+						<td colspan="7" ng-if="item.expand && search.status !== 1">
+							<!-- <div show="item.search.status === 1" simple-ajax-loader></div>-->
+							<div class="details-content" ng-if="search.status !== 1 && search.detailsCache[search.selectedClaimID][0].LastName">
+								<h3>Claim Details</h3>
+
+								<div class="row">
+									<div class="col-lg-4">
+										<dl class="dl-horizontal">
+											<dt>Member:</dt>
+											<dd>
+												<strong>{{::search.detailsCache[search.selectedClaimID][0].LastName}}, {{::search.detailsCache[search.selectedClaimID][0].FirstName}}</strong>
+											</dd>
+											<dt>DOB:</dt>
+											<dd>{{::search.detailsCache[search.selectedClaimID][0].DateOfBirth | date:'MM/dd/yyyy'}}</dd>
+											<dt>IEHP ID:</dt>
+											<dd>{{::search.detailsCache[search.selectedClaimID][0].MemberNumber}}</dd>
+
+										</dl>
+									</div>
+									<div class="col-lg-4">
+										<dl class="dl-horizontal">
+											<dt>Account #:</dt>
+											<dd>{{::search.detailsCache[search.selectedClaimID][0].AccountNumber}}</dd>
+											<dt>Claim #:</dt>
+											<dd>{{::search.detailsCache[search.selectedClaimID][0].ClaimNumber}}</dd>
+											<dt>Check #:</dt>
+											<dd>{{::search.detailsCache[search.selectedClaimID][0].CheckNumber}}</dd>
+										</dl>
+									</div>
+									<div class="col-lg-4">
+										<dl class="dl-horizontal">
+											<dt>CIN:</dt>
+											<dd>{{::search.detailsCache[search.selectedClaimID][0].Cin}}</dd>
+											<dt>Received Date:</dt>
+											<dd>{{::search.detailsCache[search.selectedClaimID][0].ReceivedDate | date:'MM/dd/yyyy'}} </dd>
+											<dt>Post Date:</dt>
+											<dd>{{::search.detailsCache[search.selectedClaimID][0].PostDate | date:'MM/dd/yyyy'}} </dd>
+										</dl>
+									</div>
+								</div>
+								<table class="table table-condensed table-striped">
+									<thead class="no-hover">
+										<tr class="no-hover">
+											<th>Line</th>
+											<th>From / To</th>
+											<th>Procedure</th>
+											<th>Quantity</th>
+											<th>Billed</th>
+											<th>Allow</th>
+											<th>Not Covered</th>
+											<th>Co-Pay</th>
+											<th>Net Paid</th>
+											<th>Status</th>
+											<th>Allow Reason</th>
+											<th>Not Covered Reason</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr  class="no-hover" ng-animate=" 'animate' " ng-repeat="line in search.detailsCache[search.selectedClaimID]">
+											<th>{{::line.ClaimLine}}</th>
+											<td>{{::line.ServiceStartDate | date:'MM/dd/yyyy'}} - {{::line.ServiceEndDate | date:'MM/dd/yyyy'}}</td>
+											<td pp-table-tooltip="{{::line.ProcedureDescription}}">{{::line.ProcedureCode}}</td>
+											<td>{{::line.Quantity | number: 0}}</td>
+											<td>{{::line.Billed | currency: "$": 2}}</td>
+											<td>{{::line.AmountAllowed | number: 2}}</td>
+											<td>{{::line.AmountNotCovered | currency: "$": 2}}</td>
+											<td>{{::line.CoPay | currency: "$": 2}}</td>
+											<td>{{::line.NetPayment | currency: "$": 2}}</td>
+											<td pp-table-tooltip="{{::line.ClaimStatusTitle}}">{{::line.ClaimStatus}}</td>
+											<td pp-table-tooltip="{{::line.AllowedReasonTitle}}">{{::line.AllowedReason}}</td>
+											<td pp-table-tooltip="{{::line.DeniedReasonTitle}}">{{::line.NotCoveredReason || "N/A"}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<button class="btn btn-defaul claims-appeals" ng-click="line.expand = !line.expand" type="button">View Claims Appeals Policy</button>
+								<div class="claims-appeals-policy" ng-animate="'animate'" ng-if="line.expand">
+									<div class="well well-lg">
+										<pp-claims-appeals-policy></pp-claims-appeals-policy>
+									</div>
+								</div>
+								<p ng-if="search.detailsCache[search.selectedClaimID] === null">Claim Not found.</p>
+							</div>
+							<div ng-if="!search.detailsCache[search.selectedClaimID][0].LastName">
+								<p>Claim Received and in Process. Thank you.</p>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div ng-hide="search.status === 1">
+				<uib-alert class="text-center" ng-if="search.totalRows < 1 && !alert  && !errorMessage.length" type="danger" ng-cloak>
+					<div ng-if="search.totalRows == 0">No Results Found.</div>Please try a different search.
+				</uib-alert>
+				<uib-alert ng-hide="!alert"type="danger" class="text-center">Please enter a search parameter.</uib-alert>
+			</div>
+			<pp-pagination-block class="clearfix block" ng-show="search.totalRows > search.pageSize && search.results.length"></pp-pagination-block>
+
+			<danger-box message="{{errorMessage}}"></danger-box>
+		</div>
+	</div>
+</div>

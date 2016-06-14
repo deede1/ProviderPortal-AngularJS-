@@ -1,0 +1,81 @@
+﻿
+<div class="row">
+    <div class="col-md-12 historySH">
+        <h1>Behavioral Health Member History</h1>
+    </div>
+    <div class="col-md-12" ng-controller="MemberHistoryController as MHCtrl">
+
+        <div id="searchMenu" class="row searchSelectInterface" ng-cloak>
+
+            <ng-form name="searchInput">
+                <div class="input-group col-md-6  padding10 center-div">
+                    <span class=" input-group-addon bold-font" tooltip="Enter an IEHP Member's ID, Social Security number (without spaces or dashes) or CIN" id="basic-addon3" tooltip-placement="bottom" style="background-color: white;">
+                        Member ID / Social Security / CIN
+                    </span>
+                    <input id="memberId" name="memberId" ng-disabled="searching" ng-keyup="displayInputSearchType(searchInput)" ng-enter="SearchAuths(searchInput)" minlength="9" maxlength="14" ng-model="memberId" type="text" class="form-control" required />
+                    <span class="input-group-btn">
+                        <button disabled type="button" id="searchButton" class="btn btn-primary" ng-click="SearchAuths(searchInput);"><i class=" glyphicon glyphicon-search"></i> {{inputSearchType}}</button>
+                    </span>
+                </div>
+            </ng-form>
+
+            <div id="loading" class="text-center"></div>
+
+            <div class="text-center" ng-show="memberHistoryList.length == 0 && searched">
+                <span><i style="color: red; font-weight: bold; padding: 10px;">No Behavioral Health history found</i></span>
+            </div>
+
+            <div ng-show="memberHistoryList.length > 0">
+                <hr />
+            </div>
+
+
+            <div ng-show="memberHistoryList.length > 0" style="padding: 8px; box-shadow: 1px 1px 3px 1px lightgrey; background-color: white; margin: 5px; border-radius: 3px;">
+
+                <div class="text-center" style="font-weight: bold">
+                    <span style="color:#616161;">Behavioral Health Forms Submitted For:</span><span> {{memberHistoryList[0].Results[0].MemberName }}</span> <span style="font-style:oblique">- {{memberHistoryList[0].Results[0].MemberId}}</span>
+
+                </div>
+                <div style="padding: 10px;" ng-repeat="prov in memberHistoryList">
+
+
+                    <div>
+                        <div>  
+                            <label style="font-weight: bold; font-style: italic; margin: 0;">Submitted By:</label><label tooltip="Provider ID: {{prov.Results[0].ProviderId}}" tooltip-placement="top" style="color: red;">{{prov.ProviderName}}</label>
+                        </div>
+                        <div>
+
+                            <table class="table table-striped table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Date of Service</th>
+                                        <th>Date of Submission</th>
+                                        <th>Behavioral Health Form</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-click="record.isCollapsed = !record.isCollapsed" id="formTable" ng-cloak ng-repeat="record in prov.Results track by $index">
+                                    <td class="historyRecordSelect">{{record.DateOfService | date :MM/dd/yyyy}}</td>
+                                    <td class="historyRecordSelect">{{record.Submitted | date :MM/dd/yyyy}}</td>
+                                    <td class="historyRecordSelect" ng-if="!record.isHistorical" style="cursor: pointer !important;" ng-click="GetHtmlRecord(record )">{{record.FormName}}</td>
+                                    <td class="historyRecordSelect" ng-if="record.isHistorical"><a target="_blank" ng-click="GetHistoricalRecord(this)">{{record.FormName}}</a></td>
+                                    <div uib-collapse="record.isCollapsed" class="well well-lg">Some content</div>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-cloak ng-show="">
+                <h4>No records found.</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .historyRecordSelect {
+        cursor: pointer;
+    }
+</style>

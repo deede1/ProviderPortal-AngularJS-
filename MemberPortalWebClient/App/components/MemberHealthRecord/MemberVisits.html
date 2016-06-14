@@ -1,0 +1,130 @@
+﻿<div class="panel-heading" ng-click="sections['MV'] = !sections['MV']">
+    <i class="pull-left glyphicon"
+       ng-class="{'glyphicon-chevron-down': sections['MV'], 'glyphicon-chevron-right': !sections['MV']}">
+    </i>&nbsp;
+    <span class="panel-header-title">Medical Visits</span>
+</div>
+
+<div ng-if="sections['MV']" class="panel-body">
+    <nav id="memberVisitsNav" style="text-align: right; position: relative;" ng-if="totalPages > 1" class="non-printable">
+        <div class="col-xs-12">
+            <div class="pager-info">
+                {{startItem(currentPage)}} - {{endItem(currentPage)}} of {{TotalListCount}}
+            </div>
+        </div>
+    </nav>
+    <table class="table table-striped" id="medical-visits">
+        <thead ng-if="Visits">
+        <tr class="sorting">
+            <th ng-click="changeSort('admitDate')">
+                <span class="glyphicon"
+                              ng-class="{'glyphicon-arrow-up': !sortReverse  &&  sortCol === 'admitDate', 'glyphicon-arrow-down': sortReverse  &&  sortCol === 'admitDate'}">
+                        </span> Admit Date
+            </th>
+            <th ng-click="changeSort('thruDate')">
+                <span class="glyphicon"
+                              ng-class="{'glyphicon-arrow-up': !sortReverse  &&  sortCol === 'thruDate', 'glyphicon-arrow-down': sortReverse   &&  sortCol === 'thruDate'}">
+                        </span>ThruDate
+            </th>
+            <th ng-click="changeSort('caClaim')">
+                <span class="glyphicon"
+                              ng-class="{'glyphicon-arrow-up': !sortReverse  &&  sortCol === 'caClaim', 'glyphicon-arrow-down': sortReverse   &&  sortCol === 'caClaim'}">
+                        </span>ca claim
+            </th>
+            <th ng-click="changeSort('cadx1')">
+                <span class="glyphicon"
+                              ng-class="{'glyphicon-arrow-up': !sortReverse&&  sortCol === 'cadx1', 'glyphicon-arrow-down': sortReverse  &&  sortCol === 'cadx1'}">
+                        </span>cadx1
+            </th>
+            <th ng-click="changeSort('caprimDate')">
+                <span class="glyphicon"
+                              ng-class="{'glyphicon-arrow-up': !sortReverse  &&  sortCol === 'caprimDate', 'glyphicon-arrow-down': sortReverse   &&  sortCol === 'caprimDate'}">
+                        </span>CaprimDate
+            </th>
+            <th ng-click="changeSort('days')">
+                <span class="glyphicon"
+                              ng-class="{'glyphicon-arrow-up': !sortReverse  &&  sortCol === 'days', 'glyphicon-arrow-down': sortReverse   &&  sortCol === 'days'}">
+                        </span>Days
+            </th>
+            <th ng-click="changeSort('dos')">
+                <span class="glyphicon"
+                              ng-class="{'glyphicon-arrow-up': !sortReverse === 'ascending' &&  sortCol === 'dos', 'glyphicon-arrow-down': sortReverse   &&  sortCol === 'dos'}">
+                        </span>DOS
+            </th>
+            <th ng-click="changeSort('dxDesc')">
+                <span class="glyphicon"
+                              ng-class="{'glyphicon-arrow-up': !sortReverse &&  sortCol === 'dxDesc', 'glyphicon-arrow-down': sortReverse   &&  sortCol === 'dxDesc'}">
+                        </span>dx Description
+            </th>
+            <!--<th ng-click="changeSort('pos')">
+                <span class="glyphicon"
+                              ng-class="{'glyphicon-arrow-up': sortReverse === 'ascending' &&  sortCol === 'pos', 'glyphicon-arrow-down': sortReverse === 'descending'  &&  sortCol === 'pos'}">
+                        </span>Pos
+            </th>
+            <th ng-click="changeSort('provSubId')">
+                <span class="glyphicon"
+                              ng-class="{'glyphicon-arrow-up': sortReverse === 'ascending' &&  sortCol === 'provSubId', 'glyphicon-arrow-down': sortReverse === 'descending'  &&  sortCol === 'provSubId'}">
+                        </span>ProvSubId
+            </th>-->
+            <th ng-click="changeSort('source')">
+                <span class="glyphicon"
+                              ng-class="{'glyphicon-arrow-up': !sortReverse &&  sortCol === 'source', 'glyphicon-arrow-down': sortReverse   &&  sortCol === 'source'}">
+                        </span>Source
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="visit in Visits | orderBy:sortCol:sortReverse | limitTo: paginationLimit()">
+            <td>
+                {{visit.admitDate.format("MM/DD/YYYY")}}
+            </td>
+            <td>
+                {{visit.thruDate.format("MM/DD/YYYY")}}
+            </td>
+            <td>
+                {{visit.caClaim}}
+            </td>
+            <td>
+                {{visit.cadx1}}
+            </td>
+            <td>
+                {{visit.caprimDate.format("MM/DD/YYYY")}}
+            </td>
+            <td>
+                {{visit.days}}
+            </td>
+            <td>
+                {{visit.dos.format("MM/DD/YYYY")}}
+            </td>
+            <td>
+                {{visit.dxDesc}}
+            </td>
+            <!--<td>
+                {{visit.pos}}
+            </td>
+            <td>
+                {{visit.provSubId}}
+            </td>-->
+            <td>
+                {{visit.source}}
+            </td>
+        </tr>
+        <tr ng-if="!Visits">
+            <td>No Records</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="100%" ng-show="hasMoreItemsToShow()" ng-click="showMoreItems()"><a href="#" style="color: #157CC4">Show More</a></td>
+
+        </tr>
+        <tr>
+            <td colspan="100%" ng-show="hasLessItemsToShow()" ng-click="showLessItems()"><a href="#" style="color: #157CC4">Show Less</a></td>
+        </tr>
+        </tfoot>
+    </table>
+
+
+</div>
+
+

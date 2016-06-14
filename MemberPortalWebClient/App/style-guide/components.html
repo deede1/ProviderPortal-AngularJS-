@@ -1,0 +1,160 @@
+﻿<div class="style-guide row">
+    <div class="col-md-12">
+        <section>
+            <h1>Content Tile Example</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="ContentTileExample">
+                        <div class="content-tile">
+                            <div class="header">
+                                <h3>Chaarrrrliiie</h3>
+                            </div>
+                            <div class="body">
+                                <p>We're going to candy Mountain!</p>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+                <div class="col-md-6 col-md-offset-2">
+                    <div hljs-retrieve target="ContentTileExample"></div>
+                    <h3>Requirements</h3>
+                    <ul>
+                        <li>Must be contained within a .content-pane element. Which is alraedy included via the Layout frames (two-column-wide-right.html and single-column.html)</li>
+                    </ul>
+                </div>
+            </div>
+            <h2>Headless</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="HeadlessContentTileExample">
+                        <div class="content-tile">
+                            <!--<div class="header">
+                                <h3>Chaarrrrliiie</h3>
+                            </div>-->
+                            <div class="body">
+                                <p>We're going to candy Mountain!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-md-offset-2">
+                    <div hljs-retrieve target="HeadlessContentTileExample"></div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h1>Fieldset Drawer</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <div>
+                        <fieldset-drawer opened-legend="Click Me Again" closed-legend="Click Me">
+                            <p>Here is some content!</p>
+                            <input type="text" placeholder="I'm an input field" />
+                        </fieldset-drawer>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <code id="FieldsetDrawerExample" style="display:none;">
+                        <!--fieldset-drawer opened-legend="Click Me Again" closed-legend="Click Me">
+                            <p>Here is some content!</p>
+                            <input type="text" placeholder="I'm an input field" />
+                        </fieldset-drawer-->
+                    </code>
+
+                    <div hljs-retrieve target="FieldsetDrawerExample"></div>
+                </div>
+            </div>
+        </section>
+
+        <section ng-controller="StyleGuideController as vm">
+            <h1>Indicator Lights</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="IndicatorLightsExample">
+                        <div ng-repeat="item in vm.indicatorLightsDemo.examples">
+                            {{item}}
+                            <indicator-light il-source="item" il-config="vm.indicatorLightsDemo.config"></indicator-light>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div hljs-retrieve target="IndicatorLightsExample"></div>
+                </div>
+            </div>
+        </section>
+
+
+        
+        
+        
+
+
+        <section>
+            <h1>Iehp Expression Box</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    
+                    <iehp-expression-box model="vm.expressionBox" placeholder="It's magic..."></iehp-expression-box>
+                    
+                    <ul class="list-unstyled">
+                        <li>Input: {{vm.expressionBox.input}}</li>
+                        <li>Type: {{vm.expressionBox.type}}</li>
+                    </ul>
+                    
+                </div>
+                <div class="col-md-6">
+
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Input</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Subno</td>
+                                <td>199701018576</td>
+                            </tr>
+                            <tr>
+                                <td>Provid</td>
+                                <td>199701018576</td>
+                            </tr>
+                            <tr>
+                                <td>SSN (sans -)</td>
+                                <td>123456789</td>
+                            </tr>
+                            <tr>
+                                <td>SSN</td>
+                                <td>123-45-6789</td>
+                            </tr>
+                            <tr>
+                                <td>Medical Auth</td>
+                                <td>H1234567</td>
+                            </tr>
+                            <tr>
+                                <td>Rx Auth</td>
+                                <td>R1234567901</td>
+                            </tr>
+                            <tr>
+                                <td>Vsn Auth</td>
+                                <td>01234567</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h1>New Section</h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <em>Your stuff here...</em>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>

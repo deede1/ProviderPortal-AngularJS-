@@ -1,0 +1,101 @@
+﻿<form role="form" name="changeEmailForm" ng-submit="SubmitEmailChange()" class="form-horizontal col-lg-7 col-md-7 col-sm-12 col-xs-12" novalidate>
+   
+    <div class="row">
+        <info-box message="{{infoMessage}}"></info-box>
+        <danger-box message="{{errorMessage}}"></danger-box>
+        <success-box message="{{successMessage}}"></success-box>
+    </div>
+     
+
+    <div class="row">
+
+            <div class="col-md-12">
+                <div class="form-group"> 
+                    <label class="control-label col-sm-4">{{"form_currentEmail" | translate}}</label>
+                    <div class="col-sm-7">
+                        <label ng-if="!TestUserMode" class="col-sm-12 lblValue fontBlack">{{currentEmail}}</label> 
+                        <label ng-if="TestUserMode"  class="col-sm-12 lblValue fontBlack">{{currentEmail}}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-sm-4">{{'form_newEmail' | translate}}</label>
+                    <div class="col-sm-7">
+                        <i class="glyphicon glyphicon-ok  glyphIconAfter" ng-class="{'colorGreen' : changeEmailForm.newEmail.$valid}"></i>
+                        <input id="newEmail"
+                               class="col-xs-11"
+                               ng-model="newEmail"
+                               ng-pattern="/^[a-zA-Z0-9\!\#\$\%\&\'\*\+\-\/\=\?\^\_\`\{\|\}\~\.]+@([a-z0-9]+[a-z0-9\-\.]+[a-z0-9]+|[a-z0-9]+)\.[a-zA-Z]+$/i" 
+                               type="text" 
+                               ng-maxlength="65" 
+                               ng-required="true"
+                               name="newEmail" 
+                               placeholder="{{'form_enterYourNewEmail' | translate}}" />
+                    </div>
+         
+
+                </div>
+            </div>
+         
+        
+           <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label col-sm-4">{{"form_confirm" | translate}}</label>
+                <div class="col-sm-7">
+                    <i id="emailMatchIcon" class=" glyphicon glyphicon-ok  glyphIconAfter"></i>
+                    <input class="col-xs-11"
+                           autocomplete="off"
+                           id="matchEmail"
+                           type="email"
+                           ng-model="newEmailConfirmation"
+                           name="newEmailConfirmation"
+                           ng-keyup="checkEmailMatch($event)"
+                           input-match="newEmail"
+                           value=""
+                           ng-maxlength="65"
+                           ng-required="true"
+                           placeholder="{{'form_reEnter' | translate}}" />
+                    <label id="emailMatchString" class=" hideTemporarily"></label>
+                    </div>
+        
+   
+                </div>
+           </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-sm-4">{{"form_currentPassword" | translate}}</label>
+                    <div class="col-sm-7">
+                        <input class="col-xs-11"
+                               type="password"
+                               ng-model="password"
+                               maxlength="20"
+                               name="password"
+                               ng-required="true"
+                               placeholder="{{'form_passwordVerification'| translate}}" />
+                        </div>
+                    </div>
+            </div>
+
+           <div class="col-md-12">
+            <div class="form-group">
+                <div class="col-xs-11 padRight15">
+                    <h5 class="alignJustify">
+                        <input type="checkbox" checked="checked"  class="col-sm-1"/>
+                        <div class="col-sm-11 padRight0"> {{"form_updateEmailMobileConsent" | translate}} </div>
+                    </h5>
+                    <div class="formButtons">
+                        <input type="submit"
+                               value="{{'form_change' | translate}}"
+                               ng-disabled="changeEmailForm.$invalid"
+                               ng-class="{'disabled': $invalid}"
+                               class="btn btn-lg btn-primary  marginTop20 marginRight10" />
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+</form>

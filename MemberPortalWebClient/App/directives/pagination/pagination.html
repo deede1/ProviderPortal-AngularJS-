@@ -1,0 +1,12 @@
+﻿<div class="paginationContainer" ng-show="displayPagination">
+    <div class="paginationSubcontainer">
+        <div class="paginationFooter"> {{ startListRowIndex }} -{{ endListRowIndex }} of {{ TotalListCount }} Results ({{ totalPageCount }} pages) </div>
+
+        <ul class="pagination">
+            <li ng-show="showPrevPagingButton"><a href="#" ng-click="updatePagination(prevPageIndex)"> << </a></li>
+            <li ng-repeat="page in pages"><a href="#" ng-click="viewPage(page)" ng-class="{'pagingActive' : page == currentPageIndex }"> {{page}} </a> </li>
+            <li ng-show="showNextPagingButton"><a href="#" ng-click="updatePagination(nextPageIndex)"> >> </a></li>
+        </ul>
+    </div>
+
+</div>

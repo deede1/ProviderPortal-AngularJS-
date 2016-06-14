@@ -1,0 +1,130 @@
+﻿
+<div class="non-printable row">
+
+    <div class="survey-history-list" ng-cloak>
+        <div>
+            <h2> {{'form_healthcare_section_yourAvailableSurveys' | translate }} </h2>
+
+        </div>
+        <simple-ajax-loader show="!showButtons"></simple-ajax-loader>
+        <div ng-show="showButtons" ng-cloak>
+            <div>
+                <ul class="survey-list-no-bullet" ng-if="!foundPendingSurvey">
+                    <li ng-repeat="survey in SurveyList">
+                        <div class="row">
+                            <div class="col-md-3 survey-available-survey">
+                                <span ng-bind-html="survey.Name"></span>
+                            </div>
+                            <button type="button" class="btn btn-primary survey-available-button" ng-click="createNewSurveyFromList()">{{'form_healthcare_section_SurveyHistoryTakeThisSurveyButton' | translate}}</button>
+                        </div>
+                    </li>
+                    <li ng-if="SurveyList.length == 0">
+                        <div class="col-md-3 ">
+                            <span>{{'form_healthcare_section_SurveyHistory_Survey_Available' | translate}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <ul ng-if="foundPendingSurvey" style="padding: 0">
+                <li style="list-style-type: none;">
+                    <div class="row">
+                        <div class="col-md-3 survey-available-survey">
+                            <span ng-bind-html="PendingSurvey.SurveyName"></span>
+                        </div>
+                        <button type="button" class="btn btn-primary survey-available-button" ng-click="LoadPendingSurvey()">{{'form_healthcare_section_SurveyHistoryContinueButton' | translate }}</button>
+                        <button type="button" class="btn btn-primary survey-available-button" ng-click="createNewSurveyFromList()">{{'form_healthcare_section_SurveyHistoryTakeSurveyButton' | translate }}</button>
+
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+</div>
+<div ng-cloak class="non-printable row">
+
+    <div class="survey-history-list" ng-cloak>
+        <simple-ajax-loader show="!showButtons"></simple-ajax-loader>
+        <h2>{{'form_healthcare_section_yourSurveyHistory' | translate}}</h2>
+        <div>
+            <div ng-if="PendingSurveysArray.HistoryItems.length == '0'" style="text-align: center">
+                <label style="font-style: oblique">No Survey History</label>
+            </div>
+            <table ng-if="PendingSurveysArray.HistoryItems.length > '0'" class="table table-striped">
+                <thead>
+
+                    <tr>
+                        <td style="cursor: pointer" ng-click="changeSort('SurveyName')">
+                            {{'form_healthcare_section_SurveyHistoryTableName' | translate }}
+                            <span ng-show="sortType == 'SurveyName' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                            <span ng-show="sortType == 'SurveyName' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+
+                        </td>
+                        <td style="cursor: pointer" ng-click="changeSort('ResponseCreatedOn')">
+                            {{'form_healthcare_section_SurveyHistoryTableDate' | translate }}
+                            <span ng-show="sortType == 'ResponseCreatedOn' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                            <span ng-show="sortType == 'ResponseCreatedOn' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+
+                        </td>
+                        <td style="cursor: pointer" ng-click="changeSort('RespondentSurveyExpired')">
+                            {{'form_healthcare_section_SurveyHistoryTableExpired' | translate}}
+                            <span ng-show="sortType == 'RespondentSurveyExpired' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                            <span ng-show="sortType == 'RespondentSurveyExpired' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+
+                        </td>
+                        <td style="cursor: pointer" ng-click="changeSort('ResponseCompletedOn')">
+                            {{'form_healthcare_section_SurveyHistoryTableStatus' | translate}}
+                            <span ng-show="sortType == 'ResponseCompletedOn' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                            <span ng-show="sortType == 'ResponseCompletedOn' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                        </td>
+                        <!--<td>
+                            <span>Summary</span>
+
+                        </td>-->
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr ng-repeat="survey in PagedArray[currentPage] ">
+                        <!--<tr ng-repeat="survey in PagedArray[currentPage]">-->
+                        <!--<td><label title="Click to view this summary" style="cursor: pointer" ng-click="viewSummary(this);" class="survey-history-list-label"><span>{{$index + 1}}. {{survey.SurveyName}}</span></label></td>-->
+                        <td><label class=" .survey-history-list-label-sname"><span>{{$index + 1}}. {{survey.SurveyName}}</span></label></td>
+                        <td><label class="survey-history-list-label" ng-if="survey.ResponseCreatedOn != null"><span>{{survey.ResponseCreatedOn | date:'medium'}}</span></label></td>
+                        <td>
+                            <label class="survey-history-list-label" ng-if="survey.RespondentSurveyExpired"><span>Y</span></label>
+                            <label class="survey-history-list-label" ng-if="!survey.RespondentSurveyExpired"><span>N</span></label>
+                        </td>
+                        <td>
+                            <label class="survey-history-list-label" ng-if="survey.ResponseCompletedOn != null"><span style="color: green">{{'form_healthcare_section_SurveyHistoryTakeSurveyTHComplete' | translate}}: </span><span>{{survey.ResponseCompletedOn | date:'medium'}}</span></label>
+                            <label class="survey-history-list-label" ng-if="survey.ResponseCompletedOn == null"><span style="font-style: oblique">{{'form_healthcare_section_SurveyHistoryTakeSurveyTHInComplete' | translate}}</span></label>
+                        </td>
+                        <!--<td class="survey-view-summary" ng-click="viewSummary(this)">
+                            <span>View Summary</span>
+                        </td>-->
+                    </tr>
+                </tbody>
+                <tfoot ng-cloak ng-show="PagedArray.length > 1">
+                <td colspan="6" style="padding: 0;">
+                    <ul id="paginationFooter" class="pagination " style="margin-top: 5px; float: right">
+                        <li ng-class="{disabled:currentPage == 0}">
+                            <a href ng-click="prevPage()">« {{'form_healthcare_section_SurveyHistoryTakeSurveyFooterPrevious' | translate }}</a>
+                        </li>
+                        <li ng-repeat="n in range(PagedArray.length, currentPage, currentPage + gap)"
+                            ng-class="{active: n  == currentPage}"
+                            ng-click="setPage(n)">
+                            <a href ng-bind="n + 1">1</a>
+                        </li>
+                        <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+                            <a href ng-click="nextPage()">{{'form_healthcare_section_SurveyHistoryTakeSurveyFooterNext' | translate}} »</a>
+                        </li>
+                    </ul>
+                </td>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+<history-summary></history-summary>

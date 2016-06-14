@@ -1,0 +1,29 @@
+﻿<div class="pad-md" ng-switch on="route.list">	 
+	<div ng-if="route.list !== 'claimsRA'">
+		<pp-p4p-ra-detail></pp-p4p-ra-detail>
+	</div>
+	<div ng-if="route.list === 'claimsRA'">
+		<pp-claims-ra-detail></pp-claims-ra-detail>
+	</div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" class="fade modal" id="pdfModal" role="dialog" tabindex="-1">
+	<div class="modal-dialog" style="margin-top: 200px">
+		<div class="modal-content">
+			<div class="modal-header SectionHeader">
+
+				<button class="close" data-dismiss="modal" title="Close" type="button">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="">Processing PDF</h4>
+			</div>
+			<div class="modal-body">
+				You can go back and continue to browse the rest of the site while it loads in the background. <br />
+				Once complete, it will open in a new window.
+			</div>
+			<div class="modal-footer">
+
+			</div>
+		</div>
+	</div>
+</div>

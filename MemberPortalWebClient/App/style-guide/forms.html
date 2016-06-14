@@ -1,0 +1,152 @@
+﻿<div class="row style-guide">
+	<div class="col-md-12" ng-controller="StyleGuideController as StyleCtrl">
+		<section>
+			<h1>Form Inputs</h1>
+
+		</section>
+
+		<section>
+			<h1 >Form Validation</h1>
+			<ul>
+				<li>Form validation message will show either<strong> on blur</strong> from a required element or <strong>on form submit</strong>.</li>
+				<li>A label preceded by a red asterisk marks a required field:</li>
+				<li>
+					Validation text will be <span class="validation-message">#F44336 red</span> and bold:
+					<strong>
+						<span class="validation-message">
+							This field is required
+						</span>
+					</strong> or a specific message indicating what is required (See next point)
+				</li>
+				<li>
+					Validation messages must be descriptive e.g. <span class="validation-message">enter 12 digit member I.D.</span> and
+					describe what the user needs to do right, not what the user did wrong
+				</li>
+				<li>
+					Use a DIV with the class <strong>.invalid-text</strong> after your input field. For example:<br />
+					<pre id="example1" style="display:none">
+					<input ng-model="search.name"
+								 ng-required="validateName()" type="text">
+					<div class="invalid-text">Please enter a valid name.</div>
+					</pre>
+					<div hljs-retrieve target="example1"></div>
+					An <em>NG-SHOW</em> on your invalidation div with an expression of when to display the error is unnecessary
+					because the .invalid-text will automatically search for ng-invalid and ng-submitted in the adjacent form input.
+				</li>
+				<li>
+					Use the class <strong>.req</strong> on the label for inputs that are required. This automatically puts a red asterisk next to the label. For example:<br/>
+					<pre id="example2" style="display:none">
+					<label class="bold-lbl req">First Name:</label>
+					</pre>
+					<div hljs-retrieve target="example2"></div>
+				</li>
+			</ul>
+
+			<div>
+
+				<form class="form-horizontal" id="styleGuideFormId" name="styleGuideForm" novalidate>
+
+					<!-- Form Name -->
+					<h3 class="text-center">Example Form Validation</h3>
+
+					<!-- Text input-->
+					<div class="form-group">
+						<label class="col-md-4 control-label req" for="textinput">Text Input</label>
+						<div class="col-md-4">
+							<input class="form-control input-md" id="textinput" name="textinput1" ng-model="textinput1" required type="text">
+							<div class="invalid-text">
+								This field is required
+							</div>
+						</div>
+					</div>
+
+					<!-- Textarea -->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="textarea">Text Area</label>
+						<div class="col-md-4">
+							<textarea class="form-control" id="textarea" name="textarea" ng-model="textarea" required>default text</textarea>
+							<div class="invalid-text">
+								This field is required
+							</div>
+						</div>
+					</div>
+
+					<!-- Select Basic -->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="selectbasic">Select Basic</label>
+						<div class="col-md-4">
+							<select class="form-control" id="selectbasic" name="selectbasic" ng-model="selectbasic" required>
+								<option value="0"></option>
+								<option value="1">Option one</option>
+								<option value="2">Option two</option>
+							</select>
+							<div class="invalid-text">
+								This field is required
+							</div>
+						</div>
+					</div>
+
+					<!-- Multiple Checkboxes -->
+					<div class="form-group">
+						<div class="col-md-4">
+							<label class=" control-label" for="checkboxes">Multiple Checkboxes</label>
+							<div class="invalid-text">
+								This field is required
+								</div>
+
+							</div>
+						<div class="col-md-4">
+							<div class="checkbox">
+								<label for="checkboxes-0">
+									<input id="checkboxes-0" name="checkboxes1" ng-model="checkboxes1" required type="checkbox" value="1">
+									Option one
+								</label>
+							</div>
+
+						</div>
+					</div>
+
+					<!-- Multiple Radios -->
+					<div class="form-group">
+						<div class="col-md-4">
+							<label class=" control-label" for="radios">Multiple Radios</label>
+							<div class="invalid-text">
+								This field is required
+								</div>
+							</div>
+						<div class="col-md-4">
+							<div class="radio">
+								<label for="radios-0">
+									<input id="radios-0" name="radios1" ng-model="radios1" required type="radio" value="1">
+									Option one
+								</label>
+							</div>
+							<div class="radio">
+								<label for="radios-1">
+									<input id="radios-1" name="radios1" ng-model="radios1" required type="radio" value="2">
+									Option two
+								</label>
+							</div>
+
+						</div>
+					</div>
+					<!-- Submit Button -->
+					<div class="form-group text-center">
+
+						<button class="btn btn-primary" id="singlebutton" name="singlebutton">Button</button>
+
+					</div>
+
+				</form>
+
+			</div>
+
+			<div>
+				<h3 class="text-center">Html Example</h3>
+				<div hljs-retrieve target="styleGuideFormId"></div>
+			</div>
+		</section>
+
+	</div>
+
+</div>

@@ -1,0 +1,45 @@
+﻿<div>
+    <div class="col-md-12 col-xs-12 SectionHeader">
+        <h4>{{title}}</h4>
+    </div>
+</div>
+<div class="form-section dark-span">
+    <ol class="list-group">
+        <li class="list-group-item clearfix">
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">Name: </label>
+                <span class="lbl fit-demographic-information-span">{{data.ProviderFirstName + " " + data.ProviderLastName}}</span>
+            </div>
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">ID:</label>
+                <span class="lbl fit-demographic-information-span">{{data.ProviderId}}</span>
+            </div>
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">NPI #:</label>
+                <span class="lbl fit-demographic-information-span">{{data.ProviderNpi}}</span>
+            </div>
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">Phone:</label>
+                <span class="lbl fit-demographic-information-span">{{data.ProviderPhone | tel}}</span>
+            </div>
+        </li>
+        <li class="list-group-item clearfix">
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">Address:</label>
+                <span class="lbl fit-demographic-information-span">{{data.ProviderAddress1}}<span ng-show="data.ProviderAddress2 != null"> {{data.ProviderAddress2}}</span></span>
+            </div>
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">City:</label>
+                <span class="lbl fit-demographic-information-span">{{data.ProviderCity}}</span>
+            </div>
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">State-Zip:</label>
+                <span class="lbl fit-demographic-information-span">{{data.ProviderState}}, {{data.ProviderZip | zip}}</span>
+            </div>
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">Fax #:</label>
+                <span class="lbl fit-demographic-information-span">{{data.ProviderFax | tel}}</span>
+            </div>
+        </li>
+    </ol>
+</div>

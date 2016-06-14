@@ -1,0 +1,228 @@
+﻿
+<div class="Rosters">
+
+
+    <h1 class="WorkInProgress">Missing Completed Classes/Date of Last Class</h1>
+
+    <div class="form panel">
+        <h1 class="pageTitle"> Diabetes Roster </h1>
+        <p class="pageIntro ">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+        </p>
+    </div>
+
+    <roster-title-header></roster-title-header>
+
+
+    <div class="ppTitle">
+        <div class="col-sm-2 headerNote">
+            Note:
+        </div>
+        <ul class="headerNoteContent col-sm-10">
+            <li>
+                Leveling determined by encounter and claims data criteria and by individual case review.
+            </li>
+            <li>
+                Level 1 - >= 1 Diabetic Encounter OR 1 Diabetic Med in the last 12 months.
+            </li>
+            <li>
+                Level 2 - >= 1 Outpatient Encounter (non-ED or Hospital) AND >= 1 diabetic med in the last 12 months OR on Insulin.
+            </li>
+            <li>
+                Level 3 - >= 1 Hospital or ED Encounter AND >= 1 diabetic med.
+            </li>
+        </ul>
+
+        <p class="titleSubtext">
+            * ED and Hospital visits are summarized for the last 12 months
+        </p>
+    </div>
+
+    <div class="loaderContainer" simple-ajax-loader show="loading"></div>
+    <div class="row alignCenter resultsContainer"> 
+
+        <results-pagination ng-show="data.List"></results-pagination>
+         
+
+        <div class="header" ng-show="data.List.LastUpdatedOn"> Last Updated on {{ data.LastUpdatedOn }} </div>
+
+
+        <table class="roster resultTier1 results-accordion col-sm-12  table table-striped table-sortable"
+               ng-class="roster.expand ? 'expand no-hover' : ''"
+               ng-show="displayFullView && data.List.length">
+
+            <thead>
+            <tr class="header sorting">
+                <th></th>
+                <th ng-click="RetrieveRoster('ROST.HMDR',1,{Sort:[{name:'ProviderLName', direction: sortDirection}]},roster)"
+                    roster-tableheader-sort column-label="PCP" column-data="ProviderLName"></th>
+                <th ng-click="RetrieveRoster('ROST.HMDR',1,{Sort:[{name:'ProviderNumber', direction: sortDirection}]},roster)"
+                    roster-tableheader-sort column-label="PCP ID." column-data="ProviderNumber"></th>
+                <th ng-click="RetrieveRoster('ROST.HMDR',1,{Sort:[{name:'IPAName', direction: sortDirection}]},roster)"
+                    roster-tableheader-sort column-label="IPA " column-data="IPAName"></th>
+         
+            </tr>
+            </thead>
+
+ 
+
+
+            <tbody ng-repeat="roster in data.List">
+                <tr ng-click="expandViewDetails('ROST.HMDR',2, { ProviderNumber: roster.ProviderNumber, IPA: roster.IPA},data.List, roster,1,0); "
+                    ng-class="roster.expand ? '  no-hover expanded-header' : ''"
+                    ng-animate="'animate'"
+                    class="line-item ng-scope">
+                    <td>
+                        <span class="glyphicon" ng-class="roster.expand ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+                        </span>
+                    </td>
+                    <td> {{ roster.ProviderLName | titleCase }}, {{ roster.ProviderFName | titleCase }} </td>
+                    <td> {{ roster.ProviderNumber }} </td>
+                    <td> {{ roster.IPAName }}  ( {{ roster.IPA }} ) </td>
+
+                </tr>
+
+            <tr ng-if="roster.expand"
+                class="row-striped roster-result-row line-item ng-scope  collapsable indent "
+                heading="Dynamic Body Content"
+                ng-class="roster.expand ? '  no-hover expanded-header' : ''"
+                ng-animate="'animate'">
+                <td colspan="100%" class="bordered">
+                    <table class="roster resultTier2 col-sm-12  table table-striped table-sortable"
+                           ng-class="roster.expand ? 'enter' : 'leave'">
+
+
+
+                        <thead>
+                        <tr class="header sorting">
+                    
+                            <th ng-click="fetchViewDetails('ROST.HMDR',2,{Sort:[{name:'MemberLName', direction: roster.sortDirection}]})"
+                                roster-tableheader-sort column-label="Member" column-data="MemberLName" style="width: 145px;"></th>
+                            <th ng-click="fetchViewDetails('ROST.HMDR',2,{Sort:[{name:'SubscriberNumber', direction: roster.sortDirection}]})"
+                                roster-tableheader-sort column-label="IEHPID" column-data="SubscriberNumber"></th>
+
+                      
+                            <th ng-click="fetchViewDetails('ROST.HMDR',2,{Sort:[{name:'DateOfBirth', direction: roster.sortDirection}]})"
+                                roster-tableheader-sort column-label="DOB" column-data="DateOfBirth"></th>
+                          
+                            <th ng-click="fetchViewDetails('ROST.HMDR',2,{Sort:[{name:'MemberStreetAddress', direction: roster.sortDirection}]})"
+                                roster-tableheader-sort column-label="Gender" column-data="MemberStreetAddress"></th>
+                            <th ng-click="fetchViewDetails('ROST.HMDR',2,{Sort:[{name:'MemberCaseNo', direction: roster.sortDirection}]})"
+                                roster-tableheader-sort column-label="Level" column-data="MemberCaseNo"></th>
+                            <th ng-click="fetchViewDetails('ROST.HMDR',2,{Sort:[{name:'MemberCaseNo', direction: roster.sortDirection}]})"
+                                roster-tableheader-sort column-label="ED Visits" column-data="MemberCaseNo"></th>
+                            <th ng-click="fetchViewDetails('ROST.HMDR',2,{Sort:[{name:'MemberCaseNo', direction: roster.sortDirection}]})"
+                                roster-tableheader-sort column-label="Hosp Visits" column-data="MemberCaseNo"></th>
+                            <th ng-click="fetchViewDetails('ROST.HMDR',2,{Sort:[{name:'MemberCaseNo', direction: roster.sortDirection}]})"
+                                roster-tableheader-sort column-label="Completed Classes" column-data="MemberCaseNo"></th>
+                            <th ng-click="fetchViewDetails('ROST.HMDR',2,{Sort:[{name:'MemberCaseNo', direction: roster.sortDirection}]})"
+                                roster-tableheader-sort column-label="Date Of Last Class" column-data="MemberCaseNo"></th>
+                            <th ng-click="fetchViewDetails('ROST.HMDR',2,{Sort:[{name:'MemberCaseNo', direction: roster.sortDirection}]})"
+                                roster-tableheader-sort column-label="New Diab. Member" column-data="MemberCaseNo"></th>
+                            <th ng-click="fetchViewDetails('ROST.HMDR',2,{Sort:[{name:'MemberCaseNo', direction: roster.sortDirection}]})"
+                                roster-tableheader-sort column-label="Diabetes P4P" column-data="MemberCaseNo"></th>
+                        </tr>
+                        </thead>
+
+                        <tbody ng-show="roster.dataResultMessageTier2">
+                            <tr>
+                                <td colspan="100%">
+                                    <danger-box message="{{roster.dataResultMessageTier2}}"></danger-box>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody ng-repeat="member in roster.data.List">
+                            <tr ng-animate="'animate'"
+                                ng-class="member.expand ? '  no-hover expanded-header' : ''"
+                                class="line-item ng-scope alignCenter ">
+                                <!--<td>
+                                    <span class="glyphicon"
+                                          ng-class="member.expand ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+                                    </span>
+                                </td>-->
+                                <td class="anchor urlLink alignLeft"
+                                    ng-click="viewMemberDemographics( item )"
+                                    uib-popover=" Click to view Member Demographics"
+                                    popover-trigger="mouseenter"
+                                    popover-append-to-body="true">
+                                    {{ member.MemberLName | titleCase }}, {{ member.MemberFName | titleCase }}
+                                </td>
+
+                                <td> {{ member.SubscriberNumber }} </td> 
+                                <td> {{ member.DateOfBirth | date:'MM/dd/yyyy'  }} </td>
+                                <td> {{ member.MemberSex }}   </td>
+                                <td> {{ member.Level }} </td>
+                                <td> {{ member.DiabetesEmergencyRoom }}   </td>
+                        
+                                <td> {{ member.DiabetesHospital }}   </td>
+                                <td> {{ member.aa }} !</td>
+                                <td> {{ member.aa }}! </td>
+                                <td>
+                                    <span ng-if="member.NewMember >0" class="glyphicon glyphicon-ok "></span>
+                                    <span ng-if="member.NewMember == 0" class="glyphicon glyphicon-remove "></span> 
+                                </td>
+                                <td>  
+                                    <span ng-if="member.P4PCount >0" class="glyphicon glyphicon-ok "></span>
+                                    <span ng-if="member.P4PCount == 0" class="glyphicon glyphicon-remove "></span> 
+                                </td>
+                            </tr>
+
+
+
+
+                    
+
+                        <tr uib-collapse="!member.expand"
+                            class="row-striped roster-result-row line-item ng-scope    no-hover expanded-header collapsable indent "
+                            ng-animate="'animate'">
+                            <td colspan="100%">
+                                <table class="roster resultTier3 col-sm-12  table table-striped table-sortable"
+                                       ng-show="displayFullView ">
+                                    <thead>
+                                    <tr class="header sorting">
+                                        <th ng-click="fetchViewDetails('ROST.HMDR',3,{Sort:[{name:'DateOfService', direction: resultTier3.sortDirection}]})"
+                                            roster-tableheader-sort column-label=" DOS" column-data="DateOfService"></th>
+                                        <th ng-click="fetchViewDetails('ROST.HMDR',3,{Sort:[{name:'ServiceType', direction: resultTier3.sortDirection}]})"
+                                            roster-tableheader-sort column-label=" Procedure" column-data="ServiceType"></th> 
+                                    </tr>
+                                    </thead>
+                                    <tr ng-repeat="itemDataTier3 in member.data.List" class="no-hover expanded-header ">
+                                        <td> {{ itemDataTier3.DOS | date:'MM/dd/yyyy' }} </td>
+                                        <td> {{ itemDataTier3.ServiceType }} </td>
+                                    </tr>
+                                    <tr ng-show="member.dataResultMessageTier3">
+                                        <td colspan="100%">
+                                            <danger-box message="{{member.dataResultMessageTier3}}"></danger-box>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+  
+
+
+
+        <danger-box message="{{dataResultMessageTier1}}"></danger-box>
+
+    </div>
+
+    <danger-box message="{{errorMessage}}"></danger-box>
+
+     
+</div>
+
+
+<!-- MODAL CONTAINER -->
+<div id="modalContainerGeneral" class="modalContainer">
+    <img class="modalCloseButton" src="Content/Images/btn_close.png" onclick="closeModal('modalContainerGeneral')" />
+    <div class="modalContent" ui-view="modalDetails">
+    </div>
+</div>

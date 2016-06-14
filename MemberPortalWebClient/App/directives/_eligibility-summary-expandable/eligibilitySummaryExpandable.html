@@ -1,0 +1,9 @@
+﻿<div>
+    <strong>{{eligRecord.LobDescription}}</strong> - <span>{{eligRecord.EligibilityStatusDescription}}</span> on {{eligRecord.DateOfService}}
+    <br />
+    <div ng-show="showMore" style="padding-left:1em;">
+        Effective Date: {{eligRecord.EffectiveDate}}<br/>
+        Term Date: {{eligRecord.TerminationDate}}
+    </div>
+    <span style="color:#999;font-size:.8em;">This report Expires {{eligRecord.DateOfService}} <a href="#" ng-click="toggleShowMore()">{{showMoreAction}}...</a></span>
+</div>

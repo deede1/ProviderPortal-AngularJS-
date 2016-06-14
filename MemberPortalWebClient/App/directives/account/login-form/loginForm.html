@@ -1,0 +1,39 @@
+﻿<div>
+    <form class="form login-form" role="form" name="login" novalidate="novalidate" ng-submit="submit()">
+
+        <div class="row" ng-if="referrerSite == 'SiteCore'">
+            <info-box class=" col-xs-10 center" message="{{'form_referrerSiteCoreMessage' | translate}}"></info-box>
+        </div>
+			<uib-alert close="errorMessage = null" ng-show="errorMessage" type="danger">{{errorMessage}}</uib-alert>
+<!--        <message-boxes info-message="{{infoMessage}}" success-message="{{successMessage}}" error-message="{{errorMessage}}"></message-boxes>-->
+
+        <div class="row">
+            <div class="col-sm-10 col-xs-12 col-sm-offset-1">
+                <div class="form-group">
+                    <label class="control-label" for="username">Login ID</label>
+                    <input type="text"
+                           name="username"
+                           class="form-control"
+                           maxlength="15"
+                           ng-maxlength="15"
+                           ng-model="username" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="password"> {{"form_password" |translate}} </label>
+                    <input type="password"
+                           name="password"
+                           class="form-control"
+                           maxlength="20"
+                           ng-maxlength="20"
+                           ng-minlength="6" 
+                           ng-model="password"/>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xs-12 alignRight">
+            <input type="submit" class="newButton btn btn-primary" value="{{'form_go' | translate}}" />
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,2051 @@
+﻿
+
+
+
+
+<div id="PdfData" class="contentPanel1">
+    <div class="UpaForm">
+
+        <div ng-controller="GlobalController as GCtrl">
+            <div class="clearfix" id="form-submitted-date">
+                <label class="body-label"></label>
+            </div>
+            <div class="form panel">
+                <h1 class="pageTitle"> Prescription Drug Prior Authorization Request Form </h1>
+
+            </div>
+
+            <div class="form">
+                <div>
+                    <!--<div class="ppSearchResults">
+                        <div>Prescription Drug Prior Authorization Request Form</div>
+                    </div>-->
+                    <div style="background: white">
+
+                        <form name="CMSCoverageForm" id="CMSCoverageForm" autocomplete="off" novalidate>
+                            <div class="list-group standard-form-message-block">
+                                <div class="lft-algn list-group-item clearfix ">
+
+
+                                    <label class="lft-algn">
+                                        Please fill out all applicable sections on both pages completely. Attach any additional documentation that is
+                                        important for the review, e.g. chart notes or lab data, to support the prior authorization request.
+                                    </label>
+
+                                    <div class="text-center">
+                                        <a href="Content/PharmacyPdfs/UserGuide.pdf" class="pointer" target="_blank">Click here to view the RxPA/CD Universal Prior Authorization user guide.</a>
+                                    </div>
+                                    <div class="required-field-message col-md-12 text-center">
+
+                                        <strong class="body-label"><span class="redMessage">*</span>denotes a required field.</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+
+
+                                <div class="SectionHeader col-md-12">
+                                    <h4>Member Search </h4>
+                                </div>
+                            </div>
+                            <div ng-controller="MemberVerificationController as MVCtrl">
+                                <ol class="list-group">
+                                    <li class="slimGrid list-group-item clearfix">
+                                        <div class="col-md-3">
+                                            <label class="body-label"><span class="redAster">*</span>Enter IEHP ID</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group" style="width:100%">
+                                                <input title="Enter a valid Member I.D."
+                                                       id="memberId" ng-model="MVCtrl.memberId"
+                                                       name="memberId"
+                                                       placeholder="IEHP ID"
+                                                       class="form-control input-sm"
+                                                       ng-pattern="/\d{12}/"
+                                                       minlength="12"
+                                                       maxlength="12"                                                   
+                                                       type="text"
+                                                       required>
+                                       
+                                                <span title="Reset form" ng-click="MVCtrl.reloadUpaForm()" class="btn btn-default input icon glyphicon glyphicon-remove"></span>
+                                            </div>
+                                            <div simple-ajax-loader show="loading"></div>
+                                            <div class="redMessage lft-algn " ng-if="CMSCoverageForm.memberId.$touched && CMSCoverageForm.memberId.$invalid">
+                                                Required
+                                            </div>
+                                            <div class="redMessage lft-algn" ng-if="CMSCoverageForm.memberId.$error.pattern">
+                                                Enter a valid 12 digit Member ID
+                                            </div>
+                                        </div>
+                                        <div id="searchingForMember" class="input-broup-btn">
+
+                                        </div>
+                                        <div class="col-md-12 text-center ">
+                                            <span class="redMessage" ng-cloak>{{MVCtrl.memberNotFound}}</span>
+
+                                        </div>
+                                    </li>
+                                   
+                                </ol>
+                                <div class="text-center" >
+                                    <button type="button" ng-disabled="CMSCoverageForm.memberId.$invalid" title="Search for a Member and continue" id="searchMemberButton" class="btn btn-default" ng-click="MVCtrl.SearchMember($event)">Continue</button>
+                                </div>
+
+
+                                <div id="hideForm" style="display: none">
+                                    <div>
+                                        <div class="SectionHeader col-md-12 ">
+                                            <h4>Member Information</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-section dark-span">
+                                        <ol class="list-group">
+
+                                            <li class="list-group-item clearfix">
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <input type="hidden" name="memberLob" value={{MVCtrl.memberPERSNO}}>
+                                                    <label class="body-label fit-demographic-information-label">Name:</label>
+                                                    <span class="lbl fit-demographic-information-span">{{MVCtrl.memberNameF | titleCase}} {{MVCtrl.memberNameL | titleCase}}</span>
+                                                </div>
+
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  ">Gender:</label>
+
+                                                    <span class="lbl ">{{MVCtrl.memberSex | gender}}</span>
+                                                </div>
+
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  fit-demographic-information-label">DOB:</label>
+
+                                                    <span class="lbl fit-demographic-information-span">{{MVCtrl.memberDOB | date:"MM/dd/yyyy"}}</span>
+                                                </div>
+
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  fit-demographic-information-label">Age:</label>
+
+                                                    <span class="lbl fit-demographic-information-span">{{MVCtrl.memberAge}}</span>
+                                                </div>
+                                            </li>
+
+                                            <li class="list-group-item clearfix">
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label fit-demographic-information-label">Address:</label>
+
+                                                    <span class="lbl fit-demographic-information-span">
+                                                        {{MVCtrl.memberAddress | titleCase}}
+                                                    </span>
+                                                </div>
+
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  fit-demographic-information-label">City:</label>
+
+                                                    <span class="lbl fit-demographic-information-span">{{MVCtrl.memberCity | titleCase}}</span>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  fit-demographic-information-label">State-Zip:</label>
+
+                                                    <span class="lbl fit-demographic-information-span">{{MVCtrl.memberState | comma}} {{MVCtrl.Zip | zipcode }}</span>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  fit-demographic-information-label">Phone:</label>
+
+                                                    <span class="lbl fit-demographic-information-span">{{MVCtrl.memberPhone | tel | na }}</span>
+                                                </div>
+                                            </li>
+
+                                            <li class="list-group-item clearfix">
+
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  fit-demographic-information-label">IEHP ID:</label>
+
+                                                    <span class="lbl fit-demographic-information-span">{{MVCtrl.memberId}}</span>
+                                                </div>
+
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  fit-demographic-information-label">CIN:</label>
+
+                                                    <span class="lbl fit-demographic-information-span">{{MVCtrl.memberCin}}</span>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  fit-demographic-information-label">MediCare:</label>
+
+                                                    <span class="lbl fit-demographic-information-span">{{MVCtrl.MediCare | na }}</span>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  fit-demographic-information-label">Medi-Cal:</label>
+
+                                                    <span class="lbl fit-demographic-information-span">{{MVCtrl.MediCal | na }}</span>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item clearfix">
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  ">County:</label>
+
+                                                    <span class="lbl ">{{MVCtrl.memberCounty}}</span>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  ">Aid Code:</label>
+
+                                                    <span class="lbl ">{{MVCtrl.Aid}}</span>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  fit-demographic-information-label">LOB:</label>
+
+                                                    <span class="lbl fit-demographic-information-span">{{MVCtrl.translatedLOB}}</span>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="body-label  fit-demographic-information-label">Group:</label>
+
+                                                    <span class="lbl fit-demographic-information-span">{{MVCtrl.Group}}</span>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item clearfix  allergy">
+                                                <div ng-controller="AllergyController as ACtrl" class="IcdController ng-cloak">
+                                                    <div class="Diagnoses-anchor">
+                                                        <div ng-show="ACtrl.SelectedAllergy.length > 0">
+                                                            <label for="Allergy">Selected Allergies:</label>
+                                                            <div class="Visually-Hidden">
+                                                                <input type="text" name="Allergy" ng-repeat="item in ACtrl.SelectedAllergy track by $index" value="{{item}}" />
+                                                            </div>
+                                                            <ul class="selectedCodes clearfix">
+                                                                <li ng-repeat="item in ACtrl.SelectedAllergy track by $index">{{item}} <span ng-click="ACtrl.RemoveCode(item)" class="glyphicon glyphicon-remove pointer"></span></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-12  CMS-no-left-padding lft-algn ">
+                                                            <div class=" CMS-valign-label CMS-no-left-padding">
+                                                                <label class="body-label"> Allergies:</label>
+                                                            </div>
+                                                            <div>
+                                                                <div class="input-group">
+                                                                    <input tooltip="Press the Enter key or the 'Add Allergy' button to enter an allergy" tooltip-placement="bottom" tooltip-trigger="mouseenter" tooltip-enable="!ACtrl.inputAllergy" id="Allergy" placeholder="Enter Allergy" ng-enter="ACtrl.AddAllergy(ACtrl.inputAllergy)" ng-model="ACtrl.inputAllergy" type="text" title="Max char length is 50" maxlength="50" class="form-control input-sm" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" ng-click="ACtrl.AddAllergy(ACtrl.inputAllergy)" class="sp-button btn btn-default">Add</button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-12  CMS-no-left-padding left-border">
+                                                            <div class=" CMS-valign-label CMS-no-left-padding lft-algn">
+                                                                <label class="body-label">Height:</label>
+                                                            </div>
+                                                            <div>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-btn">
+                                                                        <button class="btn  btn-default sp-button  dropdown-toggle" title="Select metric or standard units" type="button" data-toggle="dropdown" style="margin-left: 0">
+                                                                            <span class="caret"></span>
+                                                                        </button>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li><a href="Javascript:void(0)" ng-click="HeightSelection('in')">Standard</a></li>
+                                                                            <li><a href="Javascript:void(0)" ng-click="HeightSelection('cm')">Metric</a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <input id="Height"
+                                                                           title="Enter a numerical value"
+                                                                           type="number"
+                                                                           min="1"
+                                                                           maxlength="5"
+                                                                           value="{{ACtrl.height }}"
+                                                                           name="Height"
+                                                                           placeholder="Height"
+                                                                           ng-model="ACtrl.height"
+                                                                           class="form-control input-sm ">
+                                                                    <span id="heightMeasurementDisplay" class="input-group-addon input-span-display">in</span>
+                                                                    <input type="hidden" name="hiddenHeight" id="hiddenHeight" class="form-contrl input-sm" value="in">
+
+                                                                </div>
+                                                                <div class="redMessage" ng-if="CMSCoverageForm.Height.$invalid">Invalid </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-md-3 col-xs-12  CMS-no-left-padding CMS-no-left-padding left-border">
+                                                            <div class=" CMS-valign-label lft-algn ">
+                                                                <label class="body-label">Weight:</label>
+                                                            </div>
+                                                            <div>
+                                                                <div class="input-group">
+
+                                                                    <input id="Weight"
+                                                                           type="number"
+                                                                           name="Weight"
+                                                                           maxlength="5"
+                                                                           value="{{ACtrl.weight }}"
+                                                                           title="Enter a numerical value"
+                                                                           min="1"
+                                                                           placeholder="Weight"
+                                                                           ng-model="ACtrl.weight"
+                                                                           class="form-control input-sm ">
+                                                                    <span id="weightMeasurementDisplay" class="input-group-addon input-span-display">lbs</span>
+                                                                    <input type="hidden"
+                                                                           name="hiddenWeight"
+                                                                           id="hiddenWeight"
+                                                                           class="form-contrl input-sm"
+                                                                           value="lbs">
+
+                                                                </div>
+                                                                <div class="redMessage" ng-if="CMSCoverageForm.Weight.$invalid">Invalid </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-12 CMS-no-left-padding lft-algn">
+                                                            <div class="CMS-valign-label CMS-no-left-padding">
+                                                                <label class="body-label">Email:</label>
+                                                            </div>
+                                                            <div>
+                                                                <input id="memberEmail" maxlength="255" type="email" name="memberEmail" placeholder="Enter Member's Email Address" ng-model=" ACtrl.memberEmail" class="form-control input-sm">
+                                                                <div class="redMessage" ng-if="CMSCoverageForm.memberEmail.$invalid">Enter a valid email</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </li>
+                                            <li ng-cloak ng-if="memberData.PersonNumber == '00'" class="list-group-item clearfix ">
+
+                                                <div class="col-md-6 lft-algn  ">
+                                                    <label class="body-label">Patient's Authorized Representative</label>
+                                                    <input name="authRep" placeholder="Representative Name" ng-model="MVCtrl.AuthRep" type="text" maxlength="150" class="form-control input-sm">
+
+                                                </div>
+                                                <div class="col-md-6 lft-algn ">
+
+                                                    <label class="body-label">Authorized Representative Phone Number (e.g. 9098902000)</label>
+                                                    <input name="authRepNumber" type="text" maxlength="10" ng-model="MVCtrl.AuthRepNumber" ng-pattern="/\d{10}/" class="form-control input-sm">
+                                                    <div class="redMessage" ng-if="CMSCoverageForm.authRepNumber.$error.pattern">Enter a 10 digit phone number</div>
+                                                </div>
+                                            </li>
+
+                                        </ol>
+                                    </div>
+
+                                    <div>
+                                        <div class="SectionHeader col-md-12 ">
+                                            <h4>Member's Insurance Information</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-section" id="insurance-form-section">
+                                        <ol class="list-group">
+                                            <li class="list-group-item clearfix ">
+                                                <div class="col-md-6 lft-algn">
+                                                    <strong><span class="redAster">*</span>Is IEHP the Primary Insurance for Member?</strong>
+                                                    <span class="redMessage" ng-if="CMSCoverageForm.pri.$invalid && (CMSCoverageForm.pri.$touched || CMSCoverageForm.$submitted)">
+                                                        Required
+                                                    </span>
+                                                </div>
+                                                <div class="col-md-6 lft-algn">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" title="Select Yes or No" ng-model="MVCtrl.primary" ng-checked="MVCtrl.primary == 'yes'" placeholder="Name of Insurance" ng-click="PICtrl.reset=false" name="pri" value="yes" required /><span>Yes</span>
+                                                    </label>
+
+                                                    <label class="radio-inline">
+                                                        <input type="radio" ng-model="MVCtrl.primary" placeholder="Primary Insurance I.D." ng-checked="MVCtrl.primary == 'no'" name="pri" value="no" required /><span>No</span>
+                                                    </label>
+
+                                                    <div id="insureError"></div>
+                                                </div>
+
+
+
+                                            </li>
+                                            <li class="list-group-item clearfix  lft-algn" ng-cloak ng-show="MVCtrl.primary == 'yes'">
+                                                <div class="col-md-6 ">
+                                                    <label class="body-label ">Primary Insurance:</label>
+                                                    <span><strong>Inland Empire Health Plan</strong></span>
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <label class="body-label ">Member I.D.</label>
+                                                    <span><strong>{{MVCtrl.memberId}}</strong></span>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item clearfix  lft-algn" ng-cloak ng-show="MVCtrl.primary == 'yes'">
+
+                                                <div class="col-md-6">
+                                                    <label class="body-label "> Enter Secondary Insurance Information:</label>
+                                                    <input type="text" maxlength="50" ng-model="MVCtrl.secondary" placeholder="Name of Insurance" name="secondaryInsurance" class="form-control input-sm" />
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label class="body-label ">Member I.D.</label>
+                                                    <input type="text" maxlength="50" ng-model="MVCtrl.secondaryId" placeholder="Secondary Insurance I.D." name="secondaryInsuranceId" class="form-control input-sm" />
+                                                </div>
+
+                                            </li>
+                                            <li class="list-group-item clearfix lft-algn" ng-cloak ng-show="MVCtrl.primary == 'no'">
+                                                <div class="col-md-6">
+                                                    <label class="body-label"> Enter Primary Insurance Information:</label>
+                                                    <input type="text" maxlength="50" placeholder="Name of Insurance" ng-model="MVCtrl.priImsuarancy" name="primaryInsurance" class="form-control input-sm" />
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label class="body-label">Insurance I.D. :</label>
+                                                    <input type="text" maxlength="50" placeholder="Primary Insurance I.D." ng-model="MVCtrl.priImsuarancyId" name="primaryInsuranceId" class="form-control input-sm" />
+                                                </div>
+
+
+
+                                            </li>
+                                            <li class="list-group-item clearfix lft-algn" ng-cloak ng-show="MVCtrl.primary == 'no'">
+                                                <div class="col-md-6 ">
+                                                    <label class="body-label">Secondary Insurance Name:</label>
+                                                    <span><strong>Inland Empire Health Plan</strong></span>
+                                                </div>
+
+                                                <div class="col-md-6 ">
+                                                    <label class="body-label">Member I.D.</label>
+
+                                                    <span><strong>{{MVCtrl.memberId}}</strong></span>
+                                                </div>
+                                            </li>
+                                        </ol>
+
+                                    </div>
+
+                                    <div id="scrollToIfCont">
+                                        <div class="SectionHeader col-md-12 ">
+                                            <h4>Prescriber Information</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-section">
+                                        <ol class="list-group">
+
+                                            <li class="list-group-item clearfix ">
+
+                                                <div class="col-md-3 col-xs-12 lft-algn">
+                                                    <label class="align-label-left fit-demographic-information-label">Name:</label>
+                                                    <span class="lbl align-span-right fit-demographic-information-span" ng-cloak>{{MVCtrl.providerNameF}}<span ng-if="MVCtrl.providerNameF && MVCtrl.providerNameL">&nbsp;&nbsp;</span>{{MVCtrl.providerNameL}}</span>
+
+                                                </div>
+                                                <div class="col-md-3  col-xs-12 left-border lft-algn">
+                                                    <label class="align-label-left">Fax #:</label>
+                                                    <span class="lbl align-span-right" ng-cloak>{{MVCtrl.providerFax | tel}}</span>
+
+                                                </div>
+                                                <input id="prov" type="hidden" name="prescriberId" maxlength="12" value="{{MVCtrl.providerID}}" />
+
+                                                <div class="col-md-3 col-xs-12 left-border lft-algn">
+                                                    <label class="align-label-left">NPI:</label>
+                                                    <span class="lbl align-span-right">{{MVCtrl.providerNPI}}</span>
+
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 left-border lft-algn">
+                                                    <label class="align-label-left">Tel #:</label>
+                                                    <span class="lbl align-span-right" ng-cloak>{{MVCtrl.providerPhone | tel}}</span>
+
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item clearfix ">
+                                                <div class="col-md-3 col-xs-12  lft-algn">
+                                                    <label class="align-label-left fit-demographic-information-label">Address:</label>
+                                                    <span class="lbl align-span-right fit-demographic-information-span" ng-cloak>{{MVCtrl.providerAddress}}</span>
+
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 left-border lft-algn">
+                                                    <label class="align-label-left fit-demographic-information-label">City:</label>
+                                                    <span class="lbl align-span-right fit-demographic-information-span" ng-cloak>{{MVCtrl.providerCity}}</span>
+
+                                                </div>
+                                                <div class="col-md-3 col-xs-12  left-border lft-algn">
+                                                    <label class="align-label-left">State:</label>
+                                                    <span class="lbl align-span-right" ng-cloak>{{MVCtrl.providerState}}</span>
+
+                                                </div>
+                                                <div class="col-md-3 col-xs-12 left-border lft-algn">
+                                                    <label class="align-label-left">Zip Code:</label>
+                                                    <span class="lbl align-span-right" ng-cloak>{{MVCtrl.providerZip | zipcode}}</span>
+
+                                                </div>
+                                            </li>
+
+
+
+
+                                            <li class="list-group-item clearfix ">
+                                                <div class="col-md-6  left-border lft-algn ">
+                                                    <label class="body-label">DEA #:</label>
+
+                                                    <input id="deaNumber" title="DEA number must be valid to be accepted." name="deaNumber" ng-model="MVCtrl.dea" class="form-control input-sm" type="text" placeholder="D.E.A. number" maxlength="9" />
+                                                </div>
+                                                <div class="col-md-6 left-border lft-algn ">
+                                                    <label class="body-label">Email:</label>
+
+                                                    <input name="providerEmail" maxlength="255" type="email" ng-model="MVCtrl.providerEmail" class="form-control input-sm" placeholder="Email Address" />
+                                                    <div class="redMessage" ng-if="CMSCoverageForm.providerEmail.$invalid">Enter a valid email</div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item clearfix ">
+                                                <div class="col-md-6  left-border lft-algn ">
+                                                    <label class="body-label"><span class="redAster">*</span>Requestor:</label>
+
+                                                    <input name="requestor" maxlength="50" placeholder="Requestor Name" ng-model="MVCtrl.requestor" class="form-control input-sm " type="text" required>
+                                                    <span class="redMessage" ng-if="CMSCoverageForm.requestor.$invalid && (CMSCoverageForm.requestor.$touched || CMSCoverageForm.$submitted)">Required</span>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12  left-border  lft-algn">
+                                                    <label class="body-label"><span class="redAster">*</span>Office Contact Person:</label>
+
+                                                    <input name="contact" maxlength="50" placeholder="Office Contact Person" ng-model="MVCtrl.contact" class="form-control input-sm" type="text" required>
+                                                    <span class="redMessage" ng-if="CMSCoverageForm.contact.$invalid && (CMSCoverageForm.contact.$touched || CMSCoverageForm.$submitted)">Required</span>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="hideForm2" style="display: none">
+                                <div id="DrugSearch" ng-controller="MedicationMedicalController as MMCtrl" class="ng-cloak">
+                                    <div>
+                                        <div class="SectionHeader col-md-12 ">
+                                            <h4><span class="redMessage">*</span>Medication/Medical and Dispensing Information</h4>
+                                        </div>
+                                    </div>
+                                    <div class="modal" id="CMShelp" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog" style="margin-top: 200px">
+                                            <div class="modal-content">
+                                                <div class="modal-header SectionHeader">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title">Drug Search Quick Tips</h4>
+                                                </div>
+                                                <div id="helpBody" class="modal-body">
+                                                    <div>
+                                                        <h4>Medication Search</h4>
+                                                        <p>
+                                                            To search for a medication, enter the partial or full name of the desired medication in the input titled <strong>"Name"</strong>
+                                                            or enter a medication I.D. such as an NDC number (e.g. 00022036846), into the input titled <strong>NDC #</strong>
+
+                                                            <span ng-show="providerData.IsDirect"><strong>or HCPCS code, </strong></span>
+
+                                                            then click the search button.
+                                                        </p>
+
+
+                                                        <h4>Restrictions</h4>
+                                                        <p>
+                                                            If any medications are found, they will be listed within the section named "Medication/Medical and Dispensing
+                                                            Information". Any of the medications listed may be selected, but are subject to the following restriction(s):
+                                                        </p>
+                                                        <p>
+                                                            1. Only 1 NDC may be submitted per submission
+                                                        </p>
+                                                        <p>
+                                                            2. Up to 500 search results will be searchable at once. If unable to find the medication searched for, please refine your
+                                                            search criteria, e.g. type more letters that match the desired medication into the "Name" input and try to search again,
+                                                            or check if the medication I.D. entered is correct.
+                                                        </p>
+                                                        <div ng-show="providerData.IsDirect">
+
+                                                            <p>3. NDC and HCPCS may not be submitted at the same time.</p>
+                                                            <h4>Change Medication Type</h4>
+                                                            <p>
+                                                                In order to change medication type, all selected medications must first be removed,
+                                                                this will enable the medication selection radio buttons.
+                                                            </p>
+                                                        </div>
+                                                        <h4>Filters Search Results</h4>
+                                                        <p>
+                                                            In order to quickly search through the results, you can use the "Filter Drug Results" input box. this will
+                                                            dynamically filter through the results based on your text input.
+                                                        </p>
+
+                                                        <h4>Required Fields</h4>
+                                                        <p>
+                                                            All required fields, denoted by a red asterix <span class="redAster">"*"</span>, must be filled in on each of the selected medications.
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-section">
+                                        <div id="MedicationLimitMessage" class="instruction-message">
+                                            <div class="QUIMessage" id="QuantityUIMessage">
+                                                <span>Only 1 NDC may be submitted per submission</span>
+                                            </div>
+                                            <div id="helpSpan">
+                                                <span id="helpButton" class="pointer" data-toggle="modal" data-target="#CMShelp">Help</span>
+                                            </div>
+                                        </div>
+                                        <ol class="list-group">
+
+                                            <li class="list-group-item" style="border: none; padding-left: 0; padding-right: 0;" ng-show="SelectedDrugs.length > 0">
+                                                <div class="UPA-page-break-none" ng-repeat="item in SelectedDrugs ">
+
+                                                    <ol class="list-group ">
+
+                                                        <li class="list-group-item" ng-show="SelectedDrugs.length < 1">None Selected</li>
+                                                        <li class="list-group-item clearfix">
+
+                                                            <div ng-class="{ 'col-md-4': item.type == 'N', 'col-md-7': item.type == 'H' }" class="lft-algn">
+
+                                                                <div class=" div-no-padding" ng-class="{ 'col-md-5': item.type == 'N', 'col-md-3': item.type == 'H' }">
+                                                                    <label class="body-label"><strong>Medication {{$index + 1}}:</strong> </label>
+                                                                </div>
+                                                                <div class="div-no-padding" ng-class="{ 'col-md-7': item.type == 'N', 'col-md-9': item.type == 'H' }">
+                                                                    <label class="body-label">{{item.seqno}}&nbsp;&nbsp;</label><label class="body-label"> {{item.brandName}}</label>
+                                                                    <input type="hidden" name="SearchedDrugName" value="{{item.brandName}}" />
+                                                                    <input type="hidden" name="DrugCode" value="{{item.seqno}}" />
+                                                                    <input type="hidden" name="InclusionId" value="{{item.InclusionId}}" />
+                                                                </div>
+
+                                                            </div>
+                                                            <div ng-if="item.seqno == 'J3490' || item.seqno == 'J9999'" class="col-md-4 ">
+                                                                <label class="lft-algn"><span class="redAster">*</span>Enter Drug Description in Section 3 'Medical Justification' to Submit this HCPCS.</label>
+                                                            </div>
+                                                            <div class="col-sm-4 lft-algn" ng-if="item.type == 'N'">
+
+                                                                <div class="col-md-5 div-no-padding ">
+                                                                    <label class="body-label">Dosage Form:</label>
+                                                                </div>
+                                                                <div class="col-md-7 div-no-padding">
+                                                                    <label>{{item.dosage}}</label>
+                                                                    <input type="hidden" name="SearchedDrugForm" value="{{item.dosage}}" />
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-sm-3 lft-algn" ng-show="item.type == 'N'">
+
+                                                                <div class="col-md-5 div-no-padding">
+                                                                    <label class="body-label">Strength:</label>
+                                                                </div>
+                                                                <div class="col-md-7 div-no-padding">
+                                                                    <label>{{item.strength}}</label>
+                                                                    <input type="hidden" name="SearchedDrugStrength" value="{{item.strength}}" />
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <button type="button" ng-click="removeDrug(item)" class="btn  btn-default RemoveDrug" style="float: right"><span class="glyphicon glyphicon-remove pointer " title="Remove"></span></button>
+                                                            </div>
+
+                                                        </li>
+
+                                                        <li class="list-group-item clearfix">
+
+                                                            <div class="col-md-3 lft-algn">
+                                                                <div>
+                                                                    <label class="body-label" style="padding-left: 0;">
+                                                                        <span class="redAster">*</span>Brand Only:
+
+                                                                    </label>
+                                                                    <span class="redMessage" ng-if="!item.Bn && CMSCoverageForm.$submitted ">
+                                                                        Required
+                                                                    </span>
+                                                                </div>
+
+
+                                                                <div>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio"
+                                                                               ng-model="item.Bn"
+                                                                               ng-checked="item.Bn =='on'"
+                                                                               value="on"
+                                                                               required />Yes
+                                                                    </label>
+
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio"
+                                                                               ng-model="item.Bn"
+                                                                               ng-checked="item.Bn =='off'"
+                                                                               value="off"
+                                                                               required />No
+                                                                    </label>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="col-md-3" ng-cloak ng-show="!NDCflag">
+                                                                <div class="CMS-label-div CMS-small-margin lft-algn">
+                                                                    <label class="body-label">
+                                                                        <span class="redAster">*</span>Frequency:
+                                                                        <span class="redMessage" ng-if="!item.dropdown  && CMSCoverageForm.$submitted"> Required</span>
+                                                                    </label>
+                                                                    <div class="input-group selectDropdown hideDD">
+                                                                        <select id="Frequency"
+                                                                                title="Make a selection."
+                                                                                value="{{item.dropwdown.DosageId}}"
+                                                                                class="form-control selectDropdown freq custom-frequency-dropdown"
+                                                                                ng-model="item.dropdown"
+                                                                                name="Frequency"
+                                                                                ng-options="x.DosageDescription for x in dropdown track by x.DosageId"
+                                                                                ng-required="!NDCflag"
+                                                                                role="menu"
+                                                                                aria-labelledby="dropdownMenu1">
+                                                                            <option></option>
+                                                                        </select>
+
+                                                                    </div>
+                                                                    <div class="showValue" style="display: none;">
+                                                                        <span style="color: #636363;">{{item.dropdown.DosageDescription}}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-xs-12 " ng-cloak ng-show="NDCflag">
+                                                                <div class="CMS-label-div CMS-small-margin lft-algn ">
+                                                                    <label class="body-label">
+                                                                        <span class="redAster">*</span>SIG (100 chars max):
+
+                                                                        <span class="redMessage" ng-if="!item.Sig && CMSCoverageForm.$submitted"> Required</span>
+                                                                    </label>
+                                                                    <textarea id="SIG" title="Provide SIG"
+                                                                              class="CMS-sig"
+                                                                              ng-required="NDCflag"
+                                                                              ng-model="item.Sig"
+                                                                              maxlength="100"
+                                                                              name="SIG"
+                                                                              style="text-transform: uppercase; overflow: hidden"
+                                                                              type="text"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-xs-12">
+                                                                <div class="CMS-label-div  CMS-small-margin lft-algn ">
+                                                                    <ng-form name="refillsForm">
+                                                                        <label class="body-label">
+                                                                            <span class="redAster">*</span># of Refills:
+                                                                            <span class="redMessage" ng-if="refillsForm.Refills.$invalid && (refillsForm.Refills.$touched || CMSCoverageForm.$submitted)"> Required</span>
+
+                                                                        </label>
+                                                                        <input id="Refills"
+                                                                               title="Refill (numeric)"
+                                                                               ng-pattern="/^\d{0,7}$/"
+                                                                               maxlength="7"
+                                                                               type="text"
+                                                                               ng-model="item.refill"
+                                                                               name="Refills"
+                                                                               class="form-control "
+                                                                               required
+                                                                               style="display: inline-block">
+                                                                    </ng-form>
+                                                                    <span class="redMessage" ng-if="refillsForm.Refills.$error.pattern"> Invalid</span>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-3 col-xs-12">
+
+
+                                                                <div class="CMS-label-div CMS-small-margin lft-algn ">
+                                                                    <ng-form name="quantityForm">
+                                                                        <label class="body-label">
+                                                                            <span class="redAster">*</span>Quantity:
+                                                                            <span class="redMessage" ng-if="quantityForm.Quantity.$invalid && (quantityForm.Quantity.$touched || CMSCoverageForm.$submitted)"> Required</span>
+
+                                                                        </label>
+                                                                        <input id="Quantity"
+                                                                               title="Quantity "
+                                                                               ng-pattern="/^[1-9]{1}[0-9]{0,6}$/"
+                                                                               maxlength="7"
+                                                                               type="text"
+                                                                               name="Quantity"
+                                                                               ng-model="item.qty"
+                                                                               class="form-control"
+                                                                               required
+                                                                               style="display: inline-block">
+                                                                        <span class="redMessage" ng-if="quantityForm.Quantity.$error.pattern"> Invalid</span>
+                                                                    </ng-form>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="list-group-item clearfix">
+                                                            <div class=" lft-algn">
+
+                                                                <div class="col-md-3 ">
+                                                                    <div class="p-indent">
+
+                                                                        <label class="body-label"><span class="redAster">*</span>Therapy:</label>
+                                                                        <span class="redMessage" ng-if="!item.therapy && CMSCoverageForm.$submitted"> Required</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3 ">
+                                                                    <label class=" radio-inline">
+                                                                        <input type="radio"
+                                                                               title="Select New or Renewal"
+                                                                               ng-model="item.therapy"
+                                                                               ng-checked="item.therapy=='new'"
+                                                                               ng-click="clearDates(item)"
+                                                                               value="new"
+                                                                               required />
+                                                                        New Therapy
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3   lft-algn">
+                                                                    <label class=" radio-inline">
+                                                                        <input type="radio"
+                                                                               ng-model="item.therapy"
+                                                                               ng-checked="item.therapy=='renewal'"
+                                                                               value="renewal"
+                                                                               required />
+                                                                        Renewal of Therapy
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <ng-form name="dateInputForm">
+                                                            <li class="list-group-item clearfix " ng-clock ng-show="item.therapy=='renewal'">
+                                                                <div class="">
+                                                                    <div class="col-md-3 col-sm-4 lft-algn">
+                                                                        <label class="body-label">
+                                                                            <span class="redAster">*</span>Date Initiated
+                                                                        </label>
+                                                                        <div class='input-group'>
+
+                                                                            <div class="datepicker"
+                                                                                 date-format="MM/dd/yyyy"
+                                                                                 selector="SearchDateInit">
+                                                                                <span class="btn btn-default input icon">
+                                                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                                                </span>
+                                                                                <input ng-change="checkDate(item, 0)"
+                                                                                       ng-model="item.date1"
+                                                                                       type="text"
+                                                                                       placeholder="MM/DD/YYYY"
+                                                                                       name="dateInitiatedInput1"
+                                                                                       maxlength="10"
+                                                                                       class="form-control input-sm SearchDateInit"
+                                                                                       id="SearchDateInit"
+                                                                                       ng-required="item.therapy == 'renewal'">
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <label class="body-label">
+
+                                                                            <span class="redMessage" ng-if="!item.date1 && CMSCoverageForm.$submitted"> Required</span>
+                                                                            <span class="redMessage" ng-if="item.date1 && !item.date1Valid"> Invalid date format</span>
+
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-sm-4  left-border lft-algn">
+                                                                        <label class="body-label">
+                                                                            <span class="redAster">*</span>From
+                                                                        </label>
+                                                                        <div class='input-group '>
+                                                                            <div class="datepicker"
+                                                                                 date-format="MM/dd/yyyy"
+                                                                                 selector="SearchDateInit2">
+                                                                                <span class="btn btn-default input icon">
+                                                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                                                </span>
+                                                                                <input ng-change="checkDate(item, 1)"
+                                                                                       ng-model="item.date2"
+                                                                                       type="text"
+                                                                                       placeholder="MM/DD/YYYY"
+                                                                                       name="dateInitiatedInput2"
+                                                                                       maxlength="10"
+                                                                                       class="form-control input-sm SearchDateInit2"
+                                                                                       id="SearchDate1"
+                                                                                       ng-disabled="(!item.date1Valid)"
+                                                                                       ng-required="item.therapy == 'renewal' ">
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="body-label">
+
+                                                                            <span class="redMessage" ng-if="!item.date2 && CMSCoverageForm.$submitted"> Required</span>
+                                                                            <span class="redMessage" ng-if="item.date2 && !item.date2Valid"> Invalid date format</span>
+                                                                            <span class="redMessage" ng-if="item.showMessage1"> 'From' date must be after 'Date Initiated'</span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-sm-4 lft-algn">
+                                                                        <label class="body-label">
+                                                                            <span class="redAster">*</span>Through
+                                                                        </label>
+                                                                        <div class='input-group '>
+
+                                                                            <div class="datepicker"
+                                                                                 date-format="MM/dd/yyyy"
+                                                                                 selector="SearchDateInit3">
+                                                                                <span class="btn btn-default input icon">
+                                                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                                                </span>
+                                                                                <input ng-change="checkDate(item,2)"
+                                                                                       ng-model="item.date3"
+                                                                                       type="text"
+                                                                                       name="dateInitiatedInput3"
+                                                                                       placeholder="MM/DD/YYYY"
+                                                                                       class="form-control input-sm SearchDateInit3"
+                                                                                       id="SearchDate2"
+                                                                                       maxlength="10"
+                                                                                       ng-disabled="(!item.date2Valid || item.showMessage1)"
+                                                                                       ng-required="item.therapy == 'renewal'">
+                                                                            </div>
+                                                                        </div>
+                                                                        <label class="body-label " title="Select a 'From' date first to add a 'Through' date.">
+
+                                                                            <span class="redMessage" ng-if="!item.date3 && CMSCoverageForm.$submitted"> Required</span>
+                                                                            <span class="redMessage" ng-if="item.date3 && !item.date3Valid"> Invalid date format</span>
+                                                                            <span class="redMessage" ng-if="item.showMessage2"> 'Through date' must be after 'From' date</span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+
+
+                                                        </ng-form>
+                                                        <li class="list-group-item clearfix">
+                                                            <div class="lft-algn ">
+                                                                <div class="col-md-12 ">
+                                                                    <label class="body-label">Administration:</label>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="item.Admin" ng-checked="item.Admin=='0'" value="0" />N/A
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="item.Admin" ng-checked="item.Admin=='1'" value="1" />Oral/SL
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="item.Admin" ng-checked="item.Admin=='2'" value="2" />Topical
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="item.Admin" ng-checked="item.Admin=='3'" value="3" />Injection
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="item.Admin" ng-checked="item.Admin=='4'" value="4" />IV
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="item.Admin" ng-checked="item.Admin=='5'" value="5" />Other
+
+                                                                    </label>
+                                                                    <div ng-show="item.Admin=='5'">
+                                                                        <input ng-cloak ng-required="item.Admin=='5'" ng-model="item.otherAdmn" maxlength="50" placeholder="Other" class="form-control" type="text">
+                                                                        <span class="redMessage" ng-if="!item.otherAdmn"> Required</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="list-group-item clearfix">
+
+                                                            <div class="lft-algn">
+                                                                <div class="col-md-12">
+                                                                    <label class="body-label">Administration Location:</label>
+                                                                </div>
+
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+
+                                                                        <input type="radio" ng-model="item.Administration" ng-checked="item.Administration =='0'" value="0" />N/A
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="item.Administration" value="1" ng-checked="item.Administration =='1'" />Physician's Office
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="item.Administration" value="2" ng-checked="item.Administration=='2'" />Ambulatory Inf. Center
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="item.Administration" value="3" ng-checked="item.Administration=='3'" />Patient’s Home
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="item.Administration" value="4" ng-checked="item.Administration=='4'" />Home Care Agency
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline ">
+
+                                                                        <input type="radio" ng-model="item.Administration" value="5" n ng-checked="item.Administration=='5'" />Outpatient Hospital Care
+
+                                                                    </label>
+                                                                    <div ng-show="item.Administration=='5'">
+                                                                        <input ng-model="item.hospital" ng-cloakd ng-required="item.Administration=='5'" maxlength="50" placeholder="Hospital Name" class="form-control " type="text" style="display: inline-block">
+                                                                        <span class="redMessage" ng-if="!item.hospital">Required</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" ng-model="item.Administration" value="6" ng-checked="item.Administration=='6'" />Long Term Care
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3 ">
+                                                                    <label class="radio-inline">
+
+                                                                        <input type="radio" ng-model="item.Administration" value="7" ng-checked="item.Administration=='7'" />Other
+
+                                                                    </label>
+                                                                    <div ng-show="item.Administration=='7'">
+                                                                        <input ng-model="item.otherAdmin" ng-cloak placeholder="Other" ng-required="item.Administration=='7'" maxlength="50" class="form-control " type="text" style="display: inline-block">
+                                                                        <span class="redMessage" ng-if="!item.otherAdmin">Required</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+
+                                                    </ol>
+
+                                                </div>
+
+
+                                            <li class="list-group-item" id="med-type">
+
+                                                <div class="">
+
+                                                    <div class="col-md-12 lft-algn">
+                                                        <label class="body-label"><strong>Medication type:</strong> </label>
+                                                        <div style="display: inline-block">
+                                                            <label class="CMS-drug-type ">
+                                                                <input type="radio" id="ndcRadio" name="Type" ng-checked="Type == 0" required value='0' ng-disabled="!NDCflag && SelectedDrugs.length > 0 " ng-click="resetResults(true);MMCtrl.reset = true; EnterPharmInfo = false;" ng-model="Type" /> NDC
+                                                            </label>
+                                                        </div>
+
+                                                        <div style="display: inline-block" ng-show="providerData.IsDirect">
+                                                            <label class="CMS-drug-type">
+                                                                <input type="radio" name="Type" ng-checked="Type == 1" required value='1' ng-disabled="NDCflag && SelectedDrugs.length > 0 " ng-click="resetResults(false); MMCtrl.reset = true; EnterPharmInfo = false;" ng-model="Type"> HCPCS
+                                                            </label>
+                                                        </div>
+
+                                                        <div style="float: right;">
+                                                            <label>{{SelectedDrugs.length}} Medications selected</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class=" icd-code-input">
+
+                                                    <div class="col-md-6">
+                                                        <div class="lft-algn">
+                                                            <label class="body-label" ng-show="!providerData.IsDirect">Search by NDC#</label>
+                                                            <label class="body-label" ng-show="providerData.IsDirect"><strong>Search by NDC# or HCPCS code</strong></label>
+                                                            <label class="body-label " style="float: right;">Or</label>
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <input type="text"
+                                                                   ng-enter="searchDrugs();"
+                                                                   title="Search for medication by I.D."
+                                                                   maxlength="11"
+                                                                   name="NDCHCPCS"
+                                                                   id="ndcSearchInput"
+                                                                   class="form-control input-sm"
+                                                                   ng-model="NDC"
+                                                                   placeholder="{{(Type == '1' ? 'HCPCS Code' : 'NDC I.D.')}}"
+                                                                   ng-pattern="/^(([a-zA-Z][0-9]{4})|([9][0-9]{4})|([0-9]{11}))$/" />
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="btn btn-default" name="searchdrug" value="Search" ng-click="searchDrugs();">Search</button>
+                                                            </span>
+
+                                                        </div>
+                                                        <span class="redMessage" ng-if="CMSCoverageForm.NDCHCPCS.$error.pattern"> Invalid NDC # or Procedure code</span>
+
+                                                    </div>
+                                                    <!--<div class="col-md-2" style="text-align: center;">
+
+                                                        <label class="body-label">OR</label>
+
+                                                    </div>-->
+                                                    <div class="col-md-6 ">
+
+                                                        <div class="lft-algn">
+                                                            <label class="body-label"><strong>Search by Medication name</strong></label>
+                                                        </div>
+
+
+                                                        <div>
+                                                            <div class="input-group">
+                                                                <input type="text"
+                                                                       ng-enter="searchDrugs();"
+                                                                       title="Search for Medication by name"
+                                                                       minlength="3"
+                                                                       name="hcpcSearchInput"
+                                                                       id="hcpcSearchInput"
+                                                                       class="form-control input-sm"
+                                                                       ng-model="DrugSearchString"
+                                                                       placeholder="Full or Partial Name" />
+                                                                <span class="input-group-btn">
+                                                                    <button type="button" class="btn btn-default" name="searchdrug" value="Search" ng-click="searchDrugs();">Search</button>
+                                                                </span>
+
+                                                            </div>
+                                                            <span class="redMessage" ng-if="CMSCoverageForm.hcpcSearchInput.$error.minlength">Minimum 3 characters</span>
+                                                        </div>
+
+                                                    </div>
+                                                    <!--<div class="col-md-1 search-button-top-padding">
+
+                                                        <input type="button" class="btn" name="searchdrug" value="Search" ng-click="searchDrugs();"/>
+                                                    </div>-->
+
+                                                </div>
+                                                <span id="searchDrugsSpinner"></span>
+                                                <div style="text-align: center" id="drugProcessing" class="row"></div>
+                                            </li>
+                                            <li ng-show="SearchResults.length == 0 && !MMCtrl.reset" class="list-group-item ng-cloak" class="text-center">
+                                                <div class="redAster text-center"> {{SearchParamString}}  yielded no results</div>
+                                            </li>
+                                            <li id="search-results" ng-show="SearchResults.length > 0  && !NDCflag " class="list-group-item slide-down ng-cloak">
+                                                <div class="list-group-item text-info bg-info" style="height: 95px">
+                                                    <div class="col-md-3 col-xs-3 sml-txt">
+                                                        <label>{{SearchParamString}}</label><br />
+                                                        <label>Showing {{filteredSearchResults.length }} of {{SearchResults.length}} results</label>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-4 col-xs-8 sml-txt">
+                                                        <label>Filter Drug Results</label>
+                                                        <input class="form-control input-sm" ng-model="FilterDrugSearch" ng-change="customFilter()" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="list-group " style="max-height: 300px; overflow-y: scroll;" when-scroll-ends="paginateDrugSearch()">
+
+
+                                                    <div id="drug-search-results" class="list-group-item pointer li-search-drug" ng-repeat="item in filteredSearchResults  |  limitTo: paginationAmount : indexOfPagination" ng-click="addDrug(item, $index)">
+                                                        <div class="col-sm-12" ng-cloak ng-if="Type == '0'">
+
+                                                            <div style="float: left">
+
+                                                                <label>Generic Name:&nbsp;</label><span>{{::item.GenericNameAndDosage | titleCase}}</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-12">
+                                                            <div style="float: left">
+                                                                <label>Brand Name:&nbsp;</label><span>{{::item.FullDescription | titleCase }}{{::item.BrandNameAndDosage | titleCase}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12" ng-cloak ng-show="filteredSearchResults.length == 0">
+                                                        <span class="redAster">Filter found no results. Try refining your search by adding more information to the <strong>Name input</strong> or retyping the <strong>medication I.D.</strong></span>
+                                                    </div>
+
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <div simple-ajax-loader show="NDCLoader"></div>
+
+                                    <div>
+                                        <div class="modal fade" id="PAErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" style="margin-top: 200px">
+                                                <div class="modal-content">
+                                                    <div class="modal-header SectionHeader">
+                                                        <button type="button" class="close" title="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                        <h4 class="modal-title">Alert</h4>
+                                                    </div>
+                                                    <div class="modal-body" id="modalBodyProvider">
+                                                        <div id="PAerrorMessage" class="col-md-12">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="modal fade" data-backdrop="static" id="PharmacySearchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" style="margin-top: 200px">
+                                                <div class="modal-content">
+                                                    <div class="modal-header SectionHeader">
+                                                        <button ng-click="EnterPharmInfo = !EnterPharmInfo" type="button" class="close" title="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                        <h4 class="modal-title">Select Pharmacy as Service Provider</h4>
+                                                    </div>
+                                                    <div class="modal-body pharmSelectModal">
+                                                        <div ng-cloak ng-show="isNDC && !EnterPharmInfo">
+
+                                                            <div class="row">
+                                                                <div class="col-md-12" ng-hide="(NDCPharmaciesSearched && NDCPharmacies.length > 0) && EnterPharmInfo">
+                                                                    <fieldset class="pharmSearchFieldSet">
+                                                                        <legend class="pharmSearchLegend">Search for a Pharmacy</legend>
+                                                                        <div class="col-md-12 lft-algn">
+
+                                                                            <div class="pharmInput">
+                                                                                <label class="body-label"> Name</label>
+                                                                                <input id="NDCSearchName" ng-enter="NDCPharmacySearch()" ng-model="MMCtrl.ndcSearchName" title="" placeholder="Name" class="form-control input-sm" maxlength="50" type="text">
+                                                                            </div>
+                                                                            <div class="pharmInput lft-algn">
+                                                                                <label class="body-label"> City</label>
+                                                                                <input id="NDCSearchCity" ng-enter="NDCPharmacySearch()" ng-model="MMCtrl.ndcSearchCity" title="" placeholder="City" class="form-control input-sm" maxlength="50" type="text">
+                                                                            </div>
+                                                                            <div class="pharmInput lft-algn">
+                                                                                <label class="body-label"> Zip Code</label>
+                                                                                <input id="NDCSearchZip" ng-enter="NDCPharmacySearch()" ngenter ng-model="MMCtrl.ndcSearchZip" title="" placeholder="Zip Code" class="form-control input-sm" maxlength="15" type="text">
+                                                                            </div>
+                                                                            <div class="text-center">
+                                                                                <button id="srchPharmBtn" type="button" class="btn  btn-primary " title="" id="search-pharm-btn" ng-click="NDCPharmacySearch()">
+                                                                                    Search
+                                                                                </button>
+                                                                            </div>
+                                                                            <div simple-ajax-loader show="PharmSearchLoader"></div>
+                                                                        </div>
+                                                                    </fieldset>
+                                                                    <div id="NDCSearchStatus" class="PAalignCenter">
+
+                                                                    </div>
+                                                                </div>
+                                                                <div ng-cloak ng-show="(NDCPharmaciesSearched && NDCPharmacies.length > 0) && !EnterPharmInfo" ng-repeat="pharm in NDCPharmacies">
+                                                                    <div>
+
+                                                                        <div class="col-md-12 PharmacyList" ng-click="SelectPharmacy(this)">
+                                                                            <span><strong>{{pharm.PharmacyName | toUpperCase}}</strong></span>
+
+                                                                            <div class="col-md-12">
+                                                                                <span>{{pharm.PharmacyAddress1 | toUpperCase }} {{pharm.PharmacyAddress2 | toUpperCase }}  </span><span> {{pharm.PharmacyCity | toUpperCase}} </span><span> {{pharm.PharmacyState | toUpperCase }}</span><span> {{pharm.PharmacyZip | zipcode}}</span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div ng-cloak ng-show="!isNDC && !EnterPharmInfo">
+
+                                                            <div ng-repeat="pharm in SpecialtyPharmacies">
+
+                                                                <div class="col-md-12 PharmacyList" ng-click="SelectPharmacy(this)">
+                                                                    <span><strong>{{pharm.PharmacyName }}</strong></span>
+                                                                    <div class="col-md-12">
+                                                                        <span>{{pharm.PharmacyAddress1}} {{pharm.PharmacyAddress2}} </span><span> {{pharm.PharmacyCity}} </span><span> {{pharm.PharmacyState}} </span><span> {{pharm.PharmacyZip | zipcode}}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <ng-form name="manualPharmacyForm">
+                                                            <div ng-cloak ng-show="EnterPharmInfo &&  (NDCPharmacies.length > 0 || SpecialtyPharmacies.length > 0)">
+                                                                <fieldset class="pharmSearchFieldSet">
+                                                                    <legend class="pharmSearchLegend">Enter Pharmacy information</legend>
+                                                                    <div class="pharmInput ">
+
+                                                                        <label class="body-label floatLeft"><span class="redAster">*</span>Name <span class="redMessage" ng-if="manualPharmacyForm.manPharmName.$error.required"> Required</span></label>
+                                                                        <input maxlength="50"
+                                                                               ng-enter="manSubmitPharm()"
+                                                                               name="manPharmName"
+                                                                               ng-required="EnterPharmInfo &&  (NDCPharmacies.length > 0 || SpecialtyPharmacies.length > 0)"
+                                                                               id="manPharmName" ng-model="MMCtrl.manPharmName"
+                                                                               title="Enter Pharmacy Name"
+                                                                               class="form-control input-sm"
+                                                                               type="text" />
+                                                                        <span class="redMessage" ng-if="manualPharmacyForm.manPharmName.$error.maxlength">Pharmacy name is too long</span>
+                                                                    </div>
+                                                                    <div class="pharmInput">
+                                                                        <label class="body-label floatLeft"> NPI Number</label>
+                                                                        <input id="manPharmNPI"
+                                                                               ng-enter="manSubmitPharm()"
+                                                                               name="manualPharmacyNPI"
+                                                                               ng-model="MMCtrl.manPharmNP"
+                                                                               type="text"
+                                                                               title="Enter 10 digit Pharmacy NPI number"
+                                                                               ng-pattern="/\d{10}/"
+                                                                               maxlength="10"
+                                                                               class="form-control input-sm" />
+                                                                        <span class="redMessage" ng-if="manualPharmacyForm.manualPharmacyNPI.$error.pattern">Enter 10 digit NPI</span>
+                                                                    </div>
+                                                                    <div class="pharmInput">
+                                                                        <label class="body-label floatLeft"> City</label>
+                                                                        <input id="manPharmCity"
+                                                                               ng-enter="manSubmitPharm()"
+                                                                               ng-model="MMCtrl.manPharmCity"
+                                                                               name="manPharmCity"
+                                                                               title="Enter Pharmacy City"
+                                                                               class="form-control input-sm"
+                                                                               maxlength="50"
+                                                                               type="text" />
+                                                                    </div>
+                                                                    <div class="pharmInput">
+                                                                        <label class="body-label floatLeft"> Address</label>
+                                                                        <input id="manPharmAddress"
+                                                                               ng-enter="manSubmitPharm()"
+                                                                               ng-model="MMCtrl.manPharmAddress"
+                                                                               name="manPharmAddress"
+                                                                               title="Enter Pharmacy Address"
+                                                                               class="form-control input-sm"
+                                                                               maxlength="50"
+                                                                               type="text" />
+                                                                    </div>
+                                                                    <div class="pharmInput">
+                                                                        <label class="body-label floatLeft"> State</label>
+
+                                                                        <select ng-model="MMCtrl.manPharmState"
+                                                                                id="manPharmState"
+                                                                                name="manPharmState"
+                                                                                title="Enter Pharmacy State"
+                                                                                class="form-control input-sm"
+                                                                                ng-init="MMCtrl.manPharmState = states[0]"
+                                                                                ng-options="state.description for state in states track by state.lookup">
+                                                                            <option></option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="pharmInput">
+                                                                        <label class="body-label floatLeft">
+                                                                            Zip code
+                                                                            <span class="redMessage" ng-if="manualPharmacyForm.manualPharmacyZip.$error.pattern"> Invalid zip code</span>
+                                                                        </label>
+                                                                        <input id="manPharmZip"
+                                                                               ng-pattern="/\d{5}/"
+                                                                               maxlength="10"
+                                                                               ng-enter="manSubmitPharm()"
+                                                                               type="text"
+                                                                               ng-model="MMCtrl.manPharmZip"
+                                                                               name="manualPharmacyZip"
+                                                                               title="Enter Pharmacy Zipcode"
+                                                                               class="form-control input-sm" />
+                                                                    </div>
+                                                                    <div class="pharmInput">
+                                                                        <label class="body-label floatLeft">
+                                                                            <label class="body-label"><span class="redAster">*</span>Phone</label>
+                                                                            <span class="redMessage" ng-if="manualPharmacyForm.manPharmPhone.$error.required"> Required</span>
+                                                                            <span class="redMessage" ng-if="manualPharmacyForm.manPharmPhone.$error.pattern"> Invalid Phone Number</span>
+                                                                        </label>
+                                                                        <input name="manPharmPhone"
+                                                                               ng-enter="manSubmitPharm()"
+                                                                               ng-pattern="/\d{10}/"
+                                                                               id="manPharmPhone"
+                                                                               ng-model="MMCtrl.manPharmPhone"
+                                                                               title="Enter Pharmacy Phone"
+                                                                               class="form-control input-sm"
+                                                                               maxlength="10"
+                                                                               type="text"
+                                                                               ng-required="EnterPharmInfo && (NDCPharmacies.length > 0 || SpecialtyPharmacies.length > 0)" />
+                                                                    </div>
+                                                                    <div class="pharmInput">
+                                                                        <label class="body-label floatLeft">
+                                                                            Fax
+
+                                                                            <span class="redMessage" ng-if="manualPharmacyForm.manPharmFax.$error.pattern"> Invalid Fax Number</span>
+                                                                        </label>
+                                                                        <input id="manPharmFax"
+                                                                               ng-enter="manSubmitPharm()"
+                                                                               ng-pattern="/\d{10}/"
+                                                                               ng-model="MMCtrl.manPharmfax"
+                                                                               title="Enter Pharmacy Fax"
+                                                                               class="form-control input-sm"
+                                                                               name="manPharmFax"
+                                                                               maxlength="10"
+                                                                               type="text" />
+                                                                    </div>
+                                                                    <button type="button" class="btn  btn-primary" ng-disabled="manualPharmacyForm.$invalid" ng-click="manSubmitPharm()">
+                                                                        Add Pharmacy
+                                                                    </button>
+                                                                </fieldset>
+                                                            </div>
+                                                        </ng-form>
+                                                    </div>
+                                                    <div class="modal-footer">
+
+                                                        <div ng-cloak ng-show="!EnterPharmInfo && (NDCPharmacies.length > 0 || SpecialtyPharmacies.length > 0)">
+                                                            <span class="PAanchor" ng-click="EnterPharmInfo = !EnterPharmInfo" title="Manually enter pharmacy information">Pharmacy not found?</span>
+                                                        </div>
+                                                        <div ng-cloak ng-show="EnterPharmInfo">
+                                                            <span class="PAanchor" ng-click="EnterPharmInfo = !EnterPharmInfo" title="Back">Back to search</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="SectionHeader col-md-12 ">
+                                            <h4>Pharmacy as Service Provider </h4>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <ol class="list-group ">
+                                            <li class="slimGrid list-group-item clearfix">
+
+                                                <div class="col-md-4 text-center">
+                                                    <strong class="body-label">Select a Pharmacy as Service Provider</strong>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <input id="pharmacySelection" ng-model="pharmSelection" title="Select a Pharmacy as Service Provider " placeholder="Select Pharmacy as Service Provider" class="form-control input-sm" type="text" readonly>
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default " ng-click="OpenPharmacySearchModal(); ">
+                                                                <span class="glyphicon glyphicon-search"></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2" ng-cloak ng-show="PharmacySelected">
+
+                                                    <button type="button" class="btn  btn-default " ng-click="RemovePharmacies()">
+                                                        Remove Pharmacy
+                                                    </button>
+
+
+                                                </div>
+                                            </li>
+                                        </ol>
+                                        <ol class="list-group " ng-cloak ng-show="PharmacySelected">
+                                            <li class=" list-group-item clearfix text-center">
+                                                <h4>Selected Pharmacy</h4>
+                                            </li>
+                                            <li class="list-group-item clearfix  lft-algn">
+
+                                                <div class="col-md-4 col-xs-12 lft-algn word-wrap-break word-wrap-break-ie ">
+                                                    <div class="col-md-3 div-no-padding ">
+                                                        <label class="align-label-left">Name:</label>
+                                                    </div>
+                                                    <div class="col-md-9 div-no-padding">
+                                                        <input id="addedPharmacy" name="addedPharmacy" type="hidden" value="0">
+                                                        <input name="pharmID" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyId}}" />
+                                                        <input name="pharmDiamondID" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyDiam}}" />
+                                                        <input name="pharmName" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyName}}" />
+                                                        <input name="pharmName1" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyName1}}" />
+                                                        <input name="pharmName2" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyName2}}" />
+                                                        <span class="lbl align-span-right" ng-cloak>{{SelectedPharmacy.pharm.PharmacyName | titleCase}}</span>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="col-md-4 col-xs-12 lft-algn word-wrap-break word-wrap-break-ie">
+                                                    <div class="col-md-3 div-no-padding ">
+                                                        <label class="align-label-left">NPI:</label>
+                                                    </div>
+                                                    <div class="col-md-9 div-no-padding">
+                                                        <input name="pharmNPI" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyNPI}}" />
+                                                        <span class="lbl align-span-right" ng-cloak>{{SelectedPharmacy.pharm.PharmacyNPI }}</span>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-4 col-xs-12 lft-algn word-wrap-break word-wrap-break-ie">
+                                                    <div class="col-md-3 div-no-padding ">
+                                                        <label class="align-label-left">Address:</label>
+                                                    </div>
+                                                    <div class="col-md-9 div-no-padding">
+                                                        <input name="pharmAddress1" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyAddress1}}" />
+                                                        <input name="pharmAddress2" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyAddress2}}" />
+                                                        <span class="lbl align-span-right" ng-cloak>{{SelectedPharmacy.pharm.PharmacyAddress1 | titleCase}} {{SelectedPharmacy.pharm.PharmacyAddress2 | titleCase}}</span>
+                                                    </div>
+                                                </div>
+
+                                            </li>
+                                            <li class="list-group-item clearfix  lft-algn ">
+
+                                                <div class="col-md-4 col-xs-12 lft-algn word-wrap-break word-wrap-break-ie">
+                                                    <div class="col-md-3 div-no-padding ">
+                                                        <label class="align-label-left">City:</label>
+                                                    </div>
+                                                    <div class="col-md-9 div-no-padding">
+                                                        <input name="pharmCity" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyCity}}" />
+                                                        <span class="lbl align-span-right" ng-cloak>{{SelectedPharmacy.pharm.PharmacyCity | titleCase }}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4 col-xs-12 lft-algn word-wrap-break word-wrap-break-ie">
+                                                    <div class="col-md-3 div-no-padding ">
+                                                        <label class="align-label-left">State:</label>
+                                                    </div>
+                                                    <div class="col-md-9 div-no-padding">
+                                                        <input name="pharmState" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyState}}" />
+                                                        <span class="lbl align-span-right" ng-cloak>{{SelectedPharmacy.pharm.PharmacyState}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-xs-12 lft-algn word-wrap-break word-wrap-break-ie">
+                                                    <div class="col-md-3 div-no-padding ">
+                                                        <label class="align-label-left">ZipCode:</label>
+                                                    </div>
+                                                    <div class="col-md-9 div-no-padding">
+                                                        <input name="pharmZip" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyZip }}" />
+                                                        <span class="lbl align-span-right" ng-cloak>{{SelectedPharmacy.pharm.PharmacyZip | zipcode }}</span>
+                                                    </div>
+                                                </div>
+
+                                            </li>
+                                            <li class="list-group-item clearfix  lft-algn">
+
+                                                <div class="col-md-4 col-xs-12 lft-algn word-wrap-break word-wrap-break-ie">
+                                                    <div class="col-md-3 div-no-padding ">
+                                                        <label class="align-label-left">Phone:</label>
+                                                    </div>
+                                                    <div class="col-md-9 div-no-padding">
+                                                        <input name="pharmPhone" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyPhone}}" />
+                                                        <span class="lbl align-span-right" ng-cloak>{{SelectedPharmacy.pharm.PharmacyPhone | tel}}</span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-4 col-xs-12 lft-algn word-wrap-break word-wrap-break-ie">
+                                                    <div class="col-md-3 div-no-padding ">
+                                                        <label class="align-label-left">Fax:</label>
+                                                    </div>
+                                                    <div class="col-md-9 div-no-padding">
+                                                        <input name="pharmFax" type="hidden" value="{{SelectedPharmacy.pharm.PharmacyFax }}" />
+                                                        <span class="lbl align-span-right" ng-cloak>{{SelectedPharmacy.pharm.PharmacyFax | tel }}</span>
+                                                        <span class="lbl align-span-right"></span>
+                                                    </div>
+                                                </div>
+
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+
+                                <div ng-controller="PatientInformationController as PICtrl">
+                                    <div>
+                                        <div class="SectionHeader col-md-12 ">
+                                            <h4>Patient Medications </h4>
+                                        </div>
+                                    </div>
+                                    <div class="form-section ">
+
+                                        <div class="clearfix">
+                                            <div class="instruction-message">
+                                                <strong class="body-label"><span class="redAster">*</span>Has the patient tried any other medications for this condition?</strong>
+                                                <label class="radio-inline">
+                                                    <input type="radio"
+                                                           title="Select Yes or No"
+                                                           ng-model="PICtrl.PIQuestion1"
+                                                           required
+                                                           ng-checked="PICtrl.PIQuestion1 == 'yes'"
+                                                           name="radioGroup5"
+                                                           value="yes" /><span style="font-weight: normal !important;">Yes</span>
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio"
+                                                           ng-model="PICtrl.PIQuestion1"
+                                                           required
+                                                           ng-checked="PICtrl.PIQuestion1 == 'no'"
+                                                           name="radioGroup5"
+                                                           value="no" /><span style="font-weight: normal !important">No</span>
+                                                </label>
+                                                <span class="redMessage" ng-if="CMSCoverageForm.radioGroup5.$invalid && (CMSCoverageForm.radioGroup5.$touched || CMSCoverageForm.$submitted)"> Required</span>
+
+                                                <div class="row " ng-cloak ng-show="PICtrl.PIQuestion1 == 'yes' && !PICtrl.reset ">
+
+                                                    <div class="col-md-6 lft-algn">
+                                                        <strong class="body-label"><span class="redAster">*</span>Medication/Therapy & Duration of Therapy</strong>
+
+                                                        <textarea id="MedicationTherapy"
+                                                                  ng-model="medicationTherapyTextArea"
+                                                                  name="medicationTherapy"
+                                                                  title="Provide Medication/Therapy, 200 characters or less"
+                                                                  class="form-control input-sm"
+                                                                  ng-required="PICtrl.PIQuestion1 == 'yes'"
+                                                                  style="text-transform: uppercase"
+                                                                  maxlength="200"></textarea>
+
+                                                        <span class="redMessage" ng-if="CMSCoverageForm.medicationTherapy.$invalid && (CMSCoverageForm.medicationTherapy.$touched || CMSCoverageForm.$submitted)"> Required</span>
+                                                    </div>
+                                                    <div class="col-md-6 lft-algn">
+
+                                                        <strong class="body-label"><span class="redAster">*</span>Response/Reason of Failure/Allergy</strong>
+
+                                                        <textarea id="ResponseReason"
+                                                                  name="reasonAllergy"
+                                                                  ng-model="reasonAllergyTextArea"
+                                                                  title="Provide Response/Reason, 500 characters or less"
+                                                                  class="form-control input-sm"
+                                                                  ng-required="PICtrl.PIQuestion1 == 'yes'"
+                                                                  style="text-transform: uppercase"
+                                                                  maxlength="500"></textarea>
+                                                        <span class="redMessage" ng-if="CMSCoverageForm.reasonAllergy.$invalid && (CMSCoverageForm.reasonAllergy.$touched || CMSCoverageForm.$submitted)"> Required</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div ng-controller="DiagnosesController as DCtrl" class="IcdController ng-cloak  ">
+                                    <div>
+                                        <div class="SectionHeader col-md-12 ">
+                                            <h4>ICD / CPT codes </h4>
+                                        </div>
+                                    </div>
+                                    <div class="form-section">
+
+                                        <div class="instruction-message">
+                                            <strong class="body-label"><span class="redAster">*</span>ICD / CPT codes</strong>
+                                            <fieldset class="pharmSearchFieldSet ">
+                                                <legend class="pharmSearchLegend">ICD Code(s) </legend>
+
+                                                <div>
+                                                    <div>
+                                                        <div class="Diagnoses-anchor">
+                                                            <div ng-show="DCtrl.SelectedDiagnoses.length > 0">
+
+                                                                <div class="Visually-Hidden">
+                                                                    <input type="text" name="Diagnoses" ng-repeat="item in DCtrl.SelectedDiagnoses track by $index" value="{{item}}" />
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <div class=" lft-algn">
+                                                        <div class="ICD-anchor">
+                                                            <div ng-show="DCtrl.SelectedCodes[0] || DCtrl.SelectedCodes[1] || DCtrl.SelectedCodes[2]">
+                                                                <label>Selected Codes:</label>
+                                                                <div class="Visually-Hidden">
+                                                                    <input type="text" name="CodeIcd" ng-repeat="item in DCtrl.SelectedCodes track by $index" value="{{item.code}}" />
+                                                                    <input type="text" name="icdCodeDesc" ng-repeat="item in DCtrl.SelectedCodes track by $index" value="{{item.desc}}" />
+                                                                </div>
+                                                                <ul class="selectedCodes clearfix" ng-hide="DCtrl.SelectedCodes[0].code == null && DCtrl.SelectedCodes[1].code == null && DCtrl.SelectedCodes[2].code == null ">
+                                                                    <li tooltip="{{item.desc}}" tooltip-trigger="mouseenter" tooltip-placement="top" ng-hide="item.desc == null" ng-repeat="item in DCtrl.SelectedCodes track by $index">{{item.rank}}{{item.code}} <span ng-click="DCtrl.RemoveCode(item)" class="glyphicon glyphicon-remove pointer"></span></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class=" icd-code-input">
+                                                                <div class="col-md-4 ">
+                                                                    <strong class="body-label"><span class="redAster">*</span>Primary Dx</strong>
+                                                                    <div class="input-group">
+                                                                        <input id="icdCode1"
+                                                                               tooltip="Press the Enter key or the 'Add ICD Code' button to enter a code"
+                                                                               tooltip-placement="bottom"
+                                                                               tooltip-trigger="mouseenter"
+                                                                               tooltip-enable="!DCtrl.inputCodePrimary"
+                                                                               id="icdcode1"
+                                                                               ng-model="DCtrl.inputCodePrimary"
+                                                                               ng-enter="DCtrl.AddCode( DCtrl.inputCodePrimary, 0 )"
+                                                                               type="text" class="form-control input-sm"
+                                                                               placeholder="Primary Diagnosis" />
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" ng-disabled="DCtrl.SelectedCodes[0].code != null" ng-click="DCtrl.AddCode( DCtrl.inputCodePrimary, 0 )" class="btn  btn-default code-btn">Add ICD Code</button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 ">
+                                                                    <strong class="body-label">Secondary Dx</strong>
+                                                                    <div class="input-group">
+                                                                        <input id="icdCode2"
+                                                                               tooltip="Press the Enter key or the 'Add ICD Code' button to enter a code"
+                                                                               tooltip-placement="bottom"
+                                                                               tooltip-trigger="mouseenter"
+                                                                               tooltip-enable="!DCtrl.inputCodeSecondary"
+                                                                               ng-model="DCtrl.inputCodeSecondary"
+                                                                               type="text"
+                                                                               ng-enter="DCtrl.AddCode( DCtrl.inputCodeSecondary, 1 )"
+                                                                               class="form-control input-sm"
+                                                                               placeholder="Secondary Diagnosis"
+                                                                               ng-disabled="!DCtrl.inputCodePrimary" />
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button"
+                                                                                    ng-disabled="DCtrl.SelectedCodes[1].code != null"
+                                                                                    ng-click="DCtrl.AddCode( DCtrl.inputCodeSecondary, 1)"
+                                                                                    class="btn  btn-default code-btn">
+                                                                                Add ICD Code
+                                                                            </button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 ">
+                                                                    <strong class="body-label">Tertiary Dx</strong>
+                                                                    <div class="input-group">
+                                                                        <input tooltip="Press the Enter key or the 'Add ICD Code' button to enter a code"
+                                                                               tooltip-placement="bottom"
+                                                                               tooltip-trigger="mouseenter"
+                                                                               tooltip-enable="!DCtrl.inputCodeTertiary"
+                                                                               id="icdCode3"
+                                                                               ng-model="DCtrl.inputCodeTertiary"
+                                                                               type="text"
+                                                                               ng-enter="DCtrl.AddCode( DCtrl.inputCodeTertiary, 2 )"
+                                                                               class="form-control input-sm"
+                                                                               placeholder="Tertiary Diagnosis"
+                                                                               ng-disabled="!DCtrl.inputCodePrimary" />
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" ng-disabled="DCtrl.SelectedCodes[2].code != null" ng-click="DCtrl.AddCode( DCtrl.inputCodeTertiary, 2 )" class="btn code-btn  btn-default">Add ICD Code</button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row  text-center">
+                                                                <span id="ICDspinner"></span>
+                                                            </div>
+                                                            <div simple-ajax-loader show="ICDLoader"></div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <div ng-controller="ProcedureController as PCtrl" ng-cloak ng-show="!ShowCPT" class="IcdController">
+                                                <fieldset class="pharmSearchFieldSet ">
+                                                    <legend class="pharmSearchLegend">CPT Code(s) <i>(8 CPT codes allowed)</i></legend>
+
+                                                    <div class="lft-algn ">
+                                                        <div class=" icd-code-input">
+                                                            <div class="Diagnoses-anchor">
+                                                                <div ng-show="PCtrl.SelectedProcedure.length>0">
+                                                                    <label>Selected CPT Codes:</label>
+                                                                    <div class="Visually-Hidden">
+
+                                                                        <input type="text" name="CPT" ng-repeat="item in PCtrl.SelectedProcedure track by $index" value="{{item.cpt}}-{{item.mod}}-{{item.qty}}" />
+
+                                                                        <input type="text" name="DescCPTText" ng-repeat="item in PCtrl.SelectedProcedure track by $index" value="{{item.cptDesc}}" />
+                                                                    </div>
+                                                                    <ul class="selectedCodes clearfix ">
+                                                                        <li ng-repeat="item in PCtrl.SelectedProcedure track by $index">
+
+                                                                            <span tooltip="{{item.cptDesc}}">Code:</span> {{item.cpt}}
+                                                                            <span tooltip="{{item.modDesc}}">Mod:</span> {{item.mod}}
+                                                                            <span>Qty:</span> {{item.qty}}
+                                                                            <span ng-click="PCtrl.RemoveCPT(item)" class="glyphicon glyphicon-remove pointer"></span>
+
+
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="col-md-4  ">
+                                                                    <span tooltip="Only CPT codes beginning with a number, 'X', or 'Z' are permitted."><strong class="body-label">Enter CPT Code in Its Entirety</strong></span>
+                                                                    <input title="Enter at least one CPT code"
+                                                                           ng-enter="PCtrl.AddCPT(PCtrl.inputCPT, PCtrl.inputModifier, PCtrl.inputQty)"
+                                                                           ng-model="PCtrl.inputCPT"
+                                                                           type="text"
+                                                                           class="form-control input-sm"
+                                                                           placeholder="CPT Code"
+                                                                           maxlength="5"
+                                                                           name="CptCodeInput" />
+
+                                                                </div>
+                                                                <div class="col-md-2 ">
+                                                                    <span><strong class="body-label">Modifier</strong></span>
+                                                                    <input title="Optional" ng-model="PCtrl.inputModifier" ng-enter="PCtrl.AddCPT(PCtrl.inputCPT, PCtrl.inputModifier, PCtrl.inputQty)" type="text" class="form-control input-sm" placeholder="Modifier Code" n />
+                                                                </div>
+                                                                <div class="col-md-2 ">
+                                                                    <span><span ng-if="PCtrl.inputCPT && !PCtrl.inputQty" class="redAster">*</span><strong class="body-label">Quantity</strong></span><span class="redMessage" ng-if="PCtrl.inputCPT && !PCtrl.inputQty"> Required</span>
+                                                                    <input tooltip="Press the Enter key or the 'Add CPT Code' button to enter a code"
+                                                                           tooltip-placement="bottom"
+                                                                           tooltip-trigger="mouseenter"
+                                                                           tooltip-enable="!DCtrl.inputCodeSecondary"
+                                                                           id="cptQuantity"
+                                                                           title="Enter a valid numeric quantity"
+                                                                           ng-enter="PCtrl.AddCPT(PCtrl.inputCPT, PCtrl.inputModifier, PCtrl.inputQty)"
+                                                                           ng-model="PCtrl.inputQty"
+                                                                           ng-pattern="/^[1-9]{1}[0-9]{0,6}$/"
+                                                                           maxlength="7"
+                                                                           type="text"
+                                                                           name="cptCodeQuantityDonSubmit"
+                                                                           class="form-control input-sm"
+                                                                           placeholder="Quantity"
+                                                                           ng-required="PCtrl.inputCPT" />
+
+                                                                    <span class="redMessage" ng-if="CMSCoverageForm.cptCodeQuantityDonSubmit.$error.pattern"> Invalid</span>
+                                                                </div>
+
+                                                                <div class="col-md-3 col-xs-2 " id="add-cpt-code-button">
+
+                                                                    <button type="button"
+                                                                            ng-disabled="!PCtrl.inputQty  || PCtrl.inputQty < 1"
+                                                                            ng-click="PCtrl.AddCPT(PCtrl.inputCPT, PCtrl.inputModifier, PCtrl.inputQty)"
+                                                                            class="btn  btn-default ">
+                                                                        Add CPT Code
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div simple-ajax-loader show="CPTLoader"></div>
+
+                                                    </div>
+                                                </fieldset>
+                                                <div class="row  text-center">
+                                                    <span id="CPTspinner"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div ng-controller="LegalController as LCtrl">
+                                    <div>
+                                        <div class="SectionHeader col-md-12 ">
+                                            <h4>Medical Justification</h4>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="instruction-message">
+                                            <strong class="body-label"><strong class="redAster">*</strong>Medical Justification - Please provide all relevant clinical information to support a prior authorization review. (2000 char max)</strong>
+
+                                            <div class="root-font-size lft-algn">
+
+                                                Please provide symptoms, lab results with dates and/or justification for initial or
+                                                ongoing therapy or increased dose and if patient has any contraindications for the health
+                                                plan/insurer preferred drug. Lab results with dates must be provided if needed to establish diagnosis,
+                                                or evaluate response. Please provide any additional clinical information or comments pertinent to this request for
+                                                coverage (e.g. formulary tier exceptions) or required under state and federal laws.
+
+
+                                            </div>
+                                            <div class=" clearfix ">
+                                                <div>
+
+                                                    <textarea id="comment" ng-model="comment" title="Provide Medical Justification, 2000 characters or less" placeholder="Additional Clinical Information or Comments" name="comment" rows="5" class="form-control input-sm" slength="{{dynamicMinLength}}" maxlength="2000" required></textarea>
+                                                    <div ng-if="CMSCoverageForm.comment.$invalid && (CMSCoverageForm.comment.$touched || CMSCoverageForm.$submitted)" class="redMessage">Medical Justification is required, 2000 characters or less</div>
+                                                    <div ng-if="CMSCoverageForm.comment.$dirty && CMSCoverageForm.comment.$error.maxlength" class="redMessage">Must be 2000 characters or less</div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div ng-cloak ng-if="memberData.PersonNumber == '00'">
+                                        <div>
+                                            <ol class="list-group medicare-cd-info" ng-hide="!showCDInfo" id="MDCD">
+                                                <div>
+                                                    <div class="SectionHeader col-md-12 ">
+                                                        <h4>Additional Medicare CD Information</h4>
+                                                    </div>
+                                                </div>
+                                                <li class="list-group-item clearfix ">
+                                                    <div class="text-left checkbox-inline">
+
+                                                        <label>
+                                                            <input name="additionalMC1" ng-model="LCtrl.Medicare1" ng-checked="LCtrl.Medicare1" type="checkbox" />
+
+
+                                                            <div class="medicare-cd-info-messages">
+                                                                Alternate drug(s) contraindicated or previously tried, but with adverse outcome, e.g., toxicity, allergy, or therapeutic failure
+                                                                [Specify in previous therapy: (1) Drug(s) contraindicated or tried; (2) adverse outcome for each; (3) if therapeutic failure, length of therapy on each drug(s)]
+                                                            </div>
+                                                        </label>
+
+
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item clearfix ">
+                                                    <div class="text-left checkbox-inline">
+                                                        <label>
+                                                            <input name="additionalMC2" ng-model="LCtrl.Medicare2" ng-checked="LCtrl.Medicare2" type="checkbox" />
+
+                                                            <div class="medicare-cd-info-messages">
+                                                                Patient is stable on current drug(s); high risk of significant adverse clinical outcome with medication change
+                                                                [Specify in medical justificaiton: Anticipated significant adverse clinical outcome]
+                                                            </div>
+                                                        </label>
+
+
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item clearfix ">
+                                                    <div class="text-left checkbox-inline">
+                                                        <label>
+                                                            <input name="additionalMC3" ng-model="LCtrl.Medicare3" ng-checked="LCtrl.Medicare3" type="checkbox" />
+                                                            <div class="medicare-cd-info-messages">Medical need for different dosage form and/or higher dosage[Specify in medical justification: (1) Dosage form(s) and/or dosage(s) tried; (2) explain medical reason] &nbsp;&nbsp;&nbsp;</div>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item clearfix ">
+                                                    <div class="text-left checkbox-inline">
+                                                        <label>
+                                                            <input name="additionalMC4" ng-model="LCtrl.Medicare4" ng-checked="LCtrl.Medicare4" type="checkbox" />
+
+                                                            <div class="medicare-cd-info-messages">Request for formulary tier exception [Specify in medical jusitifcation: (1) Formulary or preferred drugs contraindicated or tried and failed, or tried and not as effective as requested drug; (2) if therapeutic failure, length of therapy on each drug and adverse outcome; (3) if not as effective, length of therapy on each drug and outcome]</div>
+                                                        </label>
+
+
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+
+                                    <div ng-hide="memberData.MemberLob == 'MED' || memberData.MemberLob == 'PGM'">
+                                        <div class="bordered-container">
+                                            <div ng-if="!showCDInfo">
+
+                                                <div class="instruction-message instruction-less-padding ">
+
+                                                    <label class="body-label">Request For Expedited Review:</label>
+                                                    <div class="root-font-size lft-algn">
+                                                        By Checking this box and signing below, I certify that applying the 72 hour standard review timeframe may seriously jeopardize the life or health of the enrollee or the enrollee's ability to regain maximum function.
+                                                    </div>
+
+                                                    <div class="legal-agreement ">
+                                                        <label class="body-label">
+                                                            <input type="checkbox" ng-model="LCtrl.expedite" name="Expedite" ng-checked="LCtrl.expedite" />
+                                                            <span>
+                                                                Request For Expedited Review
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div ng-if="showCDInfo">
+
+                                                <div class="instruction-message instruction-less-padding  ">
+                                                    <div class="legal-agreement">
+                                                        <label class="body-label">
+                                                            <input type="checkbox" ng-model="LCtrl.expedite" name="Expedite" ng-checked="LCtrl.expedite" />
+                                                            <span>
+                                                                Request for expedited review decision within 72 hours
+                                                            </span>
+                                                        </label>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div>
+                                        <div class="SectionHeader col-md-12 ">
+                                            <h4>Legal Agreements</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-section ">
+
+
+                                        <div class="instruction-message instruction-less-padding">
+
+                                            <strong class="body-label" style="margin-bottom: 0"><span class="redAster">*</span>Attestation:</strong>
+                                            <div class="root-font-size lft-algn">
+                                                I attest the information provided is true and accurate to the best of my knowledge.
+                                                I understand that the Health Plan, insurer, Medical Group or its designees may perform a routine audit
+                                                and request the medical information necessary to verify the accuracy of the information reported on this form.
+                                            </div>
+
+                                            <div class="legal-agreement checkbox-inline">
+                                                <label class="body-label">
+                                                    <input type="checkbox" title="You Must Agree with Attestation Statement" ng-model="LCtrl.attest" name="Attestation" ng-checked="LCtrl.attest" required />
+                                                    <div class="medicare-cd-info-messages">
+                                                        I understand the Attestation statement written above.
+                                                    </div>
+                                                </label>
+
+
+                                                <div class="redMessage validationMessage" ng-if="CMSCoverageForm.Attestation.$invalid && (CMSCoverageForm.Attestation.$touched || CMSCoverageForm.$submitted)" style="padding-left: 8px">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="instruction-message instruction-less-padding">
+
+                                            <strong class="body-label" style="margin-bottom: 0"><span class="redAster">*</span>Confidentiality Notice:</strong>
+                                            <div class="root-font-size lft-algn">
+                                                The documents accompanying this transmission contain confidential health information that is legally privileged.
+                                                If you are not the intended recipient, you are hereby notified that any disclosure, copying, distribution, or action
+                                                taken in reliance on the contents of these documents is strictly prohibited. If you have received this information in error,
+                                                please notify the sender immediately (via return FAX) and arrange for the return or destruction of these documents.
+                                            </div>
+
+                                            <div class="legal-agreement checkbox-inline">
+                                                <label class="body-label">
+                                                    <input type="checkbox" title="You Must Agree with Confidentiality Statement" ng-model="LCtrl.confidential" name="Confidential" ng-checked="LCtrl.confidential" required />
+                                                    <div class="medicare-cd-info-messages">
+                                                        I understand the Confidentiality Notice written above.
+                                                    </div>
+                                                </label>
+
+
+                                                <div class="redMessage validationMessage" ng-if="CMSCoverageForm.Confidential.$invalid && (CMSCoverageForm.Confidential.$touched || CMSCoverageForm.$submitted)" style="padding-left: 8px">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="row" ng-controller="ResetController as RCtrl">
+                                    <div class="modal" data-backdrop="static" data-keyboard="false" id="CMSresub" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog" style="margin-top: 15%;">
+                                            <div class="modal-content" style="min-height: 200px; border-radius: 0;">
+
+                                                <div class="modal-body" style="text-align: center">
+                                                    <div id="SubmissionProcessDiv">
+                                                        <div class="col-md-12" id="ServerResp">
+
+
+                                                        </div>
+                                                        <div simple-ajax-loader show="submissionloading"></div>
+                                                    </div>
+                                                    <div id="ResubmissionDiv" style="display: none">
+                                                        <div id="modalInfo">
+                                                        </div>
+                                                        <div>
+                                                            <button type="button" class="btn btn-info" aria-hidden="true" ng-disabled="pdfLoading" ng-click="RCtrl.GetPdf()">View or Download</button>
+
+                                                        </div>
+                                                        <div simple-ajax-loader show="pdfLoading"></div>
+                                                        <div class="marginTop20">
+                                                            <h3>Would you like to create another authorization for this Member?</h3>
+                                                            <div style="text-align: center;">
+                                                                <button id="resub" type="button" ng-click="RCtrl.ResetForm()" class="btn btn-success  btn-lg">Yes</button>
+                                                                <button id="resubNo" type="button" ng-click="RCtrl.ClearForm()" class="btn btn-danger  btn-lg">No</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="hideForm3" style="display: none">
+
+                        <div>
+                            <div class="SectionHeader col-md-12 ">
+                                <h4>Attach Supporting Documents </h4>
+
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <div>
+                                <strong class="body-label">Up to 8 PDF or Word files,</strong>
+                                <strong class="body-label">10 MB per file maximum size</strong>
+
+                            </div>
+                            <span class="root-font-size" style="color: #636363">Note: Dragging and dropping files into browser window may navigate away from page</span>
+
+
+                            <div id="plupLoadUploader" style="margin-bottom: 30px;">Your browser does not support this feature</div>
+
+
+                            <div ng-controller="UPASubmitController as SubCtrl">
+
+
+                                <div class="alert alert-danger validationMessages lft-algn" role="alert" ng-cloak ng-if="!drugs.length">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    <span class="validationMsg">At least one medication must be selected</span>
+                                </div>
+                                <div class="alert alert-danger validationMessages lft-algn" role="alert" ng-cloak ng-if="!icds[0]">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    <span class="validationMsg">At least one primary diagnosis (ICD code) must be selected</span>
+                                </div>
+
+                                <div style="text-align: center; margin-top: 10px;">
+                                    <button id="SubmitPriorAuthForm" type="button" ng-click="SubmitDocs();" ng-disabled=" !drugs.length|| !icds[0]" class="btn btn-primary">Submit Authorization Request </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

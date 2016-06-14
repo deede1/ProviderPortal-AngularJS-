@@ -1,0 +1,192 @@
+﻿<div class="row">
+	<div class="col-sm-12 frmSignIn" id="signInPage" style="min-height: 400px;">
+	
+		<div class="row">
+			<div class="col-xs-12 ng-cloak panelContainer">
+				<div class="col-md-12">
+					<uib-alert close="alert=''" ng-hide="!alert" type="success">{{alert}}</uib-alert>
+				</div>
+				<div class="col-md-4 col-md-offset-0 hidden-sm hidden-xs">
+					<div class="content-tile">
+						<div class="header">
+							<h3>Resources</h3>
+						</div>
+						<div class="body">
+							<ul class="list-unstyled">
+								<li>
+									<a href="https://ww3.iehp.org/en/providers/pharmaceutical-services/formulary/medical-formulary/" target="_newA">Medi-Cal Formulary</a>
+								</li>
+								<li>
+									<a href="https://ww3.iehp.org/en/providers/pharmaceutical-services/formulary/medicare-formulary/" target="_newB">Medicare formulary</a>
+								</li>
+								<li>
+									<a href="https://ww3.iehp.org/en/members/find-a-doctor/" target="_newC">Doctor and Hospital Search</a>
+								</li>
+								<li>
+									<a href="https://www.iehp.org/Secure_Site/CMS/Frames/Index_Prov.asp" target="_newD">Urgent Care</a>
+								</li>
+								<li>
+									<a href="https://ww3.iehp.org/en/providers/pharmaceutical-services/clinical-information/clinical-practice-guidelines/" target="_newE">Clinical Practice Guidelines</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-5">
+					<div class="content-tile">
+						<div class="header">
+							<h3>Secure Provider Web Portal</h3>
+						</div>
+						<div class="body clearfix">
+							<login-form></login-form>
+						</div>
+					</div>
+				</div>
+
+				<div class="hidden">
+					<div class="loginForm panel" ng-hide="showResetForm">
+						<form class="form form-horizontal" name="login" ng-submit="submit()" novalidate="novalidate" role="form">
+
+							<div class="formHeader row">
+								<div class="col-md-12">
+									<h4> Secure Provider Web Portal </h4>
+								</div>
+							</div>
+
+							<div class="marginTop20 row" ng-if="referrerSite == 'SiteCore'">
+								<info-box class="center col-xs-10 col-xs-offset-1" message="{{'form_referrerSiteCoreMessage' | translate}}"></info-box>
+							</div>
+
+							<div style="height: 12px;"></div>
+
+							<message-boxes error-message="{{errorMessage}}" info-message="{{infoMessage}}" success-message="{{successMessage}}"></message-boxes>
+
+							<div class="  clearfix " show-errors>
+								<label class="col-sm-11 col-sm-offset-2 col-xs-12  col-xs-offset-1 control-label padLeft0" for="username"> Login ID </label>
+								<input class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 newFormControl"
+											maxlength="15"
+											name="username"
+											ng-maxlength="15"
+											ng-model="username"
+											type="text"/>
+							</div>
+
+							<div class="  clearfix" show-errors>
+								<label class="col-sm-9 col-sm-offset-2 col-xs-12  col-xs-offset-1 control-label padLeft0" for="password"> {{"form_password" |translate}} </label>
+								<input class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 newFormControl"
+											maxlength="20"
+											name="password"
+											ng-maxlength="20"
+											ng-minlength="6"
+											ng-model="password"
+											type="password"/>
+							</div>
+
+							<div style="height: 47px;"></div>
+
+							<div class="alignRight col-xs-12 padRight0 signInCont">
+								<!--<div class="btn btn-primary newButton" n="submit()" ng-disabled="loading" type="submit">{{'form_go' | translate}}</div>-->
+								<input class="btn btn-primary newButton" type="submit" value="{{'form_go' | translate}}">
+							</div>
+
+						</form>
+					</div>
+					<div class="panel  " id="newPasswordResetFormCont" ng-show="showResetForm">
+						<submit-new-password-form></submit-new-password-form>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6 col-xs-12 ">
+					<div class="content-tile" style="margin-bottom: 1em;">
+						<div class="header">
+							<h3>{{'form_signInPage_header_register' | translate}}</h3>
+						</div>
+						<div class="body clearfix">
+							<img alt="" class="signInRegPaneIcon signInRegPaneIcon" src="Content/Images/ico_pencil.png"/>
+							<span class="control-label signInPaneDescription"> {{"form_signInPage_registerDescription" |translate}} </span>
+
+							<a ui-sref="registration.registerForm">
+								<div class="alignRight col-xs-12 signInCont">
+									<div class="btn btn-primary newButton" type="submit">{{'form_go' | translate}}</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="content-tile" style="margin-bottom: 1em;">
+						<div class="header">
+							<h3> {{'form_signInPage_header_resetPassword' | translate}} </h3>
+						</div>
+						<div class="body clearfix">
+							<img class="col-xs-3 signInRegPaneIcon" src="Content/Images/ico_lock.png"/>
+
+							<span class="col-xs-9 control-label signInPaneDescription" for="username"> {{"form_signInPage_resetPasswordDescription" |translate}} </span>
+
+							<a ui-sref="password-reset">
+								<div class="alignRight col-xs-12 signInCont">
+									<div class="btn btn-primary newButton" type="submit">{{'form_go' | translate}}</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!--<div class="col-md-4">
+					<div class="content-tile">
+						<div class="header">
+							<h3>Claritas</h3>
+						</div>
+						<div class="body">
+							<p>Duis autem vel eum iriure dolor in hendrerit odio dignissim qui blandit praesent luptatum zzril.</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="content-tile">
+						<div class="header">
+							<h3>Decima</h3>
+						</div>
+						<div class="body">
+							<p>Claritas est etiam processus per seacula quarta decima et quinta decima. </p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="content-tile">
+						<div class="header">
+							<h3>Eodem</h3>
+						</div>
+						<div class="body">
+							<p>Nam liber tempor cum soluta nobis eleifend option est usus legentis in iis qui facit eorum claritatem. </p>
+						</div>
+					</div>
+				</div>-->
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script>
+
+	function cycleImages() {
+		var $active = $('#bannerContainerLogin .active');
+		var $next = ($active.next().length > 0) ? $active.next() : $('#bannerContainerLogin img:first');
+		$next.css('z-index', 2); //move the next image up the pile
+		$active.fadeOut(1500, function() { //fade out the top image
+			$active.css('z-index', 1).show().removeClass('active'); //reset the z-index and unhide the image
+			$next.css('z-index', 3).addClass('active'); //make the next image the top one
+		});
+	}
+
+	$(document).ready(function() {
+		// run every 5s
+		setInterval('cycleImages()', 5000);
+	});
+</script>

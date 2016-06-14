@@ -1,0 +1,49 @@
+﻿<div class="contentPanel side-navigation-container non-printable">
+    <div>
+        <pp-breadcrumbs title="Rosters"></pp-breadcrumbs>
+        <nav class="side-navigation">
+            <a ui-sref="rosters.AR" ui-sref-active="active">Assigned Roster</a>
+            <a ui-sref="rosters.CCS" ui-sref-active="active">CCS</a>
+            <a ui-sref="rosters.DA" ui-sref-active="active">Direct Ancillary</a>
+            <div>
+                <a ui-sref="rosters.DS" ui-sref-active="active"><pp-chevron-toggle state="rosters.DS"></pp-chevron-toggle>Direct Specialty</a>
+                <div class="sub-section" ng-show="'rosters.DS' | includedByState">
+                    <a ui-sref="rosters.DS.CTH" ui-sref-active="active">Corona/ Temecula/ Hemet</a>
+                    <a ui-sref="rosters.DS.HD" ui-sref-active="active">High Desert</a>
+                    <a ui-sref="rosters.DS.LD" ui-sref-active="active">Low Desert</a>
+                    <a ui-sref="rosters.DS.R" ui-sref-active="active">Riverside</a>
+                    <a ui-sref="rosters.DS.SBP" ui-sref-active="active">San Bernardino Proper</a>
+                    <a ui-sref="rosters.DS.WSB" ui-sref-active="active">West San Bernardino</a>
+                </div>
+            </div>
+            <a ui-sref="rosters.ESR" ui-sref-active="active">Early Start Roster</a>
+            <a ui-sref="rosters.ED" ui-sref-active="active">Encounter Data</a>
+            <a ui-sref="rosters.IHA" ui-sref-active="active">Initial Health Assessment</a>
+            <a ui-sref="rosters.CCM" ui-sref-active="active">CCM</a>
+            <a ui-sref="rosters.HCC" ui-sref-active="active">HCC</a>
+            <div>
+                <a ui-sref="rosters.HM" ui-sref-active="active"><pp-chevron-toggle state="rosters.HM"></pp-chevron-toggle>Health Management</a>
+                <div class="sub-section" ng-show="'rosters.HM' | includedByState">
+                    <a ui-sref="rosters.HM.AR" ui-sref-active="active">Asthma Roster</a>
+                    <a ui-sref="rosters.HM.CMR" ui-sref-active="active">Care Management Reports</a>
+                    <a ui-sref="rosters.HM.DR" ui-sref-active="active">Diabetes Roster</a>
+                </div>
+            </div>
+            <a ui-sref="rosters.MCR" ui-sref-active="active">(IPA's) MCR</a>
+            <a ui-sref="rosters.NA" ui-sref-active="active">Nurse Advice Line</a>
+            <div>
+                <a ui-sref="rosters.PC" ui-sref-active="active"><pp-chevron-toggle state="rosters.PC"></pp-chevron-toggle>Preventive Care</a>
+                <div class="sub-section" ng-show="'rosters.PC' | includedByState">
+                    <a ui-sref="rosters.PC.CI" ui-sref-active="active">Childhood Immunizations</a>
+                    <a ui-sref="rosters.PC.WC015" ui-sref-active="active">Well Care (0-15months)</a>
+                    <a ui-sref="rosters.PC.WC36" ui-sref-active="active">Well Care (3-6 years)</a>
+                    <a ui-sref="rosters.PC.WCA" ui-sref-active="active">Well Care (Adolescent)</a>
+                    <a ui-sref="rosters.PC.BC" ui-sref-active="active">Breast Cancer Screen</a>
+                    <a ui-sref="rosters.PC.CC" ui-sref-active="active">Cervical Cancer Screen</a>
+                    <a ui-sref="rosters.PC.DC" ui-sref-active="active">Diabetes Care</a>
+                    <a ui-sref="rosters.PC.ADHD" ui-sref-active="active">ADHD (Followup Care)</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

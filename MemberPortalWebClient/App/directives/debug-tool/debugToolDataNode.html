@@ -1,0 +1,5 @@
+﻿<div class="ng-cloak debug-tool-data-node" ng-init="showData = false">
+    <h3>{{name}} <span class="glyphicon" ng-class="{'glyphicon-chevron-down': !showData, 'glyphicon-chevron-up' : showData}" ng-click="showData = !showData"></span> </h3>
+    <pre class="info" ng-show="showData">{{dataString()}}</pre>
+    <hr/>
+</div>

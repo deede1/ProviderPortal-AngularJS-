@@ -1,0 +1,50 @@
+﻿<div class="style-guide row">
+    <div class="col-md-12">
+        <section>
+            <h1>File Naming</h1>
+            <div>
+                <ul>
+                    <li>Use a dash for spacing. eg (HelloWorld.html vs Hello-World.html)</li>
+                    <li>Lower-case</li>
+                    <li>
+                        Three part names for angular files.
+                        <ol>
+                            <li><em>Name-of-the-thing</em></li>
+                            <li><em>type-of-the-thing</em> (eg. .controller, .directive, .service)</li>
+                            <li><em>file-extension</em> (eg. .js, .html)</li>
+                        </ol>
+                    </li>
+                </ul>
+                <p>See <a ui-sref="^.directory">Directory Structure</a> for more examples.</p>
+                <pre id="file-name-examples" class="hidden">
+                     my-cool-thing.directive.html
+                    my-cool-thing.directive.js
+                    some-other-cool-thing.service.js
+                    this-page.controller.js
+                </pre>
+                <div hljs-retrieve target="file-name-examples"></div>
+            </div>
+        </section>
+    
+        <section>
+            <h1>URL Route Naming</h1>
+            <div>
+                <ul>
+                    <li>Use a dash for spacing. eg (/my-section/hello-world vs /mysection/helloworld)</li>
+                    <li>
+                        Define Route/State URL's in lowercase only.
+                        <ul>
+                            <li>We have configured the $urlProvider to accept mixed-case url input by normalizing requested url's to lower-case. but if a state's url is defined with mix-casing the normalized value will not match.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </section>
+
+        <section>
+            <h1>New Section Headline</h1>
+            <div><em>Your stuff here</em></div>
+        </section>
+    </div>
+</div>

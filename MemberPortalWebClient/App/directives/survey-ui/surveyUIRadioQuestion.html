@@ -1,0 +1,42 @@
+﻿<div class="row survey-question-bottom-border">
+    <div class="survey-question-span-inner col-md-8 col-sm-8 col-xs-12" ng-bind-html="question.QuestionText"> </div>
+    <ng-form name="radioform">
+        <!--<div class="btn-group survey-ui-button-background col-md-4">
+            <div class="survey-font-wrapper row" ng-repeat="answer in question.Answers track by $index">
+                <input type="radio"
+                       id="{{question.QuestionText + $index}}"
+                       class="survey-radio-buttons"
+                       ng-click="RecordRadioClick(this, question)"
+                       ng-model="radioButton"
+                       ng-checked="answer.isChecked"
+                       value="{{answer.ItemDisplayValue}}"
+                       ng-disabled="question.Answers.isDisabled"
+                       ng-required="!question.Answers.isChecked"/>
+                <label class="css-label" for="{{question.QuestionText  + $index}}"></label>
+                <div class="survey-zero-padding ">
+                    <span class="survey-answer">{{answer.ItemDisplayName}}</span>
+                </div>
+            </div>
+            <span ng-if="language == 'EN'" ng-show="radioform.$invalid && nextClicked" class="help-block survey-required-value">select an option</span>
+            <span ng-if="language == 'ES'" ng-show="radioform.$invalid && nextClicked" class="help-block survey-required-value">seleccione una opcion</span>
+        </div>-->
+        <div class="btn-group survey-ui-button-background col-md-3 col-sm-3 col-xs-12">
+            <select ng-model="radioButton"
+                    ng-disabled="question.isDisabled"
+                    class="survey-dropdown-width"
+                    ng-required="question.IsRequired && !question.isDisabled"
+                    ng-change="RecordDropDown(this, question)"
+                    ng-init="radioButton = question.Answers[question.AnswerIndex]"
+                    ng-options="answer.ItemDisplayName for answer in question.Answers">
+                <option></option>
+            </select>
+            <span ng-if="language == 'EN'" ng-show="radioform.$invalid && nextClicked" class="help-block survey-required-value">select an option</span>
+            <span ng-if="language == 'ES'" ng-show="radioform.$invalid && nextClicked" class="help-block survey-required-value">seleccione una opcion</span>
+        </div>
+    </ng-form>
+    <style>
+        .survey-dropdown-width:disabled {
+    background: rgb(238, 238, 238);
+}
+    </style>
+</div>

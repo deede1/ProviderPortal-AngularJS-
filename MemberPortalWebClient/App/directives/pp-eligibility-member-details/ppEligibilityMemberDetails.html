@@ -1,0 +1,22 @@
+﻿  
+<!--<li id="ppMemberDemographicsContainer"
+    class="ppMemberDataContainer ppModalPane col-sm-3">-->
+
+<div id="ppMemberDemographicsContainer" class="ppMemberDataContainer ppModalPane col-sm-4">
+    <div class="modal-header">
+        <h2 class="subTitle"> Member Demographics </h2>
+    </div>
+    <div class="row alignCenter">
+        <table>
+            <tr><td class="header">Name</td><td>  {{ LastName | uppercase }}, {{ FirstName | uppercase }} </td></tr>
+            <tr><td class="header">IEHP ID</td><td>{{ IEHPID }} </td></tr>
+            <tr><td class="header">Address </td><td>{{ Address1 }}
+                <div ng-if="Address2 !=''"></div> <br/>{{ Address2}}
+                <div></div> </td></tr> 
+            <tr><td class="header"> </td> <td>{{ City }}<br/>{{ State }} {{ Zip.substring(0,5) }} </td></tr>
+            <tr><td class="header">Phone</td> <td>{{ Phone }} </td></tr>
+            <tr><td class="header">Language</td><td>{{ Language }} </td></tr>
+        </table>
+    </div>
+</div>
+<!--</li>-->

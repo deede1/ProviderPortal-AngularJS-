@@ -1,0 +1,27 @@
+﻿<div class="ng-cloak">
+
+    <div class="debug-tool-toggle-btn" ng-class="{active:!hide}" ng-click="toggleHide()" title="Toggle Debug Tool Visability"><span class="glyphicon glyphicon-wrench"></span></div>
+    <div class="debug-tool-body ngcloak clearfix" ng-hide="hide">
+        <div style="position: relative;display: block;">
+            <div class="pin-to-top" style="position: absolute;top: -1em;left: -1em;right: -1em;background: rgb(187, 187, 187);padding: 0.25rem;border-bottom: 1px solid #7D7D7D;">
+                <!--<button class="btn btn-xs btn-default" ng-click="toggleLoading()">Toggle Loading</button>-->
+                <!--<button class="btn btn-xs btn-default" ng-click="toggleErrorMessage()">Toggle Error Message</button>-->
+                <button class="btn btn-xs btn-default" ng-click="refreshToken()">Refresh Token</button>
+                <!--<button class="btn btn-xs btn-default" ng-click="test()">Test???</button>-->
+                <button class="btn btn-xs btn-default" ng-click="keepAlive()">Inactivity Prompt</button>
+            </div>
+        </div>
+        <div style="overflow: scroll;height: 450px;display: block;padding-top: 1em;">
+
+            <h2>Debug Tools</h2><br />
+
+            <hr />
+            <internal-login-tester></internal-login-tester>
+            <hr />
+
+            <debug-tool-data-node name="Authentication Status" data="authStatus"></debug-tool-data-node>
+
+            <ng-transclude></ng-transclude>
+        </div>
+    </div>
+</div>

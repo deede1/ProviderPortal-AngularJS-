@@ -1,0 +1,695 @@
+﻿
+
+
+<div id="yellowCardCont" class="printable">
+
+<style>
+    .printableFontSize tr td {
+        border: 0px solid red; 
+        font-size: 8pt !important;
+    }
+</style>
+
+
+
+<div ng-show="data.SubscriberNumber != null" reduceFontAtPrintTime>
+<table width="100%">
+    <tr>
+        <td>
+            <img src="Content/Images/IEHP_LOGO_w116xh40.png" alt="IEHP image"/>
+        </td>
+        <td class="text-center">
+            <div class="colorRed non-printable"> [ <a href="" ng-click="printYellowCard()" class="colorRed">Print Document</a> ]
+            </div>
+            <div class="immuniHeader">      Immunization Record </div>
+        </td>
+        <td class="text-right">
+            Printed on: {{TodaysDate | date:'MM/dd/yy'}}
+        </td>
+    </tr>
+</table>
+
+<table width="100%" cellpadding="1" cellspacing="0" >
+    <!--<tr>
+        <td nowrap colspan="5" class="text-center immuniHeader">
+            Immunization Record
+        </td>
+    </tr>-->
+    <tr>
+        <td colspan="3" style="border-right: #000000 1px solid; border-top: #000000 double">
+            PATIENT NAME (Last Name, First Name Middle Initial)
+        </td>
+        <td colspan="2" style="border-top: #000000 double">
+            NUMBER
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" nowrap style="border-bottom: #000000 1px solid; border-right: #000000 1px solid">
+            {{data.FullName | obfuscateValue}}
+        </td>
+        <td colspan="2" style="border-bottom: #000000 1px solid">
+            {{data.SubscriberNumber | obfuscateValue}}
+        </td>
+    </tr>
+    <tr>
+        <td style="border-right: #000000 1px solid">
+            BIRTHDATE
+        </td>
+        <td style="border-right: #000000 1px solid">
+            GENDER
+        </td>
+        <td nowrap style="border-right: #000000 1px solid">
+            KNOWN REACTIONS TO VACCINES/ALLERGIES
+        </td>
+        <td>
+            PRACTICE NAME/ADDRESS
+        </td>
+    </tr>
+    <tr>
+        <td class="text-center" valign="bottom" style="border-right: #000000 1px solid">
+            {{data.DateOfBirth | date:'MM/dd/yy' | obfuscateValue}}
+        </td>
+        <td class="text-center" valign="bottom" style="border-right: #000000 1px solid">
+            {{data.Gender}}
+        </td>
+        <td class="text-center" valign="bottom" style="border-right: #000000 1px solid">
+            &nbsp;
+        </td>
+        <td class="text-center" valign="bottom">
+            &nbsp;<br/>
+        </td>
+    </tr>
+    <tr>
+        <td nowrap colspan="5" class="text-center" style="border-top: #000000 2px solid;">
+            If a combination vaccine (e.g., DTP + Hib or HepB + Hib) is used, record dose in each section.
+        </td>
+    </tr>
+</table>
+
+<table width="100%" cellpadding="2" cellspacing="0" cols="6">
+<tr>
+    <td rowspan="2" class="text-center" valign="top" style="border-top: #000000 2px solid; border-right: #000000 1px solid;">
+        VACCINE
+    </td>
+    <td rowspan="2" class="text-center" valign="top" style="border-top: #000000 2px solid; border-right: #000000 1px solid;">
+        DATE GIVEN*
+    </td>
+    <td rowspan="2" class="text-center" valign="top" style="border-top: #000000 2px solid; border-right: #000000 1px solid;">
+        ADMINISTERED BY<br/>DOCTOR OFFICE OR CLINIC
+    </td>
+    <td rowspan="2" class="text-center" valign="top" style="border-top: #000000 2px solid; border-right: #000000 1px solid;">
+        VACCINE
+    </td>
+    <td rowspan="2" class="text-center" valign="top" style="border-top: #000000 2px solid; border-right: #000000 1px solid;">
+        DATE GIVEN*
+    </td>
+    <td rowspan="2" class="text-center" valign="top" style="border-top: #000000 2px solid;">
+        ADMINISTERED BY<br/>DOCTOR OFFICE OR CLINIC
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        DTAP 1
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        {{data.DtapVaccines[0].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        IPV 1
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        {{data.PolioVaccines[0].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 2px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        DTAP 2
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.DtapVaccines[1].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        IPV 2
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.PolioVaccines[1].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        DTAP 3
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.DtapVaccines[2].DateGiven | date:'MM/dd/yy'}}
+
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        IPV 3
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.PolioVaccines[2].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        DTAP 4
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.DtapVaccines[3].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        IPV 4
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.PolioVaccines[3].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        DTAP 5
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.DtapVaccines[4].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        MMR 1
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.MmrVaccines[0].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        DTAP 6
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.DtapVaccines[5].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        MMR 2
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.MmrVaccines[1].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        HepB 1
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        {{data.HepBVaccines[0].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        Varicella 1
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        {{data.VaricellaVaccines[0].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 2px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        HepB 2
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.HepBVaccines[1].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        Varicella 2
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.VaricellaVaccines[1].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        HepB 3
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.HepBVaccines[2].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td colspan="3" rowspan="2" valign="bottom" class="text-left" style="border-top: #000000 2px solid;">
+        &nbsp;
+        <input type="checkbox" disabled ng-checked="data.HadChickenpox"/>
+        &nbsp;Check here if patient had chickenpox.
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        HepB 4
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.HepBVaccines[3].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td colspan="3" rowspan="2" valign="bottom" class="text-left" style="border-top: #000000 2px solid;">
+        &nbsp;
+        <input type="checkbox" disabled ng-checked="data.HadMeasles"/>
+        &nbsp;Check here if patient had measles.
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        Hib 1
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        {{data.HibVaccines[0].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        HepA 1
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        {{data.HepAVaccines[0].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 2px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        Hib 2
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.HibVaccines[1].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        HepA 2
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.HepAVaccines[1].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        Hib 3
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.HibVaccines[2].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        Meningococcal 1
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        {{data.MeningococcalVaccines[0].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 2px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        Hib 4
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.HibVaccines[3].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        Meningococcal 2
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.MeningococcalVaccines[1].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        Pneumococcal<br/>Conjugate 1
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        {{data.PneumoConjVaccines[0].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        Flu<br/>1
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 2px solid; border-right: #000000 1px solid">
+        {{data.FluVaccines[0].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 2px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        Pneumococcal<br/>Conjugate 2
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.PneumoConjVaccines[1].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        Flu<br/>2
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.FluVaccines[1].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        Pneumococcal<br/>Conjugate 3
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.PneumoConjVaccines[2].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        Flu<br/>3
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.FluVaccines[2].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+<tr>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        Pneumococcal<br/>Conjugate 4
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.PneumoConjVaccines[3].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        &nbsp;
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        Flu<br/>4
+    </td>
+    <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid">
+        {{data.FluVaccines[3].DateGiven | date:'MM/dd/yy'}}
+    </td>
+    <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+        &nbsp;
+    </td>
+</tr>
+<tr/>
+</table>
+
+<table width="100%" cellpadding="1" cellspacing="0" cols="10">
+    <tr>
+        <td colspan="10" class="text-center" style="border-top: #000000 2px solid;">
+            TB SKIN TESTS
+        </td>
+    </tr>
+    <tr>
+        <td class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            DATE GIVEN
+        </td>
+        <td class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            TYPE
+        </td>
+        <td class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            DATE READ
+        </td>
+        <td class="text-center" style="border-top: #000000 1px solid; border-right: #000000 2px solid;">
+            IMPRESSION
+        </td>
+        <td class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            DATE GIVEN
+        </td>
+        <td class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            TYPE
+        </td>
+        <td class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            DATE READ
+        </td>
+        <td class="text-center" style="border-top: #000000 1px solid;">
+            IMPRESSION
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Mantoux
+        </td>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 2px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Negative
+        </td>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Mantoux
+        </td>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Negative
+        </td>
+    </tr>
+    <tr/>
+    <tr>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-right: #000000 1px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Other
+        </td>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-right: #000000 2px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Positive mm
+        </td>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-right: #000000 1px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Other
+        </td>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Positive mm
+        </td>
+    </tr>
+    <tr/>
+    <tr>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Mantoux
+        </td>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 2px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Negative
+        </td>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Mantoux
+        </td>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-top: #000000 1px solid; border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-top: #000000 1px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Negative
+        </td>
+    </tr>
+    <tr/>
+    <tr>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-right: #000000 1px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Other
+        </td>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-right: #000000 2px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Positive mm
+        </td>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom" style="border-right: #000000 1px solid;">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Other
+        </td>
+        <td rowspan="2" valign="bottom" class="text-center" style="border-right: #000000 1px solid;">
+            &nbsp;
+        </td>
+        <td rowspan="2" valign="bottom">
+            &nbsp;
+            <input type="checkbox" disabled/>
+            &nbsp;Positive mm
+        </td>
+    </tr>
+    <tr/>
+</table>
+
+<table width="100%" cellpadding="4" cellspacing="0" cols="2">
+    <tr>
+        <td style="border-top: #000000 2px solid" width="50%">
+            *Date Given is the date you gave the patient the Vaccine Information Statement (VIS) and you administered the vaccine.
+        </td>
+        <td style="border-top: #000000 2px solid">
+            ***VIS-Vaccine Information Statement. Each VIS has an issue date in the lower corner; record the VIS issue date here.
+            The VIS should be given to the patient/parent before each dose of vaccine is administered. Each VIS can be downloaded
+            from http://www.cdc.gov/nip/publications/VIS.
+        </td>
+    </tr>
+    <tr>
+        <td style="border-bottom: #000000 double;">
+            Note: If you are recording a vaccine given elsewhere, record date dose was given, write in "elsewhere" or
+            "transcribed," and/or the name of the provider.
+        </td>
+        <td style="border-bottom: #000000 double;"></td>
+    </tr>
+    <tr>
+        <td colspan="2" rowspan="2">&nbsp;</td>
+    </tr>
+    <tr/>
+    <tr>
+        <td colspan="2" rowspan="2">&nbsp;</td>
+    </tr>
+    <tr/>
+    <tr>
+        <td/>
+        <td style="border-bottom: #000000 1px solid;"/>
+    </tr>
+    <tr>
+        <td valign="top" class="text-right" colspan="2">
+            SIGNATURE
+        </td>
+    </tr>
+</table>
+</div>
+</div>

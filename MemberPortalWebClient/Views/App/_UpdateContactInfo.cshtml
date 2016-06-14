@@ -1,0 +1,159 @@
+﻿@{
+    Layout = null;
+
+}
+
+
+<div class="row contentContainer"> 
+
+
+    <div class="registrationForm frmSignIn col-sm-12 col-xs-12 padLeft0 padRight0   ">
+
+
+        <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15">
+            <div class="contentPanel" ng-controller="SideNavCtrl">
+
+                <notifications-panel></notifications-panel>
+                <br />
+
+                <a href="App/MyInformation/UpdateContactInfo">
+                    <div class="panelTile alignCenter col-xs-6 panelSelected">
+                        {{ 'nav_myContactInformation' | translate}}
+                    </div>
+                </a>
+
+                <a href="App/MyInformation/ChangeEmail">
+                    <div class="panelTile alignCenter col-xs-6">
+                        {{ 'nav_changeMyEmail' | translate}}
+                    </div>
+                </a>
+
+                <a href="App/MyInformation/ChangePassword">
+                    <div class="panelTile alignCenter col-xs-6 col-xs-offset-3">
+                        {{'nav_changeMyPassword' | translate }}
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+
+
+        <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12  col-lg-push-3 col-md-push-3  ">
+
+            <div class="contentPanel1">
+                <div class="form panel  ">
+                    <div class="padLeft15 padTop15">
+                        <h1 class="pageTitle"> Title ABC   </h1>
+                        <p class="pageIntro">  View description   </p>
+                    </div>
+
+                <div simple-ajax-loader show="loading"></div>
+
+
+
+                <div class="row">
+                    @*<div class="col-md-12">
+                        <message-boxes info-message="{{infoMessage}}" success-message="{{successMessage}}" error-message="{{errorMessage}}"></message-boxes>
+                    </div>*@
+
+                <div ng-show="errorMessage == ''">
+                    @*<div class="col-md-12">
+                                    <h2 class="underlined">{{"page_myinfo_updateContactInfo_myCurrentInfo" | translate}}</h2>
+                                </div>*@
+                    <form name="demographicsForm" role="form" class="form form-horizontal" novalidate="novalidate">
+                        <div class="row">
+
+           
+
+                            @*<div class="col-md-6">
+                                        <label for="txtFirstName">{{'form_firstName' | translate}}</label>
+                                        <input id="txtFirstName" name="" type="text" placeholder="{{'form_firstName' | translate}}  " ng-model="data.FirstName" readonly="readonly" />
+                                        </div>
+                                        <div class="col-md-6">
+                                        <label for="txtLastName">{{'form_lastName' | translate}}</label>
+                                        <input id="txtLastName" name="" type="text" placeholder="{{'form_lastName' | translate}}  " ng-model="data.LastName" readonly="readonly" />
+                                        </div>*@
+                            </div>
+ 
+                        </form>
+                    </div>
+                </div>
+
+
+                </div>
+            </div>
+            <div debug-tool class="ng-cloak">
+                <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+            </div>
+        </div>
+
+
+        <!--  place this in a template per MyInfo Category -->
+        <div class="contentLeft col-lg-3 col-md-3   col-sm-12   col-lg-pull-9 col-md-pull-9 col-sm-pull-0  hidden-xs">
+            <div class="contentPanel leftPanel_large" ng-controller="SideNavCtrl">
+
+                <notifications-panel></notifications-panel>
+                <br />
+
+                <a href="App/MyInformation/UpdateContactInfo">
+                    <div class="panelTile alignRight panelSelected">
+                        <h2>{{ 'nav_myContactInformation' | translate}}</h2>
+                        <i class="btn_bak_updatemyinfo"></i>  
+                    </div>
+                </a>
+
+                <a href="App/MyInformation/ChangeEmail" ng-show="item['P2.NAV1']">
+                    <div class="panelTile alignRight">
+                        <h2>{{ 'nav_changeMyEmail' | translate}}</h2>
+                        <i class="btn_bak_chemail"></i>
+                    </div> 
+                </a>
+                
+                <a href="App/MyInformation/ChangePassword" ng-show="item['P2.NAV2']">
+                    <div class="panelTile alignRight">
+                        <h2>{{'nav_changeMyPassword' | translate }}</h2>
+                        <i class="btn_bak_chpass"></i>
+                    </div>
+                </a>
+
+                @*<div class="panelTile">
+                    </div>*@
+
+
+                @*<div class="pageBannerContainer">
+                        <div ng-if="currentLanguage == 'en-us'">
+                            <div class="leftBanner_TOCL_Yellow">IEHP Member Contact TIPS</div>
+                            <div class="leftBanner_Verdana_White">
+                                <ul>
+                                    <li>Update your information with your County Eligibility Worker</li>
+                                    <li>Give your email and cell phone to get program updates</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div ng-if="currentLanguage == 'es-mx'">
+                            <div class="leftBanner_TOCL_Yellow">Consejos sobre Información de Contacto para Miembros de IEHP</div>
+                            <div class="leftBanner_Verdana_White">
+                                <ul>
+                                    <li> Actualice su información con su representante de elegibilidad del condado</li>
+                                    <li> Proporcione su correo electrónico y número de teléfono celular y obtenga actualizaciones del programa</li>
+                                </ul>
+                            </div>
+                         </div>
+
+                        <div class="center">
+                        <img class="vertBanner" src="@Url.Content("~/Content/Images/banner_UpdateContact.png")" />
+                        </div>
+                    </div>*@
+
+
+            </div>
+         </div>
+        </div>
+    </div>
+
+<script>
+    $('.navItemSelected').removeClass('navItemSelected');
+    $('#navbtn5 div').addClass('navItemSelected');
+</script>
+

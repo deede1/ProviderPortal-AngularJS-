@@ -1,0 +1,147 @@
+﻿
+
+<prov-portal-iframe pagetitle="MCR" pageurl="{{IFRAME_PAGE_URL_ROSTER_MCRTRANSFER}}">
+</prov-portal-iframe>
+
+
+<!--<div class="posRelative Rosters">
+
+    <h1 class="WorkInProgress">!!WORK IN PROGRESS!!</h1>
+
+    <div class="form panel">
+        <h1 class="pageTitle"> MCR Roster </h1>
+        <p class="pageIntro ">
+        </p>
+    </div>
+    <roster-title-header title=" MCR Roster  "></roster-title-header>
+
+
+
+
+
+    <div class="row alignCenter resultsContainer">
+
+
+        <results-pagination ng-show="data.List"></results-pagination>
+
+
+        <div class="loaderContainer" simple-ajax-loader show="loading"></div>
+
+        <div class="header" ng-show="data.List.length && data.LastUpdatedOn"> Last Updated on {{ data.LastUpdatedOn }} </div>
+
+
+        <table class="roster resultTier1 results-accordion col-sm-12  table table-striped table-sortable"
+               ng-show="displayFullView &&  data.List.length">
+            <thead>
+                <tr class="header sorting">
+                    <th></th>
+                    <th ng-click="order('MemberFName', reverse)"> PCP </th>
+                    <th ng-click="order('MemberFName', reverse)"> PCP No. </th>
+                    <th ng-click="order('LineOfBusinessD', reverse)"> PCP Tax ID </th>
+                    <th ng-click="order('IehpId', reverse)"> Phone </th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="roster in data.List">
+
+                <tr ng-click="expandViewDetails('ROST.PCCI',2, { ProviderNumber: roster.ProviderNumber}, roster); toggleRoster(data.List,roster)">
+                    <td>
+                        <span class="glyphicon"
+                              ng-class="roster.expand ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+                        </span>
+                    </td>
+                    <td> {{ roster.ProviderLName | uppercase }}, {{ roster.ProviderFName | uppercase }} </td>
+                    <td> {{ roster.ProviderNumber}} </td>
+                    <td> {{ roster.ProviderTaxId }} </td>
+                    <td> {{ roster.ProviderPhone }} </td>
+
+                </tr>
+
+                <tr uib-collapse="!roster.expand" class="row-striped roster-result-row">
+                    <td colspan="100%">
+                        <table class="roster resultTier2 col-sm-12  table table-striped table-sortable"
+                               ng-show="displayFullView &&  rosterSubViewLevel2.List.length">
+                            <thead>
+
+                                <tr class="header sorting">
+                                    <th></th>
+                                    <th ng-click="order('MemberFName', reverse)">   IEHP ID </th>
+                                    <th ng-click="order('LineOfBusinessD', reverse)">Member </th>
+                                    <th ng-click="order('IehpId', reverse)">DOB </th>
+                                    <th ng-click="order('IpvCount', reverse)">Transition Date </th>
+                                    <th ng-click="order('MmrCount', reverse)">Program Information </th>
+
+                                </tr>
+
+                            </thead>
+                            <tbody ng-repeat="member in rosterSubViewLevel2.List">
+
+                                <tr ng-click="expandViewDetails('ROST.PCCI',3, { SubscriberNumber: member.SubscriberNumber, PersonNumber:member.PersonNumber}, member);
+                                 toggleRoster(rosterSubViewLevel2.List,member)">
+                                    <td>
+                                        <span class="glyphicon"
+                                              ng-class="member.expand ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+                                        </span>
+                                    </td>
+                                    <td> {{ member.IehpId }}     </td>
+                                    <td> {{ member.MemberLName | uppercase }}, {{ member.MemberFName | uppercase }} </td>
+
+                                    <td> {{ member.DateOfBirth | date:'MM/dd/yyyy' }} </td>
+
+                                    <td class="alignCenter"> {{ member.Date }} </td>
+                                    <td class="alignCenter"> {{ member.ProgInfo }} </td>
+
+                                </tr>
+
+                                <tr ng-show="dataResultMessageTier2">
+                                    <td colspan="100%">
+                                        <danger-box message="{{dataResultMessageTier2}}"></danger-box>
+                                    </td>
+                                </tr>
+
+                                <tr uib-collapse="!member.expand" class="row-striped roster-result-row">
+                                    <td colspan="100%">
+                                        <table class="roster resultTier3 col-sm-12  table table-striped table-sortable"
+                                               ng-show="displayFullView ">
+                                            <thead>
+                                                <tr class="header sorting">
+                                                    <th ng-click="order('MemberFName', reverse)"> DOS </th>
+                                                    <th ng-click="order('MemberFName', reverse)"> Procedure </th>
+                                                </tr>
+                                            </thead>
+                                            <tr ng-repeat="itemDataTier3 in rosterSubViewLevel3.List">
+                                                <td> {{ itemDataTier3.ServiceDate }} </td>
+                                                <td> {{ itemDataTier3.ServiceType }} </td>
+                                            </tr>
+                                            <tr ng-show="dataResultMessageTier3">
+                                                <td colspan="100%">
+                                                    <danger-box message="{{dataResultMessageTier3}}"></danger-box>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+        <danger-box message="{{dataResultMessageTier1}}"></danger-box>
+
+
+
+    </div>
+
+
+
+
+    <danger-box message="{{errorMessage}}"></danger-box>
+
+
+
+
+
+
+</div>-->

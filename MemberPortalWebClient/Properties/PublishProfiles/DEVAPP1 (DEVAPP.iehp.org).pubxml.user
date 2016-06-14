@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>\\DEVAPP1\devapp.iehp.org\ProviderPortalv2</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App/appRoute.js">
+      <publishTime>04/25/2016 14:02:34</publishTime>
+    </File>
+    <File Include="App/authorizations/request/authorization-request.html">
+      <publishTime>04/21/2016 11:50:19</publishTime>
+    </File>
+    <File Include="App/authorizations/request/AuthorizationRequestController.js">
+      <publishTime>04/21/2016 11:41:24</publishTime>
+    </File>
+    <File Include="App/components/CensusReport/CensusReport.html">
+      <publishTime>05/06/2016 10:46:56</publishTime>
+    </File>
+    <File Include="App/components/CensusReport/CensusReportController.js">
+      <publishTime>05/06/2016 10:42:12</publishTime>
+    </File>
+    <File Include="App/components/eligibility/EligibilityController.js">
+      <publishTime>04/25/2016 13:58:43</publishTime>
+    </File>
+    <File Include="App/components/MemberHealthRecord/MemberHealthRecord.html">
+      <publishTime>04/15/2016 15:36:02</publishTime>
+    </File>
+    <File Include="App/components/Rosters/Controllers/RosterHM_HMCMRController.js">
+      <publishTime>05/05/2016 08:23:01</publishTime>
+    </File>
+    <File Include="App/components/Rosters/Views/RosterHM_CareManagementReports.html">
+      <publishTime>05/03/2016 09:39:10</publishTime>
+    </File>
+    <File Include="App/directives/pp-rosters-hm-care-management-reports/RosterHM_CareManagementReports_members.html">
+      <publishTime>05/06/2016 11:41:38</publishTime>
+    </File>
+    <File Include="App/directives/pp-rosters-hm-care-management-reports/RosterHM_CareManagementReports_members.js">
+      <publishTime>05/05/2016 19:54:28</publishTime>
+    </File>
+    <File Include="App/layout/left-navigation.directive.html">
+      <publishTime>04/21/2016 17:58:05</publishTime>
+    </File>
+    <File Include="App/layout/left-navigation.directive.js">
+      <publishTime>03/28/2016 14:44:24</publishTime>
+    </File>
+    <File Include="App/layout/pp-breadcrumbs.directive.js">
+      <publishTime>04/10/2016 12:29:20</publishTime>
+    </File>
+    <File Include="App/layout/single-column-transparent.html">
+      <publishTime>03/28/2016 14:44:24</publishTime>
+    </File>
+    <File Include="App/layout/single-column.html">
+      <publishTime>03/28/2016 14:44:24</publishTime>
+    </File>
+    <File Include="App/layout/two-column-wide-right.html">
+      <publishTime>03/28/2016 14:44:24</publishTime>
+    </File>
+    <File Include="App/services/memberDataServices.js">
+      <publishTime>05/06/2016 08:05:45</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>05/06/2016 10:00:13</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

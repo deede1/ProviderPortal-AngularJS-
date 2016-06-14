@@ -1,0 +1,190 @@
+﻿<div class="form panel non-printable">
+    <h1 class="pageTitle"> Member Health Record </h1>
+</div>
+<div id="printInstruction" class="non-printable">
+    Please <a href="#" ng-click="print()">[PRINT]</a> and place at the top of the patient's chart
+</div>
+<div class="row contentContainer PPView" id="member-health-record">
+    <div class="col-sm-12 col-xs-12 padLeft0 padRight0   ">
+        <div>
+            <div class="contentPanel1">
+                <div class="row non-printable">
+                    <div ng-show="errorMessage == ''">
+                    </div>
+                </div>
+                <div id="healthRecordResults" class="row contentPanel non-printable">
+                    <div class="contentPanel">
+                        <div id="panels-container">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" ng-click="sections['CI'] = !sections['CI']">
+                                    <i class="pull-left glyphicon"
+                                       ng-class="{'glyphicon-chevron-down': sections['CI'], 'glyphicon-chevron-right': !sections['CI']}">
+                                    </i>&nbsp;
+                                    <span class="panel-header-title">Member Demographics</span>
+                                </div>
+                                <div ng-if="sections['CI']" class="panel-body collapsable">
+                                    <div>
+                                        <form class="form-section">
+                                            <table class="table">
+                                                <tbody>
+                                                <tr>
+                                                    <td colspan="100%" style="border: 0;">
+                                                        <div class="col-xs-3 ">
+                                                            <div class="row">
+                                                                <label class="col-xs-6 ">Name:</label>
+                                                                <div class="col-xs-6 ">{{Demo.LastName|titleCase}},{{Demo.FirstName|titleCase}}</div>
+                                                            </div>
+                                                            <div class="row" >
+                                                                <label class="col-xs-6 ">Gender:</label>
+                                                                <div class="col-xs-6 ">{{Demo.Gender | gender}}</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <label class="col-xs-6 ">DOB:</label>
+                                                                <div class="col-xs-6 ">{{Demo.DateOfBirth | noTime}}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-3 ">
+                                                            <div class="row">
+                                                                <label class="col-xs-6 ">IEHP ID:</label>
+                                                                <div class="col-xs-6 ">{{Demo.SubscriberId}}</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <label class="col-xs-6 ">Email:</label>
+                                                                <div class="col-xs-6 ">{{Demo.Email}}</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <label class="col-xs-6 ">Address:</label>
+                                                                <div class="col-xs-6 ">{{Demo.Address}} {{Demo.Address2}}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-3 ">
+                                                            <div class="row">
+                                                                <label class="col-xs-6 ">City:</label>
+                                                                <div class="col-xs-6 ">{{Demo.City}}</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <label class="col-xs-6 ">State-Zip:</label>
+                                                                <div class="col-xs-6 ">{{Demo.State}} {{Demo.Zip|zipcode}}</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <label class="col-xs-6 ">MobilePhone:</label>
+                                                                <div class="col-xs-6 ">{{Demo.MobilePhone | tel}}</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xs-3">
+                                                            <div class="row">
+                                                                <label class="col-xs-6">HomePhone:</label>
+                                                                <div class="col-xs-6">{{Demo.HomePhone|tel}}</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <label class="col-xs-6 ">WorkPhone:</label>
+                                                                <div class="col-xs-6 ">{{Demo.WorkPhone}}</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <label class="col-xs-9 ">Preferred Written Language:</label>
+                                                                <div class="col-xs-3 ">{{Demo.PreferredWrittenLanguage}}</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <label class="col-xs-9">Preferred Spoken Language:</label>
+                                                                <div class="col-xs-3">{{Demo.PreferredSpokenLanguage}}</div>
+                                                            </div>
+                                                        </div>
+
+
+                                                      
+                                                    </td>
+                                                </tr>
+                                               
+                                                </tbody>
+                                            </table>
+                                        
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="panel panel-default" ng-include="'App/components/MemberHealthRecord/MemberAlerts.html'" ng-controller="MemberAlertsController">
+                            </div>
+                            <div class="panel panel-default" ng-include="'App/components/MemberHealthRecord/MemberVisits.html'" ng-controller="MemberVisitsController">
+                            </div>
+                            <div class="panel panel-default" ng-include="'App/components/MemberHealthRecord/MemberRx.html'" ng-controller="MemberRxController">
+                            </div>
+                            <div class="panel panel-default" ng-include="'App/components/MemberHealthRecord/MemberLabs.html'" ng-controller="MemberLabsController">
+                            </div>
+                            <div class="panel panel-default">
+                                <div ng-click="sections['IM'] = !sections['IM']" class="panel-heading">
+                                    <i class="pull-left glyphicon"
+                                       ng-class="{'glyphicon-chevron-down': sections['IM'], 'glyphicon-chevron-right': !sections['IM']}">
+                                    </i>&nbsp;
+                                    <span class="panel-header-title">Immunizations</span>
+                                </div>
+                                <div ng-if="sections['IM']" class="panel-body">
+                                    <div id="immunizationDetail">
+                                        <form class="form-horizontal" ng-if="Immunizations">
+                                            <fieldset>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-xs-6 text-left" ng-if="Immunizations">
+                                                            <label>Had Chickenpox:</label>
+                                                            <span ng-bind="Immunizations['ImmunizationDetails'].HadChickenpox? 'Yes': 'No'"></span>
+
+                                                        </div>
+                                                        <div class="col-xs-6 text-left" ng-if="Immunizations">
+                                                            <label>Had Measles:</label>
+                                                            <span ng-bind="Immunizations['ImmunizationDetails'].HadMeasles ? 'Yes':'No'"></span>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                    <table id="vaccinesTableOuter" class="table table-striped">
+                                        <thead ng-if="Immunizations">
+                                        <th> Vaccine Type</th>
+                                        <th>Data Given</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-if="Immunizations" ng-repeat="(key, value) in Immunizations">
+                                                <td>
+                                                    {{key}}
+                                                </td>
+                                                <td>
+                                                    <table id="vaccinesTable">
+                                                        <tbody>
+                                                            <tr ng-if="v.DateGivenFormatted" ng-repeat="v in value">
+                                                                <td>{{v.DateGivenFormatted|date}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="!Immunizations">
+                                                <td>
+                                                    No Records
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div simple-ajax-loader show="loading" class="fixed-loader"></div>
+                    </div>
+                </div>
+
+
+
+                <div ng-if="printDiv" class="printable row contentPanel" id="PrintableHealthRecords"  ng-include="'App/components/MemberHealthRecord/printableContent.html'">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

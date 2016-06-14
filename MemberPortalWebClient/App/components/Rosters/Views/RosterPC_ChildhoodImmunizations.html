@@ -1,0 +1,337 @@
+﻿<div class="Rosters">
+
+     
+    <div class="form panel">
+        <h1 class="pageTitle">   Childhood Immunizations </h1>
+        <p class="pageIntro ">
+        </p>
+    </div>
+
+
+    <roster-title-header providernumber="" providertaxid="{{ _providerTaxID }}" csvbubbletitle="Click to download CSV file of all members "></roster-title-header>
+
+
+
+    <div class="loaderContainer" simple-ajax-loader show="loading"></div>
+    <div class="row alignCenter resultsContainer">
+
+        <results-pagination ng-show="data.List"></results-pagination>
+
+    <div class="header" >
+        <span style="position: absolute;top: -34px;left: 10px;"><a target="_cipdf" href="https://www.iehp.org/Secure_Site/P4P/IPA_curr/pdf/ChildhoodImmunizationStatus.pdf">Measure Overview PDF</a></span>
+        <span ng-show ="data.List.length && data.LastUpdatedOn">
+            Last Updated on {{ data.LastUpdatedOn }}
+        </span> 
+    </div>
+
+         
+
+
+    <!-------- TIER1 PAGINATION ------->
+        <nav id="providersNav"
+             style="text-align: right; position: relative;"
+             class="non-printable"
+             ng-if="resultTier1.totalPages>1">
+
+            <!--<p class="pager-info">
+            {{startItem(resultTier1.currentPage, resultTier1.rowsPerPage)}} - {{endItem(resultTier1.currentPage, resultTier1.totalListCount, resultTier1.rowsPerPage)}}
+            of {{resultTier1.totalListCount}}
+        </p>-->
+
+            <div style="display: inline-block"
+                 uib-pagination boundary-links="true"
+                 class="pagination-sm"
+                 previous-text="&lsaquo;"
+                 next-text="&rsaquo;"
+                 first-text="&laquo;"
+                 last-text="&raquo;"
+                 total-items="roster.totalPages*roster.rowsPerPage"
+                 ng-model="roster.currentPage"
+                 items-per-page="roster.rowsPerPage"
+                 ng-change="pageChanged(1,'ROST.CCS',{ ProviderTaxId: 2},roster.currentPage,roster.totalListCount, roster) ">
+            </div>
+        </nav>
+        <!-------- TIER1 PAGINATION ------->
+
+
+
+        <table class="roster resultTier1 results-accordion col-sm-12  table table-striped table-sortable"
+                ng-class="roster.expand ? 'expand no-hover' : ''"
+                ng-show="displayFullView &&  data.List.length">
+
+
+            <thead>
+                <tr class="header sorting">
+                    <th></th>
+                    <th ng-click="RetrieveRoster('ROST.PCCI',1,{Sort:[{name:'ProviderLName', direction: sortDirection}]})"
+                        roster-tableheader-sort column-label="PCP" column-data="ProviderLName"></th>
+                    <th ng-click="RetrieveRoster('ROST.PCCI',1,{Sort:[{name:'IPA', direction:  sortDirection}]})"
+                        roster-tableheader-sort column-label="PCP ID" column-data="IPA"></th>
+                    <th ng-click="RetrieveRoster('ROST.PCCI',1,{Sort:[{name:'IPA', direction:  sortDirection}]})"
+                        roster-tableheader-sort column-label="IPA" column-data="IPA"></th>
+
+
+                </tr>
+            </thead>
+
+
+            <tbody ng-repeat="roster in data.List">
+
+
+                <!----- TIER1 DETAILS -->
+                <tr ng-click="expandViewDetails('ROST.PCCI',2, { ProviderNumber: roster.ProviderNumber, Ipa: roster.IPA},  data.List, roster,2,0); ">
+                    <td>
+                        <span class="glyphicon"
+                              ng-class="roster.expand ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+                        </span>
+                    </td>
+                    <td> {{ roster.ProviderLName | uppercase }}, {{ roster.ProviderFName | uppercase }} </td>
+                    <td> {{ roster.ProviderNumber }} </td>
+                    <td> {{ roster.IPAName }} ({{ roster.IPA }}) </td>
+
+                </tr>
+
+
+                <tr ng-show="roster.dataResultMessageTier2">
+                    <td colspan="100%">
+                        <danger-box message="{{roster.dataResultMessageTier2}}"></danger-box>
+                    </td>
+                </tr>
+
+
+                <tr ng-if="roster.expand"
+                    class="row-striped roster-result-row line-item ng-scope  collapsable indent "
+                    heading="Dynamic Body Content"
+                    ng-class="roster.expand ? '  no-hover expanded-header' : ''"
+                    ng-animate="'animate'">
+                    <td colspan="100%" class="bordered">
+
+                        <div class="table-responsive ">
+                            <table class="roster resultTier2 col-sm-12  table table-striped table-sortable   collapsable indent ">
+
+
+                                <thead> <!----------- TIER2 PAGINATION ---------->
+
+
+                                <roster-title-header providernumber="{{  roster.ProviderNumber }}" ipacode="{{roster.IPA}}" csvbubbletitle="Click to download CSV file of members for {{ roster.ProviderFName}} {{ roster.ProviderLName }}"   ></roster-title-header>
+
+
+                                <nav id="membersNav"
+                                         class="non-printable"
+                                         ng-if="roster.totalPages>1">
+                                        <!--<p class="pager-info">
+                                        {{startItem(resultTier2.currentPage, resultTier2.rowsPerPage)}}
+                                        - {{endItem(resultTier2.currentPage,resultTier2.totalListCount, resultTier2.rowsPerPage )}}
+                                        of {{resultTier2.totalListCount}}
+                                    </p>-->
+
+                                        <div uib-pagination
+                                             style="display: inline-block"
+                                             boundary-links="true"
+                                             class="pagination-sm"
+                                             previous-text="&lsaquo;"
+                                             next-text="&rsaquo;"
+                                             first-text="&laquo;"
+                                             last-text="&raquo;"
+                                             max-size="5"
+                                             total-items="roster.totalPages*roster.rowsPerPage" 
+                                             ng-model="roster.currentPage"
+                                             items-per-page="roster.rowsPerPage"
+                                             ng-change="pageChanged(2,'ROST.PCCI',{ ProviderNumber: roster.ProviderNumber, ipa:roster.IPA },roster.currentPage,roster.TotalListCount, roster) "></div>
+                                      </nav>
+
+
+
+                                    <tr class="subHeader1">
+                                        <th colspan="100%">
+ 
+
+                                            <div class="subHeaderPanel">
+                                                Total Members: {{ roster.tier2RowsTotal}}
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead> <!----------- TIER2 PAGINATION ---------->
+
+
+                                <thead>
+                                <!----- TIER2 DETAILS -->
+                                <tr class="header sorting">
+                                    <th></th>
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'MemberLName', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="Name/ IEHPID / DOB" column-data="MemberLName"></th>
+                                     
+
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'MemberPhone', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="Phone" column-data="MemberPhone"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'DTapDtCount', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="DTaP/Dt" column-data="DTapDtCount"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'IpvCount', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="IPV" column-data="IpvCount"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'MmrCount', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="MMR" column-data="MmrCount"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'HibCount', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="HIB" column-data="HibCount"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'HepBCount', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="HepB" column-data="HepBCount"></th>
+
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'VzvCount', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="VZV" column-data="VzvCount"></th>
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'PneumCount', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="PCV" column-data="PneumCount"></th>
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'HepACount', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="HepA" column-data="HepACount"></th>
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'RotavirusCount', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="Rota" column-data="RotavirusCount"></th>
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'FluCount', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="Flu" column-data="FluCount"></th>
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'Combo3Hit', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="Combo#3" column-data="Combo3Hit"></th>
+                                    <th ng-click="fetchViewDetails('ROST.PCCI',2,{Sort:[{name:'Combo10Hit', direction: roster.sortDirection}]})"
+                                        roster-tableheader-sort column-label="Combo#10 " column-data="Combo10Hit"></th>
+                                </tr>
+
+                                </thead>
+
+
+                                <tbody ng-repeat="member in roster.data.List">
+
+                                    <tr ng-click="expandViewDetails('ROST.PCCI',3, { SubscriberNumber: member.SubscriberNumber, PersonNumber:member.PersonNumber},  roster.data.List, member,3,0);
+                                  ">
+                                        <td>
+                                            <span class="glyphicon"
+                                                  ng-class="member.expand ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+                                            </span>
+                                        </td>
+                                        <td> {{ member.MemberLName }}, {{ member.MemberFName }} <br/>{{ member.IehpId | subString:0:12 }} <br/>{{member.DateOfBirth | date:'MM/dd/yyyy'}}  </td>
+
+
+                                        <td>
+                                            <span ng-show="member.MemberPhone.length <1"> Not Available</span>
+                                             {{ member.MemberPhone | tel}}
+
+                                        </td>
+                                        <td class="alignCenter"> {{ member.DTapDtCount }} </td>
+                                        <td class="alignCenter"> {{ member.IpvCount }} </td>
+                                        <td class="alignCenter"> {{ member.MmrCount }} </td>
+                                        <td class="alignCenter"> {{ member.HibCount }} </td>
+                                        <td class="alignCenter"> {{ member.HepBCount }} </td>
+                                        <td class="alignCenter"> {{ member.VzvCount }} </td>
+                                        <td class="alignCenter"> {{ member.PneumCount }} </td>
+                                        <td class="alignCenter"> {{ member.HepACount }} </td>
+                                        <td class="alignCenter"> {{ member.RotavirusCount }} </td>
+                                        <td class="alignCenter"> {{ member.FluCount }} </td>
+                                        <td class="alignCenter">
+
+
+                                            <span ng-if="member.Combo3Hit>0"
+                                                  class="glyphicon glyphicon-ok"
+                                                  uib-popover="Yes"
+                                                  popover-trigger="mouseenter"
+                                                  popover-append-to-body="true">
+                                            </span>
+                                            <span ng-if="member.Combo3Hit == 0"
+                                                  class="glyphicon glyphicon-remove"
+                                                  uib-popover="No"
+                                                  popover-trigger="mouseenter"
+                                                  popover-append-to-body="true">
+                                            </span> 
+
+                                        </td>
+                                        <td class="alignCenter">
+                                            
+
+                                            <span ng-if="member.Combo1Hit>0"
+                                                  class="glyphicon glyphicon-ok"
+                                                  uib-popover="Yes"
+                                                  popover-trigger="mouseenter"
+                                                  popover-append-to-body="true">
+                                            </span>
+                                            <span ng-if="member.Combo1Hit == 0"
+                                                  class="glyphicon glyphicon-remove"
+                                                  uib-popover="No"
+                                                  popover-trigger="mouseenter"
+                                                  popover-append-to-body="true">
+                                            </span> 
+                                        </td>
+                                    </tr>
+
+                                <tr ng-show="dataResultMessageTier2">
+                                    <td colspan="100%">
+                                        <danger-box message="{{dataResultMessageTier2}}"></danger-box>
+                                    </td>
+                                </tr>
+
+
+                                <!----- TIER3 DETAILS -->
+                                    <tr ng-if="member.expand"
+                                        class="row-striped roster-result-row line-item ng-scope    no-hover expanded-header collapsable indent"
+                                        ng-animate="'animate'">
+                                        <td colspan="100%" class="bordered">
+                                            <table class="roster resultTier3 col-sm-12  table table-striped table-sortable"
+                                                   ng-show="displayFullView ">
+                                                <thead>
+                                                <tr class="header sorting">
+                                                    <th ng-click="fetchViewDetails('ROST.CCS',3,{ SubscriberNumber: member.SubscriberNumber, PersonNumber:member.PersonNumber, Sort:[{name:'ServiceType', direction: member.sortDirection}]}, member)"
+                                                        roster-tableheader-sort column-label="Shot Given" column-data="MemberLName">Shot Given</th>
+                                                    <th ng-click="fetchViewDetails('ROST.CCS',3,{ SubscriberNumber: member.SubscriberNumber, PersonNumber:member.PersonNumber, Sort:[{name:'DateOfService', direction: member.sortDirection}]}, member)"
+                                                        roster-tableheader-sort column-label="DOS" column-data="MemberLName">DOS</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tr ng-repeat="itemDataTier3 in member.data.List"
+                                                    class="no-hover expanded-header ">
+                                                    <td> {{ itemDataTier3.ServiceType }} </td>
+                                                    <td> {{ itemDataTier3.DateOfService | date:'MM/dd/yyyy' }} </td>
+
+                                                </tr>
+                                                <tr ng-show="dataResultMessageTier3">
+                                                    <td colspan="100%">
+                                                        <danger-box message="{{dataResultMessageTier3}}"></danger-box>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </tr>
+            </tbody>
+        </table>
+
+
+
+        <danger-box message="{{dataResultMessageTier1}}"></danger-box>
+
+
+
+    </div>
+
+
+    <danger-box message="{{errorMessage}}"></danger-box>
+
+</div>
+
+
+
+<!-- MODAL CONTAINER -->
+<div id="modalContainerGeneral" class="modalContainer">
+    <img class="modalCloseButton" src="Content/Images/btn_close.png" onclick="closeModal('modalContainerGeneral')" />
+    <div class="modalContent" ui-view="modalDetails">
+    </div>
+</div>
+
+
+<script>
+    
+    $('#csvTest').on('click',function() {
+        console.log('CLICKEDDD');
+    });
+
+</script>

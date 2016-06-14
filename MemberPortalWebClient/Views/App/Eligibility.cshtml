@@ -1,0 +1,327 @@
+﻿@{
+    Layout = null;
+
+}
+<div class="row contentContainer PPView">
+    <rostertitle-header></rostertitle-header>
+            <div class="registrationForm   col-sm-12 col-xs-12 padLeft0 padRight0   ">
+            <rostertitle-header></rostertitle-header>
+            <div class="ppEligibility contentRight col-lg-10 col-md-9 col-sm-12 col-xs-12  col-lg-push-2 col-md-push-3  ">
+                <div class="contentPanel1" ng-controller="EligibilityController">
+                    <div class="form panel">
+                        <div class="padLeft15 padTop15 non-printable">
+                            <h1 class="pageTitle"> Eligibility </h1>
+                            <p class="pageIntro ">Providers must verify eligibility on the Date of Service (DOS) prior to rendering service to an IEHP Member.</p> 
+                        </div>
+                        <div class="row non-printable">
+                            <form id="frmEligibilitySearch"
+                                    role="form"
+                                    name="eligibilitySearch"
+                                    novalidate
+                                    ng-submit="SubmitEligibilitySearch()">
+                                <div class="eligibilityMemberSearchContainer row contentPanel pad20 col-sm-12" ng-controller="EligibilityController">
+                                    <div class="accordionPane" ng-click="expandMemberSearchBox= !expandMemberSearchBox" data-toggle="collapse" data-target="#searchBoxes">
+                                        <h2>Member Search</h2>
+                                        <span class="glyphicon glyphicon-chevron-right" ng-class="{ 'glyphicon-chevron-up':!expandMemberSearchBox, 'glyphicon-chevron-down':expandMemberSearchBox }"></span>
+                                    </div>
+                                    <div>
+                                        <div id="searchBoxes" class="collapse">
+                                            <br/>
+                                            <span class="ppSubHeader">Please enter a Member's SSN, CIN, IEHP ID, or Last Name</span>
+                                            <div class="multSearchContainer col-sm-11 col-sm-offset-1">
+                                                <ul id="eligSearchBy" class="eligSearch alignCenter ">
+                                                    <li id="rowEligSearch_1" class="col-sm-6">
+                                                        <div name="eligSearchMethod" class="eligSearchMethod displayHidden"></div>
+                                                        <div class="eligCBCont">
+                                                            <div id="btnEligClose_1" class="closeButtonElig  " onclick="removeSearchItem(1)"></div>
+                                                        </div>
+                                                        <input id="txtEligSearch_1"
+                                                                itemindex="1"
+                                                                searchtype=""
+                                                                class="eligibiltyMemberSearchTxtBox"
+                                                                name="txtEligSearch"
+                                                                type="text"
+                                                                pattern=".{2,14}"
+                                                                maxlength="14"
+                                                                placeholder="SSN, CIN, IEHP ID, or Last Name"
+                                                                onkeyup="determineEligibilitySearchType(this);"
+                                                                onblur="determineEligibilitySearchType(this);"/>
+                                                        <div id="contEligDOS_1" class="contDateTextbox  ">
+                                                            <input id="txtEligDOS_1"
+                                                                    name="txtEligDOS"
+                                                                    placeholder="MM/DD/YYYY"
+                                                                    type="text"
+                                                                    class="dateField2"
+                                                                    maxlength="10"
+                                                                    ng-maxlength="10"
+                                                                    ng-minlength="10"
+                                                                    ng-required="true"
+                                                                    value="{{IEHPID_DOS_date | date:'MM/dd/yyyy' }}"
+                                                                    onkeyup="addSlashesToDate(event, this)"
+                                                                    ng-pattern="/^((?:0[1-9])|(?:1[0-2]))\/((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))\/(\d{4})$/"/>
+                                                            <div class="toolTip">Date of Service</div>
+                                                        </div>
+                                                        <div id="contEligDOB_1" class="contDateTextbox displayHidden">
+                                                            <input id="txtEligDOB_1"
+                                                                    class="dateField2"
+                                                                    name="txtEligDOB"
+                                                                    placeholder="MM/DD/YYYY"
+                                                                    required
+                                                                    type="text"
+                                                                    maxlength="10"
+                                                                    ng-maxlength="10"
+                                                                    ng-minlength="10"
+                                                                    ng-required="true"
+                                                                    isvaliddate="false"
+                                                                    value=""
+                                                                    onkeyup="addSlashesToDate(event, this)"
+                                                                    onblur="addSlashesToDate(event, this)"
+                                                            <div class="toolTip">Date of Birth</div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <button type="button" class="formAddButton col-sm-3" onclick="addNewRowSearchItem(); return;">
+                                                    Add +
+                                                    <div class="hoverHelperText">(Add Search Field)</div>
+                                                </button>
+                                            </div>
+                                            <div class="alignCenter col-sm-12 padTop10 ">
+                                                <button type="submit"
+                                                        class="singleSearchButton button.icon row btn "
+                                                        ng-click="loadingSearchResults = 'true';"
+                                                        onclick="collapseAccordion();"
+                                                        style="width: 150px; position: relative;">
+                                                    Search
+                                                    <div class="icon">
+                                                        <i class="fa fa-search"></i>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-click="loadingSearchResults = 'true';submitEligibilitySearch()"></div>
+                            </form>
+                            <ul>
+                                <li id="newSearchRow" class="hideTemporarily col-sm-6">
+                                    <div name="eligSearchMethod" class="eligSearchMethod displayHidden"></div>
+                                    <div class="eligCBCont">
+                                        <div id="btnEligClose_0" class="closeButtonElig  " onclick="removeSearchItem(0)"></div>
+                                    </div>
+                                    <input id="txtEligSearch_0"
+                                            name="txtEligSearch"
+                                            itemindex="0"
+                                            searchtype=""
+                                            type="text"
+                                            class="eligibiltyMemberSearchTxtBox"
+                                            istemplate="1"
+                                            max-length="9"
+                                            onkeyup="determineEligibilitySearchType(this);"
+                                            onblur="determineEligibilitySearchType(this)"
+                                            value=""
+                                            placeholder="SSN, CIN, IEHP ID, or Last Name"/>
+                                    <div id="contEligDOS_0" class="contDateTextbox  ">
+                                        <input id="txtEligDOS_0"
+                                                name="txtEligDOS"
+                                                istemplate="1"
+                                                placeholder="MM/DD/YYYY"
+                                                type="text"
+                                                class="dateField2"
+                                                maxlength="10"
+                                                ng-maxlength="10"
+                                                ng-minlength="10"
+                                                ng-required="true"
+                                                value="{{IEHPID_DOS_date | date:'MM/dd/yyyy' }}"
+                                                onkeyup="addSlashesToDate(event, this)"
+                                                ng-pattern="/^((?:0[1-9])|(?:1[0-2]))\/((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))\/(\d{4})$/"/>
+                                        <div class="toolTip">Date of Service</div>
+                                    </div>
+                                    <div id="contEligDOB_0" class="contDateTextbox displayHidden">
+                                        <input id="txtEligDOB_0"
+                                                name="txtEligDOB"
+                                                istemplate="1"
+                                                class="dateField2"
+                                                placeholder="MM/DD/YYYY"
+                                                type="text"
+                                                maxlength="10"
+                                                ng-maxlength="10"
+                                                ng-minlength="10"
+                                                ng-required="true"
+                                                value=""
+                                                onkeyup="addSlashesToDate(event, this)"
+                                                onblur="addSlashesToDate(event, this)"
+                                                ng-pattern="/^((?:0[1-9])|(?:1[0-2]))\/((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))\/(\d{4})$/"/>
+                                        <div class="toolTip">Date of Birth</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12">
+                            <div simple-ajax-loader show="loadingSearchResults"></div>
+                        </div>
+                        <div id="eligRes" class="row contentPanel pad20">
+                            <div ui-view="eligibilityView@eligibility" ng-show="displayResults"></div>
+                            <pp-eligibility-disclaimer class="alignLeft"></pp-eligibility-disclaimer>
+                        </div>
+                    </div>
+                </div>
+            <div debug-tool class="ng-cloak">
+                <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+            </div>
+        </div>
+    </div>
+</div>  
+
+
+
+<script>
+    $("title").html("IEHP Provider Portal: ELIGIBILITY");
+ 
+
+
+
+
+    $(document).ready(function () {
+        //Collapse accordion
+        $('#searchBoxes').collapse('hide');
+        $('#searchBoxes').attr('data-toggle', 'collapse');
+    });
+
+
+
+    function collapseAccordion() {
+        $('#searchBoxes').collapse('hide');
+        $('#searchBoxes').attr('data-toggle', 'collapse');
+        angular.element($('#frmEligibilitySearch')).scope().SubmitEligibilitySearch();
+    }
+
+
+
+    function jumpToAnchor(id) {
+        var p = $("#" + id);
+        pos = p.position();
+        console.log('p='+ id +' > offset=' + pos);
+        
+        $(document).scrollTop($("#"+ id).offset().top);
+    }
+
+    $.fn.scrollView = function () {
+        return this.each(function () {
+            $('html, body').animate({
+                scrollTop: $(this).offset().top
+            }, 1000);
+        });
+    }
+
+    function addNewRowSearchItem( ) {
+        console.log('  ADD NEW SEARCH ITEM   '  );
+      /*  var availableElemCount = 0;
+        $("input[name='txtEligSearch']").not("[isTemplate=1]").each(function () {
+            console.log(' INPUT val=' + $(this).val());
+            if ($(this).val() === '')
+                availableElemCount ++;
+        });
+ 
+        console.log('========> AVAILABLE CT =' + availableElemCount);
+        if (availableElemCount <= 0) // If only 1 field is empty
+      */
+            angular.element('#eligSearchBy').scope().addNewSearchRow();
+    };
+
+    function removeSearchItem(searchIndex) {
+        $('#rowEligSearch_' + searchIndex).remove();
+    }
+
+    function  determineEligibilitySearchType(e) {
+        console.log('@@ DET ELIG SEARCH TYPE for ID=' + e.id);
+        var elementID = e.id;
+        var searchKWID = $('#' + elementID);
+        var searchKWValue = searchKWID.val();
+        var searchKWLength = searchKWValue.length;
+        var itemIndex = $('#' + elementID).attr('itemIndex');
+        console.log('VAL:' + searchKWValue + ' L:' + searchKWLength + ' ITEM INDEX:' + itemIndex);
+
+        if (searchKWValue == '' || searchKWLength == 0) {
+            //$('#contEligDOS_' + itemIndex).addClass('displayHidden');
+            $('#contEligDOB_' + itemIndex).addClass('displayHidden').removeClass('eligInvalidValue');
+           // $('#btnEligClose_' + itemIndex).addClass('displayHidden'); 
+            $('#' + elementID).attr('searchType', '');
+            $('#txtEligSearch_' + itemIndex).removeClass('eligValidValue').removeClass('eligInvalidValue');
+            $('#rowEligSearch_' + itemIndex + ' div[name="eligSearchMethod"]').html('Last Name').fadeOut('slow');
+        }
+        else
+        {
+            $('#txtEligSearch_' + itemIndex).addClass('eligInvalidValue').removeClass('eligValidValue');
+            if (isNaN(searchKWValue.substring(0,1))) {
+                console.log('> IS TEXT');
+                $('#contEligDOB_' + itemIndex).removeClass('displayHidden');
+                // $('#contEligDOS_' + itemIndex).removeClass('displayHidden');
+                $('#' + elementID).attr('searchType', 'LastNameAndDateOfBirth');
+
+                console.log('!!!! SEARCH BY LAST NAME ');
+                $('#rowEligSearch_' + itemIndex + ' div[name="eligSearchMethod"]').html('Last Name').fadeIn('slow');
+                $('#txtEligSearch_' + itemIndex).addClass('eligValidValue').removeClass('eligInvalidValue');
+                $('#txtEligDOB_' + itemIndex).addClass('eligInvalidValue').removeClass('eligValidValue');
+
+            } else {
+                console.log('> IS A NUMBER');
+                // $scope.isSSNCINIEHPIDSearch = true;
+                //$('#contEligDOS_' + itemIndex).removeClass('displayHidden');
+                $('#contEligDOB_' + itemIndex).addClass('displayHidden');
+                if (searchKWLength == 9)
+                    if (isNaN(searchKWValue.substring(8))) {
+                        console.log('!!!! SEARCH BY CIN');
+                        $('#' + elementID).attr('searchType', 'Cin');
+                        $('#rowEligSearch_' + itemIndex + ' div[name="eligSearchMethod"]').html('CIN').fadeIn('slow');
+                        $('#txtEligSearch_' + itemIndex).addClass('eligValidValue').removeClass('eligInvalidValue');
+                        $('#txtEligDOB_' + itemIndex).removeClass('eligInvalidValue').removeClass('eligValidValue');
+                         
+                    } else {
+                        console.log('!!!! SEARCH BY SSN');
+                        $('#' + elementID).attr('searchType', 'Ssn');
+                        $('#rowEligSearch_' + itemIndex + ' div[name="eligSearchMethod"]').html('SSN').fadeIn('slow');
+                        $('#txtEligSearch_' + itemIndex).addClass('eligValidValue').removeClass('eligInvalidValue');
+                        $('#txtEligDOB_' + itemIndex).removeClass('eligInvalidValue').removeClass('eligValidValue');
+                    }
+                if (searchKWLength >=12 )
+                    if (searchKWLength <= 14)
+                    {
+                        $('#' + elementID).attr('searchType', 'IehpId');
+                        $('#rowEligSearch_' + itemIndex + ' div[name="eligSearchMethod"]').html('IEHPID').fadeIn('slow');
+                        $('#txtEligSearch_' + itemIndex).addClass('eligValidValue').removeClass('eligInvalidValue');
+                        $('#txtEligDOB_' + itemIndex).removeClass('eligInvalidValue').removeClass('eligValidValue');
+                        console.log('!!! SEARCH BY IEHPID');
+                    } 
+            }
+        }
+    }
+    function addSlashesToDate(event, object) {
+        var elementID = object.id;
+        var dob = $('#' + elementID);
+        var dateValue = dob.val();
+        console.log('dob=' + dateValue);
+        var dateLength = dateValue.length;
+
+        console.log('...ADD SLASH TO DATE' + dateValue + ' dateLength=' + dateLength + ' KeyCode=' + event.keyCode);
+
+        if (event.keyCode == 8) //delete
+        {
+            dateValue = dateValue.substring(0, dateValue.length);
+            dob.val(dateValue);
+        }
+        else {
+            switch (dateLength) {
+                case 2: dob.val(dateValue + '/'); break;
+                case 5: dob.val(dateValue + '/'); break;
+            }
+            $('#' + elementID).addClass('eligInvalidValue').removeClass('eligValidValue').attr('isValidDate', 'false');
+            console.log('2,1=' + dateValue.substr(2, 1) + '5,1=' + dateValue.substr(5, 1));
+            if (dateLength == 10) {
+                console.log(' DATE:' + dateValue);
+                if (dateValue.substr(2, 1) == '/' && dateValue.substr(5, 1) == '/')
+                    $('#' + elementID).addClass('eligValidValue').removeClass('eligInvalidValue').attr('isValidDate', 'true');
+            }
+        }
+    }
+</script>

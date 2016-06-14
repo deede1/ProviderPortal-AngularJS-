@@ -1,0 +1,58 @@
+﻿<div class="row contentContainer">
+
+    <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12 col-lg-push-3 col-md-push-3 col-md-offset-0">
+        <div class="contentPanel subNavLink">
+            <ul>
+                <li><a href="App/MyInformation/UpdateContactInfo" class="subNavLink">{{'form_myContactInfo' | translate }}</a></li>
+                <li><a href="App/MyInformation/ChangeEmail" class="subNavLink"> {{'form_changeMyEmail' | translate }} </a></li>
+                <li><a href="App/MyInformation/ChangePassword" class="subNavLink">{{'form_changeMyPassword' | translate }}</a></li>
+                <li class="subNavSelected"> {{'subnav_ChangeSecurityQuestions' | translate }} </li>
+            </ul>
+        </div>
+
+        <h1 class="pageTitle"> {{"page_myinfo_changeSecurityQuestions_title" | translate}} </h1>
+        <p class="pageIntro">  {{"page_myinfo_updateEmail_intro" | translate}}  </p>
+
+        <div class="row panel panelMed row clearfix">
+
+            <change-security-questions-form></change-security-questions-form>
+
+        </div>
+    </div>
+
+
+
+
+
+    <!--  place this in a directive per MyInfo Category -->
+    <div class="contentLeft col-md-offset-0 col-md-3   col-sm-12 col-xs-12 col-md-pull-9 col-sm-pull-0 col-xs-pull-0">
+        <div class="contentPanel leftPanel_large" ng-controller="SideNavCtrl">
+            <div class="pageBannerContainer">
+
+                <div ng-if="currentLanguage == 'en-us'">
+                    <div class="leftBanner_TOCL_Yellow">IEHP Member Contact TIPS</div>
+                    <div class="leftBanner_Verdana_White">
+                        <ul>
+                            <li>Update your information with your County Eligibility Worker</li>
+                            <li>Give your email and cell phone to get program updates</li>
+                        </ul>
+                    </div>
+                </div>
+                <div ng-if="currentLanguage == 'es-mx'">
+                    <div class="leftBanner_TOCL_Yellow">IEHP Membero Contacto TIPS</div>
+                    <div class="leftBanner_Verdana_White">
+                        <ul>
+                            <li>Updato tu informaccion con tu County Eligibility Worker</li>
+                            <li>Give tu email y mobil to get program updates</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="center">
+                    <img class="vertBanner" ng-src="{{urlBase}}/Content/Images/banner_UpdateContact.png" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+﻿.claimsRaHeader {
+	border-top: 1px dashed lightgray;
+	border-bottom: 1px dashed lightgray;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+
+.claimRaDetailsPage .provider-info {
+	font-weight: bold;
+	font-size: .8rem;
+}
+
+.claimRaDetailsPage .member-info {
+	font-weight: bold;
+	font-size: .8rem;
+}
+
+.claimRaDetailsPage .claim-info {
+	font-size: .8rem;
+}
+
+
+.claimRaDetailsPage .member-div {
+	margin-top: 3px;
+	margin-bottom: 2px;
+}
+
+.claimRaDetailsPage .provider-div {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.claimsRaBody .bold-font {
+	font-weight: bold;
+}
+
+.claimsRaBody .summary {
+	border-top: 1px dashed lightgray;
+	padding-top: 5px;
+}
+
+.center-ra-body {
+	margin: 0 auto;
+}
+
+.ra-sub-summary-margin {
+	margin-left: 20%;
+}
+
+.ra-container {
+	width: 65% !important;
+}
+
+.ra-zero-padding {
+	padding: 0 !important;
+}
+
+
+.rTable {
+	display: table;
+}
+
+.rTableRow {
+	display: table-row;
+}
+
+.rTableHeading {
+	display: table-header-group;
+}
+
+.rTableBody {
+	display: table-row-group;
+}
+
+.rTableFoot {
+	display: table-footer-group;
+}
+
+.rTableCell, .rTableHead {
+	display: table-cell;
+}

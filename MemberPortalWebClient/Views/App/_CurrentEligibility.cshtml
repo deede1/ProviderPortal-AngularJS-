@@ -1,0 +1,327 @@
+﻿@{
+    Layout = null;
+}
+@*<p><a href="@Url.RouteUrl("App", new{angularroutes="Eligibility"})">Back</a></p>*@
+
+<div class="row contentContainer frmSignIn">
+
+    <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15">
+        <div class="contentPanel">
+            <notifications-panel></notifications-panel>
+            <br />
+            <a href="App/Eligibility/Current">
+                <div class="panelTile alignCenter col-xs-6 panelSelected">
+
+                    {{ 'form_currentStatus' | translate}}
+                </div>
+            </a>
+
+            <a href="App/Eligibility/Historical">
+                <div class="panelTile alignCenter col-xs-6">
+
+                    {{ 'nav_memberEligbilityHistory' | translate}}
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+
+
+
+    <div class="contentRight  col-lg-9 col-md-9 col-sm-12 col-xs-12  col-lg-push-3 col-md-push-3">
+
+        @*<div class="contentPanel subNavLink">
+                <ul>
+                    <li class="subNavSelected">{{ 'nav_currentEligibilty' | translate  }}</li>
+                    <li><a href="App/Eligibility/Historical" class="subNavLink">{{ 'nav_memberEligbilityHistory' | translate}}</a></li>
+                </ul>
+            </div>*@
+
+
+        @*<div class="row">
+                <div class="subNavLink  hidden-xs col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a href="App/Eligibility/Historical" class="subNavLink">{{'form_memberStatusHistory' | translate }}</a>
+                </div>
+            </div>*@
+
+        <div class="panel">
+            <div class="padLeft15 padTop15">
+                <h1 class="pageTitle"> {{"page_elig_currentEligibility_title" | translate}} </h1>
+                <p class="pageIntro">  {{"page_elig_currentEligibility_intro" | translate}} </p>
+            </div>
+
+            <div simple-ajax-loader show="loading"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <info-box message="{{infoMessage}}"></info-box>
+                    <danger-box message="{{errorMessage}}"></danger-box>
+                </div>
+            </div>
+            <div ng-show="errorMessage == ''">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="underlinedBorder low-ceiling">    {{'form_member' | translate}} </h3>
+                        <div class="row">
+                            <label class="control-label col-sm-4"> {{'form_IEHPID' | translate}}  </label>
+                            <div class="col-sm-4 form-nonEditable">
+                                {{ CurrentEligibility.IehpId | obfuscateValue}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="control-label col-sm-4"> {{'form_name' | translate}}  </label>
+                            <div class="col-sm-4 form-nonEditable" ng-model="CurrentEligibility">
+                                {{memberName | obfuscateValue}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h3 class="underlinedBorder low-ceiling">{{'form_eligibility' | translate}}</h3>
+                        <div class="row">
+                            <label class="control-label col-sm-5"> {{'form_plan' | translate}}  </label>
+                            <div class="col-sm-4 form-nonEditable">
+                                {{ CurrentEligibility.LobDescription  | obfuscateValue}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="control-label col-sm-5"> {{'form_status' | translate}}  </label>
+                            <div class="col-sm-4 form-nonEditable">
+                                {{ CurrentEligibility.EligibilityStatusDescription | obfuscateValue}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="control-label col-sm-5"> {{'form_reportDate' | translate}}  </label>
+                            <div class="col-sm-4 form-nonEditable">
+                                {{CurrentEligibility.DateOfService | date :"MM/dd/yy"}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="control-label col-sm-5"> {{'form_effectiveDate' | translate}}  </label>
+                            <div class="col-sm-4 form-nonEditable">
+                                {{CurrentEligibility.EffectiveDate | date:"MM/dd/yy" }}
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="row" ng-if="CurrentEligibility.LobDescription != 'Open Access'">
+                    <div class="col-md-12">
+                        <h3 class="  underlinedBorder low-ceiling">{{'form_primaryCarePhysician' | translate}}</h3>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="row">
+                            <label class="control-label col-sm-4"> {{'form_providerID' | translate}}  </label>
+                            <div class="col-sm-5 form-nonEditable">
+                                {{ CurrentEligibility.PcpId | obfuscateValue}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="control-label col-sm-4"> {{'form_doctorName' | translate}}  </label>
+                            <div class="col-sm-5 form-nonEditable">
+                                {{CurrentEligibility.PcpName | obfuscateValue}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="control-label col-sm-4"> {{'form_county' | translate}}  </label>
+                            <div class="col-sm-5 form-nonEditable">
+                                {{CurrentEligibility.County }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="control-label col-sm-4"> {{'form_address' | translate}}  </label>
+                            <div class="col-sm-6">
+                                <div class="form-nonEditable" ng-if="CurrentEligibility.PcpCity != ''">
+
+                                    <a target="_blank" href="http://maps.google.com/maps?q='{{CurrentEligibility.PcpAddress1 +' '+ CurrentEligibility.PcpCity +', '+ CurrentEligibility.State  + ' ' + CurrentEligibility.PcpZip }}"
+                                       class="hidden-sm hidden-md hidden-lg ">
+                                        {{CurrentEligibility.PcpAddress1}}
+                                        <br ng-if="CurrentEligibility.PcpAddress2 != ''" />
+                                        {{CurrentEligibility.PcpAddress2}}
+                                        <br /> {{CurrentEligibility.PcpCity}}, {{CurrentEligibility.State}} {{CurrentEligibility.PcpZip}}
+                                    </a>
+
+
+                                    <div class="hidden-xs fontWeightNormal pad0">{{CurrentEligibility.PcpAddress1}}  </div>
+
+                                    <div class="hidden-xs fontWeightNormal pad0">{{CurrentEligibility.PcpAddress2}}</div>
+
+                                    <div class="hidden-xs fontWeightNormal pad0"> {{CurrentEligibility.PcpCity}}, {{CurrentEligibility.State}} {{CurrentEligibility.PcpZip}} </div>
+                                </div>
+                                <span ng-if="CurrentEligibility.PcpCity == ''">N/A</span>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <label class="control-label col-sm-5"> {{'form_phone' | translate}}  </label>
+                            <div class="col-sm-6">
+
+                                <a href="tel:{{CurrentEligibility.PcpPhone}}" class="hidden-sm hidden-md hidden-lg ">{{CurrentEligibility.PcpPhone}}</a>
+                                <div class="form-nonEditable hidden-xs fontWeightNormal pad0">{{CurrentEligibility.PcpPhone}}  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="control-label col-sm-5"> {{'form_afterHoursPhone' | translate}}  </label>
+                            <div class="col-sm-6">
+
+                                <a href="tel:{{CurrentEligibility.PcpPhoneAfterHours}}" class="hidden-sm hidden-md hidden-lg ">{{CurrentEligibility.PcpPhoneAfterHours}}</a>
+                                <div class="form-nonEditable hidden-xs fontWeightNormal pad0">{{CurrentEligibility.PcpPhoneAfterHours}}  </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="row infoIcon">
+                            <div id="IPADef" class="infoBox" style="top:-125px;">
+                                <info-box message=" {{ 'icohelp_IPANetworkProvider' | translate }} "></info-box>
+                            </div>
+                            <label class="control-label col-sm-5">
+                                {{'form_IPAProvider' | translate}}
+                                <i id="iconIPADef" class="glyphicon glyphicon-question-sign @*iconOnLeft*@"
+                                   onclick="toggleBubble('IPADef')">
+                                </i>
+                            </label>
+                            <div class="col-sm-6 form-nonEditable">
+                                {{CurrentEligibility.IpaDescription}} ({{CurrentEligibility.Ipa}})
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <label class="control-label col-sm-5"> {{'form_hospital' | translate}}  </label>
+                            <div class="col-sm-6 form-nonEditable">
+                                {{CurrentEligibility.HospitalName}} ({{CurrentEligibility.HospitalId}})
+                            </div>
+                        </div>
+
+                        <a href="App/Eligibility/ChangeDoctor" class="btn btn-xs btn-primary">{{"form_changeMyDoctor"| translate}}</a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="underlinedBorder low-ceiling">{{'form_copays' | translate}}</h3>
+                        <div class="col-sm-12 pad20 form-nonEditable">
+                            {{"form_coPayDefinition"| translate}}
+
+                        </div>
+                        <table class="table table-condensed table-bordered center table-striped">
+                            <thead>
+                                <tr class="header">
+                                    <th>{{"form_coPayCategory"| translate}}</th>
+                                    <th class="center ng-binding">{{"form_well"| translate}}</th>
+                                    <th class="center">{{"form_sick"| translate}}</th>
+                                    <th class="center">{{"form_ER"| translate}}</th>
+                                    <th class="center">{{"form_rxBrand"| translate}}</th>
+                                    <th class="center">{{"form_rxGeneric"| translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="header">{{"form_coPayAmount"| translate}}</th>
+                                    <td>${{CurrentEligibility.CoPayWell  }}</td>
+                                    <td>${{CurrentEligibility.CoPaySick}}</td>
+                                    <td>${{CurrentEligibility.CoPayEr}}</td>
+                                    <td>${{CurrentEligibility.CoPayBrand}}</td>
+                                    <td>${{CurrentEligibility.CoPayGeneric}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <span style="color:#999;font-size:.8em;">{{'form_thisReportExpires' | translate}}    {{CurrentEligibility.DateOfService}}</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div debug-tool class="ng-cloak">
+            <debug-tool-data-node name="CurrentEligibility" data="CurrentEligibility"></debug-tool-data-node>
+        </div>
+    </div>
+
+
+    <!--  place this in a directive per Eligibility Category -->
+    <div class="contentLeft col-lg-3 col-md-3   col-sm-12 col-lg-pull-9 col-md-pull-9 col-sm-pull-0 hidden-xs">
+        <div class="contentPanel leftPanel_large">
+
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/Eligibility/Current">
+                <div class="panelTile alignRight panelSelected">
+                    <h2>{{ 'form_currentStatus' | translate}}</h2>
+                    <i class="btn_checkMark"></i>
+                </div>
+            </a>
+
+            <a href="App/Eligibility/Historical">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_memberEligbilityHistory' | translate}}</h2>
+                    <i class="btn_eligHistory" />
+                </div>
+            </a>
+
+            @*<div class="panelTile">
+            </div>*@
+
+            @*          <div class="pageBannerContainer" ng-controller="SideNavCtrl">
+                <div ng-if="currentLanguage == 'en-us'">
+                                    <div class="leftBanner_TOCL_Yellow font_2em">Tips for keeping your IEHP Membership: </div>
+                                    <div class="leftBanner_Verdana_White">
+                                        <ul>
+                                            <li>Update your information with your County Eligibility Worker</li>
+                                            <li>Respond to all requests from your County Eligibility Worker</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div ng-if="currentLanguage == 'es-mx'">
+                                    <div class="leftBanner_TOCL_Yellow font_2em">Consejos para mantener la membresía con IEHP: </div>
+                                    <div class="leftBanner_Verdana_White">
+                                        <ul>
+                                            <li>Actualice su información con su Representante de Elegibilidad del Condado</li>
+                                            <li>Responda a todas las peticiones de su Representante de Elegibilidad del Condado</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="center">
+                                    <img class="vertBanner" src="@Url.Content("~/Content/Images/banner_eligibility.png")" />
+
+                          </div></div>*@
+
+        </div>
+    </div>
+
+
+</div> 
+
+    <script>
+        $('.navItemSelected').removeClass('navItemSelected');
+        $('#navbtn1 div').addClass('navItemSelected'); 
+        
+       //Lifecycle trigger issue  $('#iconIPADef').fadeOut('fast').mouseover(function () { console.log('!!'); toggleBubble('IPADef'); }).mouseout(function () { toggleBubble('IPADef'); });
+    </script>
+
+    @* -------------- Dubug Stuff ---------------  *@
+

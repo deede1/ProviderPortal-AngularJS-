@@ -1,0 +1,118 @@
+﻿ 
+<div class="row contentContainer">
+
+    <div class="contentRight col-lg-9 col-md-8 col-sm-12 col-xs-12 col-lg-push-3 col-md-push-3">
+
+        <div id="mainMRContainer" class="contentPanel">
+            <h1 class="pageTitle"> {{"page_res_resources_title" | translate}} </h1>
+            <p class="pageIntro">  {{"page_res_resources_intro" | translate}} </p>
+
+            <div class="panel panelMed">
+         
+                <div class="form-group col-lg-12" >
+                    <pend-material-request></pend-material-request>
+                </div>
+                    
+                    <div class="form-group col-lg-12"> 
+                            <form class=" panelform  " role="form" name="materialRequestForm" novalidate ng-submit="submitMaterialRequest()">
+ 
+                                <h3 class="underlined  ng-binding"> {{ "form_materialRequest_selectMaterialsToOrder" | translate }} </h3>
+                                <div class="col-lg-12  ">
+
+                                    <div simple-ajax-loader show="loading"></div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                          
+                                            <info-box-with-close-button message="{{infoMessage}}"></info-box-with-close-button>
+                                            <danger-box message="{{errorMessage}}"></danger-box>
+                                        </div>
+                                    </div>
+
+                                    <div id="materialRequestContainer" class="whitePanel">
+                                        <table class="table table-condensed table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <!--<th style="text-align: center;">Plan</th>-->
+                                                    <th style="text-align: center;">{{ "form_selectToMail" | translate }} </th>
+                                                    <th style="min-width:7em;text-align:left;"> {{ "form_materialName" | translate }} </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="docItem in data" ng-class="{'pendingMR' :docItem.HasPendingRequest}">
+                                                    <!--<td style="vertical-align: top;text-align: center;"><div>{{ docItem.BenefitPlan}}</div></td>-->
+                                                    <td style="vertical-align: top;text-align: center;">
+                                                        <div>
+                                                            <input ng-class="{'hidden':docItem.HasPendingRequest}"
+                                                                   type="checkbox"
+                                                                   ng-init="docItem.selected = false"
+                                                                   ng-model="docItem.selected"
+                                                                   ng-checked="docItem.selected" />
+                                                        </div>
+                                                    </td>
+                                                    <td ng-if="!docItem.HasPendingRequest" style="text-align:left;">{{ docItem.Name }}</td>
+                                                    <td ng-if="docItem.HasPendingRequest" style="text-align:left;">{{ docItem.Name }} <strong>({{ "form_requestIsBeingProcessed" | translate}})</strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row formButtons ">
+                                    <input type="submit" value="{{'form_request'|translate}}" class="btn btn-lg btn-primary  marginTop20" ng-click="SubmitMaterialRequest()" >
+                                </div>
+                            </form>
+                    </div>
+
+                 
+                </div>
+        </div>
+    </div>
+
+    <div class="contentLeft   col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-pull-9 col-md-pull-8 col-sm-pull-0 col-xs-pull-0 ">
+        <div class="contentPanel leftPanel_large">
+            <div class="pageBannerContainer" ng-controller="SideNavCtrl">
+
+                <div ng-if="currentLanguage == 'en-us'">
+                    <div class="leftBanner_TOCL_Yellow _3em textShadow ">
+                        IEHP<br />Community<br />Resource<br />Center.
+                        <br /><span class="_p7em  fontRed  fontTOCL fontBold">Learn more<br /> about healthcare</span>
+                    </div>
+                    <div class="leftBanner_TOCL_Yellow _2em textShadow">Our doors are open</div>
+                    <div class="leftBanner_Verdana_White">
+                        <ul>
+                            <li>Learn your IEHP benefits</li>
+                            <li>Take health classes</li>
+                            <li>Get health coverage</li>
+                        </ul>
+                    </div>
+                </div>
+                <div ng-if="currentLanguage == 'es-mx'">
+                    <div class="leftBanner_TOCL_Yellow _3em textShadow  ">
+                        Centro de Recursos para la Comunidad.
+                        <br /><br /><span class="_p7em  fontRed  fontTOCL fontBold">Aprenda más<br />sobre atención médica</span>
+                    </div>
+                    <div class="leftBanner_TOCL_Yellow _2em textShadow">Nuestras Puertas están abiertas</div>
+                    <div class="leftBanner_Verdana_White">
+                        <ul>
+                            <li>Conozca sus beneficios con IEHP </li>
+                            <li>Tome clases sobre salud</li>
+                            <li>Obtenga cobertura médica</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="center">
+                    <img class="vertBanner" ng-src="{{urlBase}}/Content/Images/banner_Resources.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $('.navItemSelected').removeClass('navItemSelected');
+    $('#navbtn4 div').addClass('navItemSelected');
+</script>
+ 
+<div debug-tool class="ng-cloak">
+    <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+</div>

@@ -1,0 +1,78 @@
+﻿<div class="  ppModalPane  padLeft0 padRight0 col-sm-12  ">
+
+    <div class="col-sm-12 padLeft0 padRight0" > 
+        <div class="col-xs-3">
+            <h2>Asthma Record</h2>
+        </div>
+        <div class="col-xs-9">
+            <label>Member</label> {{ item.MemberLName }}, {{ item.MemberFName }}<br/>
+            <label>IEHPID </label> {{ item.SubscriberNumber }}-{{ item.PersonNumber }}
+            <label>DOB</label>  {{ item.DateOfBirth }}
+                <label>Phone</label>{{ item.MemberPhone }}
+         </div>
+     </div>
+
+
+
+    <div ng-repeat="t in j" ng-show="asthmaTypeFilter == 'Ratio'">
+
+        <table class="col-sm-3 rosterSubChild" ng-show="RowList[j[t]].length">
+            <tr>
+                <th class="header"> Date Filled </th>
+                <th class="header"> Rx Name </th>
+            </tr>
+            <tbody>
+            <tr ng-repeat="item in  RowList[j[t]] ">
+                <td> {{ item.FILDATE }} </td>
+                <td> {{ item.DrugName | uppercase }} </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div ng-repeat="t in j" ng-show="asthmaTypeFilter == 'ED'">
+
+        <table class="col-sm-3 rosterSubChild" ng-show="RowList[j[t]].length">
+            <tr>
+                <th class="header">  DOS </th>
+                <th class="header">Procedure</th>
+                <th class="header"> DX1 </th>
+                <th class="header"> DX2 </th>
+                <th class="header"> DX3 </th> 
+
+            </tr>
+            <tbody>
+                <tr ng-repeat="item in  RowList[j[t]] ">
+                    <td> {{ item.BeginDateOfService  }} </td>
+                    <td uib-popover="{{item.PDesc}}"
+                        popover-trigger="mouseenter"
+                        popover-append-to-body="true">
+                        {{ item.ProcedureCodeBilled }}
+                    </td>
+                    <td uib-popover="{{ item.dx1Desc  }}"
+                        popover-trigger="mouseenter"
+                        popover-append-to-body="true">
+                        {{ item.PrimDiagnosticCode  }}
+                    </td>
+                    <td uib-popover="{{ item.dx2Desc  }}"
+                        popover-trigger="mouseenter"
+                        popover-append-to-body="true">
+                        {{ item.SecDiagnosticCode   }}
+                    </td> 
+                    <td uib-popover="{{ item.dx3Desc  }}"
+                        popover-trigger="mouseenter"
+                        popover-append-to-body="true">
+                        {{ item.TertDiagnosticCode  }}
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <danger-box message="{{errorMessage_HMAR}}"></danger-box>
+
+</div>
+ 

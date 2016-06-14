@@ -1,0 +1,87 @@
+﻿<form role="form" name="changeSecurityQuestionsForm" ng-submit="SubmitEmailChange()" class="form-horizontal col-lg-12 col-md-12 col-sm-12 col-xs-12" novalidate>
+    <div class="row">
+        <message-boxes info-message="{{infoMessage}}" success-message="{{successMessage}}" error-message="{{errorMessage}}"></message-boxes>
+    </div>
+    <p>These are the questions you currently have set.  You can change the answer to a question, remove that question or add new ones.</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Question</th>
+                <th></th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="question in usersQuestions" ng-init="question.editMode = false">
+                <td></td>
+                <td>
+                    
+                    <p ng-repeat="text in question.Question" ng-show="currentCulture.toLowerCase() == text.culture.toLowerCase() && !question.remove && !question.editMode">{{text.question}}</p>
+                    <p ng-show="question.remove" class="danger alert-danger question-delete">This question will be deleted.</p>
+
+                    <select ng-show="question.editMode" ng-model="question.QuestionId">
+                        <!--<option value="{{question.QuestionId}}" selected="selected">{{getCultureSpecificQuestionById(question.QuestionId)}}</option>-->
+                        <option ng-repeat="item in AllQuestionsForCulture | excludeSelected:usersQuestions" value="{{item.id}}">{{item.question}}</option>
+                    </select>
+                    {{question.QuestionId}}
+
+                    <div ng-show="question.editMode == true">
+                        <input type="text" ng-model="question.Answer" placeholder="New Answer Here" />
+                        <span class="btn btn-sm btn-default" ng-click="question.editMode = false">Cancel</span>
+                    </div>
+                    
+
+                </td>
+                <td>
+                    <span class="btn btn-sm btn-default" ng-show="!question.editMode && !question.remove" ng-click="question.editMode = true">Change</span>
+                </td>
+                <td style="text-align:center;">
+                    <input type="checkbox"
+                           ng-show="!question.editMode"
+                           ng-init="question.remove = false"
+                           ng-disabled="!canDelete && !question.remove"
+                           ng-model="question.remove"
+                           ng-checked="question.remove"
+                           ng-click="toggleDelete(question)" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="text" ng-model="password" placeholder="Current Password"/>
+    <span class="btn btn-primary" ng-click="saveChanges()">Save</span>
+
+    <div class="newQuestionForm clearfix" ng-show="showNewQuestionForm" ng-init="showNewQuestionForm = false">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="pull-right" style="color: rgb(22, 113, 174);padding: 0.3em;margin: -0.3em;cursor: pointer;" ng-click="showNewQuestionForm = false">
+                    <span class="glyphicon glyphicon-sm glyphicon-remove"></span>
+                </div>
+                <h4>
+                    <label class="control-label">New Question:</label>
+                </h4>
+                <select ng-model="newQuestion" class="form-control" style="margin-bottom: 1em;">
+                    <option value="">Select a Question</option>
+                    <option ng-repeat="item in AllQuestionsForCulture" value="{{item.id}}">{{item.question}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="input-group col-xs-12">
+                    <input type="text" class="form-control" ng-model="newAnswer" placeholder="Answer" />
+                    <div class="input-group-addon btn" style="border-width:0;" ng-click="addQuestion()">Add</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="btn btn-primary" ng-click="openNewQuestionForm()" ng-show="!showNewQuestionForm">Add</span>
+
+    <!--<ol>
+        <li ng-repeat="question in questions">
+            <p ng-repeat="text in question.Question" ng-show="currentCulture.toLowerCase() == text.culture.toLowerCase()"><em>{{text.question}}</em></p>
+        </li>
+    </ol>-->
+
+</form>

@@ -1,0 +1,262 @@
+﻿@{
+    Layout = null;
+}
+
+<!doctype html />
+<html>
+<head>
+        @Scripts.Render("~/bundles/lib")
+
+        <script src="~/App/filters/filters.js"></script>
+        <script src="~/App/services/servicesModule.js"></script>
+        <script src="~/App/directives/directivesModule.js"></script>
+    <script>
+        angular.module('MemberPortal', []);
+    </script>
+
+    <script src="~/App/account/my-account/change-email.controller.js"></script>
+    <script src="~/App/account/my-account/change-password.controller.js"></script>
+    <script src="~/App/account/my-account/change-questions.controller.js"></script>
+    <script src="~/App/account/my-account/my-account-navigation.controller.js"></script>
+    <script src="~/App/account/my-account/my-account.routes.js"></script>
+    <script src="~/App/account/my-account/sub-user-accounts.controller.js"></script>
+
+
+    <script src="~/App/account/password-reset/password-reset.controller.js"></script>
+    <script src="~/App/account/password-reset/password-reset.routes.js"></script>
+    <script src="~/App/account/password-reset/pr-step1.controller.js"></script>
+    <script src="~/App/account/password-reset/pr-step2.controller.js"></script>
+    <script src="~/App/account/password-reset/pr-step3.controller.js"></script>
+    <script src="~/App/account/password-reset/pr-step4.controller.js"></script>
+
+    <script src="~/App/account/registration/register-form.controller.js"></script>
+    <script src="~/App/account/registration/registration.controller.js"></script>
+    <script src="~/App/account/registration/registration.routes.js"></script>
+    <script src="~/App/account/registration/registration.spec.js"></script>
+    <script src="~/App/account/registration/submit-form.controller.js"></script>
+    <script src="~/App/account/registration/verify-form.controller.js"></script>
+
+
+    <script src="~/App/account/keep-alive.directive.js"></script>
+    <script src="~/App/account/login-page.controller.js"></script>
+
+    <script src="~/App/authorizations/request/AuthorizationRequestController.js"></script>
+    <script src="~/App/authorizations/authorization-search-results.directive.js"></script>
+    <script src="~/App/authorizations/authorization-search.directive.js"></script>
+    <script src="~/App/authorizations/authorization-status.controller.js"></script>
+    
+    <script src="~/App/behavioralHealth/Controllers/bhController.js"></script>
+
+
+
+
+    <script src="~/App/behavioralHealth/forms/autism/autism-form.controller.js"></script>
+
+
+
+
+
+
+    <script src="~/App/claims/claims-status.controller.js"></script>
+    <script src="~/App/claims/claims-status.controller.js"></script>
+    <script src="~/App/claims/p4p-ra.controller.js"></script>
+
+
+    <script src="~/App/components/CensusReport/CensusReportController.js"></script>
+
+
+    <script src="~/App/components/eligibility/eligibility-search.directive.js"></script>
+    <script src="~/App/components/eligibility/EligibilityController.js"></script>
+    <script src="~/App/components/eligibility/EligibilitySearchResultsController.js"></script>
+
+
+
+    <script src="~/App/components/MemberHealthRecord/MemberAlertsController.js"></script>
+    <script src="~/App/components/MemberHealthRecord/MemberHealthRecordController.js"></script>
+    <script src="~/App/components/MemberHealthRecord/MemberLabsController.js"></script>
+    <script src="~/App/components/MemberHealthRecord/MemberRx.js"></script>
+    <script src="~/App/components/MemberHealthRecord/MemberVisitsController.js"></script>
+    <script src="~/App/components/Rosters/Controllers/RosterController.js"></script>
+    <script src="~/App/components/Rosters/Controllers/RosterHM_HMCMRController.js"></script>
+    <script src="~/App/components/Rosters/Controllers/RosterPartialViewController.js"></script>
+    <script src="~/App/configs/constants.js"></script>
+
+    <script src="~/App/controllers/BehavioralHealth/BehavioralHealthFormsControllers.js"></script>
+    <script src="~/App/controllers/BehavioralHealth/BhMemberHistoryController.js"></script>
+    <script src="~/App/controllers/BehavioralHealth/HistoricalPageLoader.js"></script>
+    <script src="~/App/controllers/CapitationReportsController.js"></script>
+    <script src="~/App/controllers/HomeController.js"></script>
+    <script src="~/App/controllers/MemberPortalApp.js"></script>
+    <script src="~/App/controllers/MemberPortalApp.js"></script>
+    <script src="~/App/controllers/UpaController.js"></script>
+    <script src="~/App/controllers/UrgentCareListController.js"></script>
+    <script src="~/App/customfilters/obfuscation/obfuscation.js"></script>
+    <script src="~/App/developerTool/developerTool.js"></script>
+    <script src="~/App/developerTool/internalLoginTester.directive.js"></script>
+    <script src="~/App/directives/_drug-request/addressInfo.js"></script>
+    <script src="~/App/directives/_drug-request/drugInput.js"></script>
+    <script src="~/App/directives/_drug-request/phoneInfo.js"></script>
+    <script src="~/App/directives/_eligibility-history-table-expandable/eligibilityHistoryTableExpandable.js"></script>
+    <script src="~/App/directives/_eligibility-summary-expandable/expandableEligibilitySummary.js"></script>
+    <script src="~/App/directives/_language-tabs/languageTabs.js"></script>
+    <script src="~/App/directives/_password-strength/passwordStrength.js"></script>
+    <script src="~/App/directives/_pending-pcp-change/pendingPcpChange.js"></script>
+    <script src="~/App/directives/_provider-tile/providerTile.js"></script>
+    <script src="~/App/directives/_yellow-card-table/yellowCardTable.js"></script>
+    <script src="~/App/directives/account/change-email-form/changeEmailForm.js"></script>
+    <script src="~/App/directives/account/change-password-form/changePasswordForm.js"></script>
+    <script src="~/App/directives/account/change-security-questions-form/security-question/security-question.js"></script>
+    <script src="~/App/directives/account/change-security-questions-form/changeSecurityQuestionsForm.js"></script>
+    <script src="~/App/directives/account/change-security-questions-form/changeSecurityQuestionsFormxxx.js"></script>
+    <script src="~/App/directives/account/login-form/loginForm.js"></script>
+    <script src="~/App/directives/account/password-reset-form/passwordResetForm.js"></script>
+    <script src="~/App/directives/account/registration-form/registrationForm.js"></script>
+    <script src="~/App/directives/account/submit-new-password-form/submitNewPasswordForm.js"></script>
+    <script src="~/App/directives/authorization-subnav/authorizationSubnav.js"></script>
+    <script src="~/App/directives/CensusReport/censusAuths.js"></script>
+    <script src="~/App/directives/debug-tool/debugTool.js"></script>
+    <script src="~/App/directives/debug-tool/postRepeatDirective.js"></script>
+    <script src="~/App/directives/doctor-summary-expandable/doctorSummaryExpandable.js"></script>
+    <script src="~/App/directives/doctorSearchMap/doctorSearchMap.js"></script>
+    <script src="~/App/directives/fieldsetDrawer/fieldset-drawer.directive.js"></script>
+    <script src="~/App/directives/form/sameAs.js"></script>
+    <script src="~/App/directives/iehp-expression-box/iehp-expression-box.directive.js"></script>
+    <script src="~/App/directives/immunizations/yellowCard.js"></script>
+    <script src="~/App/directives/indicatorLight/indicator-light.directive.js"></script>
+    <script src="~/App/directives/materialRequest/pendingMaterialRequest.js"></script>
+    <script src="~/App/directives/my-doctor/myDoctor.js"></script>
+    <script src="~/App/directives/navigation/chevron-toggle/ppChevronToggle.js"></script>
+    <script src="~/App/directives/notifications-panel/notificationsPanel.js"></script>
+    <script src="~/App/directives/pagination/pagination.js"></script>
+    <script src="~/App/directives/password-compare/passwordCompare.js"></script>
+    <script src="~/App/directives/pp-claims-appeals-policy/ppClaimsAppealsPolicy.js"></script>
+    <script src="~/App/directives/pp-eligibility-disclaimer/ppEligibilityDisclaimer.js"></script>
+    <script src="~/App/directives/pp-eligibility-member-details/ppEligibilityMemberDetails.js"></script>
+    <script src="~/App/directives/pp-eligibility-pcp-details/ppEligibilityPCPDetails.js"></script>
+    <script src="~/App/directives/pp-roster-title-header/ppRosterTitleHeader.js"></script>
+    <script src="~/App/directives/pp-rosters-ccs-authorizations/ppRostersCCSAuthorizations.js"></script>
+    <script src="~/App/directives/pp-rosters-hm-asthma-details/ppRostersHMAsthmaDetails.js"></script>
+    <script src="~/App/directives/pp-rosters-hm-care-management-reports/RosterHM_CareManagementReports_members.js"></script>
+    <script src="~/App/directives/pp-rosters-pc-childhoodimmuni-details/ppRostersPCCIDetails.js"></script>
+    <script src="~/App/directives/pp-temporary-id-card/ppTemporaryIdCard.js"></script>
+    <script src="~/App/directives/prov-portal-iframe/prov-portal-iframe.js"></script>
+    <script src="~/App/directives/provider-change-result/providerChangeResult.js"></script>
+    <script src="~/App/directives/provider-search-slider/providerSearchSlider.js"></script>
+    <script src="~/App/directives/remove-special-characters/removeSpecialCharacters.js"></script>
+    <script src="~/App/directives/roster-tableheader-sort/RosterTableheaderSort.js"></script>
+    <script src="~/App/directives/show-errors/showErrors.js"></script>
+    <script src="~/App/directives/simple-ajax-loader/simpleAjaxLoader.js"></script>
+    <script src="~/App/directives/simple-error-box/simpleErrorBox.js"></script>
+    <script src="~/App/directives/survey-ui/surveyUI.js"></script>
+    <script src="~/App/directives/temporaryIdFrame/temporaryIdFrame.js"></script>
+    <script src="~/App/directives/zippy-box.directive.js"></script>
+    <script src="~/App/dofr/Controllers/dofrController.js"></script>
+    <script src="~/App/encounter/encounter.controller.js"></script>
+    <script src="~/App/encounter/encounter.spec.js"></script>
+    <script src="~/App/finance/claims-ra.controller.js"></script>
+    <script src="~/App/healthEducation/Controllers/healthEducationController.js"></script>
+    <script src="~/App/hospital/Controllers/hospitalController.js"></script>
+    <script src="~/App/layout/header-login-out.directive.js"></script>
+    <script src="~/App/layout/left-navigation-p4p.directive.js"></script>
+    <script src="~/App/layout/left-navigation-rosters.directive.js"></script>
+    <script src="~/App/layout/left-navigation.directive.js"></script>
+    <script src="~/App/layout/pp-breadcrumbs.directive.js"></script>
+    <script src="~/App/P4P/Controllers/P4PController.js"></script>
+    <script src="~/App/remittance-advice/detail/pp-claims-ra-detail.directive.js"></script>
+    <script src="~/App/remittance-advice/detail/pp-p4p-ra-detail.directive.js"></script>
+    <script src="~/App/remittance-advice/detail/ra-detail.controller.js"></script>
+    <script src="~/App/remittance-advice/pp-remittance-advice-table.directive.js"></script>
+    <script src="~/App/sbirt/Controllers/sbirtController.js"></script>
+    <script src="~/App/services/alertService.js"></script>
+    <script src="~/App/services/authorizationStatus.service.js"></script>
+    <script src="~/App/services/authServices.js"></script>
+    <script src="~/App/services/authStatusService.js"></script>
+    <script src="~/App/services/behavioralHealthService.js"></script>
+    <script src="~/App/services/bhMemberHistoryService.js"></script>
+    <script src="~/App/services/contentAuthorizationService.js"></script>
+    <script src="~/App/services/dataInterceptorService.js"></script>
+    <script src="~/App/services/error-codes.service.js"></script>
+    <script src="~/App/services/iehp-regex.service.js"></script>
+    <script src="~/App/services/legacy-login.service.js"></script>
+    <script src="~/App/services/memberDataServices.js"></script>
+    <script src="~/App/services/memberIDCardService.js"></script>
+    <script src="~/App/services/passwordStrength.js"></script>
+    <script src="~/App/services/pluploadService.js"></script>
+    <script src="~/App/services/requestedLanguage.js"></script>
+    <script src="~/App/services/searchTypeService.js"></script>
+    <script src="~/App/services/searchTypeService.js"></script>
+    <script src="~/App/services/transformRequestAsFormPost.js"></script>
+    <script src="~/App/services/translateService.js"></script>
+    <script src="~/App/services/universalPriorAuthService.js"></script>
+    <script src="~/App/shared/forms/different-than.directive.js"></script>
+    <script src="~/App/shared/forms/pp-form-member-info.directive.js"></script>
+    <script src="~/App/shared/forms/pp-form-provider-info.directive.js"></script>
+    <script src="~/App/shared/forms/pp-invalid-alert.directive.js"></script>
+    <script src="~/App/shared/forms/same-as.directive.js"></script>
+    <script src="~/App/shared/hljs-retrieve/hljs-retrieve.directive.js"></script>
+    <script src="~/App/shared/search-tables/pp-accordion-pane.directive.js"></script>
+    <script src="~/App/shared/search-tables/pp-pagination-block.directive.js"></script>
+    <script src="~/App/shared/search-tables/pp-search-type.directive.js"></script>
+    <script src="~/App/shared/search-tables/pp-sortable-table-header.directive.js"></script>
+    <script src="~/App/shared/search-tables/pp-table-tooltip.directive.js"></script>
+    <script src="~/App/shared/pp-format-date.directive.js"></script>
+    <script src="~/App/shared/pp-get-pdf.directive.js"></script>
+    <script src="~/App/style-guide/style-guide.routes.js"></script>
+    <script src="~/App/style-guide/StyleGuideController.js"></script>
+    <script src="~/App/surveys/survey.controller.js"></script>
+    <script src="~/App/surveys/surveys.routes.js"></script>
+    <script src="~/App/vision/Controllers/visionController.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    <div ng-app="debug">
+
+    </div>
+    Hello
+
+    <script>
+        var app = angular.module('debug', [
+			'customFilters',
+			'ngCookies',
+			'pascalprecht.translate',
+			'angulartics',
+			'ui.router',
+			'angular.filter',
+			'angulartics.google.analytics',
+			'ngAnimate',
+			'ui.bootstrap',
+			'720kb.datepicker',
+			'angularMoment',
+			'hljs',
+			//'DeveloperTool',
+			'surveyClient',
+			'ngMask',
+            'checklist-model',
+			// App specific
+			'MemberPortalDirectives',
+			'MemberPortalServices'
+        ]).config([
+			'$compileProvider', function ($compileProvider) {
+			    $compileProvider.debugInfoEnabled(false); //Set to false for production
+			}
+        ]);
+
+
+
+    </script>
+</body>
+</html>

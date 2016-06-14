@@ -1,0 +1,32 @@
+﻿<div class="contentPanel side-navigation-container non-printable">
+    <div>
+        <pp-breadcrumbs title="Style Guide"></pp-breadcrumbs>
+        <nav class="side-navigation">
+            <a ui-sref="styleguide.elements" ui-sref-active="active">Standard Elements</a>
+            <div>
+                <a ui-sref="styleguide.components" ui-sref-active="active"><pp-chevron-toggle state="styleguide.components"></pp-chevron-toggle>Components</a>
+                <div class="sub-section" ng-show="'styleguide.components' | includedByState">
+                    <a ui-sref="styleguide.components.contenttile" ui-sref-active="active">.content-tile</a>
+
+                </div>
+            </div>
+          
+            <div>
+                <a ui-sref="styleguide.layout" ui-sref-active="active"><pp-chevron-toggle state="styleguide.layout"></pp-chevron-toggle>Layout</a>
+                <div class="sub-section" ng-show="'styleguide.layout' | includedByState">
+                    <a ui-sref="styleguide.layout.two-column-wide-right" ui-sref-active="active">Two Column Wide Right</a>
+                    <a ui-sref="styleguide.layout.single-column" ui-sref-active="active">Single Column</a>
+                </div>
+            </div>
+            <div>
+                <a ui-sref="styleguide.project" ui-sref-active="active"><pp-chevron-toggle state="styleguide.project"></pp-chevron-toggle>Project Structure</a>
+                <div class="sub-section" ng-show="'styleguide.project' | includedByState">
+                    <a ui-sref="styleguide.project.naming" ui-sref-active="active">Naming Conventions</a>
+                    <a ui-sref="styleguide.project.directory" ui-sref-active="active">Directory Structure</a>
+                </div>
+            </div>
+            <a ui-sref="styleguide.forms" ui-sref-active="active">Forms</a>
+            
+        </nav>
+    </div>
+</div>

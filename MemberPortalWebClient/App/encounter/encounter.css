@@ -1,0 +1,125 @@
+﻿table.encounter tr:nth-child(even) {
+	background-color: #C7E8FF;
+	color: #F44336;
+}
+
+.encounter-line input, .encounter-line option { width: 100%; }
+
+.provider-filter {
+	margin: auto;
+	text-align: left;
+}
+
+.provider-filter .results {
+	background: #ECECEC;
+	font-size: .8rem;
+	height: 200px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+																		
+.provider-filter .results .line-item {
+	border-bottom: 1px solid transparent;
+	border-top: 1px solid transparent;
+	cursor: pointer;
+	padding: 4px 12px;
+}
+
+.modal .line-item {
+	padding: 5px 10px;
+	cursor: pointer;
+}
+.modal .line-item:nth-child(odd)  {
+	background: #EBEBEB;
+
+}
+
+.modal .line-item.active, .modal .line-item.active label{
+	background: #74C6FF!important;
+	color: white!important;
+}
+
+.modal .line-item:hover:not(.error-line), .modal .line-item:hover:not(.error-line) label  {
+	background: #2980B9!important;
+	color: white!important;
+}
+
+.error-line {
+	color: #f44336;
+	cursor: not-allowed!important;
+}
+.error-line label {
+							color: #f44336;
+}
+
+.btn-submit {
+	display: block;
+	width: 150px;
+}
+		#encounter .search-type {
+			z-index: 10;
+		}
+		#encounter .clear-icon {
+			z-index: 10;
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+#encounter .input-group-btn {
+	    top: 0;
+    position: absolute;
+    right: 31px;
+    z-index: 2;
+}
+.input-group-btn .glyphicon  {
+	font-size: .8rem;
+	    width: 33px;
+}
+
+.glyphicon-plus {
+	    top: 0px;
+}
+.error-color label{
+	color: #f44336 !important;
+}
+.provider-filter .results .line-item:hover {
+	/*   border-top: 1px solid #007AC9;		 */
+	background: #C7E8FF;
+	/*    border-bottom: 1px solid #007AC9;	  */
+}
+
+.provider-filter input {
+	-webkit-appearance: none;
+	border: none;
+	border: 1px solid #007AC9;
+	border-radius: 0;
+	box-shadow: none !important;
+	outline: none;
+	padding: 5px;
+	width: 100%;
+}
+
+#encounter .pad-sm { padding: 10px; }
+
+#encounter .info-icon {
+	font-size: .8rem;
+	left: -7px;
+	top: -6px;
+}
+
+#encounter .transaction-report { margin-top: 80px; }
+
+@media screen and (max-width: 1200px) {
+	#encounter .info-icon {
+		display: block !important;
+		font-size: .8rem;
+		left: 11px;
+		top: 0;
+	}
+
+	#encounter .visit-group { padding: 35px 5px !important; }
+}
+
+@media screen and (max-width: 990px) {
+	#encounter input { padding: 6px !important; }
+}

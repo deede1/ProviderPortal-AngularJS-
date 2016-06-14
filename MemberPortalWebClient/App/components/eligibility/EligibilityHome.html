@@ -1,0 +1,168 @@
+﻿<div class="contentPanel1">
+    <div class="form panel">
+        <div class="padLeft15 padTop15 non-printable ppTitle">
+            <h1 class="pageTitle"> Eligibility </h1>
+            <p class="pageIntro ">
+                Providers must verify eligbility on the Date of Service
+                (DOS) prior to rendering service to an IEHP Member.
+            </p>
+        </div>
+         
+        <div simple-ajax-loader show="loading"></div>
+
+        <div class="row non-printable">
+            <div class="col-md-12">
+                <message-boxes info-message="{{infoMessage}}" success-message="{{successMessage}}" error-message="{{errorMessage}}"></message-boxes>
+            </div>
+
+
+
+            <form id="frmEligibilitySearch"
+                  ng-controller="EligibilityController"
+                  role="form"
+                  name="eligibilitySearch"
+                  novalidate
+                  ng-submit="SubmitEligibilitySearch()">
+
+                <div class="row contentPanel pad20 col-sm-12" ng-controller="EligibilityController">
+                    <h2>Member Search</h2>
+                    <span class="ppSubHeader">Please enter a Member's SSN, CIN, IEHP ID, or Last Name</span>
+
+                    <ul id="eligSearchBy" class="eligSearch alignLeft">
+                        <li id="rowEligSearch_1">
+                            <div name="eligSearchMethod" class="eligSearchMethod displayHidden"></div>
+                            <div class="eligCBCont">
+                                <div id="btnEligClose_1" class="closeButtonElig displayHidden" onclick="removeSearchItem(1)"></div>
+                            </div>
+                            <input id="txtEligSearch_1"
+                                   itemindex="1"
+                                   searchtype=""
+                                   class="eligibiltyMemberSearchTxtBox"
+                                   name="txtEligSearch"
+                                   type="text"
+                                   pattern=".{2,14}"
+                                   maxlength="14"
+                                   placeholder="SSN, CIN, IEHP ID, or Last Name"
+                                   onkeyup="determineEligibilitySearchType(this); "
+                                   onfocus="addNewRowSearchItem();"
+                                   onClick="addNewRowSearchItem();"
+                                   onblur="determineEligibilitySearchType(this)"/>
+
+
+                            <div id="contEligDOS_1" class="contDateTextbox  ">
+                                <input id="txtEligDOS_1"
+                                       name="txtEligDOS"
+                                       placeholder="MM/DD/YYYY"
+                                       type="text"
+                                       class="dateField2"
+                                       maxlength="10"
+                                       ng-maxlength="10"
+                                       ng-minlength="10"
+                                       ng-required="true"
+                                       value="{{IEHPID_DOS_date | date:'MM/dd/yyyy' }}"
+                                       onkeyup="addSlashesToDate(this)"
+                                       ng-pattern="/^((?:0[1-9])|(?:1[0-2]))\/((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))\/(\d{4})$/"/>
+                                <div class="toolTip">Date of Service</div>
+                            </div>
+                            <div id="contEligDOB_1" class="contDateTextbox displayHidden">
+                                <input id="txtEligDOB_1"
+                                       class="dateField2"
+                                       name="txtEligDOB"
+                                       placeholder="MM/DD/YYYY"
+                                       required
+                                       type="text"
+                                       maxlength="10"
+                                       ng-maxlength="10"
+                                       ng-minlength="10"
+                                       ng-required="true"
+                                       isvaliddate="false"
+                                       value=""
+                                       onkeyup="addSlashesToDate(this)"
+                                       onblur="addSlashesToDate(this)"
+                                       ng-pattern="/^((?:0[1-9])|(?:1[0-2]))\/((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))\/(\d{4})$/"/>
+                                <div class="toolTip">Date of Birth</div>
+                            </div>
+
+
+                        </li>
+                    </ul>
+
+
+                    <input type="submit" class="btn floatRight col-sm-2" value="Search" ooonclick="jumpToAnchor('eligRes')"/>
+                </div>
+            </form>
+
+
+            <ul>
+                <li id="newSearchRow" class="hideTemporarily">
+
+                    <div name="eligSearchMethod" class="eligSearchMethod displayHidden"></div>
+                    <div class="eligCBCont">
+                        <div id="btnEligClose_0" class="closeButtonElig displayHidden" onclick="removeSearchItem(0)"></div>
+                    </div>
+                    <input id="txtEligSearch_0"
+                           name="txtEligSearch"
+                           itemindex="0"
+                           searchtype=""
+                           type="text"
+                           class="eligibiltyMemberSearchTxtBox"
+                           istemplate="1"
+                           max-length="9"
+                           onkeyup="determineEligibilitySearchType(this); "
+                           onblur="determineEligibilitySearchType(this)"
+                           onfocus="addNewRowSearchItem();"
+                           onclick="addNewRowSearchItem();"
+                           value=""
+                           placeholder="SSN, CIN, IEHP ID, or Last Name"/>
+
+
+                    <div id="contEligDOS_0" class="contDateTextbox  ">
+                        <input id="txtEligDOS_0"
+                               name="txtEligDOS"
+                               istemplate="1"
+                               placeholder="MM/DD/YYYY"
+                               type="text"
+                               class="dateField2"
+                               maxlength="10"
+                               ng-maxlength="10"
+                               ng-minlength="10"
+                               ng-required="true"
+                               value="{{IEHPID_DOS_date | date:'MM/dd/yyyy' }}"
+                               onkeyup="addSlashesToDate(this)"
+                               ng-pattern="/^((?:0[1-9])|(?:1[0-2]))\/((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))\/(\d{4})$/"/>
+                        <div class="toolTip">Date of Service</div>
+                    </div>
+                    <div id="contEligDOB_0" class="contDateTextbox displayHidden">
+                        <input id="txtEligDOB_0"
+                               name="txtEligDOB"
+                               istemplate="1"
+                               class="dateField2"
+                               placeholder="MM/DD/YYYY"
+                               type="text"
+                               maxlength="10"
+                               ng-maxlength="10"
+                               ng-minlength="10"
+                               ng-required="true"
+                               value=""
+                               onkeyup="addSlashesToDate(this)"
+                               onblur="addSlashesToDate(this)"
+                               ng-pattern="/^((?:0[1-9])|(?:1[0-2]))\/((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))\/(\d{4})$/"/>
+                        <div class="toolTip">Date of Birth</div>
+                    </div>
+
+
+                </li>
+            </ul>
+
+
+        </div>
+
+        <div id="eligRes" class="row contentPanel pad20">
+            <div ui-view="eligibilityView">
+
+            </div>
+        </div>
+
+    </div>
+     
+</div>

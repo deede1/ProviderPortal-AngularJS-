@@ -1,0 +1,317 @@
+﻿@using System.Configuration
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>@ViewBag.Title IEHP Provider Portal</title>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link rel="shortcut icon" href="@Url.Content("~/Content/Images/provider-portal/pp_favicon_v2.ico")" type="image/x-icon" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="templateCacheBust" content="@DateTime.Now.ToString("yyyyMMddHHmmss")" />
+	<meta name="DebugTool" content="" />
+	<meta name="authServiceBase" content="@(ConfigurationManager.AppSettings["BaseSecureTokenServcieUri"])" />
+	<meta name="dataServiceBase" content="@(ConfigurationManager.AppSettings["dataServiceBase"])" />
+    <meta name="legacyPortalBaseUri" content="@(ConfigurationManager.AppSettings["LegacyPortalBaseUri"])" />
+	<meta name="ApplicationRoot" content="@(HttpContext.Current.Request.ApplicationPath != "/" ? HttpContext.Current.Request.ApplicationPath : ""  )" />
+    @if (!String.IsNullOrWhiteSpace((string)ViewBag.authString)) {
+        <meta name="InternalLoginToken" content="@((string)ViewBag.authString)" />
+    }
+    <base href="@(HttpContext.Current.Request.ApplicationPath != "/" ? "/" + (HttpContext.Current.Request.Url.Segments[1].Replace("/", "") + "/") : "/")" />
+
+
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/InitialScripts")
+
+</head>
+<body data-ng-app="MemberPortal" class="ProviderPortal">
+
+	<!--[if lt IE 9]>
+	<div class="browser-upgrade-background">
+			<div class="browser-upgrade-container">
+					<h1>Please upgrade your browser to use the Member Portal.</h1>
+					<p>We built the Member Portal using the latest technology. This makes the Member Portal faster and easier to use. Unfortunately, your browser doesn't support those technologies.<br />Download one of these great browsers and you'll be on your way:</p>
+
+					<ul class="list-unstyled list-inline browsers">
+							<li class="browser-chrome">
+									<div class="icon"></div>
+									<a href="http://www.google.com/chrome">Chrome</a>
+							</li>
+							<li class="browser-safari">
+									<div class="icon"></div>
+									<a href="http://www.apple.com/safari/">Safari</a>
+							</li>
+							<li class="browser-firefox">
+									<div class="icon"></div>
+									<a href="http://www.firefox.com/">Firefox</a>
+							</li>
+							<li class="browser-ie">
+									<div class="icon"></div>
+									<a href="http://windows.microsoft.com/ie">IE 9+</a>
+							</li>
+					</ul>
+					<p>For more information about browsers, or information on the latest and most popular browsers:</p>
+					<ul class="list-unstyled" style="max-width:720px;margin:auto;">
+							<li><a href="http://browsehappy.com/">Browse Happy</a>, is a way for you to find out what are the latest versions of the major browsers around.</li>
+							<li><a href="https://whatbrowser.org/">What browser</a>, tells you which web browser you’re using and why to keep your browser up-to-date. </li>
+					</ul>
+			</div>
+	</div>
+	<![endif]-->
+	<!--- Modals-->
+	<div id="bakModal" class="modalBackground" onclick="closeModal('modalContainerGeneral'); closeModal('modalFrameContainerGeneral'); "></div>
+	<div id="modalContainerGeneral">
+		<div class="modalContainer">
+			<img class="modalCloseButton non-printable" src="Content/Images/btn_close.png" onclick="closeModal('modalContainerGeneral')" />
+			<div class="modalContent" ui-view="modalDetails">
+			</div>
+		</div>
+	</div>
+
+	<div id="modalFrameContainerGeneral">
+		<div class="modalFrameContainer non-printable">
+			<img class="modalCloseButton non-printable" src="Content/Images/btn_close.png" onclick="closeModal('modalFrameContainerGeneral'); " />
+			<iframe id="frmModalFrame" class="modalFrame" src=""></iframe>
+		</div>
+	</div>
+	<!--- Modals-->
+
+	<header>
+		<div class="container">
+			<div class="row">
+				<nav role="navigation" class="navbar navbar-default">
+					<div class="navbar-header">
+						<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle" id="topNavBtn">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a href="App/Home" class="navbar-brand non-printable">
+							<img id="imgLogo" src="@Url.Content("~/Content/Images/IEHP_LOGO_w116xh40.png")" alt="IEHP Provider Portal" title="IEHP Provider Portal" />
+							<h1 class="headerProvPort">Provider Portal</h1>
+						</a>
+					</div>
+					<!-- Collection of nav links and other content for toggling -->
+					<div id="navbarCollapse" class="collapse navbar-collapse">
+						<div id="loginCont" class="non-printable">
+							<!---- Will place in Directive-> Consume Language Service -->
+							<div id="langCont" data-ng-controller="Ctrl">
+							</div>
+						</div>
+						<login-partial></login-partial>
+					</div>
+				</nav>
+			</div>
+		</div>
+	</header>
+	<div class="container body-content">
+		@RenderBody()
+	</div>
+
+
+
+	<footer></footer>
+	<h5 class="build-number" ng-cloak>
+		Release # @(ConfigurationManager.AppSettings["releaseNum"]) @(ConfigurationManager.AppSettings["releaseDate"])
+		(<span am-time-ago="'@(ConfigurationManager.AppSettings["releaseDate"])'"></span>)
+	</h5>
+
+	@Scripts.Render("~/bundles/lib")
+	@Scripts.Render("~/bundles/app")
+	@RenderSection("scripts", required: false)
+
+	<script>
+		var sndAlert = new Audio( 'Content/Sounds/sndAlert.mp3' );
+
+		function PlayAlert() {
+			sndAlert.play();
+		}
+	</script>
+
+
+	<script>
+
+		function testModal() {
+			$( '#bakModal' ).fadeIn( 'slow' );
+			$( '.modalContent' ).empty();
+			setTimeout( function () {
+				$( '#modalContainerGeneral' ).addClass( 'modalAssignedPCPDetail' ).attr( 'modalClass', 'modalAssignedPCPDetail' ).fadeIn( 'fast' );
+				var a = $( '#ppMemberPCPContainer' ).clone();
+				$( a ).appendTo( '#modalContainerGeneral .modalContent' );
+				//keep modal in parent element $('#modalContainerGeneral').appendTo('#eligRes');
+
+				$( '#modalContainerGeneral .modalContent #ppMemberPCPContainer' ).show();
+				$( '.modalContainer' ).show();
+			}, 500 );
+		}
+
+		var log = Function.prototype.bind.call( console.log, console );
+
+		var viewOrientation = '';
+		function closeModal( modalID ) {
+
+			console.log( 'closingModal > ' + modalID );
+			$( '#' + modalID ).fadeOut( 'fast' );
+			$( '#bakModal' ).fadeOut( 1000 );
+			var _modalClass = $( '.modalFrameContainer' ).attr( 'modalClass' );
+
+			if ( _modalClass !== '' ) {
+				console.log( '...CLOSING IFRAME ' + $( '#' + modalID ).attr( 'modalClass' ) );
+				$( '.modalFrameContainer .modalFrame' ).removeClass( 'ppIframe_' + _modalClass );
+
+				$( '.modalFrameContainer' ).removeClass( _modalClass ).attr( 'modalClass', '' );
+			}
+
+			/*   var iframe = document.createElement('iFrame');
+				 iframe.id = 'frmModalFrame';
+				 iframe.className = 'modalFrame';
+				 if ($('.modalContent').find('#frmModalFrame').length > 0) {
+						 console.log('@@ HAS IFRAME');
+						 $('.modalContent').empty();
+						 $('.modalContent').append(iframe);
+				 } else {
+						 $('.modalContent').empty();
+				 }
+				 */
+			// for iFrame  $('.modalContent').empty();
+
+
+		}
+
+
+		function redirectPage( url ) {
+			window.location.href = url;
+
+		}
+
+		//====== LANGUAGE TOGGLE/ SWAP
+		$( '.lang' ).click( function () {
+			$( '.lang' ).each( function () {
+				$( this ).removeClass( 'langItemSelected' );//attr('src', $(this).data('path') + $(this).data('lan') + '_off.gif');
+			} );
+			$( this ).addClass( 'langItemSelected' );//attr("src", $(this).data('path') + $(this).data('lan') + '_on.gif' );
+		} );
+
+
+
+
+		function toggleBubble( msgBoxID ) {
+			//console.log('clicked toggleBubble');
+			if ( $( '#' + msgBoxID ).css( 'display' ) == 'none' ) {
+				$( '#' + msgBoxID ).fadeIn();
+			} else {
+				$( '#' + msgBoxID ).fadeOut();
+			}
+		};
+
+
+		//===== SUBNAV FADEOUT
+		$( '.submenuContainer' ).on( "mouseleave", ( function ( event ) {
+			event.stopPropagation();
+			$( this ).fadeOut( 1000, function () { $( '.navItemSelected' ).removeClass( 'navItemSelected' ); } );
+		} ) );
+
+		//====  ITS JUST TEMP DONT SPAZ
+		var islessThan1KWidth = window.screen.width <= 1024 ? true : false;
+		var isMobile = {
+			Android: function () {
+				return navigator.userAgent.match( /Android/i );
+			},
+			BlackBerry: function () {
+				return navigator.userAgent.match( /BlackBerry/i );
+			},
+			iOS: function () {
+				return navigator.userAgent.match( /iPhone|iPad|iPod/i );
+			},
+			Opera: function () {
+				return navigator.userAgent.match( /Opera Mini/i );
+			},
+			Windows: function () {
+				return navigator.userAgent.match( /IEMobile/i );
+			},
+			any: function () {
+				return ( isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows() );
+			}
+		};
+
+		//Initial layout; check if in Landscape
+		if ( window.screen.width > window.screen.height ) {
+			//console.log("IN LANDSCAPEE");
+			viewOrientation = "Landscape";
+			$( '.buttonNav' ).addClass( 'landscapeNav' );
+		}
+		else {
+			//console.log("IN PORTRAIT MODE");
+			viewOrientation = "Portrait";
+		}
+		//Check for device rotation
+		$( window ).orientationchange();
+		$( window ).on( "orientationchange", function ( event ) {
+			if ( event.orientation == 'landscape' ) {
+				//console.log("IN LANDSCAPE");
+				$( '.buttonNav' ).addClass( 'landscapeNav' );
+			}
+			else {
+				console.log( "IN PORTRAIT" );
+				$( '.buttonNav' ).removeClass( 'landscapeNav' );
+				//showModalDialog('To have a better experience with this screen, please rotate your phone to landscape mode.');
+			}
+		} );
+
+		$( document ).ready( function () {
+
+			if ( isMobile.any() ) {
+				//console.log('This is a Mobile Device!');
+				$( 'body' ).addClass( 'mobile' );
+				$( '#mainNavBarContainer' ).addClass( 'mainNavBarMobile' );
+				//$('#loginCont').addClass('mobStrong');
+
+				if ( islessThan1KWidth ) {
+					//console.log('width < 1K :' + window.screen.width);
+					$( 'body' ).addClass( 'mobileLT1K' );
+					if ( window.screen.width < 500 ) {
+						//console.log(' width < 500 : ' + window.screen.width);
+						$( 'body' ).addClass( 'mobileLT500' );
+					}
+					else {
+						//console.log(' 500 > width < 1K : ' + window.screen.width);
+						$( 'body' ).addClass( 'mobileGT500LT1K' );
+					}
+					$( '#mainNavBar .computer' ).removeClass( 'computer' ).addClass( 'btnNavCont_mobileLT1K' );
+				}
+				else {
+					//console.log('width > 1K : ' + window.screen.width);
+					$( 'body' ).addClass( 'mobileGT1K' );
+					$( '#mainNavBar .computer' ).removeClass( 'computer' ).addClass( 'btnNavCont_mobileGT1K' );
+				}
+			}
+			else {
+				//console.log('This is NOT a Mobile Device!')
+				$( 'body' ).addClass( 'computer' );
+			}
+
+			//Add to NavigationApp.js
+			$( '.subNavItem' ).click( function () { $( '.submenuContainer' ).fadeOut( 500 ); } );
+
+			if ( isMobile.any() ) {
+				//Debugging
+				// $('footer').append('<h3> mobile device: w=' + window.screen.width + ' h=' + window.screen.height + ' </h3>');
+
+				//Nav
+				//  $('.submenuContainer').css('position','Relative');
+			}
+		} );
+
+		//clear current selected nav item
+		$( '#imgLogo' ).click( function () {
+			$( '.lang' ).each( function () {
+				$( this ).removeClass( 'langItemSelected' );
+			} );
+		} );
+
+	</script>
+
+    <keep-alive></keep-alive>
+</body>
+</html>

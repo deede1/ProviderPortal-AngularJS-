@@ -1,0 +1,29 @@
+﻿<form id="search-type" uib-collapse="search.inputCollapsed" class="form-horizontal" ng-submit="search.submit()"  autocomplete="off">
+	<div class="search-container block clearfix">
+		<input class="form-control"  ng-model="search.query" ng-click="search.clickInput()" ng-change="search.updateType()" maxlength="15" ng-class="search.state.validated() ? 'valid-value' : 'eligInvalidValue'"
+			   type="text" id="search" placeholder="{{label}}" tabindex=1/>
+		<div class="close-btn glyphicon glyphicon-remove" uib-popover="Reset search" popover-append-to-body="true "popover-trigger="mouseenter" ng-click="search.clear()">
+			
+		</div>								
+		<div class="search-type"
+			 ng-if="search.type.string">{{search.type.string}}</div>
+		<p ng-if="search.status === 3 && !search.state.validated()" class="invalid-text">Please enter a valid search.</p>
+		<div ng-if="enableAdvancedOptions" ng-click="search.advancedPane = !search.advancedPane" 
+				 uib-popover="Search using additional options" popover-append-to-body="true "popover-trigger="mouseenter"  class="advanced-search">
+			Advanced Search
+			<span ng-class="{reverse: search.advancedPane}" class="predicate">▾</span>
+		</div>
+	</div>
+	<div ng-if="enableAdvancedOptions" class="pad-md " uib-collapse="!search.advancedPane">
+		<div class="form-group form-group-lg advanced-searchpane">
+			<div ng-transclude></div>
+		</div>
+
+	</div>
+	<button type="submit" class="singleSearchButton button.icon row btn block" style="position: relative; width: 150px;" tabindex=50>
+		Search
+		<div class="icon">
+			<i class="fa fa-search"></i>
+		</div>
+	</button>
+</form>

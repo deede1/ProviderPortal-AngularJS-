@@ -1,0 +1,369 @@
+﻿@{
+    ViewBag.Title = "MedicalAuth";
+}
+
+
+
+<div class="panel">
+        <div simple-ajax-loader show="loading"></div> 
+        <div style="position: relative;height:100%;width:100%;min-height:200px;">
+            <h2>MedicalAuth</h2>
+            <div id="Authorization" class="ngcloak" ng-hide="loading"> 
+                <div id="AuthHead" class="ContentWrapper container">
+                    <div class="hidden-print" style="margin-bottom:10px;float:left">
+                        <a href="@Url.RouteUrl("App", new { angularroutes = "Authorizations/Medical" })" class="hidden-print displayLoader"><span class="glyphicon glyphicon-circle-arrow-left" style="margin-right: .25em;"></span>Back</a> |
+                        <a href="" class="PrintAuthBtn"><span class="glyphicon glyphicon-print" style="margin-right: .25em;"></span>Print</a>
+                    </div>
+                    <h2 style="float:right;margin:0;">Reference: {{data.caseNumber}}</h2>
+                    <div style="margin-top: 0;margin: 0 auto;width: 100px;margin-bottom: -10px;" class="visible-print">
+                        <img src="https://ww3.iehp.org/Images/IEHP_LOGO_w194xh106.png" style="width:100px;" />
+                    </div>
+                </div>
+                <div id="AuthBody">
+                    <div class="ContentWrapper container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 style="border-bottom:1px solid #333;">Provider Details</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12 col-sm-12 col-lg-6 col-print-6">
+                                <provider-tile provider="data.member.pcp" title="PCP" />
+                            </div>
+                            <div class="col-md-6 col-xs-12 col-sm-12 col-lg-6 col-print-6">
+                                <provider-tile provider="data.requestingProvider" title="Requesting Provider" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12 col-sm-12 col-lg-6 col-print-6" ng-if="data.servicingProvider != null && data.servicingProvider.providerID != ''">
+                                <provider-tile provider="data.servicingProvider" title="Servicing Provider" />
+                            </div>
+                            <div class="col-md-6 col-xs-12 col-sm-12 col-lg-6 col-print-6" ng-if="data.additionalProviderList != null && data.additionalProviderList.length > 0 && data.additionalProviderList[0].providerID != ''">
+                                <provider-tile provider="data.additionalProviderList[0]" title="Facility Provider" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ContentWrapper container">
+                        <medhok-member-details member="data.member" />
+                    </div>
+
+                    <div class="ContentWrapper container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 style="border-bottom:1px solid #333;">Authorization Details</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-horizontal form-horizontal-short-groups">
+                                    <div class="form-group side-by-side col-xs-12">
+                                        <span>Auth ID:</span>
+                                        <span>{{data.caseNumber}}</span>
+                                    </div>
+                                    <div class="form-group side-by-side col-xs-12">
+                                        <span>Status:</span>
+                                        <span>{{data.caseStatus}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-horizontal form-horizontal-short-groups">
+                                    <div class="form-group side-by-side col-xs-12">
+                                        <span>Classification:</span>
+                                        <span>{{data.priority}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container" style="margin-top:1em;">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4 style="border-bottom:1px solid #333;">Diagnosis</h4>
+                            </div>
+                        </div>
+                        <div ng-if="data.diagnosisList != null && data.diagnosisList.length > 0">
+                            <div class="row" ng-repeat="diag in data.diagnosisList">
+                                <div class="col-xs-12">
+                                    <p><span class="label label-default" style="margin-right:1em;">{{$index + 1}}</span> ({{diag.code}}) - {{diag.description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="data.diagnosisList == null || (data.diagnosisList != null && data.diagnosisList.Length == 0)">
+                            <p>No Available Diagnosis</p>
+                        </div>
+                    </div>
+
+                    <div class="container form-horizontal form-horizontal-short-groups">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4 style="border-bottom:1px solid #333;">Review(s)</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+
+                                <div ng-if="data.reviews != null && data.reviews.length > 0">
+
+                                    <fieldset style="page-break-inside:avoid;" ng-repeat="review in data.reviews">
+                                        <legend>
+                                            Review: {{review.reviewNumber == null || review.reviewNumber == '' ? $index + 1 : review.reviewNumber}}
+                                        </legend>
+                                        <div class="row form-group">
+                                            <div class="side-by-side col-xs-6">
+                                                <span>POS:</span>
+                                                <span>{{review.placeOfService}}</span>
+                                            </div>
+                                            <div class="side-by-side col-xs-6">
+                                                <span>Status:</span>
+                                                <span>{{review.status}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="side-by-side col-xs-6">
+                                                <span>Priority:</span>
+                                                <span>{{review.priority}}</span>
+                                            </div>
+                                            <div class="side-by-side col-xs-6">
+                                                <span>Received:</span>
+                                                <span>{{review.intakeDate | date:'MM/dd/yy'}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="side-by-side col-xs-6">
+                                                <span>Type:</span>
+                                                <span>{{review.category}} {{review.subCategory}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:1em;">
+                                            <div class="col-xs-12">
+                                                <strong>Procedures</strong>
+                                            </div>
+                                        </div>
+                                        <div ng-repeat="proc in review.procedures">
+                                            <div class="row"><div class="col-xs-12"><hr style="border-color:#ddd;color:#ddd;margin:.5em auto;" /></div></div>
+                                            <div class="row form-group">
+                                                <div class="col-xs-1">
+                                                    <span class="label label-default">{{$index + 1}}</span>
+                                                </div>
+                                                <div class="over-under col-xs-2">
+                                                    <span>Code<span ng-if="proc.modifer1 != null"> (Modifier)</span></span>
+                                                    <span>{{proc.code}}<span ng-if="proc.modifer1 != null">({{proc.modifer1}})</span></span>
+                                                </div>
+
+
+                                                <div class="over-under col-xs-2">
+                                                    <span>Requested</span>
+                                                    <span>{{proc.requestedUnits}} {{proc.unitType}}</span>
+                                                </div>
+                                                <div class="over-under col-xs-2">
+                                                    <span>Approved</span>
+                                                    <span>{{proc.approvedUnits}} {{proc.unitType}}</span>
+                                                </div>
+                                                <div class="over-under col-xs-2">
+                                                    <span>Decision</span>
+                                                    <span>{{proc.decison}}</span>
+                                                </div>
+                                                <div class="over-under col-xs-3">
+                                                    <span>Dates</span>
+                                                    <span ng-if="proc.effectiveDateSpecified && proc.termDateSpecified">
+                                                        {{proc.effectiveDate | date:'MM/dd/yy'}} - {{proc.termDate | date:'MM/dd/yy'}}
+                                                    </span>
+                                                    <span ng-if="!proc.effectiveDateSpecified && !proc.termDateSpecified">N/A</span>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="side-by-side col-xs-11 col-xs-offset-1">
+                                                    <span><strong>Description:</strong></span>
+                                                    <span>{{proc.description}}</span>
+                                                </div>
+                                            </div>
+
+                                            <div ng-if="proc.modifer2 != null">
+                                                <div class="display-label">Modifier</div>
+                                                <div class="display-field">{{proc.modifer2}}</div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row"><div class="col-xs-12"><hr style="border-color:#ddd;color:#ddd;margin:.5em auto;" /></div></div>
+
+
+                                        <div ng-if="review.ipDays != null && review.ipDays.length > 0">
+                                            <div class="row" style="margin-top:1em;">
+                                                <div class="col-xs-12">
+                                                    <strong>Inpatient Info</strong>
+                                                </div>
+                                            </div>
+                                            <div class="InpatientTableContainer">
+
+                                                <div ng-if="data.admissionDiagnosis != null" style="border-bottom:1px solid #ddd;padding:0 .5em .5em .5em;">
+                                                    <div class="row form-group">
+                                                        <div class="side-by-side col-xs-6">
+                                                            <span class="wide">Admit Diag:</span>
+                                                            <span>{{data.admissionDiagnosis.code}} - {{data.admissionDiagnosis.description}}</span>
+                                                        </div>
+                                                        <div class="side-by-side col-xs-6">
+                                                            <span class="wide">Admit Date:</span>
+                                                            <span>{{data.actualAdmissionDate}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <table class="table table-condensed table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>From - To</th>
+                                                                <th>Days</th>
+                                                                <th>Bed Type</th>
+                                                                <th>Decision</th>
+                                                                <th>Admit Type</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="day in review.ipDays">
+                                                                <td>{{day.effectiveDate | date:'MM/dd/yy'}} - {{day.termDate | date:'MM/dd/yy'}}</td>
+                                                                <td>{{Math.floor((day.termDate - day.effectiveDate) / (1000*60*60*24))}}</td>
+                                                                <td>{{day.bedType}}</td>
+                                                                <td>{{day.decision}} ({{day.decisionReason}}</td>
+                                                                <td>{{day.admitType}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div style="border-top:1px solid #ddd;padding:.5em .5em 0 .5em;">
+                                                    <div class="row form-group">
+                                                        <div class="side-by-side col-xs-6">
+                                                            <span class="wide">Discharge Diag:</span>
+                                                            <span ng-if="data.dischargeDiagnosis != null">{{data.dischargeDiagnosis.code}} - {{data.dischargeDiagnosis.description}}</span>
+                                                        </div>
+                                                        <div class="side-by-side col-xs-6">
+                                                            <span class="wide">Discharge Date:</span>
+                                                            <span ng-if="data.actualDischargeDate != null">{{data.actualDischargeDate | date:'MM/dd/yy'}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <div class="side-by-side col-xs-6">
+                                                            <span class="wide">Disposition:</span>
+                                                            <span>{{data.dischargeDisposition}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset> 
+                                </div>
+                                <div ng-if="data.reviews == null || data.reviews != null && data.reviews.length < 1">
+                                    <fieldset>
+                                        <legend>Request Lines</legend>
+                                        <p>None Available</p>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @*<div class="container">
+                            <fieldset class="hidden-print">
+                                <legend>Correspondence</legend>
+                                @if (Model.Correspondence.Count > 0)
+                                {
+                                    <table class="DocumentTable">
+                                        <tr>
+                                            <th style="text-align:left;">Description</th>
+                                            <th style="text-align:left;">Location</th>
+                                            <th style="text-align:left;">Status</th>
+                                            <th></th>
+                                        </tr>
+                                        @foreach (var item in Model.Correspondence)
+                                        {
+                                            <tr>
+                                                <td>@item.description</td>
+                                                <td>@item.createUser.siteLocation</td>
+                                                <td>@item.correspondanceStatus</td>
+                                                <td>
+                                                    <a href="@Url.Action("GetDocument", new { DocumentId = item.documentId })" target="_blank">View <span class="popNewWindow glyphicon glyphicon-new-window"></span></a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+
+                                }
+                                else
+                                {
+                                    <p>None Available.</p>
+                                }
+                            </fieldset>
+
+                            <fieldset class="hidden-print">
+                                <legend>Documents</legend>
+                                @if (Model.Documents.Count > 0)
+                                {
+                                    <table class="DocumentTable">
+                                        <tr>
+                                            <th style="text-align:left;">Description</th>
+                                            <th style="text-align:left;">Type</th>
+                                            <th></th>
+                                        </tr>
+                                        @foreach (var item in Model.Documents)
+                                        {
+                                            <tr>
+                                                <td>@item.fileName</td>
+                                                <td>@item.documentType</td>
+                                                <td>
+                                                    <a href="@Url.Action("GetDocument", new { DocumentId = item.documentId })" target="_blank">View <span class="popNewWindow glyphicon glyphicon-new-window"></span></a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                }
+                                else
+                                {
+                                    <p>None Available.</p>
+                                }
+                            </fieldset>
+                        </div>*@
+
+
+
+
+                    <div class="container ContentWrapper AuthFooter">
+                        <p style="margin: 0 0 5px;">UPON ACCEPTANCE OF REFERRAL AND TREATMENT OF THE MEMBER, PHYSICIAN/ PROVIDER AGREES TO ACCEPT IEHP CONTRACTED RATES. This referral/authorization verifies medical necessity only.  Payments for services are dependent upon the Member's eligibility at the time services are rendered.</p>
+                        <p style="margin: 0 0 5px;">Criteria utilized in making this decision is available upon request by calling IEHP at (800) 440-4347.</p>
+                        <p style="margin: 0 0 5px;"><strong>*For members who have dual medical coverage, IEHP is always the secondary payor.</strong></p>
+                        <p style="margin: 0 0 5px;">Disclaimer: This is an authorization for services, not for payment. All standard coding rules will be applied upon receipt of the claim.</p>
+                        <p style="margin: 0 0 5px;">NOTICE: This facsimile/printout contains confidential information that is being transmitted to and is intended only for the use of the recipient named above. Reading, disclosure, discussion, dissemination, distribution, or copying of this information by anyone other than the named recipient or his or her employees or agents is strictly prohibited. If you have received this facsimile/printout in error, please immediately destroy it and notify us by telephone at (866) 725-4347.</p>
+
+                        @*@if (Model.Correspondence.Count > 0 || Model.Documents.Count > 0)
+                            {
+                                <p class="hidden-print">
+                                    <a href="https://get.adobe.com/reader/" target="_blank" title="Get Adobe Reader">
+                                        <img alt="Get Adobe Reader" src="@Url.Content("~/content/get_adobe_reader.gif")" />
+                                    </a>
+                                </p>
+                            }*@
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+    <div debug-tool class="ng-cloak">
+        <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+    </div>
+
+
+    </div>
+        @*<div class="ngcloak" ng-hide="loading">
+                <hr />
+                <h2>Debug Tools</h2>
+
+
+
+                <button ng-click="getAuthorizations()">Refresh Data</button>
+                <pre class="info">{{dataString}}</pre>
+            </div>*@

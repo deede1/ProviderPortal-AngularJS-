@@ -1,0 +1,63 @@
+﻿<div id="divSignInSignOut" class="non-printable">
+    <div class="SignInOutCont" ng-hide="isAuth" ng-click="logIn()">
+        <ul class="nav">
+            <li><a href="App/Account/Register"><strong>{{'form_register' | translate }}</strong></a></li>
+            <li><a href="App/Account/Login"><strong>{{'form_signIn' | translate }} </strong></a> </li>
+        </ul>
+    </div>
+
+
+    <div class="SignInOutCont" ng-show="isAuth">
+        <ul class="nav navbar-nav navbar-right" ng-controller="fontSizeController">
+            <li>
+							<span >
+								<span class="glyphicon glyphicon-user">
+								</span>
+								{{'form_welcome'| translate}} {{ firstName | obfuscateValue }}
+							</span>
+	        </li>
+	      
+	        <li class="hidden-xs">
+                <div id="btnFontSize_small" ng-class="{'active':isActive[0]}" class="headerTopNav" ng-click="setActive(0);"></div>
+            </li>
+            <li class="hidden-xs">
+                <div id="btnFontSize_normal" ng-class="{'active':isActive[1]}" class="headerTopNav" ng-click="setActive(1)"></div>
+            </li>
+            <li class="hidden-xs">
+                <div id="btnFontSize_large" ng-class="{'active':isActive[2]}" class="headerTopNav" ng-click="setActive(2)"></div>
+	        </li>
+	        <li ui-sref="my-account">
+		        <span class="btn btn-primary header-btn headerTopNav">
+							<span class="glyphicon glyphicon-cog"></span>
+							My Account
+						</span>
+	        </li>
+	        <li > 
+						<label class="" uib-dropdown>
+							<span class="btn-group btn btn-primary header-btn headerTopNav " id="btn-append-to-single-button" uib-dropdown-toggle>
+								<span class="badge">{{actions.count}}</span>
+								 Actions
+							</span>
+							<ul class="dropdown-menu menu-alternating menu-selectable" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
+								<li ng-repeat="action in actions.data">{{action.ActionTypeDescription}}</li>
+								<li ng-if="!actions.count">There are currently no action items.</li>
+							</ul>
+						</label>
+
+
+	        </li>
+<!--					<button id="btn-append-to-single-button" class="btn btn-primary btn-alerts" type="button">-->
+<!--						<span class="badge">0</span>-->
+<!--						Actions-->
+<!--					</button>-->
+	        <li ng-click="logOut()">
+              
+                <span class="btn btn-primary header-btn headerTopNav">
+                    <span class="glyphicon glyphicon-log-out"></span>	 
+									{{'form_signOut' | translate }}
+                </span>			 
+
+            </li>
+        </ul>
+    </div>
+</div>

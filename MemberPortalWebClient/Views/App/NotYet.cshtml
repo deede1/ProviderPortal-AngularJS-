@@ -1,0 +1,95 @@
+﻿@{
+    Layout = null;
+
+}
+
+
+<div class="row contentContainer PPView">
+
+    <div class="registrationForm frmSignIn col-sm-12 col-xs-12 padLeft0 padRight0   ">
+
+        <!-- MOBILE -->
+        <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15">
+            <div class="contentPanel" ng-controller="SideNavCtrl">
+
+                @*<notifications-panel></notifications-panel>
+                <br />*@
+
+                <a href="App/MyInformation/UpdateContactInfo">
+                    <div class="panelTile alignCenter col-xs-6 panelSelected">
+                        {{ 'nav_myContactInformation' | translate}}
+                    </div>
+                </a>
+
+                <a href="App/MyInformation/ChangeEmail">
+                    <div class="panelTile alignCenter col-xs-6">
+                        {{ 'nav_changeMyEmail' | translate}}
+                    </div>
+                </a>
+
+                <a href="App/MyInformation/ChangePassword">
+                    <div class="panelTile alignCenter col-xs-6 col-xs-offset-3">
+                        {{'nav_changeMyPassword' | translate }}
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="contentRight col-lg-10 col-md-9 col-sm-12 col-xs-12  col-lg-push-2 col-md-push-3  ">
+
+            <div class="contentPanel1">
+                <div class="form panel  ">
+                    <div class="padLeft15 padTop15">
+                        <h1 class="pageTitle"> Not Yet!  </h1>
+                        <p class="pageIntro">  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.    </p>
+                    </div>
+
+                    <div simple-ajax-loader show="loading"></div>
+                    <div class="row">
+                        @*<div class="col-md-12">
+                                <message-boxes info-message="{{infoMessage}}" success-message="{{successMessage}}" error-message="{{errorMessage}}"></message-boxes>
+                            </div>*@
+
+                        <div ng-show="errorMessage == ''">
+                            @*<div class="col-md-12">
+                                    <h2 class="underlined">{{"page_myinfo_updateContactInfo_myCurrentInfo" | translate}}</h2>
+                                </div>*@
+
+                        </div>
+
+                        <div class="row contentPanel pad20">
+                            <h2>Lorem </h2>
+                      
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div debug-tool class="ng-cloak">
+                <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+            </div>
+        </div>
+
+
+
+
+        <!-- DESKTOP LEFTPANEL -->
+        <div class="contentLeft   col-md-3 col-lg-2  col-sm-2 col-xs-12 col-lg-pull-10 col-md-pull-9  col-xs-pull-0">
+            @*<div class="hidden-xs hidden-sm">
+                <notifications-panel></notifications-panel>
+                <br />
+            </div>*@
+            <div class="contentPanel leftPanel_sm panelBanner">
+                <div class="pageBannerContainer" ng-controller="SideNavCtrl">
+                    <div class="leftBanner_Verdana_White">
+                        <left-navigation></left-navigation>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+

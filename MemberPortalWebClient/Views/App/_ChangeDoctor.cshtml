@@ -1,0 +1,327 @@
+﻿@{
+    ViewBag.Title = "ChangeDoctor";
+}
+
+
+<div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15 " style="z-index:100">
+    <notifications-panel></notifications-panel>
+    <br />
+
+    <div class="contentPanel">
+        <a href="App/Eligibility/MyDoctor">
+            <div class="panelTile alignCenter col-xs-6 ">
+                {{ 'nav_myDoctor' | translate}}
+            </div>
+        </a>
+        <a href="App/Eligibility/ChangeDoctor">
+            <div class="panelTile alignCenter col-xs-6 panelSelected">
+
+                {{ 'nav_changeMyDoctor' | translate}}
+            </div>
+        </a> 
+
+    </div>
+</div>
+
+
+<div class="row contentContainer frmSignIn ">
+
+
+
+
+
+
+
+
+    <div class="panel hidden-lg hidden-md hidden-sm solidBackgroundOffwhite">
+        <h1> {{"page_mydoc_changeDoc_title" | translate}}  </h1>
+        <p>  {{"page_mydoc_changeDoc_intro" | translate}}  </p>
+
+        <p ng-show="ShowOpenAccessMessage" class="alert-warning warning alert">
+            We show your plan as <em>"Open Access"</em>, as an <em>Open Access</em> Member, you can see any Doctor in IEHP's <em>Open Access Network</em>.
+            Although we suggest you stay with a Doctor who is a good match for you, you can switch Doctors whevever you need to.
+            For a list of IEHP's <em>Open Access</em> Doctors,
+            please use the <a href="https://ww3.iehp.org/en/members/find-a-doctor/?plan=OA&near={{providersNear}}&type=pcd" target="_blank">Doctor Search</a>
+            tool and choose <em>Open Access</em> as the Plan.
+        </p>
+        <p class="alert alert-warning" role="alert">  {{'page_mydoc_warning_changeDoc' | translate}}  </p>
+    </div>
+
+
+
+    <div class="contentLeft col-lg-3 col-md-3   col-sm-12 col-xs-12 ">
+
+
+
+        <notifications-panel></notifications-panel>
+        <br />
+
+
+        <div class="contentPanel leftPanel_large solidBackgroundBlue">
+            <form class="ChangeDoctorSearchForm" role="form" name="searchForm" novalidate ng-submit="search()">
+
+                <input type="text" id="MemberLob" name="MemberLob" ng-model="MemberLob" readonly="readonly" class="hide" />
+                <input type="text" id="MemberAge" name="MemberAge" ng-model="MemberAge" readonly="readonly" class="hide" />
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h4>{{'form_locationsNear' | translate}}</h4>
+                        <textarea class="form-control"
+                                  id="providersNear"
+                                  placeholder="City/State/Zip"
+                                  name="providersNear"
+                                  ng-model="providersNear"
+                                  style="resize:none;
+                                  margin-bottom:10px;
+                                  resize: none;
+                                  height: 4em;"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <provider-search-slider miles="Radius"></provider-search-slider>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h4>    {{'form_providersSpecialty' | translate}}   </h4>
+                        <select class="form-control" name="providerSpec" id="providerSpec" ng-model="providerSpec">
+                            <option value="" selected="selected">  {{'form_any' | translate}}   </option>
+                            <option value="FP">     {{'form_familyPractice' | translate}}       </option>
+                            <option value="OBGYN">  {{'form_OBGYN' | translate}}                </option>
+                            <option value="GP">     {{'form_generalPractice' | translate}}      </option>
+                            <option value="IM">     {{'form_internalMedicine' | translate}}     </option>
+                            <option value="PED">    {{'form_pediatrics' | translate}}           </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h4> {{'form_providersLastName' | translate}} </h4>
+                        <input type="text" class="form-control"
+                               id="providerLastName"
+                               placeholder="{{'form_lastName' | translate}}"
+                               name="providerLastName" ng-model="providerLastName">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h4> {{'form_providerID' | translate}} </h4>
+                        <input type="text" class="form-control"
+                               id="providerId"
+                               placeholder="{{'form_doctorID' | translate}}"
+                               name="providerId"
+                               ng-model="providerId">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h4> {{'form_providersGender' | translate}} </h4>
+                        <select class="form-control" name="providerGender"
+                                id="{{'form_providersGender' | translate}}" ng-model="providerGender">
+                            <option value="" selected="selected">{{'form_any' | translate}}</option>
+                            <option>  {{'form_male'| translate}}     </option>
+                            <option>  {{'form_female' | translate}}  </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h4> {{'form_providersLanguage' | translate}} </h4>
+                        <select class="form-control" name="providerLanguage" id="providerLanguage" ng-model="providerLanguage">
+                            <option value="" selected="selected">{{'form_any' | translate}}  </option>
+                            <option value="0 ">American Sign Language</option>
+                            <option value="R">Arabic</option>
+                            <option value="E">Armenian</option>
+                            <option value="D">Cambodian</option>
+                            <option value="2">Cantonese</option>
+                            <option value="7">English</option>
+                            <option value="U">Farsi</option>
+                            <option value="L">French</option>
+                            <option value="K">Hebrew</option>
+                            <option value="H">Hmong</option>
+                            <option value="F">Ilacano</option>
+                            <option value="Q">Italian</option>
+                            <option value="3">Japanese</option>
+                            <option value="4">Korean</option>
+                            <option value="I">Lao</option>
+                            <option value="B">Mandarin</option>
+                            <option value="G">Mien</option>
+                            <option value="A">Other Sign Language</option>
+                            <option value="M">Polish</option>
+                            <option value="P">Portuguese</option>
+                            <option value="N">Russian</option>
+                            <option value="S">Samoan</option>
+                            <option value="1">Spanish</option>
+                            <option value="5">Tagalog</option>
+                            <option value="T">Thai</option>
+                            <option value="J">Turkish</option>
+                            <option value="V">Vietnamese</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h4>   {{'form_affiliatedIPA' | translate }} </h4>
+                        <select class="form-control" name="providerIpa" id="providerIpa" ng-model="providerIpa" ng-options="ipa.Description for ipa in IpaList track by ipa.Code">
+                            <option value="">Any</option>
+                            @*<option ng-repeat="ipa in IpaList" value="{{ipa.Code}}">{{ipa.Description}}</option>*@
+                        </select>
+
+                        @*<select class="form-control" name="providerIpa" id="providerIpa" ng-model="providerIpa">
+                                <option value="" selected="selected">Any</option>
+                                <option value="">**THIS LIST IS NOT DYNAMIC**</option>
+                                <option value="06U">Alliance Desert Physicians</option>
+                                <option value="00A">Alpha Care Medical Group</option>
+                                <option value="02U">Beaver Medical Group</option>
+                                <option value="07U">Chaffey Medical Group</option>
+                                <option value="01Y">CPN-Horizon Valley Medical Grp</option>
+                                <option value="03H">Desert Oasis Healthcare</option>
+                                <option value="00B">Dignity Health Medical Group</option>
+                                <option value="01W">Dignity Health Physicians</option>
+                                <option value="01U">EPIC Health Plan</option>
+                                <option value="01H">Heritage Provider Network</option>
+                                <option value="04H">Heritage Victor Valley</option>
+                                <option value="01T">Horizon Valley Medical Group</option>
+                                <option value="JJJ">Inland Empire Health Plan</option>
+                                <option value="00F">Inland Faculty Medical Group</option>
+                                <option value="01I">Inland Valleys IPA</option>
+                                <option value="01X">Kaiser</option>
+                                <option value="00X">Kaiser-Fontana/Riverside</option>
+                                <option value="00E">LaSalle Medical Associates</option>
+                                <option value="00N">Physicians Health Network</option>
+                                <option value="01P">Physicians Healthways Medical</option>
+                                <option value="05U">Pinnacle Medical Group</option>
+                                <option value="01G">Pomona Valley Medical Group</option>
+                                <option value="01S">PrimeCare Medical Network Inc</option>
+                                <option value="03S">PrimeCare of Chino Valley</option>
+                                <option value="12S">PrimeCare of Citrus Valley</option>
+                                <option value="05S">PrimeCare of Coachella Valley</option>
+                                <option value="04S">PrimeCare of Corona</option>
+                                <option value="10S">PrimeCare of Hemet</option>
+                                <option value="06S">PrimeCare of Inland Valley</option>
+                                <option value="08S">PrimeCare of Moreno Valley</option>
+                                <option value="13S">PrimeCare of Redlands</option>
+                                <option value="09S">PrimeCare of Riverside</option>
+                                <option value="07S">PrimeCare of San Bernardino</option>
+                                <option value="02S">PrimeCare of Sun City</option>
+                                <option value="14S">PrimeCare of Temecula</option>
+                                <option value="03U">Redlands Yucaipa Medical Group</option>
+                                <option value="02H">Regal Medical Group</option>
+                                <option value="02R">Riverside Medical Clinic</option>
+                                <option value="0SB">San Bernardino Medical Group</option>
+                                <option value="04U">Tri Valley Medical Group</option>
+                                <option value="11S">Valley Physicians Network</option>
+                                <option value="00C">Vantage Medical Group</option>
+                            </select>*@
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <button type="submit" class="btn btn-lg btn-primary">{{'form_search' | translate}} </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+
+
+    <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12 frmSignIn">
+
+        @*<div class="contentPanel subNavLink">
+                <ul>
+                    <li> <a href="App/Eligibility/MyDoctor" class="subNavLink">{{'form_myDoctor' | translate }}</a></li>
+                    <li class="subNavSelected">{{ 'form_changeDoctor' | translate  }}</li>
+                </ul>
+            </div>*@
+
+        <div class="panel hidden-xs solidBackgroundOffwhite">
+            <div class="pad10">
+                <h1 class="pageTitle">  {{"page_mydoc_changeDoc_title" | translate}} </h1>
+
+                <div style="position:absolute;right:30px;top:10px; font-size:1.3em"><a href="App/Eligibility/MyDoctor" class="subNavLink">{{'form_myDoctor' | translate }}</a></div>
+
+                <pending-pcp-change></pending-pcp-change>
+                <p class="pageIntro">   {{"page_mydoc_changeDoc_intro" | translate}}  </p>
+            </div>
+
+            <p ng-show="ShowOpenAccessMessage" class="alert-warning warning alert">
+                We show your plan as <em>"Open Access"</em>, as an <em>Open Access</em>
+                Member, you can see any Doctor in IEHP's <em>Open Access Network</em>.  Although we suggest you stay with a Doctor who is a good match for you,
+                you can switch Doctors whenever you need to. For a list of IEHP's <em>Open Access</em> Doctors, please use
+                the <a href="https://ww3.iehp.org/en/members/find-a-doctor/?plan=OA&near={{providersNear}}&type=pcd">Doctor Search</a> tool and choose
+                <em>Open Access</em> as the Plan.
+            </p>
+            <p class="alert alert-warning" role="alert"> {{'page_mydoc_warning_changeDoc' | translate}}  </p>
+        </div>
+
+
+        @*<div class="row">
+                <div class="subNavLink  hidden-xs col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a href="App/Eligibility/MyDoctor" class="subNavLink">{{'form_myCurrentDoctor' | translate }}</a>
+                </div>
+            </div>*@
+
+        <div class="panel">
+            <div simple-ajax-loader show="loading"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <info-box message="{{infoMessage}}"></info-box>
+                    <success-box message="{{successMessage}}"></success-box>
+                    <danger-box message="{{errorMessage}}"></danger-box>
+                </div>
+            </div>
+            <div ng-if="changeAllowed" ng-show="errorMessage == ''">
+                <div class="row">
+                    <div class="col-md-12 padTop15">
+                        <h2>
+                            {{"form_changeDoctor_doctorsWithin1" | translate}}
+                            {{searchResults.length}}
+                            {{"form_changeDoctor_doctorsWithin2" | translate}}
+                            {{searchedRadius}} {{"form_miles" | translate}}
+                            {{"form_changeDoctor_ofYourAddress" | translate}}
+                        </h2>
+                        <doctor-search-map></doctor-search-map>
+                    </div>
+                </div>
+                <div class="row" ng-hide="loading">
+                    <div class="col-md-12" ng-show="searchResults.length > 0">
+                        <ul class="list-unstyled providerSearchResults" ng-hide="selectedResults.length > 0">
+                            <li ng-repeat="item in searchResults">
+                                <provider-change-result provider="item" member="member" />
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled providerSearchResults" ng-show="selectedResults.length > 0">
+                            <li>
+                                {{'page_changeDoc_showing' | translate}} {{selectedResults.length}} {{'page_changeDoc_results' | translate }}
+                                <a class="pull-right" ng-click="selectedResults = []"> {{'page_changeDoc_showAll' | translate}} </a>
+                            </li>
+                            <li ng-repeat="item in selectedResults">
+                                <provider-change-result provider="item" member="member" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div debug-tool class="ng-cloak">
+            <debug-tool-data-node name="Search Results" data="searchResults"></debug-tool-data-node>
+        </div>
+    </div>
+
+
+
+
+</div>

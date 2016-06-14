@@ -1,0 +1,35 @@
+﻿<div class="row survey-question-bottom-border">
+    <div class="survey-question-span-inner col-md-8 col-sm-8 col-xs-12" ng-bind-html="question.QuestionText"></div>
+    <div class="col-md-4 col-sm-3 col-xs-3" >
+        <div class="survey-ui-button-background survey-input-render survey-ui-user-input " ng-repeat="answer in question.Answers track by $index">
+            <ng-form name="innerForm">
+                <div>
+                    <input class="survey-user-input-flat"
+                           name="inputText"
+                           type="text"
+                           ng-pattern="answer.pattern"
+                           my-maxlength="{{answer.maxLength}}"
+                           ng-maxlength="answer.maxLength"
+                           ng-blur="RecordInput(this, question)"
+                           ng-model="answer.ValueId"
+                           ng-focus="answer.ValueId = ''"
+                           ng-required="!question.Answers.isChecked" />
+                    <span class="survey-answer" ng-if="answer.ItemDisplayValue != 'Blank'">{{answer.ItemDisplayName}}</span>
+                </div>
+
+                <span ng-if="language =='EN' && answer.maxLength != 2" ng-show="innerForm.$error.pattern" class="help-block survey-required-value">Must be a Number with at most 2 decimal places and up to {{answer.range}} e.g. 150, 160.25</span>
+                <span ng-if="language =='ES' && answer.maxLength != 2" ng-show="innerForm.$error.pattern" class="help-block survey-required-value">Debe ser un número con un máximo de 2 cifras decimales y sólo hasta {{answer.range}} por ejemplo 150, 160.25</span>
+
+                <span ng-if="language =='EN' && answer.maxLength == 2"ng-show="innerForm.$error.pattern" class="help-block survey-required-value">Must be a Number up to {{answer.range}} e.g. 4,5,6</span>
+                <span ng-if="language =='ES' && answer.maxLength == 2" ng-show="innerForm.$error.pattern" class="help-block survey-required-value">Debe ser un número sólo hasta {{answer.range}} por ejemplo 4,5,6</span>
+
+                <span ng-if="language =='EN'" ng-show="innerForm.$error.maxlength" class="help-block survey-required-value">Must be a number and only up to {{answer.maxLength}} characters or less. e.g. 4,5,6</span>
+                <span ng-if="language =='ES'" ng-show="innerForm.$error.maxlength" class="help-block survey-required-value">Debe ser un número de hasta{{answer.maxLength}} letras o menos. por ejemplo 4,5,6 </span>
+
+                <span ng-if="language =='EN'" ng-show="innerForm.$invalid && nextClicked" class="help-block survey-required-value">Enter a value</span>
+                <span ng-if="language =='ES'" ng-show="innerForm.$invalid && nextClicked" class="help-block survey-required-value">Introduzca un valor</span>
+
+            </ng-form>
+        </div>
+    </div>
+</div>

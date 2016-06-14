@@ -1,0 +1,134 @@
+﻿<div class="row contentContainer">
+
+    <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12  col-lg-push-3 col-md-push-3">
+ 
+
+        <h1 class="pageTitle">Sitemap {{"page_sitemap_title" | translate}} </h1>
+        <p class="pageIntro">  {{"page_sitemap_intro" | translate}} </p>
+        <p class="pageDisclaimer">{{"page_sitemap_disclaimer" | translate}} </p>
+
+
+        <div class="panel non-printable">
+            <div class="row">
+                <div class="col-md-12 siteMapContainer">
+
+
+                    <ul class="siteMap">
+                        <li><a href="/App/home">Home</a></li>
+                        <li class="liParent">
+                            <ul>
+                                <li class="liParent">{{"nav_MyInformation" | translate}}</li>
+                                <li class="liParent">
+                                    <ul>
+                                        <li>
+                                            <a href="App/MyInformation/UpdateContactInfo">{{"subnav_UpdateContactInfo"  | translate}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="App/MyInformation/ChangeEmail" })">{{"subnav_ChangeEmail" | translate}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="App/MyInformation/ChangePassword" })">{{"subnav_ChangePassword" | translate}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="liParent">{{"nav_Eligibility" | translate}}</li>
+                                <li class="liParent">
+                                    <ul>
+                                        <li>
+                                            <a href="App/Eligibility/Current" })"><span>{{"subnav_CurrentEligibility" | translate}}</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="App/Eligibility/Historical" })"> {{"subnav_EligibilityHistory" | translate}} </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="liParent">{{"nav_MyDoctor" | translate}}</li>
+                                <li class="liParent">
+                                    <ul>
+                                        <li>
+                                            <a href="App/Eligibility/MyDoctor" })">{{"subnav_MyDoctor" | translate}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="App/Eligibility/ChangeDoctor" })">{{"subnav_ChangeDoctor" | translate}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="liParent">{{"nav_IEHPIDCard" | translate}}</li>
+                                <li class="liParent">
+                                    <ul>
+                                        <li>
+                                            <a href="App/Eligibility/TemporaryIdCard" })">{{"subnav_PrintTempCard" | translate}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="App/Eligibility/RequestIdCard" })">{{"subnav_RequestReplacement" | translate}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="liParent">{{"nav_HealthRecords" | translate}}</li>
+                                <li class="liParent">
+                                    <ul>
+                                        <li>
+                                            <a href="App/HealthRecords/RxPrescriptions" })"> {{"subnav_RxPrescriptions" | translate}} </a>
+                                        </li>
+                                        <li>
+                                            <a href="App/HealthRecords/MedicalClaims" })"> {{"subnav_MedicalClaims" | translate}} </a>
+                                        </li>
+                                        <li>
+                                            <a href="App/HealthRecords/ImmunizationRecords" })"> {{"subnav_ImmunizationRecords" | translate}} </a>
+                                        </li>
+                                        <li>
+                                            <a href="App/HealthRecords/LabWork" })"> {{"form_labWork" | translate}} </a>
+                                        </li>
+                                        <li class="liParent">
+                                            {{"subnav_Authorizations" | translate}}
+
+                                            <ul>
+                                                <li>
+                                                    <a href="App/HealthRecords/Authorizations/All"> Referral Status</a>
+                                                </li>
+                                                <li>
+                                                    <a href="App/HealthRecords/Authorizations/Medical"> {{"form_medical" | translate}} </a>
+                                                </li>
+                                                <li>
+                                                    <a href="App/HealthRecords/Authorizations/Rx"> {{"form_pharmacy" | translate}} </a>
+                                                </li>
+                                                <li>
+                                                    <a href="App/HealthRecords/Authorizations/Vision"> {{"form_vision" | translate}} </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="/App/Eligibility/Resources" })"> {{"nav_Resources" | translate}} </a> </li>
+                                <li><a href="/App/Info/AskIEHP/noRef" })"> {{"nav_AskIEHP" | translate}} </a> </li>
+                                <li>{{"nav_About" | translate}}</li>
+                                <li>{{"nav_Contact" | translate}}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  place this in a directive per HealthRecords Category -->
+    <div class="contentLeft leftPanel_large col-lg-3 col-md-3   col-sm-12 col-xs-12 col-lg-pull-9 col-md-pull-9 col-sm-pull-0 col-xs-pull-0">
+        <div class="contentPanel leftPanel_large">
+            <div class="pageBannerContainer" ng-controller="SideNavCtrl">
+                <div ng-if="currentLanguage == 'en-us'">
+                    <div class="leftBanner_TOCL_Yellow textShadow">Power with knowledge. Watch our "<span class="fontWhite">How to Get Care</span>" videos!</div>
+                    <div class="leftBanner_Verdana_White">View your health records in this self service portal.</div>
+                </div>
+                <div ng-if="currentLanguage == 'es-mx'">
+                    <div class="leftBanner_TOCL_Yellow textShadow">Informarse es la clave. ¡Vea nuestros videos sobre  "<span class="fontWhite">Cómo obtener Atención Médica</span>"!</div>
+                    <div class="leftBanner_Verdana_White">Revise sus registros médicos en este portal de autoservicio.</div>
+                </div>
+                <div id="clickYT" class="leftBannerH3 center">
+                    <img class="vertBanner" ng-src="{{urlBase}}/Content/Images/panel_MedicalClaims.png" /> <br /><br />
+                    <a target="_new" href="https://www.youtube.com/channel/UCrX2w-mgNlvOmyLSBgGCP5A"><img ng-src="{{urlBase}}/Content/Images/panel_youTube.png" /></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

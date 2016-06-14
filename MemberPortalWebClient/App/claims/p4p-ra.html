@@ -1,0 +1,42 @@
+﻿
+<div class="contentPanel1 contentRight " id="claims-status">
+	<div class="form ofl-visible">
+		<div class="form panel">
+			<h1 class="pageTitle">P4P Remittance Advice </h1>
+			<p class="pageIntro ">
+				
+			</p>
+		</div>
+		<div class="">
+			<div class="eligibilityMemberSearchContainer row contentPanel pad-md col-sm-12">
+				<div pp-accordion-pane="Search" click="search.inputCollapsed"></div>
+			</div>
+			<div class="row contentPanel">
+				<pp-search-type label="Search By Check Number" uib-collapse="search.inputCollapsed" class="clearfix block ofl"></pp-search-type>
+			</div>
+		</div>
+		<div class="row contentPanel posRelative">
+			<div simple-ajax-loader class="fixed-loader" show="search.status === 1"></div>
+
+			<!--			<div class="search-filters" ng-if="search.cachedParam.checkNumber.length">-->
+			<!--				<div class="pull-left">-->
+			<!--					<strong class="pad-md">-->
+			<!--						Filters:-->
+			<!--						<div class="label label-warning">-->
+			<!--							{{::search.cachedParam.checkNumber}}-->
+			<!--							<span ng-click="search.updateFilters()" class="glyphicon glyphicon-remove remove-filter"></span>-->
+			<!--						</div>-->
+			<!--					</strong>-->
+			<!--				</div>-->
+			<!--			</div>-->
+			<div ng-repeat="table in search.results">
+				<h2 class="center">{{table.fName}}</h2>
+				<pp-remittance-advice-table ng-show="table.Results.length" results="table.Results" table-name="table.Name"></pp-remittance-advice-table>
+				<p class="center" ng-hide="table.Results.length">No Results Found.</p>
+			</div>
+
+
+			<danger-box message="{{errorMessage}}"></danger-box>
+		</div>
+	</div>
+</div>

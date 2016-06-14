@@ -1,0 +1,29 @@
+﻿
+
+<div>
+
+    <ng-form name="innerForm">
+
+        <div class="survey-question-span-inner col-md-8 col-sm-8 col-xs-12" ng-bind-html="question.QuestionText"></div>
+        <div class=" survey-ui-button-background col-md-3 col-sm-3 col-xs-12">
+            <div class=" btn-group " ng-if="answer.ItemDisplayName != 'Blank'" ng-repeat="answer in question.Answers track by $index">
+                <label class="btn btn-primary survey-ui-button" ng-class="{active:answer.isChecked}">
+                    <input type="checkbox"
+                           class="survey-big-checkbox"
+                           style="display: none"
+                           name="{{question.QuestionText}}"
+                           ng-model="checkBox"
+                           ng-click="RecordCheckBoxMultiGroupClick(this,question,$index)"
+                           ng-required="!ValidMultiGroup"
+                           ng-checked="answer.isChecked" />
+                    <span class="">{{answer.ItemDisplayName}}</span>
+
+                </label>
+            </div>
+            <span ng-if="language == 'EN'" ng-show="innerForm.$invalid && nextClicked" class="help-block survey-required-value">Select an option(s)</span>
+            <span ng-if="language=='ES'" ng-show="innerForm.$invalid && nextClicked" class="help-block survey-required-value">Seleccione una opcion(nes)</span>
+        </div>
+
+    </ng-form>
+
+</div>

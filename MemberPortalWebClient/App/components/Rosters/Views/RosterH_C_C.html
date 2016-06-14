@@ -1,0 +1,227 @@
+﻿<div class="Rosters">
+
+
+
+<h1 class="WorkInProgress">!!WORK IN PROGRESS!!</h1>
+
+
+<div class="form panel">
+        <h1 class="pageTitle"> HCC Roster </h1>
+    <p class="pageIntro ">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+    </p>
+    </div>
+
+    <roster-title-header></roster-title-header>
+
+
+
+    <!--- Header Notice -->
+    <div class="ppTitle"> 
+
+        <!--PCP Roster For Jesusa T Aquino, PCP ID No. 0001082-->
+        Verification Number: {{data.VerificationNumber}}
+    
+    </div>
+
+
+    <div class="loaderContainer" simple-ajax-loader show="loading"></div>
+    <div class="row alignCenter resultsContainer">
+        <results-pagination ng-show="data.List"></results-pagination>
+
+        <div class="header" ng-show="data.List.length && data.LastUpdatedOn"> Last Updated on {{ data.LastUpdatedOn }} </div>
+
+        <!-------- TIER1 PAGINATION ------->
+        <nav id="providersNav"
+             style="text-align: right; position: relative;"
+             class="non-printable"
+             ng-if="resultTier1.totalPages>1">
+
+
+            <div style="display: inline-block"
+                 uib-pagination
+                 boundary-links="true"
+                 class="pagination-sm"
+                 previous-text="&lsaquo;"
+                 next-text="&rsaquo;"
+                 first-text="&laquo;"
+                 last-text="&raquo;"
+                 max-size="5"
+                 total-items="roster.totalPages*roster.rowsPerPage"
+                 ng-model="roster.currentPage"
+                 items-per-page="resultTier1.rowsPerPage"
+                 ng-change="pageChanged(1,'ROST.AR',{},roster.currentPage,roster.totalListCount, roster)">
+            </div>
+        </nav>
+        <!-------- TIER1 PAGINATION ------->
+
+        <div class="table-responsive">
+            <table class="roster table resultTier1 results-accordion col-sm-12  table table-striped table-sortable"
+                   ng-class="roster.expand ? 'expand no-hover' : ''"
+                   ng-show="displayFullView  ">
+
+                <thead>
+                    <tr class="header sorting no-hover">
+                        <th></th>
+                        <th ng-click="RetrieveRoster('ROST.AR',1,{Sort:[{name:'ProviderLName', direction:  sortDirection}]}, roster)"
+                            roster-tableheader-sort column-label="PCP " column-data="ProviderLName"></th>
+                        <th ng-click="RetrieveRoster('ROST.AR',1,{Sort:[{name:'ProviderNumber', direction:  sortDirection}]})"
+                            roster-tableheader-sort column-label="PCP ID" column-data="ProviderNumber"></th>
+                        <th ng-click="RetrieveRoster('ROST.AR',1,{Sort:[{name:'IPAName', direction: sortDirection}]})"
+                            roster-tableheader-sort column-label="IPA" column-data="IPAName"></th>
+                    </tr>
+                </thead>
+
+
+                <tbody ng-repeat="roster in data.List">
+
+                    <!----- TIER1 DETAILS -->
+                    <tr ng-click="expandViewDetails('ROST.AR',2, { ProviderNumber: roster.ProviderNumber,ipa: roster.IPA }, data.List, roster, 1, 0 ); "
+                        ng-class="roster.expand ? '  no-hover expanded-header' : ''"
+                        ng-animate="'animate'"
+                        class="line-item ng-scope">
+                        <td>
+                            <span class="glyphicon" ng-class="roster.expand ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+                            </span>
+                        </td>
+                        <td> {{ roster.ProviderLName | titleCase }}, {{ roster.ProviderFName | titleCase }} </td>
+                        <td> {{ roster.ProviderNumber }} </td>
+                        <td> {{ roster.IPAName }} ({{ roster.IPA }}) </td>
+                    </tr>
+
+                    <tr ng-if="roster.expand"
+                        class="row-striped roster-result-row line-item ng-scope  collapsable indent "
+                        heading="Dynamic Body Content"
+                        ng-class="roster.expand ? '  no-hover expanded-header' : ''"
+                        ng-animate="'animate'">
+                        <td colspan="100%" class="bordered ">
+                            <div class="table-responsive ">
+
+                                <table class="roster resultTier2 col-sm-12  table table-striped table-sortable"
+                                       ng-class="roster.expand ? 'enter' : 'leave'">
+
+                                    <thead>
+
+                                        <!----------- TIER2 PAGINATION ---------->
+                                        <nav id="membersNav"
+                                             class="non-printable"
+                                             ng-if=" roster.totalPages>1">
+                                            <!--<p class="pager-info">
+                                                {{startItem(resultTier2.currentPage, resultTier2.rowsPerPage)}}
+                                                - {{endItem(resultTier2.currentPage, resultTier2.totalListCount, resultTier2.rowsPerPage )}}
+                                                of {{resultTier2.totalListCount}}
+                                            </p>-->
+
+                                            <div uib-pagination
+                                                 style="display: inline-block"
+                                                 boundary-links="true"
+                                                 class="pagination-sm"
+                                                 previous-text="&lsaquo;"
+                                                 next-text="&rsaquo;"
+                                                 first-text="&laquo;"
+                                                 last-text="&raquo;"
+                                                 max-size="5"
+                                                 total-items="roster.totalPages*roster.rowsPerPage"
+                                                 ng-model="roster.currentPage"
+                                                 items-per-page="roster.rowsPerPage"
+                                                 ng-change="pageChanged(2,'ROST.AR',{ ProviderNumber: roster.ProviderNumber,ipa: roster.IPA}, roster.currentPage,  roster.TotalListCount, roster ) ">
+
+                                            </div>
+                                        </nav>
+                                        <!----------- TIER2 PAGINATION ---------->
+
+
+                                        <tr class="subHeader1">
+                                            <th colspan="100%">
+
+                                                <div class="subHeaderPanel">
+                                                    Members Displayed: {{ roster.tier2RowsDisplayedQty }}
+                                                </div>
+
+                                                <div class="subHeaderPanel">
+                                                    Total Members: {{ roster.tier2RowsTotal}}
+                                                </div>
+                                            </th>
+                                        </tr>
+
+                                    </thead>
+
+                                    <thead>
+                                        <tr class="header sorting">
+
+                                            <th ng-click="fetchViewDetails('ROST.AR',2,{Sort:[{name:'MemberLName', direction: roster.sortDirection}]}, roster)"
+                                                class="col-sm-2"
+                                                roster-tableheader-sort column-label="Member/ IEHPID /Phone" column-data="MemberLName"></th>
+
+                                            <!-- <th ng-click="fetchViewDetails('ROST.AR',2,{Sort:[{name:'MemberAddress1', direction: roster.sortDirection}]})"
+                                                     roster-tableheader-sort column-label="Address" column-data="MemberAddress1"></th>
+
+                                            <th ng-click="fetchViewDetails('ROST.AR',2,{Sort:[{name:'MemberSex', direction: roster.sortDirection}]})"
+                                                roster-tableheader-sort column-label=" Gender/ Lang" column-data="MemberSex"></th>
+                                            -->
+
+                                            <th ng-click="fetchViewDetails('ROST.AR',2,{Sort:[{name:'MemberDateOfBirth', direction: roster.sortDirection}]})"
+                                                roster-tableheader-sort column-label=" DOB/ SSN" column-data="MemberDateOfBirth"></th>
+                                            <th ng-click="fetchViewDetails('ROST.AR',2,{Sort:[{name:'MemberIPADesc', direction: roster.sortDirection}]})"
+                                                roster-tableheader-sort column-label=" Part C RAF Score" column-data="PlanType"></th>
+                                            <th ng-click="fetchViewDetails('ROST.AR',2,{Sort:[{name:'Aidcode', direction: roster.sortDirection}]})"
+                                                roster-tableheader-sort column-label=" Risk Score" column-data="Aidcode"></th>
+                                            <th ng-click="fetchViewDetails('ROST.AR',2,{Sort:[{name:'MemberEffectiveDate', direction: roster.sortDirection}]})"
+                                                roster-tableheader-sort column-label="  Report Date" column-data="MemberEffectiveDate"></th>
+                                            <th ng-click="fetchViewDetails('ROST.AR',2,{Sort:[{name:'MemberLName', direction: roster.sortDirection}]})"
+                                                roster-tableheader-sort column-label="  HCC Description" column-data="MemberLName"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody ng-show="roster.dataResultMessageTier2">
+                                        <tr>
+                                            <td colspan="100%">
+                                                <danger-box message="{{roster.dataResultMessageTier2}}"></danger-box>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                    <tbody ng-repeat="member in roster.data.List">
+                                        <tr ng-animate="'animate'"
+                                            ng-class="member.expand ? '  no-hover expanded-header' : ''"
+                                            class="line-item ng-scope ">
+
+                                            <td>
+                                                {{ member.MemberLName | titleCase }}, {{ member.MemberFName | titleCase }}
+                                                <br />{{ member.SubscriberNumber }}
+                                                <br />{{ member.MemberPhone | tel }}<span ng-if="member.MemberPhone.length ==0"> Not Available </span>
+                                            </td>
+                                            <td>
+                                                {{ member.MemberAddress1}}
+                                                {{ member.MemberAddress2}}
+                                                <br />{{ member.MemberCity}}
+                                                <br />{{member.MemberState}} {{member.MemberZipcode}}
+                                            </td>
+                                            <td> {{ member.MemberSex }} <br />/{{ member.Memberlanguage }} </td>
+                                            <td>
+                                                {{ member.MemberDateOfBirth | date:'MM/dd/yyyy' }}
+                                                <br />/{{ member.MemberSocialSecurityNumber | startFrom:6 }}
+                                            </td>
+                                            <td> {{ member.PlanType }} <br />/{{ member.MemberCoPay }} </td>
+                                            <td> {{ member.Aidcode }} <br />/{{ member.MemberCounty}} </td>
+                                            <td> {{ member.MemberEffectiveDate | date:'MM/dd/yyyy' }} </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <danger-box message="{{dataResultMessageTier1}}"></danger-box>
+
+    </div>
+
+    <danger-box message="{{errorMessage}}"></danger-box>
+
+</div>
+

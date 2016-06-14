@@ -1,0 +1,27 @@
+﻿<fieldset >
+    <legend>{{title}}</legend>
+    <div class="form-horizontal form-horizontal-short-groups" ng-if="provider != null && provider.providerID != ''">
+        <div class="form-group side-by-side col-xs-12">
+            <span>Name:</span>
+            <span>{{provider.fullName}} ({{provider.providerID}})</span>
+        </div>
+        <div class="form-group side-by-side col-xs-12" ng-if="provider.address1 != null && provider.address1 != ''">
+            <span>Address:</span>
+            <span>
+                {{provider.address1}} {{provider.address2}}<br />
+                {{provider.city}}, {{provider.state}} {{provider.zip}}
+            </span>
+        </div>
+        <div class="form-group side-by-side col-xs-12" ng-if="provider.phone != null && provider.phone != ''">
+            <span>Phone:</span>
+            <span>{{provider.phone}}</span>
+        </div>
+        <div class="form-group side-by-side col-xs-12" ng-if="provider.fax != null && provider.fax != ''">
+            <span>Fax:</span>
+            <span>{{provider.fax}}</span>
+        </div>
+    </div>
+    <div ng-if="provider == null">
+        <p>None Available</p>
+    </div>
+</fieldset>

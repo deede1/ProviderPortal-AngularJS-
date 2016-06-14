@@ -1,0 +1,689 @@
+﻿
+<nav style="text-align: right; position: relative;" ng-if="totalPages > 1" class="non-printable" id="membersNav">
+    <div class="row">
+        <div class="col-xs-12">
+            <p class="pager-info" style="color: #FFF;">
+
+                {{startItem(currentPage)}} - {{endItem(currentPage)}} of {{members.ListMetaData.TotalListCount}}
+            </p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div style="display: inline-block" uib-pagination boundary-links="true" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+                 first-text="&laquo;" last-text="&raquo;" max-size="5"
+                 total-items="totalPages*rowsPerPage" ng-model="currentPage" items-per-page="rowsPerPage" ng-change="pageChanged(2,'ROST.HMCMR',{ ProviderNumber:  roster.ProviderNumber,IPA:roster.IPA}, currentPage) ">
+            </div>
+        </div>
+    </div>
+</nav>
+<div simple-ajax-loader style="position: fixed; top: 50%; left: 50%; z-index: 100000;" show="loading"></div>
+<table id="members-table" class="roster resultTier2 col-sm-12  table table-striped table-sortable" show="!loading"
+       ng-class="roster.expand ? 'enter' : 'leave'">
+    <thead>
+        <tr class="header sorting">
+            <th></th>
+            <th ng-click="order('PlanCreateDate',2,'ROST.HMCMR',{ ProviderNumber:  provider.ProviderNumber,IPA:provider.IPA},provider)">
+                Effective On
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'PlanCreateDate',
+                               'glyphicon-arrow-down': sortDirection === 'descending'  && sortCol === 'PlanCreateDate'}">
+                </span>
+            </th>
+
+            <th ng-click="order('SubscriberNumber',2,'ROST.HMCMR',{ ProviderNumber:  provider.ProviderNumber,IPA:provider.IPA},provider)">
+                IEHP ID
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'SubscriberNumber',
+                               'glyphicon-arrow-down': sortDirection === 'descending'  && sortCol === 'SubscriberNumber'}">
+                </span>
+            </th>
+            <th ng-click="order('MemberLName',2,'ROST.HMCMR',{ ProviderNumber:  provider.ProviderNumber,IPA:provider.IPA},provider)">
+                Member
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'MemberLName',
+                               'glyphicon-arrow-down': sortDirection === 'descending'  && sortCol === 'MemberLName'}">
+                </span>
+            </th>
+            <th ng-click="order('IPAName',2,'ROST.HMCMR',{ ProviderNumber:  provider.ProviderNumber,IPA:provider.IPA},provider)">
+                IPA/Code
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-arrow-up': sortDirection === 'ascending' && sortCol === 'IPAName',
+                               'glyphicon-arrow-down': sortDirection === 'descending'  && sortCol === 'IPAName'}">
+                </span>
+            </th>
+            <th class="non-sortable"> Care Plan # </th>
+
+        </tr>
+    </thead>
+    <tbody ng-repeat="member in members.List">
+        <tr class="member line-item ng-scope" ng-if="member.Source =='HAR'"
+            ng-class="member.showDetails ? 'no-hover expanded-header' : ''">
+            <td></td>
+            <td>{{ member.PlanCreateDate | noTime}}</td>
+            <td> {{ member.SubscriberNumber }} </td>
+            <td> {{ member.MemberLName | titleCase }}, {{ member.MemberFName | titleCase }} </td>
+
+            <td>{{member.IPAName}}<br />({{member.IPA}})</td>
+            <td ng-click="rowSelectHAR(member)">
+                <a href="#"><img id="pdfImg" alt="" src="Content/Images/ico_pdf.png" /></a>&nbsp;<span style="font-size: .9em; vertical-align: bottom;">{{member.PlanTypeDesc}}</span>
+            </td>
+        </tr>
+        <tr ng-if="member.Source =='MedHok'" ng-class="member.showDetails ? 'no-hover expanded-header' : ''"
+            class="line-item ng-scope member"
+            ng-click="rowSelectMedHok('ROST.HMCMR',3, { fileReference: member.MedHokFileReferralNumber}, member);">
+            <td><span class="glyphicon" ng-class="member.showDetails ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' "></span></td>
+            <td>{{ member.PlanCreateDate| noTime}}</td>
+            <td> {{ member.SubscriberNumber }} </td>
+            <td> {{ member.MemberLName | titleCase }}, {{ member.MemberFName | titleCase }} </td>
+            <td>{{member.IPAName}}<br />({{member.IPA}})</td>
+            <td ng-if="member.Source =='MedHok'">
+                <div>
+                    {{member.MedHokProgramType}}
+                </div>
+            </td>
+
+        </tr>
+        <tr ng-if="member.showDetails"
+            class="row-striped roster-result-row line-item ng-scope no-hover expanded-header">
+            <td colspan="100%">
+                <table class="roster resultTier3 col-sm-12  table table-striped table-sortable">
+                    <tr class="no-hover">
+                        <td colspan="100%" style="background-color: #E0DDDD; padding-left: 0; padding-right: 0; padding-bottom: 0" class="animate-if" ng-if="member.showDetails">
+                            <div class="printable" id="careplanDetails{{parentindex + '_' + $index}}">
+
+                                <div class="SectionHeader col-md-12" style="position: relative;">
+                                    <h1 style="visibility: hidden">Care Plan Details</h1>
+
+                                    <div id="print" ng-click="printDiv('careplanDetails' + parentindex + '_' + $index,parentindex);">
+                                        <h3 uib-popover="Click to Print"
+                                            popover-trigger="mouseenter"
+                                            popover-append-to-body="true">
+                                            <img src="Content/Images/ico_print.png" />
+                                        </h3>
+                                    </div>
+                                    <div id="savePDf" ng-click="getPdf('careplanDetails' + parentindex + '_' + $index);">
+                                        <h3 uib-popover="Click to download PDF file"
+                                            popover-trigger="mouseenter"
+                                            popover-append-to-body="true">
+                                            <img src="Content/Images/ico_pdf_file.png" />
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <table class="table" id="careplanInfo">
+                                    <tbody>
+                                        <tr class="no-hover">
+                                            <td colspan="100%">
+                                                <!--<div class="col-xs-3">
+                                                    <div class="row">
+                                                        <label class="col-xs-4">Name</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.MemberFullName|titleCase }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-4">PCP Name</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.PCPName}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-4">Care Plan</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.Program}} <span ng-if="member.rosterSubViewLevel3.ProgramType">/</span><span>{{member.rosterSubViewLevel3.ProgramType}}</span></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-7" style="padding-right: 0; padding-left: 0">Primary Condition</label>
+                                                        <div class="col-xs-5 info" style="padding-right: 0; padding-left: 0">{{member.rosterSubViewLevel3.PrimaryCondition}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="row">
+                                                        <label class="col-xs-4">IEHP ID</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.IEHPId}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-4">PCP Phone</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.PCPPhone| tel}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-6">Enrollment Date</label>
+                                                        <div class="col-xs-6 info">{{member.rosterSubViewLevel3.CareplanInsertDate}}</div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="row">
+                                                        <label class="col-xs-4">DOB</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.DOB}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-4">IPA</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.MemberIPA}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-4">CM Nurse</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.CaseManagerName}} (800)440-4347/ (800) 718-4347 *TTY </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-4">Primary Dx</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.PrimaryDiagnosisDescription|titleCase}}</div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="row">
+                                                        <label class="col-xs-4">LOB</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.LOB}}</div>
+                                                    </div>
+                                                </div>-->
+                                                <div class="col-xs-3">
+                                                    <div class="row">
+                                                        <label class="col-xs-4">Name</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.MemberFullName|titleCase }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-4">IPA</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.MemberIPA}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-4">Care Plan</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.Program}} <span ng-if="member.rosterSubViewLevel3.ProgramType">/</span><span>{{member.rosterSubViewLevel3.ProgramType}}</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="row">
+                                                        <label class="col-xs-4">IEHP ID</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.IEHPId}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-4">PCP Name</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.PCPName}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-4">CM Nurse</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.CaseManagerName}} (800)440-4347/ (800) 718-4347 *TTY </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="row">
+                                                        <label class="col-xs-4">DOB</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.DOB}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-4">PCP Phone</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.PCPPhone| tel}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-7" style="padding-right: 0; padding-left: 0; width: 51%;">Primary Condition</label>
+                                                        <div class="col-xs-5 info" style="padding-right: 0; padding-left: 0">{{member.rosterSubViewLevel3.PrimaryCondition}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="row">
+                                                        <label class="col-xs-4">LOB</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.LOB}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-6">Enrollment Date</label>
+                                                        <div class="col-xs-6 info">{{member.rosterSubViewLevel3.CareplanInsertDate}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-xs-4">Primary Dx</label>
+                                                        <div class="col-xs-8 info">{{member.rosterSubViewLevel3.PrimaryDiagnosisDescription|titleCase}}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="no-hover">
+                                            <td colspan="100%" style="background-color: #fff;">
+
+                                                <table class="table table-striped" id="problems-table" cellpadding="0" cellpadding="0"  ng-repeat="model in member.rosterSubViewLevel3.ProblemModel" >
+                                                    <thead>
+                                                        <tr class="header sorting">
+                                                            <th class="non-sortable" style="width: 36%">Problem </th>
+                                                            <th class="non-sortable"style="width: 10%">Start Date</th>
+                                                            <th class="non-sortable"style="width: 10%">Target Date</th>
+                                                            <th class="non-sortable"style="width: 10%">Status/Term</th>
+                                                            <th class="non-sortable"style="width: 20%">Focus on Goal/Date Complete</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="no-hover" ng-class="model.showDetails ? 'rowSelected' : '' " ng-if="model.Hidden != '1'">
+
+                                                            <td style="width: 36%;">{{model.ProblemDescrpition}}</td>
+                                                            <td style="width: 10%">{{model.StartDate}}</td>
+                                                            <td style="width: 10%">{{model.EndDate}}</td>
+                                                            <td style="width: 10%">{{model.Status}}</td>
+                                                            <td style="width: 20%">
+                                                            </td>
+                                                        </tr>
+                                                        <tr uib-collapse="!model.showDetails && !printAll && !savePDF" class="no-hover" >
+                                                            <td colspan="100%" ng-if="model.showDetails || printAll || savePDF" class="table-details">
+                                                                <div id="careplanGoalModelDetails" ng-repeat="goal in model.GoalModel">
+                                                                    <ol class="list-group" style="margin-bottom: 0;">
+                                                                        <li class="slim-grid list-group-item clearfix" style="border: none;">
+                                                                            <h5>Goal</h5>
+                                                                            <table class="table subitems" cellpadding="0" cellpadding="0">
+                                                                                <thead style="visibility: hidden">
+                                                                                <tr >
+                                                                                    <th class="non-sortable" style="width: 36%;"></th>
+                                                                                    <th class="non-sortable" style="width: 10%;"></th>
+                                                                                    <th class="non-sortable" style="width: 10%;"></th>
+                                                                                    <th class="non-sortable" style="width: 10%;"></th>
+                                                                                    <th class="non-sortable" style="width: 20%;"></th>
+                                                                                </tr>
+                                                                              
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                <tr class="no-hover">
+                                                                                    <td style="width: 36%">
+                                                                                        <label>Description:</label>
+                                                                                        {{goal.GoalDescrpition}}
+                                                                                    </td>
+                                                                                    <td  style="width: 10%;">
+                                                                                        {{goal.StartDate}}
+                                                                                    </td>
+                                                                                    <td ng-if="goal.AdjustedTargetDate" style="width: 10%;">
+                                                                                        {{goal.AdjustedTargetDate}}
+                                                                                    </td>
+                                                                                    <td ng-if="!goal.AdjustedTargetDate"style="width: 10%;">{{goal.TargetDate}}</td>
+                                                                                    <td style="width: 10%;">{{goal.Status}}<span ng-if="goal.ShortTermDate">/Prioritized</span><span ng-if="goal.LongTermDate">/Long</span></td>
+                                                                                    <td style="width: 20%;"  ng-if="goal.FocusOnGoal == 'Member' || goal.FocusOnGoal == 'Caregiver'">Self Managed</td>
+                                                                                    <td style="width: 20%;" ng-if="goal.FocusOnGoal != 'Member' && goal.FocusOnGoal != 'Caregiver'">{{goal.FocusOnGoal}}</td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <!--<ul class="careplans-list">
+                                                                                <li>
+                                                                                    <div class="row">
+                                                                                        <div class="col-xs-4">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-1">Description:</label>
+                                                                                                <div class="col-xs-8">
+                                                                                                    {{goal.GoalDescrpition}}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-2">
+                                                                                            <div class="row">
+                                                                                               <label class="col-xs-4">Start Date:</label>
+                                                                                                <div class="col-xs-4">{{goal.StartDate}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-2">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-5">Target Date:</label>
+                                                                                                <div class="col-xs-4">{{goal.TargetDate}}</div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                        <div class="col-xs-2">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-4">Status:</label>
+                                                                                                <div class="col-xs-8">{{goal.Status}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-2">
+                                                                                            <div class="row">
+                                                                                              <label class="col-xs-6">Focus on Goal:</label>
+                                                                                                <div class="col-xs-4">{{goal.FocusOnGoal}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                  <div class="row">
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-4">Status:</label>
+                                                                                                <div class="col-xs-8">{{goal.Status}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-6">Focus on Goal:</label>
+                                                                                                <div class="col-xs-4">{{goal.FocusOnGoal}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-4">Start Date:</label>
+                                                                                                <div class="col-xs-4">{{goal.StartDate}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-4">End Date:</label>
+                                                                                                <div class="col-xs-4">{{goal.EndDate}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-5">Target Date:</label>
+                                                                                                <div class="col-xs-4">{{goal.TargetDate}}</div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </li>
+                                                                            </ul>-->
+                                                                        </li>
+
+                                                                        <li class="slim-grid list-group-item clearfix" style="border: none;" ng-if="goal.InterventionModel.length>0" ng-repeat="intervention in goal.InterventionModel">
+
+                                                                            <h5>Intervention</h5>
+                                                                            <table class="table subitems" cellpadding="0" cellpadding="0">
+                                                                                <thead style="visibility: hidden">
+                                                                                    <tr>
+                                                                                        <th class="non-sortable" style="width: 36%;"></th>
+                                                                                        <th class="non-sortable" style="width: 10%;"></th>
+                                                                                        <th class="non-sortable" style="width: 10%;"></th>
+                                                                                        <th class="non-sortable" style="width: 10%;"></th>
+                                                                                        <th class="non-sortable" style="width: 20%;"></th>
+                                                                                    </tr>
+
+                                                                                </thead>
+                                                                                <tbody >
+                                                                                <tr class="no-hover">
+                                                                                    <td style="width: 36%">
+                                                                                        <label>Description:</label>
+                                                                                        {{intervention.InterventionDescrpition}}
+                                                                                    </td>
+                                                                                    <td style="width: 10%">
+                                                                                        {{intervention.StartDate}}
+                                                                                    </td>
+                                                                                    <td  style="width: 10%" ng-if="intervention.AdjustedTargetDate">
+                                                                                        {{intervention.AdjustedTargetDate}}
+                                                                                    </td>
+                                                                                    <td  style="width: 10%" ng-if="!intervention.AdjustedTargetDate">{{intervention.TargetDate}}</td>
+                                                                                    <td  style="width: 10%">{{intervention.Status}}</td>
+                                                                                    <td style="width: 20%">{{intervention.EndDate}}</td>
+                                                                                </tr>
+                                                                                <tr class="no-hover">
+                                                                                    <td colspan="100%">
+                                                                                        <label>Notes:</label>
+                                                                                        {{intervention.ProgressNotes}}
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <!--<ul class="careplans-list">
+                                                                                <li ng-repeat="intervention in goal.InterventionModel">
+                                                                                    <div class="row">
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-4">Start Date:</label>
+                                                                                                <div class="col-xs-4">{{intervention.StartDate}}</div>
+
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-4">End Date:</label>
+                                                                                                <div class="col-xs-4">{{intervention.EndDate}}</div>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-5">Target Date:</label>
+                                                                                                <div class="col-xs-4">{{intervention.TargetDate}}</div>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-4">Status:</label>
+                                                                                                <div class="col-xs-8">{{intervention.Status}}</div>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <label>Description:</label>
+                                                                                        <div>
+                                                                                            {{intervention.InterventionDescrpition}}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <label>ProgressNotes:</label>
+                                                                                        <div style="margin: 0 14px 0 5px;">
+                                                                                            {{intervention.ProgressNotes}}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+
+                                                                            </ul>-->
+
+                                                                        </li>
+                                                                        <li class="slim-grid list-group-item clearfix" ng-if="goal.BarrierModel.length>0" style="border: none;" ng-repeat="barrier in goal.BarrierModel">
+                                                                            <h5>Barrier</h5>
+                                                                            <table class="table subitems" cellpadding="0" cellpadding="0">
+                                                                                <thead style="visibility: hidden">
+                                                                                    <tr>
+                                                                                        <th class="non-sortable" style="width: 36%;"></th>
+                                                                                        <th class="non-sortable" style="width: 10%;"></th>
+                                                                                        <th class="non-sortable" style="width: 10%;"></th>
+                                                                                        <th class="non-sortable" style="width: 10%;"></th>
+                                                                                        <th class="non-sortable" style="width: 20%;"></th>
+                                                                                    </tr>
+
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                <tr class="no-hover">
+                                                                                    <td style="width: 36%">
+                                                                                        <label>Description:</label>
+                                                                                        {{barrier.BarrierDescrpition}}
+                                                                                    </td>
+                                                                                    <td style="width: 10%;">
+                                                                                        {{barrier.StartDate}}
+                                                                                    </td>
+                                                                                    <td style="width: 10%;">
+
+                                                                                    </td>
+                                                                                    <td style="width: 10%;">{{barrier.Status}}</td>
+                                                                                    <td style="width: 10%;">{{barrier.EndDate}}</td>
+                                                                                </tr>
+
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <!--<ul class="careplans-list">
+                                                                                <li ng-repeat="barrier in goal.BarrierModel">
+                                                                                    <div class="row">
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-4">Start Date:</label>
+                                                                                                <div class="col-xs-4">{{barrier.StartDate}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-4">End Date:</label>
+                                                                                                <div class="col-xs-4">{{barrier.EndDate}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-4">Status:</label>
+                                                                                                <div class="col-xs-4">{{barrier.Status}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <label>Description:</label>
+                                                                                        <div>
+                                                                                            {{barrier.BarrierDescrpition}}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>-->
+
+                                                                        </li>
+                                                                        <li class="slim-grid list-group-item clearfix" ng-if="goal.ShortTermDate" style="border: none;">
+                                                                            <h5>Prioritized Goals</h5>
+                                                                            <table class="table subitems" cellpadding="0" cellpadding="0">
+                                                                                <thead style="visibility: hidden">
+                                                                                    <tr>
+                                                                                        <th class="non-sortable" style="width: 36%;"></th>
+                                                                                        <th class="non-sortable" style="width: 10%;"></th>
+                                                                                        <th class="non-sortable" style="width: 10%;"></th>
+                                                                                        <th class="non-sortable" style="width: 10%;"></th>
+                                                                                        <th class="non-sortable" style="width: 20%;"></th>
+                                                                                    </tr>
+
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                <tr class="no-hover">
+                                                                                    <td style="width: 36%">
+                                                                                        <label>Description:</label>
+                                                                                        {{goal.GoalDescrpition}}
+                                                                                    </td>
+                                                                                    <td style="width: 10%;">
+
+                                                                                    </td>
+                                                                                    <td style="width: 10%;">
+                                                                                        {{goal.DispalyTargetDate}}
+                                                                                    </td>
+                                                                                    <td style="width: 10%;"></td>
+                                                                                    <td style="width: 20%;">{{goal.EndDate}}</td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <!--<ul class="careplans-list">
+                                                                                <li ng-if="goal.ShortTermDate">
+                                                                                    <div class="row">
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-5">Target Date:</label>
+                                                                                                <div class="col-xs-5">{{goal.DispalyTargetDate}}</div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-6">Completion Date:</label>
+                                                                                                <div class="col-xs-5">{{goal.EndDate}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <label>Description:</label>
+                                                                                        <div>
+                                                                                            {{goal.GoalDescrpition}}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>-->
+                                                                        </li>
+                                                                        <li class="slim-grid list-group-item clearfix" ng-if="goal.FocusOnGoal == 'Member' || goal.FocusOnGoal == 'Caregiver'" style="border: none;">
+                                                                        <h5>Self Managed Goals</h5>
+                                                                        <table class="table subitems" cellpadding="0" cellpadding="0">
+                                                                            <thead style="visibility: hidden">
+                                                                                <tr>
+                                                                                    <th class="non-sortable" style="width: 36%;"></th>
+                                                                                    <th class="non-sortable" style="width: 10%;"></th>
+                                                                                    <th class="non-sortable" style="width: 10%;"></th>
+                                                                                    <th class="non-sortable" style="width: 10%;"></th>
+                                                                                    <th class="non-sortable" style="width: 20%;"></th>
+                                                                                </tr>
+
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            <tr class="no-hover">
+                                                                                <td style="width: 36%">
+                                                                                    <label>Description:</label>
+                                                                                    {{goal.GoalDescrpition}}
+                                                                                </td>
+                                                                                <td style="width: 10%;"></td>
+                                                                                <td style="width: 10%;">
+                                                                                    {{goal.DispalyTargetDate}}
+                                                                                </td>
+                                                                                <td style="width: 10%;"></td>
+                                                                                <td style="width: 20%;">{{goal.EndDate}}</td>
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                            <!--<ul class="careplans-list">
+                                                                                <li>
+                                                                                    <div class="row">
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-5">Target Date:</label>
+                                                                                                <div class="col-xs-5">{{goal.DispalyTargetDate}}</div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+                                                                                            <div class="row">
+                                                                                                <label class="col-xs-6">Completion Date:</label>
+                                                                                                <div class="col-xs-5">{{goal.EndDate}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xs-3">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <label>Description:</label>
+                                                                                        <div>
+                                                                                            {{goal.GoalDescrpition}}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>-->
+
+                                                                    </ol>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+
+
+                                                <div class="row summary">
+                                                    <div class="col-xs-6">
+                                                        <div class="row">
+                                                            <label class="col-xs-8">Member Accepted Reason:</label>
+                                                            <div class="col-xs-4 info">{{member.rosterSubViewLevel3.MemberAcceptedReason}}</div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <label class="col-xs-8">Care Manager Accepted Reason:</label>
+                                                            <div class="col-xs-4 info">{{member.rosterSubViewLevel3.cmAcceptanceReason}}</div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label class="col-xs-8">Care Plan PCP/IPA Notification Date(s) Sent:</label>
+                                                            <div class="col-xs-4 info">{{member.rosterSubViewLevel3.CareplanUpdateDate}}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+
+                                                    </div>
+                                                </div>
+
+                                            </td>
+
+                                        </tr>
+
+                                        <tr ng-show="member.dataResultMessageTier3">
+                                            <td colspan="100%">
+                                                <danger-box message="{{member.dataResultMessageTier3}}"></danger-box>
+                                            </td>
+                                        </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+    </tbody>
+</table>
+

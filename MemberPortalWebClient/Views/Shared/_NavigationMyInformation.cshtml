@@ -1,0 +1,38 @@
+﻿<div id="subNavMyInformation"  class="submenuContainer" ng-class="{open : Nav.menuOpenStatusMyInformation}">
+    <div class="container">
+        <ul class="clearfix"  >
+            <li class="">
+                <ul>
+                    <li>
+                        <a href="App/MyInformation/UpdateContactInfo">
+                            <div class="subNavItem" style="background-image:url('@Url.Content("~/Content/Images/btn_bak_updatemyinfo.png")')">
+                                <span>{{"subnav_UpdateContactInfo"  | translate}}</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="App/MyInformation/changeEmail">
+                            <div class="subNavItem" style="background-image:url('@Url.Content("~/Content/Images/btn_bak_chemail.png")')">
+                                <span>{{"subnav_ChangeEmail" | translate}}</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="App/MyInformation/ChangePassword">
+                            <div class="subNavItem" style="background-image:url('@Url.Content("~/Content/Images/btn_bak_chpass.png")')">
+                                <span>{{"subnav_ChangePassword" | translate}}</span>
+                            </div>
+                        </a>
+                    </li>
+                    @*<li>
+                        <a href="@Url.RouteUrl("App", new { angularRoutes = "MyInformation/ChangeSecurityQuestions" })">
+                            <div class="subNavItem" style="background-image:url('@Url.Content("~/Content/Images/btn_bak_chsecquest.png")')">
+                                <span>{{"subnav_ChangeSecurityQuestions" | translate}}</span>
+                            </div>
+                        </a>
+                    </li>*@
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

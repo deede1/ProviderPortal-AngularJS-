@@ -1,0 +1,107 @@
+﻿
+<div class="Rosters">
+
+
+    <h1 class="WorkInProgress">!!WORK IN PROGRESS!!</h1>
+
+    <div class="form panel">
+        <h1 class="pageTitle"> CCM Plan Transfer Roster </h1>
+        <p class="pageIntro ">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+        </p>
+    </div>
+
+    <roster-title-header></roster-title-header>
+
+
+
+    <div class="loaderContainer" simple-ajax-loader show="loading"></div>
+
+    <div class="row alignCenter resultsContainer">
+
+        <results-pagination ng-show="data.List"></results-pagination>
+
+        <div class="header" ng-show="data.List.length && data.LastUpdatedOn">
+            Last Updated on {{ data.LastUpdatedOn }}
+        </div>
+
+
+        <!-------- TIER1 PAGINATION ------->
+        <nav id="providersNav"
+             style="text-align: right; position: relative;"
+             class="non-printable"  
+             ng-if="resultTier1.totalPages>1">
+
+            <!--<p class="pager-info">
+                {{startItem(resultTier1.currentPage, resultTier1.rowsPerPage)}} - {{endItem(resultTier1.currentPage, resultTier1.totalListCount, resultTier1.rowsPerPage)}}
+                of {{resultTier1.totalListCount}}
+            </p>-->
+
+            <div style="display: inline-block"
+                 uib-pagination boundary-links="true"
+                 class="pagination-sm"
+                 previous-text="&lsaquo;"
+                 next-text="&rsaquo;"
+                 first-text="&laquo;"
+                 last-text="&raquo;"
+                 total-items="roster.totalPages*roster.rowsPerPage"
+                 ng-model="roster.currentPage"
+                 items-per-page="roster.rowsPerPage"
+                 ng-change="pageChanged(1,'ROST.CCMPT',{ ProviderTaxId: 2},roster.currentPage,roster.totalListCount, roster) ">
+            </div>
+        </nav>
+        <!-------- TIER1 PAGINATION ------->
+
+
+        <table class="roster resultTier1 results-accordion col-sm-12  table table-striped table-sortable"
+               ng-class="roster.expand ? 'expand no-hover' : ''"
+               ng-show="displayFullView  ">
+
+            <thead>
+                <tr class="header sorting">
+                    <th></th>
+                    <th ng-click="RetrieveRoster('ROST.CCM',1,{Sort:[{name:'ProviderLName', direction:  sortDirection}]}, roster)"
+                        roster-tableheader-sort column-label="Claim#" column-data="ProviderLName"></th>
+                    <th ng-click="RetrieveRoster('ROST.CCM',1,{Sort:[{name:'ProviderNumber', direction: sortDirection}]})"
+                        roster-tableheader-sort column-label="Rendering ID" column-data="ProviderNumber"></th>
+                    <th ng-click="RetrieveRoster('ROST.CCM',1,{Sort:[{name:'IPAName', direction: sortDirection}]})"
+                        roster-tableheader-sort column-label="Provider" column-data="IPAName"></th>
+                    <th ng-click="RetrieveRoster('ROST.CCM',1,{Sort:[{name:'IPAName', direction: sortDirection}]})"
+                        roster-tableheader-sort column-label="DOS" column-data="IPAName"></th>
+                    <th ng-click="RetrieveRoster('ROST.CCM',1,{Sort:[{name:'IPAName', direction: sortDirection}]})"
+                        roster-tableheader-sort column-label="Procedure" column-data="IPAName"></th>
+                    <th ng-click="RetrieveRoster('ROST.CCM',1,{Sort:[{name:'IPAName', direction: sortDirection}]})"
+                        roster-tableheader-sort column-label="Adjunction Status" column-data="IPAName"></th>
+
+                </tr>
+            </thead>
+
+
+            <tbody>
+                <tr ng-repeat="roster in data.RosterList   ">
+                    <td>{{ roster.MemberFName }} {{ roster.MemberLName }} </td>
+                    <td>{{ roster.LineOfBusinessD }} </td>
+                    <td>
+                        <div class="anchor" ng-click="viewMemDetails( item.IehpId)">
+                            {{ roster.IehpId }} <i class=" glyphicon glyphicon-info-sign"></i>
+                        </div>
+                    </td>
+                    <td>{{ roster.DateOfBirth }} </td>
+                    <td>{{ roster.MemberPhone }} </td>
+                    <td>{{ roster.DrugName }} </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div simple-ajax-loader show="loading"></div>
+    <tr ng-show="dataResultMessageTier1">
+        <td colspan="100%">
+            <danger-box message="{{dataResultMessageTier1}}"></danger-box>
+        </td>
+    </tr>
+
+
+</div>

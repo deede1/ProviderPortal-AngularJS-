@@ -1,0 +1,142 @@
+﻿@{
+    Layout = null;
+}
+@*<p><a href="@Url.RouteUrl("App", new{angularroutes="Eligibility"})">Back</a></p>*@
+ 
+<div id="myDoctor" class="row contentContainer frmSignIn">
+
+
+    <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15">
+        <notifications-panel></notifications-panel>
+        <br />
+
+        <div class="contentPanel">
+            <a href="App/Eligibility/MyDoctor">
+                <div class="panelTile alignCenter col-xs-6 panelSelected">
+                    {{ 'nav_myDoctor' | translate}}
+                </div>
+            </a>
+            <a href="App/Eligibility/ChangeDoctor">
+                <div class="panelTile alignCenter col-xs-6">
+
+                    {{ 'nav_changeMyDoctor' | translate}}
+                </div>
+            </a>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12  col-lg-push-3 col-md-push-3">
+
+        @*<div class="contentPanel subNavLink">
+                <ul>
+                    <li class="subNavSelected">{{ 'nav_myDoctor' | translate  }}</li>
+                    <li><a href="App/Eligibility/ChangeDoctor" class="subNavLink">{{'nav_changeMyDoctor' | translate }}</a></li>
+                </ul>
+            </div>*@
+
+
+
+
+        @*<div class="row">
+                <div class="subNavLink  hidden-xs col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a href="App/Eligibility/ChangeDoctor" class="subNavLink">{{'form_changeDoctor' | translate }}</a>
+                </div>
+            </div>*@
+
+        <div class="row panel panelMed row clearfix">
+            <div class="padLeft15 padTop15">
+                <h1 class="pageTitle"> {{"page_mydoc_existingDoc_title" | translate}}</h1>
+                <p class="pageIntro">  {{"page_mydoc_existingDoc_intro" | translate}}</p>
+            </div>
+
+            <div simple-ajax-loader show="loading"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <info-box message="{{infoMessage}}"></info-box>
+                    <danger-box message="{{errorMessage}}"></danger-box>
+                </div>
+            </div>
+            <div class="row" ng-show="errorMessage == ''">
+                <div class="panelImageCont col-lg-4 col-md-4 col-sm-12 col-xs-8 text-center">
+                    <img class="panelImage" src="@Url.Content("~/Content/Images/sm_MyDoctor.png")" />
+                </div>
+                <div class="labelCont col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <div my-doctor elig="primaryEligRecord" test-user-mode="TestUserMode" class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  place this in a directive per MyDoc Category -->
+    <div class="contentLeft  col-lg-offset-0 col-lg-3 col-md-3 col-sm-12 col-lg-pull-9 col-md-pull-9 col-sm-pull-0 hidden-xs">
+
+        <notifications-panel></notifications-panel>
+        <br />
+
+        <div class="contentPanel leftPanel_large">
+            <a href="App/Eligibility/MyDoctor">
+                <div class="panelTile alignRight panelSelected">
+                    <h2>{{ 'nav_myDoctor' | translate}}</h2>
+                    <i class="btn_bak_mydoc" />
+                </div>
+            </a>
+            <a href="App/Eligibility/ChangeDoctor">
+                <div class="panelTile alignRight">
+
+                    <h2>{{ 'nav_changeMyDoctor' | translate}}</h2>
+                    <i class="btn_bak_changemydoc" />
+                </div>
+            </a>
+             
+
+            @*<div class="contentPanel leftPanel_large" ng-controller="SideNavCtrl">
+                 <div ng-if="currentLanguage == 'en-us'">
+                     <div class="leftBanner_TOCL_Yellow  ">Can't Reach your Doctor or need care after-hours?</div>
+                     <div class="leftBanner_Verdana_White">
+                         <ul>
+                             <li>Call our 24-hour IEHP Nurse Advice Line at 1-888-244-4347 for helpful advice, or</li>
+                             <li>Go to an Urgent Care Clinic.</li>
+                         </ul>
+                     </div>
+                 </div>
+                 <div ng-if="currentLanguage == 'es-mx'" >
+                     <div class="leftBanner_TOCL_Yellow _2p2em ">
+                         ¿No puede localizar a su Doctor o necesita
+                         atención médica después del horario regular de servicios?
+                     </div>
+                     <div class="leftBanner_Verdana_White">
+                         <ul>
+                             <li> Llame a nuestra Línea de Consejos de Enfermería las 24 Horas de IEHP al 1-888-244-IEHP (4347) y reciba la asesoría que necesita, o</li>
+                             <li> vaya a una Clínica de Atención Urgente.</li>
+                         </ul>
+                     </div>
+                 </div>
+                 <img id="homeBannerLeft" src="@Url.Content("~/Content/Images/panel_MyDoctor.png")" />
+                </div>*@
+
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        $('.navItemSelected').removeClass('navItemSelected');
+        $('#navbtn3 div').addClass('navItemSelected');
+    </script>
+ 
+
+
+
+
+    @* -------------- Dubug Stuff ---------------  *@
+
+<div debug-tool class="ng-cloak">
+    <debug-tool-data-node name="Primary Eligibility Record" data="primaryEligRecord"></debug-tool-data-node>
+</div>

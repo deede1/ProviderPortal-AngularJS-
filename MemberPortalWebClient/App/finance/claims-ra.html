@@ -1,0 +1,129 @@
+﻿<div class="contentPanel1 contentRight " id="claims-status">
+	<div class="form ofl-visible">
+		<div class="padLeft15 padTop15">
+			<h1 class="pageTitle">Claims Remittance Advice</h1>
+			<p class="pageIntro"></p>
+		</div>
+		<div class="">
+			<div class="col-sm-12 contentPanel eligibilityMemberSearchContainer pad-md row">
+				<div click="search.inputCollapsed" pp-accordion-pane="Claims RA Search"></div>
+			</div>
+			<div class="contentPanel row">
+
+				<pp-search-type class="block clearfix" label="Search By Check Number">
+				
+
+						<!-- <div class="filter">-->
+						<!-- <div class="col-md-12 input-row"-->
+						<!-- ng-click="search.advancedFilter = 'dateRangeParam';search.beganSearch = true"-->
+						<!-- ng-style="{background: search.advancedFilter === 'dateRangeParam' ? '#EDEDED' : ''}"-->
+						<!-- ng-mouseover="dateHover = true" ng-mouseleave="dateHover = false">-->
+						<!-- <div ng-show="search.advancedFilter === 'dateRangeParam'"-->
+						<!-- class="selected-input glyphicon glyphicon-ok"></div>-->
+						<!-- <label class="col-md-2 control-label" for="formGroupInputLarge">Last {{search.days}} Days</label>-->
+						<!-- <div class="col-md-8">-->
+						<!-- <input id="range-slider" ng-model="search.days" options="search.rangeOptions" slider type="text"/>-->
+						<!-- </div>-->
+						<!-- </div>-->
+						<!-- <span ng-show="search.advancedFilter === 'dateRangeParam'"-->
+						<!-- ng-click="search.advancedFilter = ''" class="close-btn glyphicon glyphicon-remove"></span>-->
+						<!-- </div>-->
+						<!-- <div class="filter">-->
+						<!-- <div class="col-md-12 input-row"-->
+						<!-- ng-click="search.advancedFilter = 'dateRangeParam';search.beganSearch = true"-->
+						<!-- ng-class="{'active':search.advancedFilter === 'dateRangeParam', 'valid': search.validateRange() === true}">-->
+						<!-- <div ng-show="search.advancedFilter === 'dateRangeParam'"-->
+						<!-- class="selected-input glyphicon glyphicon-chevron-right"></div>-->
+						<!-- <label class="col-md-4 control-label" for="formGroupInputLarge">Or Search only Last <strong>{{search.days}}</strong> Days</label>-->
+						<!-- <div class="col-md-7">-->
+						<!-- <input id="range-slider" ng-model="search.days" options="search.rangeOptions" slider type="text"/>-->
+						<!-- </div>-->
+						<!-- </div>-->
+						<!-- <span ng-show="search.advancedFilter === 'dateRangeParam'"-->
+						<!-- ng-click="search.advancedFilter = ''" class="close-btn glyphicon glyphicon-remove"></span>-->
+						<!-- </div>-->
+						<div class="filter">
+							<div class="col-md-12 input-row"
+									 ng-class="{'active':search.advancedFilter === 'dateRangeParam', 'valid': search.validateRange() === true}">
+								<div class="glyphicon glyphicon-ok-circle selected-input"
+										 ng-class="{'selected': search.advancedFilter === 'dateRangeParam'}"
+										 ng-click="search.advancedFilter = search.advancedFilter === '' ? 'dateRangeParam' : '';search.beganSearch = true"></div>
+								<label class="col-md-5 control-label date-range"
+											 for="formGroupInputLarge"
+											 ng-click="search.advancedFilter = search.advancedFilter === '' ? 'dateRangeParam' : '';search.beganSearch = true">Search only by Date Range (max 120 days)</label>
+								<p class="input-group">
+									<div class="col-md-3">
+										<div class="datepicker"
+												 date-format="shortDate"
+												 date-max-limit="{{search.maxRange}}"
+												 ng-if="search.advancedPane"
+												 selector="min-range">
+											<button class="icon input" type="button">
+												<i class="glyphicon glyphicon-calendar"></i>
+											</button>
+											<input class="form-control min-range"
+														 ng-change="search.validateRange()" ng-class="{'invalid':  !search.validateRange(search.minRange) }"
+														 ng-click="search.advancedFilter ='dateRangeParam';search.beganSearch = true"
+														 ng-model="search.minRange" type="text">
+
+										</div>
+
+									</div>
+									<div class="to-text">to</div>
+									<div class="col-md-3">
+										<div class="datepicker"
+												 date-format="shortDate"
+												 date-max-limit="{{today | date: 'shortDate'}}"
+												 date-typer="true"
+												 ng-if="search.advancedPane"
+												 selector="max-range">
+											<input class="form-control max-range"
+														 ng-change="search.validateRange()"
+														 ng-class="{'invalid':  !search.validateRange(search.maxRange) }"
+														 ng-click="search.advancedFilter = 'dateRangeParam';search.beganSearch = true" ng-model="search.maxRange" type="text">
+											<button class="icon input" type="button">
+												<i class="glyphicon glyphicon-calendar"></i>
+											</button>
+										</div>
+									</div>
+								</p>
+								<div class="help-block invalid-text" ng-hide="search.validateRange() === true">{{search.validateRange()}}</div>
+							</div>
+
+							<div class="close-btn glyphicon glyphicon-remove"
+									 ng-click="search.advancedFilter = ''" ng-show="search.advancedFilter === 'dateRangeParam'"></div>
+						</div>
+
+			
+				</pp-search-type>
+
+
+			</div>
+		</div>
+		<div class="contentPanel posRelative row">
+			<div show="searchStatus === 1" simple-ajax-loader></div>
+			<div class="search-filters" ng-show="searchStatus === 2">
+				<div class="pull-left">
+					<strong class="pad-md">
+						Filters:
+						<div class="label label-warning" ng-if="search.cachedParam.checkNumber.length && search.cachedParam.advancedFilter === null">
+							{{::search.cachedParam.checkNumber}}
+							<span class="glyphicon glyphicon-remove remove-filter" ng-click="search.updateFilters('checkNumber')"></span>
+						</div>
+						<!-- <span class="label label-warning" ng-if="!search.cachedParam.checkNumber.length || search.cachedParam.advancedFilter === 'dateRangeParam'">-->
+						<!-- Last {{search.cachedParam.dateRangeParam}} Days-->
+						<!---->
+						<!-- </span>-->
+						<div class="label label-warning"
+								 ng-if="!search.cachedParam.checkNumber.length || search.cachedParam.advancedFilter === 'dateRangeParam'">
+							{{search.cachedParam.startDate}} - {{search.cachedParam.endDate}}
+							(<ng-pluralize count="search.cachedParam.totalRange" when="{'1': '1 Day', 'other': '{} Days'}"></ng-pluralize>)
+						</div>
+					</strong>
+				</div>
+			</div>
+			<pp-remittance-advice-table results="search.results"></pp-remittance-advice-table>
+			<danger-box message="{{errorMessage}}"></danger-box>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,60 @@
+﻿<div ng-show="vm.results.authorizations.length > 0" class="authorization-results">
+    <h2>Results: {{vm.results.authorizations.length}}</h2>
+    
+    
+    
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Auth Id</th>
+                <th>Member</th>
+                <th>Intake Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="auth in vm.results.authorizations">
+            <tr>
+                <td>{{auth.AuthorizationId}}</td>
+                <td>{{auth.MemberLastName}}, {{auth.MemberFirstName}} <span style="color:#BBB;">({{auth.SubscriberNumber}})</span></td>
+                <td>{{auth.IntakeDate | date}}</td>
+                <td><indicator-light il-source="auth.Status" il-config="vm.indicatorConfig"></indicator-light> {{auth.Status}}</td>
+            </tr>
+            <tr ng-if="auth.Reviews.length > 0" class="reviews">
+                <td colspan="4">
+                    <ol class="table-column-list">
+                        <li>
+                            <span>
+                                <label>Category</label>
+                            </span>
+                            <span>
+                                <label>Sub-Category</label>
+                            </span>
+                            <span>
+                                <label>Status</label>
+                            </span>
+                            <span>
+                                <label>Reason</label>
+                            </span>
+                        </li>
+                        <li ng-repeat="review in auth.Reviews">
+                            <span>
+                                {{review.Category}}
+                            </span>
+                            <span>
+                                {{review.SubCategory}}
+                            </span>
+                            <span>
+                                {{review.Status}}
+                            </span>
+                            <span>
+                                {{review.StatusReason}}
+                            </span>
+                        </li>
+                    </ol>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+</div>

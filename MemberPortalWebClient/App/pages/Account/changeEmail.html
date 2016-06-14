@@ -1,0 +1,113 @@
+﻿<div class="row contentContainer">  
+
+    <div class="registrationForm frmSignIn col-sm-12 col-xs-12  padLeft0 padRight0  ">
+
+        <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15 ">
+            <div class="contentPanel" ng-controller="SideNavCtrl">
+
+                <notifications-panel></notifications-panel>
+                <br />
+
+                <a href="App/MyInformation/UpdateContactInfo">
+                    <div class="panelTile alignCenter col-xs-6">
+                        {{ 'nav_myContactInformation' | translate}}
+
+                    </div>
+                </a>
+                <a href="App/MyInformation/ChangeEmail">
+                    <div class="panelTile alignCenter col-xs-6 panelSelected">
+                        {{ 'nav_changeMyEmail' | translate}}
+                    </div>
+                </a>
+                <a href="App/MyInformation/ChangePassword">
+                    <div class="panelTile alignCenter col-xs-6 col-xs-offset-3">
+                        {{'nav_changeMyPassword' | translate }}
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12 col-lg-push-3 col-md-push-3 col-md-offset-0">
+
+            <div class="row panel panelMed row clearfix">
+                <div class="padLeft15 padTop15">
+                    <h1 class="pageTitle"> {{"page_myinfo_updateEmail_title" | translate}} </h1>
+                    <p class="pageIntro">  {{"page_myinfo_updateEmail_intro" | translate}}  </p>
+                </div>
+
+                <div class="panelImageCont col-lg-4 col-md-5 col-sm-12 col-xs-12">
+                    <img class="panelImage" ng-src="{{urlBase}}/Content/Images/sm_Email.png" />
+                </div>
+                <change-email-form></change-email-form>
+            </div>
+        </div>
+
+
+
+
+
+        <!--  place this in a directive per MyInfo Category -->
+        <div class="contentLeft col-md-offset-0 col-md-3   col-sm-12 col-md-pull-9 col-sm-pull-0 hidden-xs">
+            <div class="contentPanel leftPanel_large" ng-controller="SideNavCtrl">
+
+
+
+                <notifications-panel></notifications-panel>
+                <br />
+
+
+                <a href="App/MyInformation/UpdateContactInfo">
+                    <div class="panelTile alignRight">
+                        <h2>{{ 'nav_myContactInformation' | translate}}</h2>
+                        <i class="btn_bak_updatemyinfo"></i>
+                    </div>
+                </a>
+                <a href="App/MyInformation/ChangeEmail">
+                    <div class="panelTile alignRight panelSelected">
+                        <h2>{{ 'nav_changeMyEmail' | translate}}</h2>
+                        <i class="btn_bak_chemail"></i>
+                    </div>
+                </a>
+
+                <a href="App/MyInformation/ChangePassword">
+                    <div class="panelTile alignRight">
+                        <h2>{{'nav_changeMyPassword' | translate }}</h2>
+                        <i class="btn_bak_chpass"></i>
+                    </div>
+                </a>
+
+                <!--<div class="panelTile">
+                </div>-->
+                <!--<div class="pageBannerContainer">
+                    <div ng-if="currentLanguage == 'en-us'">
+                        <div class="leftBanner_TOCL_Yellow">IEHP Member Contact TIPS</div>
+                        <div class="leftBanner_Verdana_White">
+                            <ul>
+                                <li>Update your information with your County Eligibility Worker</li>
+                                <li>Give your email and cell phone to get program updates</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div ng-if="currentLanguage == 'es-mx'">
+                        <div class="leftBanner_TOCL_Yellow" style="font-size:2.5em">  Consejos sobre Información de Contacto para Miembros de IEHP </div>
+                        <div class="leftBanner_Verdana_White">
+                            <ul>
+                                <li> Actualice su información con su representante de elegibilidad del condado </li>
+                                <li> 	Proporcione su correo electrónico y número de teléfono celular y obtenga actualizaciones del programa </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="center">
+                        <img class="vertBanner" ng-src="{{urlBase}}/Content/Images/banner_UpdateContact.png" />
+                    </div>
+                </div>-->
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

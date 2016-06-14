@@ -1,0 +1,161 @@
+﻿<div class="Rosters">
+
+
+
+    <h1 class="WorkInProgress">Missing IPA Code</h1>
+
+
+
+    <div class="form panel">
+        <h1 class="pageTitle"> Nurse Advise Line </h1>
+        <p class="pageIntro ">
+ 
+        </p>
+    </div>
+
+    <roster-title-header ></roster-title-header>
+
+
+    <div class="row alignCenter resultsContainer">
+
+        <results-pagination ng-show="data.List"></results-pagination>
+
+
+        <div class="header" ng-show="data.List.length && data.LastUpdatedOn"> Last Updated on {{ data.LastUpdatedOn }} </div>
+
+
+        <table class="roster resultTier1 results-accordion col-sm-12  table table-striped table-sortable"
+               ng-class="roster.expand ? 'expand no-hover' : ''"
+               ng-show="displayFullView &&  data.List.length">
+
+            <thead>
+            <tr class="header sorting">
+                <th></th>
+                <th ng-click="RetrieveRoster('ROST.NA',1,{Sort:[{name:'ProviderLName', direction:  sortDirection}]}, roster)"
+                    roster-tableheader-sort column-label="PCP" column-data="ProviderLName"></th>
+                <th ng-click="RetrieveRoster('ROST.NA',1,{Sort:[{name:'ProviderNumber', direction: sortDirection}]})"
+                    roster-tableheader-sort column-label="PCP ID" column-data="ProviderNumber"></th>
+                <th ng-click="RetrieveRoster('ROST.NA',1,{Sort:[{name:'IPAName', direction: sortDirection}]})"
+                    roster-tableheader-sort column-label="IPA" column-data="IPAName"></th>
+            </tr>
+            </thead>
+
+             
+
+
+            <tbody ng-repeat="roster in data.List">
+            <tr ng-click="expandViewDetails('ROST.PCADHD',2, { ProviderNumber: roster.ProviderNumber}, roster); toggleRoster(data.List,roster)"
+                ng-class="roster.expand ? '  no-hover expanded-header' : ''"
+                ng-animate="'animate'"
+                class="line-item ng-scope">
+                <td>
+                    <span class="glyphicon" ng-class="roster.expand ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+                        </span>
+                </td>
+                <td> {{ roster.ProviderLName | titleCase }}, {{ roster.ProviderFName | titleCase }} </td>
+                <td> {{ roster.ProviderNumber }} </td>
+                <td> {{ roster.IPAName }} ({{ roster.IPA }}) </td>
+            </tr>
+
+            <tr uib-collapse="!roster.expand"
+                class="row-striped roster-result-row line-item ng-scope "
+                ng-class="roster.expand ? '  no-hover expanded-header' : ''"
+                ng-animate="'animate'">
+                <td colspan="100%">
+                <table class="roster resultTier2 col-sm-12  table table-striped table-sortable"
+                       ng-class="roster.expand ? 'enter' : 'leave'"
+                       ng-show="displayFullView &&  rosterSubViewLevel2.List.length">
+                    <thead>
+                          
+                        <tr class="header sorting"> 
+
+                            <th></th>
+                            <th> Provider </th>
+                            <th ng-click="order('MemberFName', reverse)"> Member </th>
+                            <th ng-click="order('LineOfBusinessD', reverse)"> IEHP ID </th>
+                            <th ng-click="order('IehpId', reverse)"> Date of Encounter </th>
+                            <th ng-click="order('DateOfBirth', reverse)"> Complaints </th>
+                            <th ng-click="order('MemberPhone', reverse)"> Instructions </th>
+                        </tr>
+
+                    </thead>
+                    <tbody ng-repeat="member in rosterSubViewLevel2.List">
+
+                    <tr ng-click="expandViewDetails('ROST.PCADHD',3, { SubscriberNumber: member.SubscriberNumber, PersonNumber:member.PersonNumber}, member);
+                                toggleRoster(rosterSubViewLevel2.List,member)"
+                        ng-animate="'animate'"
+                        ng-class="member.expand ? '  no-hover expanded-header' : ''"
+                        class="line-item ng-scope ">
+                        <td>
+                            <span class="glyphicon"
+                                              ng-class="member.expand ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right' ">
+                                        </span>
+                        </td>
+
+                        <td class="col-sm-2"> {{ member.ProviderLName }}, {{ member.ProviderFName }} </td>
+                        <td class="col-sm-2">
+                            <div class="anchor" ng-click="viewMemberEligibility(member.IEHPID)">
+                                {{ member.MemberLName }}, {{ member.MemberFName }}
+                            </div>
+                        </td>
+                        <td class="col-sm-1"> {{ member.SubscriberNumber }} </td>
+                        <td> {{ member.DateOfEncounter }} </td>
+                        <td>
+                            <div ng-show="member.Complaint !='#NULL#'"> {{ member.Complaint }} </div>
+                            <div ng-show="member.Complaint =='#NULL#'"> Not Available </div>
+
+                        </td>
+                        <td>
+                            <div ng-show="member.Instructions !='#NULL#'"> {{ member.Instructions }} </div>
+                            <div ng-show="member.Instructions =='#NULL#'"> Not Available </div>
+                        </td>
+
+                    </tr>
+
+                    <tr ng-show="dataResultMessageTier2">
+                        <td colspan="100%">
+                            <danger-box message="{{dataResultMessageTier2}}"></danger-box>
+                        </td>
+                    </tr>
+
+                    <tr uib-collapse="!member.expand"
+                        class="row-striped roster-result-row line-item ng-scope    no-hover expanded-header"
+                        ng-animate="'animate'">
+                        <td colspan="100%">
+                            <table class="roster resultTier3 col-sm-12  table table-striped table-sortable"
+                                   ng-show="displayFullView ">
+                                <thead>
+                                <tr class="header sorting">
+                                    <th ng-click="order('MemberFName', reverse)"> DOS </th>
+                                    <th ng-click="order('MemberFName', reverse)"> Procedure </th>
+                                </tr>
+                                </thead>
+                                <tr ng-repeat="itemDataTier3 in rosterSubViewLevel3.List" class="no-hover expanded-header ">
+                                    <td> {{ itemDataTier3.ServiceDate }} </td>
+                                    <td> {{ itemDataTier3.ServiceType }} </td>
+                                </tr>
+                                <tr ng-show="dataResultMessageTier3">
+                                    <td colspan="100%">
+                                        <danger-box message="{{dataResultMessageTier3}}"></danger-box>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </tr>
+            </tbody>
+        </table>
+
+
+
+
+        <danger-box message="{{dataResultMessageTier1}}"></danger-box>
+
+    </div>
+
+    <danger-box message="{{errorMessage}}"></danger-box>
+
+
+</div>

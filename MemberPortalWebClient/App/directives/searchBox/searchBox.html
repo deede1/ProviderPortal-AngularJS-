@@ -1,0 +1,11 @@
+﻿<div class="input-group" style="width: 100%;">
+    <input ng-model="IdQuery" ng-change="checkType(IdQuery)" placeholder={{placeholder}} name={{inputname}} required>
+</div>
+<a class="clear" ng-click="clearInput()" ng-show="showClear">
+    <span class="close-btn glyphicon glyphicon-remove"></span>
+</a>
+<span class="search-type" ng-click="Clear()" ng-if="type"
+      ng-mouseenter="setShowClear(true)" ng-mouseleave="setShowClear(false)"
+      ng-style="{'opacity' : showClear ? 0 : 1}">{{type}}</span>
+
+

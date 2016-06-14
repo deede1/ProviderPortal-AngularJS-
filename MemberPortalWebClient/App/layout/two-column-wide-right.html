@@ -1,0 +1,16 @@
+﻿<div class="row contentContainer">
+
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12  col-lg-push-2 col-md-push-2  ">
+        <div class="content-pane white" ng-class="{'fullscreen':fullscreen}">	
+            <div ui-view="content"></div>
+        </div>
+    </div>
+
+    <div class=" col-md-2 col-lg-2   col-sm-12 col-xs-12  col-md-pull-10  col-xs-pull-0">
+        <div ui-view="navigation"></div>
+    </div>
+    <div debug-tool class="ng-cloak">
+        <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+    </div>
+
+</div>

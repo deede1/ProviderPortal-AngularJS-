@@ -1,0 +1,111 @@
+﻿<div> 
+  
+
+    <div class="row">
+        <label class="control-label col-sm-5"> {{'form_doctorName' | translate}}  </label>
+        <div class="col-sm-6 form-nonEditable">
+            {{elig.PcpName | obfuscateValue }}
+        </div>
+    </div> 
+
+
+
+
+    <div class="row">
+        <label class="control-label col-sm-5"> {{'form_providerID' | translate}}  </label>
+        <div class="col-sm-6 form-nonEditable">
+            {{elig.PcpId | obfuscateValue }}
+        </div>
+    </div> 
+
+
+    <div class="row">
+        <label class="control-label col-sm-5"> {{'form_county' | translate}}  </label>
+        <div class="col-sm-6 form-nonEditable">
+            {{elig.County }}
+        </div>
+    </div> 
+
+
+    <div class="row">
+        <label class="control-label col-sm-5"> {{'form_address' | translate}}  </label>
+        <div class="col-sm-6 form-nonEditable">
+
+            <a target="_blank" href="http://maps.google.com/maps?q='{{elig.PcpAddress1 +' '+ elig.PcpCity +', '+ elig.State  + ' ' + elig.PcpZip }}"
+               class=" hidden-sm hidden-md hidden-lg ">
+                {{elig.PcpAddress1}}
+                <br ng-if="CurrentEligibility.PcpAddress2 != ''" />
+                {{elig.PcpAddress2}}
+                <br /> {{elig.PcpCity}}, {{elig.State}} {{elig.PcpZip}}
+            </a>
+
+
+            <div class="hidden-xs fontWeightNormal pad0">
+                {{elig.PcpAddress1}} {{elig.PcpAddress2}}
+                <span ng-if="elig.PcpCity != ''">
+                    <br />
+                    {{elig.PcpCity}}, {{elig.State}}  {{elig.PcpZip}}
+                </span>
+            </div>
+        </div>
+    </div> 
+
+
+    <div class="row">
+  
+
+
+        <label class="control-label col-sm-5"> {{'form_phone' | translate}}  </label>
+
+         
+
+        <div class="col-sm-6 form-nonEditable">
+
+
+            <a href="tel:{{elig.PcpPhone}}" class="hidden-sm hidden-md hidden-lg ">{{elig.PcpPhone}}</a>
+            <div class="hidden-xs fontWeightNormal pad0">{{elig.PcpPhone}}  </div>
+
+        </div>
+
+
+
+    </div> 
+
+    <div class="row">
+        <label class="control-label col-sm-5"> {{'form_afterHoursPhone' | translate}}  </label>
+        <div class="col-sm-6 form-nonEditable form-nonEditable"> 
+            <a href="tel:{{elig.PcpPhoneAfterHours}}" class="hidden-sm hidden-md hidden-lg ">{{elig.PcpPhoneAfterHours}}</a>
+            <div class="hidden-xs fontWeightNormal pad0">{{elig.PcpPhoneAfterHours}}  </div>  
+        </div>
+    </div>
+    <div class="row infoIcon">
+        <div id="IPADef" class="infoBox" style="top:-145px;">
+            <info-box message=" {{ 'icohelp_IPANetworkProvider' | translate }}  ">
+            </info-box>
+        </div>
+        <label class="control-label col-sm-5">
+            {{'form_IPAProvider' | translate}}
+            <i id="iconIPADef" class="glyphicon glyphicon-question-sign @*iconOnLeft*@" onclick="toggleBubble('IPADef');"    >
+            </i>
+        </label>
+        <div class="col-sm-6 form-nonEditable">
+            {{elig.IpaDescription}} ({{elig.PcpIpa}})
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-sm-5"> {{'form_hospital' | translate}}  </label>
+        <div class="col-sm-6 form-nonEditable">
+            {{elig.HospitalName }} ({{elig.HospitalId}})
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-sm-5"> {{'form_plan' | translate}}  </label>
+        <div class="col-sm-6 form-nonEditable">
+            {{elig.LobDescription }}
+        </div>
+    </div>
+ 
+
+</div> 
+ 
+ 

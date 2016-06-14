@@ -1,0 +1,36 @@
+﻿<form class="pp-form text-left" name="submitForm" ng-submit="submit(submitForm.$valid)" novalidate>
+	<h1 class="pad-md text-center">
+		Step 3: <span class="step-color">Submit</span>
+	</h1>
+
+	<div class="help-text text-center">Select 3 security questions.</div>
+	<ol class="list-group" ng-repeat="pair in form.QaPairs">
+		<li class="clearfix list-group-item with-background">
+
+			<div class="col-md-12">
+				<label class="bold-lbl req">Question #{{$index + 1}}</label>
+				<select class="form-control" name="question-{{$index}}" ng-change="filterQuestions()" ng-model="pair.QuestionId" required>
+					<option ng-repeat="question in verifyQuestions" value="{{question.id}}" ng-disabled="selectedQuestions.indexOf(question.id) !== -1">{{question.question}}</option>
+				</select>
+				<div class="invalid-text"></div>
+				<div class="returned-invalid" ng-if="pair.duplicate === true && pair.duplicate !== undefined">Duplicate Question</div>
+
+			</div>
+
+		</li>
+		<li class="clearfix list-group-item with-background">
+
+			<div class="col-md-12">
+				<label class="bold-lbl req">Answer</label>
+				<input class="form-control" ng-model="pair.Answer" required type="text" value=""/>
+				<div class="invalid-text">Please enter an answer for the selected question.</div>
+			</div>
+
+		</li>
+
+	</ol>
+	<div class="form-group col-md-3 float-none center-block">
+		<button class="btn btn-block btn-lg btn-primary" type="submit">Continue</button>
+	</div>
+
+</form>									 

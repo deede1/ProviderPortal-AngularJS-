@@ -1,0 +1,282 @@
+﻿<div ng-show="data.results.length" class="eligibility-search-results">
+    <div>
+        
+        <div class="results-header">Search Results</div>
+
+        <div class="resultsHeaderVerificationID">
+            Verification Number: {{data.VerificationId}} on {{data.timestamp | date:'MM/dd/yyyy'}} at {{data.timestamp | date:'h:mm a'}}
+        </div>
+    </div>
+    <table id="eligibilitySearchResultsTable" class="roooster table table-striped table-sortable padLeft0" ng-show="data.results.length">
+        <tbody>
+            <tr ng-repeat-start="item in data.results ">
+
+                <td colspan="100%" style="position:relative" ng-class="{eligResMemNotFound : !item.LastName }">
+
+                    <div ng-if="item.EligibilityStatusDescription != 'On Hold'"
+                         class="eligSearchCriteriaContainer"
+                         ng-class="{            'eligEligible': item.EligibilityStatusDescription == 'Eligible',
+                                                 'eligDisenrolled': item.EligibilityStatusDescription == 'On Hold'
+                                                                 || item.EligibilityStatusDescription == 'Disenrolled'      }">
+
+
+                        <div class="eligSearchCriteria col-sm-12" ng-show="!item.LastName">
+                            <span class="padLeft5">
+                                <span style="width: 25px"></span>
+                                <span ng-switch on="item.RequestedType">
+                                    <span ng-switch-when="LastNameAndDateOfBirth">   Last Name:</span>
+                                    <span ng-switch-default>  {{ item.RequestedType | uppercase }}:</span>
+                                </span>
+
+                                {{ item.RequestedValue | uppercase }}
+
+                                <span ng-if="item.RequestedType == 'LastNameAndDateOfBirth'">  DOB:{{ item.RequestedDateOfBirth }}  </span>
+
+                                DOS:{{ item.RequestedDateOfService }}
+                                  
+                                Not found, please check your request.
+                            </span>
+                        </div>
+
+
+
+
+
+                        <div class="eligNotifications col-sm-6" ng-show="item.LastName && item.EffectiveDate && memberNotificationsList[item.IehpId].length >3">
+                            <i class="glyphicon glyphicon-star"></i> NOTIFICATIONS: {{ memberNotificationsList[item.IehpId] }}
+                        </div>
+
+                        <div class="eligNotifications col-sm-4" ng-show="!item.LastName">
+                            <!--MEMBER NOT FOUND!-->
+
+                        </div>
+                    </div>
+                    <div class="eligibilityResPanel col-sm-4 pad0"
+                         ng-class="{ 'eligInvalidResult' : item.EligibilityStatusDescription == 'On Hold'}"
+                         ng-show="item.LastName">
+                        <div class="row ">
+                            <label class="col-sm-6"> Member Name </label>
+                            <div ng-show="item.EffectiveDate"
+                                 class="col-sm-6 anchor urlLink padLeft0"
+                                 ng-click="viewMemberDetails(
+                                     item.FirstName,
+                                     item.LastName,
+                                     item.IehpId,
+                                     item.Address1,
+                                     item.Address2,
+                                     item.City,
+                                     item.State,
+                                     item.Zip,
+                                     item.Phone,
+                                     item.SpokenLanguage )"
+                                 uib-popover="Click to view member demographics"
+                                 popover-trigger="mouseenter"
+                                 popover-append-to-body="true">
+                                {{ item.LastName }}, {{ item.FirstName }}
+                            </div>
+                            <div ng-show="!item.EffectiveDate"
+                                 class="col-sm-6  padLeft0">
+                                {{ item.LastName }}, {{ item.FirstName }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-6"> Eligible </label>
+                            <div class="col-sm-6 padLeft0"
+                                 ng-show="item.LastName != null"
+                                 ng-class="{ 'eligEligible':    item.EligibilityStatusDescription == 'Eligible',
+                                                 'eligDisenrolled': item.EligibilityStatusDescription == 'On Hold'
+                                                                 || item.EligibilityStatusDescription == 'Disenrolled' }">
+
+                                {{ item.EligibilityStatusDescription }} on {{ item.DateOfService }}
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="item.EffectiveDate">
+                            <label class="col-sm-6"> Gender/ DOB </label>
+                            <div class="col-sm-6 padLeft0"> {{ item.Gender }} {{ item.DateOfBirth | date:'MM/dd/yyyy'}} </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-6"> IEHP ID </label>
+                            <div class="col-sm-6 padLeft0"> {{ item.IehpId }}</div>
+                        </div>
+                        <div class="row" ng-show="item.EffectiveDate">
+                            <label class="col-sm-6"> CIN </label>
+                            <div class="col-sm-6 padLeft0"> {{ item.Cin }} </div>
+                        </div>
+                        <div class="row" ng-show="item.EffectiveDate">
+                            <label class="col-sm-6"> Aid Code/ Cnty </label>
+                            <div class="col-sm-6 padLeft0"> {{ item.AidCode }} / {{ item.County.substring(0,10)}} ({{item.CountyId}})  </div>
+                        </div>
+                    </div>
+
+
+                    <div class="eligibilityResPanel col-sm-3 pad0" ng-show="item.EffectiveDate">
+                        <div ng-show="item.Lob == 'PGM'">
+                            <div class="row">
+                                <label class=" col-sm-6">Plan </label>
+                                <div class="col-sm-6 pad0"> Healthy Kids </div>
+                            </div>
+                            <div class="row">
+                                <label class=" col-sm-6 ">Co-Pay Well Visit </label>
+                                <div class="col-sm-6 pad0" ng-show="item.CoPayWell == 'N/A'"> $0.00 </div>
+                                <div class="col-sm-6 pad0" ng-show="item.CoPayWell != 'N/A'"> ${{ item.CoPayWell }} </div>
+
+                            </div>
+                            <div class="row">
+                                <label class=" col-sm-6 ">Co-Pay Sick Visit </label>
+                                <div class="col-sm-6 pad0" ng-show="item.CoPaySick == 'N/A'">  $0.00 </div>
+                                <div class="col-sm-6 pad0" ng-show="item.CoPaySick != 'N/A'">  $ {{item.CoPaySick  }} </div>
+                            </div>
+                            <div class="row">
+                                <label class=" col-sm-6 ">Co-Pay ER Visit </label>
+                                <div class="col-sm-6 pad0" ng-show="item.CoPayEr == 'N/A'">  $0.00</div>
+                                <div class="col-sm-6 pad0" ng-show="item.CoPayEr != 'N/A'">  ${{ item.CoPayEr }} </div>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="item.Lob != 'PGM'">
+                            <label class="col-sm-6 "> Plan/Co-Pay </label>
+                            <div ng-show="item.Lob !== 'MED' && !item.LobDescription == 'Cal MediConnect'" class="col-sm-6 pad0"> {{ item.LobDescription }} / $XX.XX </div>
+                            <div ng-show="item.Lob !== 'MED' && item.Lob  == 'CMC'" class="col-sm-6 pad0"> MediCare/ $0.00 </div>
+                            <div ng-show="item.Lob  == 'MED' && item.PlanCat !== 'O'" class="col-sm-6 pad0"> Medi-Cal/ $0.00 </div>
+                            <div ng-show="item.Lob  == 'MED' && item.PlanCat  == 'O'" class="col-sm-6 pad0"> Open Access/ $0.00 </div>
+                        </div>
+
+
+                        <div class="row" ng-show="item.LobDescription ='MediCare' && (item.AidCode =='MF' || item.AidCode =='MD' || item.AidCode == 'MN')">
+                            <label class="col-sm-6 padRight0"> Medicare </label>
+                            <div class="col-sm-6 pad0">  CalMediConnect </div>
+                        </div>
+
+                        <div class="row" ng-show="item.LobDescription ='MediCare' &&  (item.AidCode =='MD')">
+                            <label class=" col-sm-6 padright0">
+                                Eff. Date W/Medi-Cal
+                            </label>
+                            <div class="col-sm-6 pad0"> {{ item.datemedical }} - {{ item.asdda }} !!! </div>
+                        </div>
+
+
+                        <div class="row" ng-show="item.LobDescription =='Medi-Cal' ">
+                            <label class=" col-sm-6 padright0">
+                                Medicare HIC#
+                            </label>
+                            <div class="col-sm-6 pad0"> {{ item.HICNumber }} !!! </div>
+                        </div>
+
+
+
+
+
+                        <div class="row">
+                            <label class="col-sm-6 padRight0"> Assigned PCP </label>
+
+
+                            <div class="col-sm-6 pad0 anchor urlLink"
+                                 ng-show="item.MedicareHIC != null && item.LobDescription == 'Medi-Cal'"
+                                 ng-click="viewPCPDetails( item )">
+                                <span ng-show="item.LobDescription =='Open Access'">SEE YOUR MEDICARE DOCTOR </span>
+                            </div>
+
+                            <div class="col-sm-6 pad0 anchor urlLink"
+                                 ng-show="item.MedicareHIC == null && item.LobDescription != 'Medi-Cal'"
+                                 ng-click="viewPCPDetails( item )"
+                                 uib-popover=" Click to view PCP details"
+                                 popover-trigger="mouseenter"
+                                 popover-append-to-body="true">
+                                <span ng-show="item.LobDescription !='Open Access'"> {{ item.PcpName  }} </span>
+                                <span ng-show="item.LobDescription =='Open Access'">Open Access</span>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-6 "> PCP ID </label>
+                            <div class="col-sm-6 pad0"> {{ item.PcpId }} </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-6 padRight0"> PCP Phone </label>
+                            <div class="col-sm-6 pad0"> {{ item.PcpPhone }} </div>
+                        </div>
+                    </div>
+
+                    <div class="eligibilityResPanel col-sm-4 pad0" ng-show="item.EffectiveDate">
+                        <div class="row">
+                            <label class="col-sm-6 pad0"> Eff. Date w/PCP </label>
+                            <div class="col-sm-6 pad0"> {{ item.EffectiveDate }} </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-6 pad0"> Assigned IPA </label>
+                            <div class="col-sm-6 pad0 anchor urlLink"
+                                 uib-popover="Click to view IPA details"
+                                 ng-click="viewAssignedIPA( item.Ipa, item.HospitalId)"
+                                 popover-trigger="mouseenter"
+                                 popover-append-to-body="true">{{ item.IpaDescription }}</div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-6 pad0"> Assigned Hospital </label>
+                            <div class="col-sm-6 pad0 anchor urlLink"
+                                 uib-popover=" Click to viev Hospital details"
+                                 ng-click="viewAssignedHospital( item.Ipa, item.HospitalId )"
+                                 popover-trigger="mouseenter"
+                                 popover-append-to-body="true">{{ item.HospitalName }}</div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-6 pad0"> Assigned Lab </label>
+                            <div class="col-sm-6 pad0"> {{ item.PcpAssignedLab }}</div>
+                        </div>
+                    </div>
+
+                    <div class="eligibilityResPanel eligIcons col-sm-1 padLeft0 padRight0 non-printable" ng-show="item.EffectiveDate">
+                        <div class="row padTop20">
+                            <img class="icon"
+                                 uib-popover="Click" to view Urgent Care List"
+                                 ng-show="ProviderType !='ANC_NC'"
+                                 popover-trigger="mouseenter"
+                                 popover-append-to-body="true"
+                                 src="content/images/ico_urgentCareList.png" ng-click="viewUrgentCareList( item.IehpId )" />
+
+                            <img class="icon"
+                                 uib-popover="Medical Healthcare Record"
+                                 ng-show="ProviderType !='ANC_NC' && item.MedicalHistoryOptOut == false"
+                                 popover-trigger="mouseenter"
+                                 popover-append-to-body="true"
+                                 src="content/images/ico_medicalHistory.png" ng-click="viewMemberMedicalHistory( item.IehpId , item.DateOfService )" /><br />
+
+
+
+                            <img class="icon"
+                                 uib-popover="Member Requested Access to be Restricted"
+                                 ng-show="ProviderType !='ANC_NC' && item.MedicalHistoryOptOut "
+                                 popover-trigger="mouseenter"
+                                 popover-append-to-body="true"
+                                 src="content/images/ico_medicalHistory_disabled.png" ng-click="viewMemberMedicalHistory( item.IehpId , item.DateOfService )" /><br />
+
+
+
+
+                            <img class="icon"
+                                 uib-popover="Care Plans & HRA"
+                                 ng-show="ProviderType !='ANC_NC'"
+                                 popover-trigger="mouseenter"
+                                 popover-append-to-body="true"
+                                 src="content/images/ico_carePlansHRA.png" ng-click="viewCarePlansHRA( item.IehpId )" />
+                            <img class="icon"
+                                 uib-popover="Print ID Card"
+                                 ng-show="ProviderType !='ANC_NC'"
+                                 popover-trigger="mouseenter"
+                                 popover-append-to-body="true"
+                                 src="content/images/ico_printIDCard.png" ng-click="viewMemberIDCard( item.IehpId,  item.Lob)" />
+                        </div>
+                    </div>
+
+
+
+                </td>
+            </tr>
+            <tr></tr>
+            <tr uib-collapse="!item.expand" ng-repeat-end="" class="details"></tr>
+
+        </tbody>
+    </table>
+</div>

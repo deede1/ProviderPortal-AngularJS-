@@ -1,0 +1,59 @@
+﻿ 
+<div class="posRelative">
+ 
+
+    <roster-title-header title="Direct Specialty Roster (Low Desert) "></roster-title-header>
+
+
+
+
+    <div class="row alignCenter">
+
+
+
+        <results-pagination ng-show="data.RosterList"></results-pagination>
+
+
+        <table class="roster col-sm-12">
+            <thead>
+            <tr class="header">
+                <th>Name / Provider ID/ Age Limits</th>
+
+                <th>Address</th>
+                <th>City </th>
+                <th>Zip </th>
+                <th>Phone </th>
+                <th>Fax </th>
+                <th>Hospital </th>
+                <th>Medicare </th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in data.RosterList   ">
+                <td>{{ item.MemberFName }} {{ item.MemberLName }} </td>
+
+                <td>
+                    <div class="anchor" ng-click="viewMemDetails( item.IehpId)">
+                        {{ item.Address }} <i class="  glyphicon glyphicon-info-sign"></i>
+                    </div>
+                </td>
+                <td>{{ item.DateOfBirth }} </td>
+                <td>{{ item.MemberPhone }} </td>
+                <td>{{ item.DrugName }} </td>
+                <td>{{ item.DrugName }} </td>
+                <td>{{ item.DrugName }} </td>
+                <td>{{ item.DrugName }} </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div simple-ajax-loader show="loading"></div>
+    <danger-box message="{{errorMessage}}"></danger-box>
+
+                           
+
+</div>

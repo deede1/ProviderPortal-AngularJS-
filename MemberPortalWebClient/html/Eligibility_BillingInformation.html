@@ -1,0 +1,32 @@
+﻿ TO BE IMPLEMENTED / OR TEMPORARILY REFERENCE https://www.iehp.org/Secure_Site/Eligibility/Scripts/billing.asp?IPA=01I&hosp=02&DOS=12%2F08%2F2015
+
+<div class="posRelative">
+    <div class="rosters_icons">
+        <ul class="ulLiHorizontal">
+            <li><img src="Content/Images/ico_print.jpg"/></li>
+            <li><img src="Content/Images/ico_excel.jpg"/></li>
+
+        </ul>
+    </div> 
+
+    <h1 class="pageTitle"> Billing Information  </h1> 
+
+
+    <div class="row alignCenter"> 
+        <table class="roster col-sm-12">
+            <thead>
+                <tr class="header">
+                    <th>Name</th>
+               
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in data.RosterList   ">
+                    <td>{{ item.MemberFName }}  {{   item.MemberLName }} </td> 
+                  
+                </tr>
+            </tbody>
+        </table> 
+    </div>               
+
+</div>

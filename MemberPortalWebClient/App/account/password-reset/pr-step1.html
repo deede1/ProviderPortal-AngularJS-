@@ -1,0 +1,44 @@
+﻿<h1 class="pad-md text-center">
+	Step 1: <span class="step-color">Member Details</span>
+</h1>
+
+<form class="pp-form text-left" name="changePasswordForm" ng-submit="submit(changePasswordForm)" novalidate>
+	<div class="form-section">
+		<ol class="list-group">
+			<li class="clearfix list-group-item slim-grid">
+				<div class="col-md-6 col-xs-12 text-left">
+					<label class="bold-lbl req">Email:</label>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<input class="form-control" name="email" ng-model="form.email" ng-required="true" tabindex="1" type="email">
+					<div class="invalid-text">
+						Please verify you have entered a valid email.
+					</div>
+					
+				</div>
+			</li>
+			<li class="clearfix list-group-item slim-grid">
+				<div class="col-md-6 col-xs-12 text-left">
+					<label class="bold-lbl req">Username:</label>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<input class="form-control" name="username" ng-model="form.username" ng-required="true" tabindex="2" type="text">
+					<div class="invalid-text">
+						Please verify you have entered a valid username.
+					</div>
+
+				</div>
+			</li>
+		</ol>  
+	</div>
+
+	<div class="center-block col-md-3 float-none form-group">
+		<button class="btn btn-block btn-lg btn-primary" tabindex="4" type="submit">Continue</button>
+	</div>
+</form>
+
+<uib-alert close="alert=''" ng-hide="!alert" type="danger">
+	{{alert}}
+</uib-alert>
+
+

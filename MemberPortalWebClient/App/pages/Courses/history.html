@@ -1,0 +1,196 @@
+﻿ 
+
+<div class="row contentContainer frmSignIn">
+
+    <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15">
+        <div class="contentPanel  ">
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/HealthCare/Courses/Available">
+                <div class="panelTile alignCenter col-xs-6">
+                    {{ 'nav_availableCourses' | translate}}
+                </div>
+            </a>
+
+            <a href="App/HealthCare/Courses/Requested">
+                <div class="panelTile alignCenter col-xs-6  ">
+                    {{ 'nav_requestedCourses' | translate}}
+                </div>
+            </a>
+
+            <a href="App/HealthCare/Courses/Enrolled">
+                <div class="panelTile col-xs-6 alignCenter">
+                    {{ 'nav_enrolledCourses' | translate}}
+                </div>
+            </a>
+
+            <a href="App/HealthCare/Courses/History">
+                <div class="panelTile col-xs-6 alignCenter panelSelected">
+                    {{ 'nav_courseHistory' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthCare/HASurvey/History">
+                <div class="panelTile alignCenter col-xs-6">
+                    {{ 'subnav_HealthAssessment' | translate}}
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12  col-lg-push-3 col-md-push-3">
+
+        <!--<div class="contentPanel subNavLink">
+            <ul>
+                <li><a href="App/HealthCare/Courses/Available" class="subNavLink">{{'nav_availableCourses' | translate }}</a> </li>
+                <li><a href="App/HealthCare/Courses/Requested" class="subNavLink">{{'nav_requestedCourses' | translate }}</a> </li>
+                <li><a href="App/HealthCare/Courses/Enrolled" class="subNavLink"> {{'nav_enrolledCourses' | translate }}</a> </li>
+               <li class="subNavSelected"> {{'nav_courseHistory' | translate }} </li>
+            </ul>
+        </div>-->
+
+
+        <div class="panel">
+            <div class="padLeft15 padTop15">
+                <h1 class="pageTitle">      {{"page_courses_courseHistory_title" | translate}}    </h1>
+                <p class="pageIntro">       {{"page_courses_courseHistory_intro" | translate}}    </p>
+                <p class="pageDisclaimer">  {{"page_courses_courseHistory_disclaimer" | translate}}</p>
+            </div>
+
+
+
+
+            <div class="col-md-12 pad0">
+           
+
+
+                <!--<ul class="sessionDetails" ng-show="showDetails">
+                    <li class="courseHeader chDate">Course Date </li>
+                    <li class="courseHeader chTime">Time </li>
+                    <li class="courseHeader chLocation">Location </li>
+                    <li class="courseHeader chFee">Course Fee </li>
+                    <li class="courseHeader chSeats">Seats Available </li>
+                </ul>-->
+                <!--<div class="header">Courses</div>-->
+
+                <table class="col-xs-12  table table-striped table-sortable">
+                    <tr class="additionalCourseHeader  header sorting">
+                        <!--<th style="width:75px;" ng-click="order('date', reverse)">   {{'page_healthEd_enrolledDate' | translate}}  </th>-->
+
+                        <th style="width:75px;" ng-click="order('date', reverse)">   {{'page_healthEd_courseStartDate' | translate}}  </th>
+                        <th style="width:75px;" ng-click="order('date', reverse)">   {{'page_healthEd_courseEndDate' | translate}}  </th>
+
+                        <th ng-click="order('location_City', reverse)"> {{'form_course' | translate}} </th>
+                        <th ng-click="order('time', reverse)">  {{'form_time' | translate}}</th>
+                        <!--<th ng-click="order('fee', reverse)">  {{'form_fee' | translate}}</th>-->
+
+                        <th ng-click="order('location_Address1', reverse)">  {{'page_healthEd_location' | translate}} </th>
+                        <th> {{'form_header_language' | translate}} </th>
+                        <th> {{'form_status' | translate}} </th>
+                    </tr>
+                    <tr ng-repeat="Section in historyCourses">
+                        <!--<td> {{ Section.EnrolledDate  | date:'MM/dd/yy' }}   </td>-->
+
+                        <td> {{ Section.StartDate  | date:'MM/dd/yy' }}   </td>
+                        <td> {{ Section.EndDropDate  | date:'MM/dd/yy' }}   </td>
+
+
+
+                        <td> {{ Section.Name }}</td>
+                        <td> {{ timeConvert(Section.StartTime) }} - {{ timeConvert(Section.EndTime) }} </td>
+                        <!--<td> {{ Section.Fee }}</td>-->
+                        <!--<td
+                        ng-if="Section.IsCorrespondenceCourse"> {{ 'page_isCorrespondenceCourse' |translate}} </td>-->
+
+                        <td class=" tdclickable">
+                            <div ng-click="showMapForCourseSection(Section.SectionId , Section.Location )">
+                                <strong>{{ Section.Description}}</strong> <br />
+                                {{ Section.Location  }}
+                            </div>
+                        </td>
+                        <td>{{ Section.Language }}</td>
+                        <td class="history_{{Section.Grade}}"> {{ Section.Grade }} </td>
+                    </tr>
+                </table>
+
+
+                <div ng-if="loading" class="padTop50">
+                    <simple-ajax-loader show="loading"></simple-ajax-loader>
+                </div>
+                <info-box message="{{infoMessage}}"></info-box>
+                <danger-box message="{{errorMessage}}"></danger-box>
+
+
+            </div>
+
+            <!--</div>-->
+            <div debug-tool data="data" class="ng-cloak"></div>
+        </div>
+    </div>
+
+    <!--  place this in a directive per HealthRecords Category -->
+    <div class="contentLeft leftPanel_large col-lg-3 col-md-3   col-sm-12  col-lg-pull-9 col-md-pull-9 col-sm-pull-0 hidden-xs">
+        <div class="contentPanel leftPanel_large">
+
+
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/HealthCare/Courses/Available">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_availableCourses' | translate}}</h2>
+                    <i class="btn_bak_courses_available" />
+                </div>
+            </a>
+
+
+            <a href="App/HealthCare/Courses/Requested">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_requestedCourses' | translate}}</h2>
+                    <i class="btn_bak_courses_scheduled" />
+                </div>
+            </a>
+
+            <a href="App/HealthCare/Courses/Enrolled">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_enrolledCourses' | translate}}</h2>
+                    <i class="btn_checkMark" />
+                </div>
+            </a>
+
+            <a href="App/HealthCare/Courses/History">
+                <div class="panelTile alignRight panelSelected">
+                    <h2>{{ 'nav_courseHistory' | translate}}</h2>
+                    <i class="btn_bak_courses_history" />
+                </div>
+            </a>
+            <a href="App/HealthCare/HASurvey/History">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'subnav_HealthAssessment' | translate}}</h2>
+                    <i class="btn_bak_health_assessment" />
+                </div>
+            </a>
+
+            <!--<div class="pageBannerContainer" ng-controller="SideNavCtrl">
+                <div ng-if="currentLanguage == 'en-us'">
+                    <div class="leftBanner_TOCL_Yellow textShadow">Power with knowledge. Watch our "<span class="fontWhite">How to Get Care</span>" videos!</div>
+                    <div class="leftBanner_Verdana_White">View your health records in this self service portal.</div>
+                </div>
+                <div ng-if="currentLanguage == 'es-mx'">
+                    <div class="leftBanner_TOCL_Yellow textShadow">Informarse es la clave. ¡Vea nuestros videos sobre  "<span class="fontWhite">Cómo obtener Atención Médica</span>"!</div>
+                    <div class="leftBanner_Verdana_White">Revise sus registros médicos en este portal de autoservicio.</div>
+                </div>
+                <div id="clickYT" class="leftBannerH3 center">
+                    <img class="vertBanner" ng-src="{{urlBase}}/Content/Images/panel_MedicalClaims.png" /> <br /><br />
+                    <a target="_new" href="https://www.youtube.com/channel/UCrX2w-mgNlvOmyLSBgGCP5A"><img ng-src="{{urlBase}}/Content/Images/panel_youTube.png" /></a>
+                </div>
+            </div>-->
+
+
+        </div>
+    </div>
+
+</div>
+
+

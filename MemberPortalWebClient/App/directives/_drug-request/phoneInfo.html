@@ -1,0 +1,12 @@
+﻿<ng-form name="phoneForm">
+    <label class="control-label" ng-class="myStyle" ng-transclude></label>
+    <div class="col-sm-9 col-print-9">
+        <div class="input-group">
+            <input type="text" name="areaCode" ng-model="phoneNumber.areaCode" placeholder="000" class="form-control" style="width:50px;" maxlength="3" ng-disabled="successful" />
+            <input type="text" name="prefix" ng-model="phoneNumber.prefix" placeholder="000" class="form-control" style="width:50px;" maxlength="3" ng-disabled="successful" />
+            <input type="text" name="lineNumber" ng-model="phoneNumber.lineNumber" placeholder="0000" class="form-control" style="width:58px;" maxlength="4" ng-disabled="successful" />
+        </div>
+        <span class="fontRed" ng-show="form.submitted && invalidNumber && setRequired" ng-required="setRequired">{{"page_healthEd_required_field" | translate}}</span>
+        <span class="fontRed" ng-show="!setRequired && (phoneForm.areaCode.$touched || phoneForm.prefix.$touched || phoneForm.lineNumber.$touched) && invalidNumber">{{"form_invalidPhoneFormat" | translate}}</span>
+    </div>
+</ng-form>

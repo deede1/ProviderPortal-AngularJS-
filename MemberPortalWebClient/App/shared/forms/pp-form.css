@@ -1,0 +1,191 @@
+﻿/* _PPFORM
+ .-------.  .-------.           ________      ,-----.     .-------.     ,---.    ,---. 
+\  _(`)_ \ \  _(`)_ \         |        |   .'  .-,  '.   |  _ _   \    |    \  /    | 
+| (_ o._)| | (_ o._)|         |   .----'  / ,-.|  \ _ \  | ( ' )  |    |  ,  \/  ,  | 
+|  (_,_) / |  (_,_) /         |  _|____  ;  \  '_ /  | : |(_ o _) /    |  |\_   /|  | 
+|   '-.-'  |   '-.-'          |_( )_   | |  _`,/ \ _/  | | (_,_).' __  |  _( )_/ |  | 
+|   |      |   |              (_ o._)__| : (  '\_/ \   ; |  |\ \  |  | | (_ o _) |  | 
+|   |      |   |              |(_,_)      \ `"/  \  ) /  |  | \ `'   / |  (_,_)  |  | 
+/   )      /   )              |   |        '. \_/``".'   |  |  \    /  |  |      |  | 
+`---'      `---'              '---'          '-----'     ''-'   `'-'   '--'      '--' 
+                                                                                      
+*/
+.help-text { margin: 20px auto; }
+
+button[type='submit'] { margin: auto; }
+
+.remove-corner {
+    top: -1px;
+    right: -5px;
+    height: 25px;
+    width: 25px;
+    font-size: 11px;
+    position: absolute;
+    padding-left: 8px;
+    padding-top: 7px;
+}
+
+.bold-lbl {
+	font-size: .8rem;
+	font-weight: bold !important;
+	margin: 0;
+}
+
+.small-lbl {
+	font-size: .68rem;
+	font-weight: bold !important;
+	margin: 0;
+}
+
+																																																			 
+																								 
+.pp-form .list-group .bold-lbl { line-height: 30px; }
+
+.pp-form label { font-weight: normal !important; }
+
+ .pp-form span.lbl {
+	color: #000;
+	font-size: .8em;
+	font-weight: normal !important;
+	margin: 0;
+}
+
+
+
+.pp-form select {
+	max-width: 100%;
+	width: 100%;
+}
+
+.btn:focus, .btn:active {
+	box-shadow: none;
+	outline: none;
+}
+.pp-form input[type='checkbox'] {
+	box-shadow: none;
+}
+
+.btn[disabled], .btn:disabled {
+	color: white !important;
+	cursor: no-drop !important;
+}
+
+.input-group input.invalid { border: 1px solid #F44336; }
+
+.pp-form .glyphicon-remove {
+	right: 0;
+	top: -1px !important;
+}
+
+.pp-form .col-md-1 { padding: 0; }
+
+@media (max-width: 600px) {
+	.pp-form .col-md-1 { padding: inherit !important; }
+}
+
+.glyphicon-remove.center-icon { top: 1px !important; }
+
+.glyphicon-search { top: -2px !important; }
+
+.redAster { color: #F44336; }
+
+
+.pp-form form { padding: 0; }
+
+.pp-form select, .pp-form input {
+	font-size: .8rem;
+	height: 30px;
+	padding-bottom: 0;
+	padding-top: 0;
+	padding-right: 0px;
+}
+
+.pp-form .input.icon {
+	right: -3px;
+	top: 0;
+}
+
+/*@media screen and (max-width: 1200px) {
+	.pp-form .datepicker .icon.input {
+		display: none;
+	}
+}	*/
+
+.pp-form .input-group { width: 100%; }
+
+.advanced-searchpane .active .datepicker .min-range, .advanced-searchpane .active .datepicker .max-range { opacity: 1; }
+
+.advanced-searchpane .datepicker .min-range, .advanced-searchpane .datepicker .max-range { opacity: .3; }
+
+.advanced-searchpane .datepicker { top: -4px; }
+
+.pp-form input[type='text'], input[type='email'], input[type='password'] { width: 100%; }
+
+.pp-form .close-btn { top: 8px; }
+
+.pp-form .search-type {
+	position: absolute;
+	right: 8px;
+	top: 5px;
+}
+
+.pp-form .list-group-item { border-radius: 0; }
+
+.pp-form .list-group-item.with-background {
+	background: #f9f9f9;
+	border: none;
+}
+
+.pp-form .list-group-item.with-background input { border: 1px solid #CACACA; }
+
+.pp-form .checkbox { clear: both; }
+
+.pp-form .checkbox label {
+	/*font-size: 1.4rem;*/
+	font-size: 1rem;
+	margin-bottom: 6px;
+	margin-left: 6px;
+}
+
+.pp-form .form-group.sub { margin-top: 15px; }
+
+.pp-form .checkbox input {
+	margin-left: -35px;
+	top: -7px;
+}
+
+.sub ol { list-style: none; }
+
+.pp-form .checkbox .sub input[type="radio"],  
+.pp-form.checkbox .sub input[type="checkbox"] {
+	margin-right: 8px;
+	margin-top: -40px;
+	position: relative;
+	top: 11px;
+}
+
+option:disabled { color: #dedede; }
+
+.PPView .pp-form .btn-group .btn-radio {
+	background: #fff;
+	color: #333;
+	font-size: 15px;
+	height: 32px;
+	line-height: 19px;
+	margin: 5px 1px !important;
+	transition: 200ms all ease;
+}
+
+.PPView .pp-form .btn-group .btn-radio.active, .PPView .btn-group .btn-radio:hover {
+	background: #007AC9;
+	box-shadow: none;
+	color: white;
+}
+
+.PPView .btn-group.radio-trio .btn-radio {
+	margin: -5px 1px 8px !important;
+	/*  height: 30px;
+      width: 29px;
+      line-height: 19px;
+      text-indent: -3px;	 */
+}

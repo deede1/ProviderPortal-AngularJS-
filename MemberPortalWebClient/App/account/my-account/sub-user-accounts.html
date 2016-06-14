@@ -1,0 +1,252 @@
+﻿<div simple-ajax-loader class="fixed-loader" show="loader"></div>
+<div class="">
+	<div class="form panel">
+		<h1 class="pageTitle">Sub User Accounts</h1>
+	</div>
+	<section>
+		<uib-alert close="alert.success=''" ng-hide="!alert.success" type="success">
+			{{alert.success}}
+		</uib-alert>
+
+		<div ng-hide="addAccount || editAccount.show">
+								
+			<table class="col-sm-12 results-animate table-padding table table-striped">
+				<thead>
+					<tr class="header">
+						<th>Login ID</th>
+						<th>Full Name</th>
+						<th>Email</th>
+						<th>Account Type</th>
+						<th>Last Update</th>
+						<th>Last Login</th>
+						<th>Active</th>
+						<th class="non-sortable"></th>
+					</tr>
+				</thead>  
+				<tbody>
+
+					<tr class="line-item"
+							ng-animate="'animate'"
+							ng-repeat="account in subAccountList">
+						<td>{{ ::account.UserName}}</td>
+						<td class="capitalize">{{ ::account.FirstName}} {{ ::account.LastName}}</td>
+						<td>{{ ::account.EmailAddress}}</td>
+						<td>{{ ::account.RoleName}}</td>
+						<td>{{ ::account.UpdatedOn | date:'MM/dd/yyyy'}}</td>
+						<td>{{ ::account.LastLogin | date:'MM/dd/yyyy'}}</td>
+						<td>{{ ::account.ActiveFlag ? 'Yes' : 'No'}}</td>
+						<td>
+							<button ng-if="account.RoleName !== 'Owner'" ng-click="editAccount.click($index)" class="btn edit-btn" type="button"><span class="glyphicon glyphicon-pencil"></span>Edit</button>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+		<form class="pp-form" name="addForm" ng-show="addAccount" ng-submit="submitAdd(addForm)" novalidate>
+			<div class="col-md-12 section-header">
+				<h4>Add User Account</h4>
+			</div>
+			<div class="list-group text-left">
+
+				<!-- <div class="clearfix list-group-item">-->
+				<!-- <div class="col-md-3 text-left">-->
+				<!-- <label class="bold-lbl req">Password</label>-->
+				<!-- </div>-->
+				<!-- <div class="col-md-3 left-border ">-->
+				<!-- <input type="text" value=""/>-->
+				<!---->
+				<!-- </div>-->
+				<!-- <div class="col-md-3 text-left">-->
+				<!-- <label class="bold-lbl req">Confirm Password</label>-->
+				<!-- </div>-->
+				<!-- <div class="col-md-3 left-border ">-->
+				<!-- <input type="text" value=""/>-->
+				<!---->
+				<!-- </div>-->
+				<!-- </div>-->
+				<div class="clearfix list-group-item with-background">
+					<div class="col-md-6">
+						<label class="bold-lbl"><span class="redAster">*</span>Login ID</label>
+						<input class="form-control" name="UserName" ng-maxlength="12" ng-model="form.UserName" required type="text" />
+						<div class="invalid-text">Please enter a valid ID.</div>
+						<div class="returned-invalid" ng-if="error==='Login already exists'">An account with this ID already exists. Please enter another ID.</div>
+					</div>
+					<div class="col-md-6">
+						<label class="bold-lbl"><span class="redAster">*</span>Account Type</label>
+						<select id="RoleName" name="RoleName" ng-model="form.RoleName" ng-required="true">
+							<option value="">Select</option>
+							<option>Biller</option>
+							<option>Office Manager</option>
+							<option>Medical Staff</option>
+							<option>Office Staff</option>
+
+						</select>
+					</div>
+				</div>
+				<div class="clearfix list-group-item with-background">
+					<div class="col-md-6">
+						<label class="bold-lbl"><span class="redAster">*</span>First Name</label>
+						<input class="form-control" name="FirstName" ng-model="form.FirstName" ng-required="true" type="text">
+						<div class="invalid-text">Please enter a valid name.</div>
+					</div>
+					<div class="col-md-6">
+						<label class="bold-lbl"><span class="redAster">*</span>Last Name</label>
+						<input class="form-control" name="LastName" ng-model="form.LastName" ng-required="true" type="text">
+						<div class="invalid-text">Please enter a valid name.</div>
+					</div>
+
+				</div>
+				<div class="clearfix list-group-item with-background">
+
+					<div class="col-md-6">
+						<label class="bold-lbl req">Email Address</label>
+						<input class="form-control" name="Email" ng-required="true" ng-model="form.EmailAddress" type="email" />
+						<div class="invalid-text">Please enter a valid email.</div>
+					</div>
+					<div class="col-md-6">
+						<label class="bold-lbl"><span class="redAster">*</span>Confirm Email Address</label>
+						<input class="form-control" name="chkEmail" ng-model="form.chkEmail" ng-required="true" same-as="form.EmailAddress" type="email" />
+						<div class="invalid-text">Please enter a valid email. Email does not match</div>
+					</div>
+				</div>
+				<div class="clearfix list-group-item with-background">
+					<div class="col-md-6">
+						<label class="bold-lbl"><span class="redAster">*</span>Password</label>
+						<input class="form-control" name="Password" ng-model="form.Password" ng-pattern="passwordRegex" ng-required="true" type="password" />
+						<div class="invalid-text">
+							Password must be:
+							<ul>
+								<li>
+									At least 8 characters
+								</li>
+								<li>At least 1 Uppercase character</li>
+								<li>At least 1 Lowercase character</li>
+								<li>At least 1 Special character</li>
+								<li>At least 1 Number</li><li>No Whitespace character</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label class="bold-lbl"><span class="redAster">*</span>Confirm Password</label>
+						<input class="form-control" name="chkPassword" ng-model="form.chkPassword" ng-required="true" same-as="form.Password" type="password" />
+						<div class="invalid-text">Please enter a valid password. Passwords do not match.</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="list-group" ng-repeat="pair in form.QaPairs">
+				<li class="clearfix list-group-item with-background">
+
+					<div class="col-md-12">
+						<label class="bold-lbl req">Security Question #{{$index + 1}}</label>
+						<select class="form-control" name="question-{{$index}}" ng-change="filterQuestions()" ng-model="pair.QuestionId" required>
+							<option value="">Select a security question</option>
+							<option ng-disabled="selectedQuestions.indexOf(question.id) !== -1" ng-repeat="question in verifyQuestions" value="{{question.id}}">{{question.question}}</option>
+						</select>
+						<div class="invalid-text"></div>
+						<div class="returned-invalid" ng-if="pair.duplicate === true && pair.duplicate !== undefined">Duplicate Question</div>
+
+					</div>
+
+				</li>
+				<li class="clearfix list-group-item with-background">
+
+					<div class="col-md-12">
+						<label class="bold-lbl req">Answer</label>
+						<input class="form-control" ng-model="pair.SecurityAnswer" required type="text" value="" />
+						<div class="invalid-text">Please enter an answer for the selected question.</div>
+					</div>
+
+				</li>
+			</div>
+			<div class="float-none form-group ofl text-center">
+				<button class="btn btn-lg btn-primary" type="submit">Submit</button>
+				<button class="btn btn-lg clear-btn" ng-click="addAccount=false" ng-enter="addAccount=false" type="button">Cancel</button>
+			</div>
+		</form>
+
+		<div class="pad-md clearfix float-none form-group ofl text-center" ng-hide="addAccount || editAccount.show">
+			<button class="btn btn-lg btn-primary" ng-click="addAccount = true" type="button">
+				Add Account
+			</button>
+		</div>
+
+		<form class="pp-form" name="editForm" ng-show="editAccount.show" ng-submit="submitEdit(editForm)" novalidate>
+			<div class="col-md-12 section-header">
+				<h4>Edit User Account</h4>
+			</div>
+			<div class="list-group text-left">
+				<div class="clearfix list-group-item with-background">
+					<div class="col-md-6">
+						<label class="bold-lbl"><span class="redAster">*</span>Login ID</label>
+						<input class="form-control" name="UserName" ng-model="editAccount.form.UserName" required type="text" disabled readonly/>
+						<div class="invalid-text">Please enter a valid ID.</div>
+					</div>
+					<div class="col-md-6">
+						<label class="bold-lbl"><span class="redAster">*</span>Account Type</label>
+						<select id="RoleName" name="RoleName" ng-model="editAccount.form.RoleName" ng-required="true">
+							<option value="">Select</option>
+							<option>Biller</option>
+							<option>Office Manager</option>
+							<option>Medical Staff</option>
+							<option>Office Staff</option>
+
+						</select>
+					</div>
+				</div>
+				<div class="clearfix list-group-item with-background">
+					<div class="col-md-6">
+						<label class="bold-lbl"><span class="redAster">*</span>First Name</label>
+						<input class="form-control" name="FirstName" ng-model="editAccount.form.FirstName" ng-required="true" type="text">
+						<div class="invalid-text">Please enter a valid name.</div>
+					</div>
+					<div class="col-md-6">
+						<label class="bold-lbl"><span class="redAster">*</span>Last Name</label>
+						<input class="form-control" name="LastName" ng-model="editAccount.form.LastName" ng-required="true" type="text">
+						<div class="invalid-text">Please enter a valid name.</div>
+					</div>
+
+				</div>
+				<div class="clearfix list-group-item with-background">
+
+										<div class="col-md-6">
+											<label class="bold-lbl req">Email Address</label>
+											<input class="form-control" name="Email" ng-model="editAccount.form.EmailAddress" ng-required="true" type="email" />
+											<div class="invalid-text">Please enter a valid email.</div>
+										</div>
+					<div class="col-md-6">
+						<label class="bold-lbl req">Active?</label>
+						<div class="block btn-group">
+							<label class="btn btn-primary btn-radio" name="ActiveFlag" ng-model="editAccount.form.ActiveFlag" type="radio" ng-checked="editAccount.form.ActiveFlag" uib-btn-radio="true">
+								Yes
+							</label>
+
+							<label class="btn btn-primary btn-radio" name="ActiveFlag" ng-model="editAccount.form.ActiveFlag" type="radio" ng-checked="!editAccount.form.ActiveFlag" uib-btn-radio="false">
+								No
+
+							</label>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="float-none form-group ofl text-center">
+				<button class="btn btn-lg btn-primary" type="submit">Submit</button>
+				<button class="btn btn-lg clear-btn" ng-click="editAccount.show = false" ng-enter="editAccount.show = false" type="button">Cancel</button>
+			</div>
+		</form>
+		<uib-alert close="alert.warning=''" ng-hide="!alert.warning" type="danger">
+			{{alert.warning}}
+		</uib-alert>
+
+		<!-- Adding this taglib becuase I want to use the spring framework to access the resource bundle -->
+		<!-- <div class="form-group text-center">-->
+		<!-- <p class="copy-help">-->
+		<!-- Need help? Call us.<br>-->
+		<!-- <strong>12345678</strong> Mon-Fri, 8am-5:30pm PST-->
+		<!-- </p>-->
+		<!-- </div>-->
+	</section>
+</div>

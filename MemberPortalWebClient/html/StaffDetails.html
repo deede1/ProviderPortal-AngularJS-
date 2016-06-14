@@ -1,0 +1,124 @@
+﻿<div class="posRelative">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="ppTitle ppSearchResults non-printable staffTitle text-center">
+                <span class="result-num hidden-xs">888 Active Staff Members</span>
+                <span class="result-num visible-xs">888 Active Staff Members</span>
+                <ul class="pagination pagination-sm hidden-xs">
+                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                    <li><a>2</a></li>
+                    <li><a>3</a></li>
+                    <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                </ul>
+                <div class="total-pages hidden-xs">Total of 103 pages</div>
+                <div class="row pager-xs visible-xs">
+                    <div class="col-xs-12">
+                        <ul class="pagination pagination-sm ">
+                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                            <li><a>2</a></li>
+                            <li><a>3</a></li>
+                            <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="total-pages">Total of 103 pages</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="table-responsive hidden-sm hidden-xs">
+                <table class="staff-table table table-striped">
+                    <thead>
+                        <tr class="header">
+                            <th>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-click="toggleRows()">
+                                    </label>
+                                </div>
+                            </th>
+                            <th>Active</th>
+                            <th>Role</th>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="person in staff">
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-checked="all" ng-click="toggleSelection(person.id)">
+                                    </label>
+                                </div>
+                            </td>
+                            <td>{{person.active}}</td>
+                            <td>{{person.role}}</td>
+                            <td>{{person.id}}</td>
+                            <td>{{person.UserName}}</td>
+                            <td>{{person.LastName}}</td>
+                            <td>{{person.FirstName}}</td>
+                            <td>{{person.phone}}</td>
+                            <td>{{person.Address1}}  {{person.Address2}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="9">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-8">
+                                            <form class="form-inline  pull-right">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="inlineRadioOptions" ng-model="options"  value="activate" > Activate
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="inlineRadioOptions" ng-model="options"  value="deactivate"> Deactivate
+                                                </label>
+                                                <button type="submit" class="btn btn-default" ng-click="submit()">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="panel-group visible-xs visible-sm" id="staffPanel">
+                <div class="panel panel-default" ng-repeat="person in staff">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#staffPanel" ng-href="{{ '#collapse-' + $index }}">{{person.lastname}},{{person.firstname}}</a>
+                        </h4>
+                    </div>
+                    <div id="{{ 'collapse-' + $index }}" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item"><b>Active:</b>{{person.active}}</li>
+                                <li class="list-group-item"><b>Role:</b>{{person.role}}</li>
+                                <li class="list-group-item"><b>ID:</b>{{person.id}}</li>
+                                <li class="list-group-item"><b>Username:</b>{{person.username}}</li>
+                                <li class="list-group-item"><b>Last Name:</b>{{person.lastname}}</li>
+                                <li class="list-group-item"><b>First Name:</b>{{person.firstname}}</li>
+                                <li class="list-group-item"><b>Phone:</b>{{person.phone}}</li>
+                                <li class="list-group-item"><b>Address:</b>{{person.address}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div simple-ajax-loader show="loadingSearchResults"></div>
+    <danger-box message="{{errorMessage}}"></danger-box>
+</div>

@@ -1,0 +1,32 @@
+﻿<form class="pp-form text-left" name="submitForm" ng-submit="submit(submitForm)" novalidate>
+	<h1 class="pad-md text-center">
+		Step 3: <span class="step-color">Security Questions</span>
+	</h1>
+	<div class="help-text text-center">Please answer this security question.</div>
+	<ol class="list-group">
+		<li class="clearfix list-group-item with-background">
+
+			<div class="col-md-12">
+				<label class="bold-lbl">{{handshake.QaPairs[selQuestion].QuestionDescription}}</label>
+
+			</div>
+
+		</li>
+		<li class="clearfix list-group-item with-background">
+
+			<div class="col-md-12">
+				<label class="bold-lbl">Answer</label>
+				<input class="form-control" ng-model="form.answer" type="text" value="" required/>
+				<div class="invalid-text">Please verify that you have entered the correct answer to the question.</div>
+			</div>
+
+		</li>
+
+	</ol>
+	<div class="text-center float-none form-group ofl">
+		<button class="btn btn-lg btn-primary" type="submit">Continue</button>
+		<button ng-if="alert" class="btn btn-lg btn-primary" type="button" ui-sref="password-reset">Start Over</button>
+	</div>
+
+</form>
+<uib-alert close="alert=''" ng-hide="!alert" type="danger">{{alert}}</uib-alert>  

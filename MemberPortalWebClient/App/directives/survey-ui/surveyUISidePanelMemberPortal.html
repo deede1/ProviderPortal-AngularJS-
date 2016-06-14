@@ -1,0 +1,26 @@
+﻿<div >
+    <div class="row">
+        <div>
+            <div class=" col-lg-9 col-md-9 col-lg-push-3 col-md-push-3">
+                <survey-form></survey-form>
+            </div>
+            <div class="non-printable contentLeft col-lg-3 col-md-3   col-lg-pull-9 col-md-pull-9" ng-cloak>
+                <div class="contentPanel solidBackgroundBlue leftPanel_med" ng-cloak>
+                    <div class="pageBannerContainer">
+                        <div>
+                            <div class="leftBanner_TOCL_Yellow font_2em">{{SurveyName}}</div>
+                            <div class="leftBanner_Verdana_White" ng-cloak>
+                                <span>{{'form_healthcare_section_Side_Panel_Sections' | translate}}</span>
+                                <ol>
+                                    <li class="side-panel-section-title-not-selected" ng-class="{'side-panel-section-title-selected' : (title.SectionName == ActiveSectionName)}" ng-repeat="title in SurveySectionTitles">
+                                        <span class="side-panel-section-title-not-selected" ng-class="{'side-panel-section-title-selected' : (title.SectionName == ActiveSectionName)}">{{title.SectionName}}</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

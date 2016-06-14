@@ -1,0 +1,1198 @@
+﻿<div class="contentPanel1 contentRight pp-form" id="encounter">
+	<div class="form ofl-visible">
+
+
+
+		<div class="form panel">
+			<h1 class="pageTitle"> Encounter </h1>
+			<p class="pageIntro ">
+				The Encounter Data Report displays encounters submitted to IEHP for Members by month for the year. Remember to submit encounters for all capitated visits in order to meet IEHP's expectations.
+			</p>
+		</div>
+
+		<uib-alert close="alert.success = false" ng-hide="!alert.success" type="success">Success! Your form has been submitted.</uib-alert>
+
+		<div class="">
+			<div class="contentPanel" ng-animate>
+
+				<form class="form-horizontal" id="prelimForm"
+								name="prelimForm"
+								ng-if="!search.formEligibilityData" ng-submit="search.formEligibility(prelimForm)"
+								autocomplete="off" role="form" novalidate="">
+					<span ng-init="$parent.prelimForm = prelimForm"></span>
+					<!-- <div class=row>-->
+					<!-- <div class="col-md-12 col-xs-12 section-header">-->
+					<!-- <h4>Member Search</h4>-->
+					<!-- </div>-->
+					<!-- </div>-->
+					<div class="required-field-message col-md-12 text-center">
+
+						<label class="bold-lbl req">denotes a required field.</label>
+					</div>
+					<div class="section-header col-md-12">
+						<h4>Member/Provider Identification </h4>
+					</div>
+					<div class="list-group text-left">
+						<div class="list-group-item clearfix ">
+							<div class="col-md-6 col-sm-6  text-left">
+								<label class="bold-lbl req">IEHP ID</label>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-12 left-border ">
+								<div class="input-group">
+
+									<input id="search" class="form-control" name="memberId" ng-blur="search.checkId(search.query)" ng-change="search.updateType()"
+												ng-click="search.clickInput()"  maxlength="15"
+												ng-model="search.query" placeholder="Enter IEHP ID, SSN, or CIN" required tabindex="1" type="text">
+									<div class="invalid-text text-left">	Please verify that you have entered a valid ID</div>
+									
+									<a class="clear-icon" ng-click="search.clear()" ng-show="search.showClear">
+										<span class="close-btn glyphicon glyphicon-remove"></span>
+									</a>
+									<div class="search-type" ng-click="search.clear()" ng-if="search.type.string"
+											ng-mouseenter="search.showClear = true" ng-mouseleave="search.showClear = false" ng-style="{'opacity' : search.showClear ? 0 : 1}">{{search.type.string}}</div>
+									<!-- <div class="invalid-text text-left" ng-if="(!prelimForm.memberId.$pristine || prelimForm.$submitted) && !search.state.validated()">Please enter a valid Member ID.</div>-->
+									<!-- <input class="form-control input ng-invalid ng-invalid-required ng-pristine ng-touched ng-valid-maxlength ng-valid-minlength ng-valid-pattern" id="memberId" maxlength="12" minlength="12" name="memberId" ng-keypres="MVCtrl.SearchMember($event)" ng-model="MVCtrl.memberId" ng-pattern="/\d{12}/" placeholder="Enter IEHP ID, SSN, or CIN" required="true" title="Enter a valid member I.D." type="text">-->
+								</div>
+
+							</div>
+						</div>
+						<div class="list-group-item clearfix slimGrid ">
+							<div class="col-md-6 col-sm-6 text-left">
+								<label class="bold-lbl req">Date of Service</label>
+							</div>
+							<div class="col-md-6 col-sm-6  left-border lft-algn">
+
+								<div class="input-group">
+									<div class="datepicker"
+											date-max-limit="{{today}}"
+											date-format="MM/dd/yyyy"
+											selector="date-input">
+										<span class="btn btn-default icon input visible-lg" ng-click="">
+												<i class="glyphicon glyphicon-calendar"></i>
+											</span>
+										<input class="form-control date-input" ng-blur="search.date = search.validateDate(search.date) ? search.date : null" ng-class="{'invalid': !search.validateDate(search.date) || errorMessage.indexOf('Member Not Assigned to an IEHP Direct Provider for this Date of Service.') > -1}"
+													ng-model="search.date" required name="DOS" tabindex="2" type="text" placeholder="MM/DD/YYYY" ng-minlength="10" ng-maxlength="10" format-date>
+										<div class="invalid-text">Please enter a valid date</div>
+										<div ng-if="!search.validateDate(search.date)" class="returned-invalid">Please enter a valid date.</div>
+										<div class="returned-invalid" ng-if="errorMessage.indexOf('Member Not Assigned to an IEHP Direct Provider for this Date of Service.') > -1 && !prelimForm.DOS.$error.required">Please enter a valid date of service for this member.</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+						<div class="list-group-item clearfix">
+							<div class="col-md-6 col-sm-6 text-left">
+								<label class="bold-lbl req">Provider of Service</label>
+							</div>
+							<div class="col-md-6 col-sm-6  left-border lft-algn">
+								<div class="input-group">
+									<input id="prov" class="form-control" ng-model="search.providerOfService" title="Please Select a Provider" name="prov" maxlength="100" type="text" ng-required="true" tabindex="3">
+									<div class="invalid-text text-left">Please select a valid provider.</div>
+									<span ng-click="providerModal()" class="btn btn-default input icon glyphicon glyphicon-search"></span>
+								</div>
+
+							</div>
+
+						</div>
+
+						<div class="list-group-item clearfix">
+							<div class="col-md-12">
+								<button tabindex="4" class="btn btn-submit" type="submit">
+									Continue
+									<!-- <div class="icon">-->
+									<!-- <i class="fa fa-arrow-circle-o-right"></i>-->
+									<!-- </div>-->
+								</button>
+							</div>
+						</div>
+
+					</div>
+
+
+				</form>
+				<div class="modal fade" id="ProviderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog" style="margin-top: 200px">
+						<div class="modal-content">
+							<div class="modal-header SectionHeader">
+
+								<button type="button" class="close" title="Close" data-dismiss="modal">
+									<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+								</button>
+								<h4 class="">Available Providers</h4>
+								<input type="text" ng-model="search.providerOfService" placeholder="filter Providers" class="form-control">
+							</div>
+							<div class="modal-body">
+								<div class="modal-provider-container line-item" ng-repeat="provider in providers | filter: search.providerOfService as providerResults">
+
+									<div class="text-left modal-provider-address" ng-click="selectProvider(provider.ProviderNumber)">
+										<label class="bold-lbl cursor-pointer">{{provider.ProviderName}}</label>
+
+
+										<label class="bold-lbl pull-right cursor-pointer">ID {{provider.ProviderNumber}}</label>
+
+
+									</div>
+									<div class="lft-algn modal-provider-address" ng-repeat="info in prov.GroupedInformation track by $index" ng-click="LoadCtrl.loadProviderTaxId(this)">
+										<span style="color: #686868" class="pointer">{{info.Address}}</span>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="pdf" class="text-left " ng-if="!search.formEligibilityData">
+			<div class="no-print contentPanel">
+				<pp-get-pdf title="Daily Transaction Report ({{today}})"></pp-get-pdf>
+			</div>
+			<div class="list-group clear">
+				<div class="contentPanel transaction-report content-results  ">
+					<div class="table-scroll col-md-12 list-group-item">
+
+						<p ng-if="report.data.Records.length" class="pull-right">Total Results: {{report.data.Records.length}}</p>
+						<table class="col-sm-12 results-animate  table table-sortable table-striped" ng-if="report.data.Records.length">
+							<thead>
+								<tr class="header">
+									<th>DOS</th>
+									<th>Provider ID</th>
+									<th>Member</th>
+									<th>IEHP ID</th>
+									<th>Procedure / Modifier</th>
+									<th>ICD Codes</th>
+									<th>Diagnosis Pointer</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="line-item no-hover" ng-repeat="line in report.data.Records">
+									<td>{{line.Dos}}</td>
+									<td>{{line.ProviderId}}</td>
+									<td>{{line.MemberLastName}}, {{line.MemberFirstName}}</td>
+									<td>{{line.SubNo}}</td>
+									<td>
+										{{line.ProcCode}}<span ng-if="line.Mod">/ {{line.Mod}}</span>
+									</td>
+									<td>
+										{{line.Icd2 ? line.Icd1 +  ','  : line.Icd1}}
+										{{line.Icd3 ? line.Icd2 +  ','  : line.Icd2}}
+										{{line.Icd4 ? line.Icd3 +  ','  : line.Icd3}}
+										{{line.Icd5 ? line.Icd4 +  ','  : line.Icd4}}
+										{{line.Icd6 ? line.Icd5 +  ','  : line.Icd5}}
+										{{line.Icd7 ? line.Icd6 +  ','  : line.Icd6}}
+										{{line.Icd8 ? line.Icd7 +  ','  : line.Icd7}}
+										{{line.Icd9 ? line.Icd8 +  ','  : line.Icd8}}
+										{{line.Icd10 ? line.Icd9 +  ','  : line.Icd9}}
+										{{line.Icd11 ? line.Icd10 +  ','  : line.Icd10}}
+										{{line.Icd12 ? line.Icd11 +  ','  : line.Icd11}}
+										{{line.Icd12}}
+									</td>
+									<td>
+										<span ng-repeat="pointer in line.DiagnosisCodePointers">
+											{{pointer}}{{$last ? '' : ', '}}								
+										</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<div ng-if="!report.data.Records.length">No Records Found.</div> <br />
+						<label class="bold-lbl returned-invalid pad-md">ALL ENTRIES ARE SUBJECT TO VALIDATION. <br />IEHP recommends that you print this report at the end of each day.</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="contentPanel content-results clearfix" ng-animate>
+			<div simple-ajax-loader class="fixed-loader" show="search.status === 1"></div>
+			<form class="form-horizontal text-left"
+						id="encounterForm"
+						name="encounterForm"
+						ng-show="search.state.formEligibility && search.formEligibilityData"
+						ng-submit="search.submitEncounter(encounterForm)"
+						autocomplete="off" role="form" novalidate="">
+				<div class="required-field-message col-md-12 text-center">
+
+					<label class="bold-lbl req">denotes a required field.</label>
+				</div>
+				<div class="">
+					<div class="col-md-12 col-xs-12 section-header">
+						<h4>Member Information</h4>
+					</div>
+				</div>
+				<div class="form-section">
+					<ol class="list-group">
+
+						<li class="clearfix list-group-item slim-grid">
+							<div class="col-md-3">
+								<div class="col-md-1 text-left">
+									<label class="bold-lbl">Name:</label>
+								</div>
+								<div class="col-md-2">
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberLastName}}, {{search.formEligibilityData.MemberInfo.MemberFirstName}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1 text-left">
+									<label class="bold-lbl">Gender:</label>
+								</div>
+								<div class="col-md-2">
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberGender}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1 text-left">
+									<label class="bold-lbl">DOB:</label>
+								</div>
+								<div class="col-md-2">
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberDateOfBirth | date: 'MM/dd/yyyy'}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1 text-left">
+									<label class="bold-lbl">Age:</label>
+
+								</div>
+								<div class="col-md-2">
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberAge}}</span>
+								</div>
+							</div>
+
+						</li>
+
+						<li class="clearfix list-group-item slim-grid">
+							<div class="col-md-3">
+								<div class="col-md-1 text-left">
+									<label class="bold-lbl">Address:</label>
+								</div>
+								<div class="col-md-2">
+									<span class="lbl ng-binding">
+										{{search.formEligibilityData.MemberInfo.MemberAddress1}}
+										{{search.formEligibilityData.MemberInfo.MemberAddress2}}
+									</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">City:</label>
+								</div>
+								<div class="col-md-2 text-left">
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberCity}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1 long">
+									<label class="bold-lbl">State-Zip:</label>
+								</div>
+								<div class="col-md-2 long text-left">
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberState}} {{search.formEligibilityData.MemberInfo.MemberZip | zipcode}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">Phone:</label>
+								</div>
+								<div class="col-md-2 text-left">
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberPhone | tel}}</span>
+								</div>
+							</div>
+
+						</li>
+
+						<li class="clearfix list-group-item slim-grid">
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">IEHP ID:</label>
+								</div>
+								<div class="col-md-2 text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.SubscriberNumber}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">CIN:</label>
+								</div>
+								<div class="col-md-2 text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberCin}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">MediCare:</label>
+								</div>
+								<div class="col-md-2 text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberMedicareNumber}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1 long">
+									<label class="bold-lbl">Medi-Cal:</label>
+								</div>
+								<div class="col-md-2 long text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberMedicalNumber}}</span>
+								</div>
+							</div>
+						</li>
+						<li class="clearfix list-group-item slim-grid">
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">LOB:</label>
+								</div>
+								<div class="col-md-2 text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberLob}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">County:</label>
+								</div>
+								<div class="col-md-2 text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberCounty}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1 long">
+									<label class="bold-lbl">Aid Code:</label>
+								</div>
+								<div class="col-md-2 long text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberPlanAidCode}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">Group:</label>
+								</div>
+								<div class="col-md-2 text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.MemberInfo.MemberGroup}}</span>
+								</div>
+							</div>
+						</li>
+					</ol>
+				</div>
+
+				<div class="">
+					<div class="col-md-12 col-xs-12 section-header">
+						<h4>Member PCP Information</h4>
+					</div>
+				</div>
+				<div class="form-section">
+					<ol class="list-group">
+
+						<li class="clearfix list-group-item slim-grid">
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">Name:</label>
+								</div>
+								<div class="col-md-2">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.PcpInfo.ProviderFirstName}} {{search.formEligibilityData.PcpInfo.ProviderLastName}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">ID:</label>
+								</div>
+								<div class="col-md-2 text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.PcpInfo.ProviderId}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">NPI:</label>
+								</div>
+								<div class="col-md-2 text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.PcpInfo.ProviderNpi}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">Phone:</label>
+								</div>
+								<div class="col-md-2 text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.PcpInfo.ProviderPhone | tel }}</span>
+								</div>
+							</div>
+
+						</li>
+
+						<li class="clearfix list-group-item slim-grid">
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">Address:</label>
+								</div>
+								<div class="col-md-2">
+
+									<span class="lbl ng-binding">
+										{{search.formEligibilityData.PcpInfo.ProviderAddress1}}
+										{{search.formEligibilityData.PcpInfo.ProviderAddress2}}
+									</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">City:</label>
+								</div>
+								<div class="col-md-2 text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.PcpInfo.ProviderCity}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1 long">
+									<label class="bold-lbl">State-Zip:</label>
+								</div>
+								<div class="col-md-2 long text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.PcpInfo.ProviderState}} {{search.formEligibilityData.PcpInfo.ProviderZip | zipcode}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">Fax:</label>
+								</div>
+								<div class="col-md-2 text-left">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.PcpInfo.ProviderFax | tel}}</span>
+								</div>
+							</div>
+
+						</li>
+					</ol>
+				</div>
+
+				<div class="">
+					<div class="col-md-12 col-xs-12 section-header">
+						<h4>Provider Information</h4>
+					</div>
+				</div>
+				<div class="form-section">
+					<ul class="list-group">
+
+						<li class="clearfix list-group-item slim-grid">
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">Name:</label>
+								</div>
+								<div class="col-md-2">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.ServicingProviderInfo.ProviderFirstName}} {{search.formEligibilityData.ServicingProviderInfo.ProviderLastName}}</span>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-1">
+									<label class="bold-lbl">ID:</label>
+								</div>
+								<div class="col-md-2">
+
+									<span class="lbl ng-binding">{{search.formEligibilityData.ServicingProviderInfo.ProviderId}}</span>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="">
+					<div class="col-md-12 col-xs-12 section-header">
+						<h4>Diagnosis Codes</h4>
+					</div>
+				</div>
+				<div class="form-section">
+					<!--	_ICD
+								.-./`)     _______    ______
+					\ .-.')   /   __  \  |    _ `''.
+					/ `-' \  | ,_/  \__) | _ | ) _  \
+					 `-'`"`,-./  )       |( ''_'  ) |
+					 .---. \  '_ '`)     | . (_) `. |
+					 |   |  > (_)  )  __ |(_    ._) '
+					 |   | (  .  .-'_/  )|  (_.\.' /
+					 |   |  `-'`-'     / |       .'
+					 '---'    `._____.'  '-----'`
+
+								-->
+					<ul class="list-group">
+
+						<li class="clearfix list-group-item">
+							<div class="col-md-3 col-sm-3 col-xs-12 text-left" ng-repeat="code in search.icd track by $index">
+								<label class="bold-lbl req">ICD {{$index + 1}}:</label>
+								<div class="lbl ng-binding">
+									<div class="input-group">
+										<span class="btn btn-default icon input" ng-click="search.removeInput('icd', $index)" ng-if="search.icd.length > 1">
+											<i class="center-icon glyphicon glyphicon-remove"></i>
+										</span>
+										<input class="form-control" tabindex="{{$index+3}}" maxlength="8" name="icd-{{$index}}" ng-model="code.val" ng-blur="search.checkIcdCode(code.val,$index)" required type="text">
+										<div class="invalid-text">
+											<span ng-if="encounterForm['icd-' + $index].$error.duplicate">Duplicate</span>		
+											<span ng-if="!encounterForm['icd-' + $index].$error.duplicate">Invalid</span>
+										</div>
+									
+									</div>
+								</div>
+							</div>
+							<!-- add clone-->
+							<div class="add-item-container col-md-2 cursor-pointer text-left" ng-click="search.addIcd()" ng-if="search.icd.length < search.maxIcd">
+
+								<div class="add-item-background cursor-pointer">
+									<label class="bold-lbl cursor-pointer">ICD {{search.icd.length + 1}}:</label>
+									<div class="lbl ng-binding">
+										<input class="form-control cursor-pointer" disabled ng-model="code.val" type="text">
+									</div>
+								</div>
+								<div class="add-item" tabindex="13">Add +</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<div class="">
+					<div class="col-md-12 col-xs-12 section-header">
+						<h4>Visit Information for {{search.date}}</h4>
+					</div>
+				</div>
+				<div class="form-section">
+					<!--			 _VISIT
+
+						 ,---.  ,---..-./`)    .-'''-. .-./`) ,---------.
+					|   /  |   |\ .-.')  / _     \\ .-.')\          \
+					|  |   |  .'/ `-' \ (`' )/`--'/ `-' \ `--.  ,---'
+					|  | _ |  |  `-'`"`(_ o _).    `-'`"`    |   \
+					|  _( )_  |  .---.  (_,_). '.  .---.     :_ _:
+					\ (_ o._) /  |   | .---.  \  : |   |     (_I_)
+					 \ (_,_) /   |   | \    `-'  | |   |    (_(=)_)
+						\     /    |   |  \       /  |   |     (_I_)
+						 `---`     '---'   `-...-'   '---'     '---'
+
+									-->
+					<ul class="list-group">
+						<li class="visit-group clearfix list-group-item slim-grid " ng-repeat="visit in search.visit track by $index">
+							<div class="col-lg-2 col-sm-12 col-xs-12 text-left">
+								<label class="small-lbl"><span class="redAster">*</span>POS:</label>
+								<span class="btn btn-default icon input" ng-click="posModal()">
+									<i class="glyphicon glyphicon-info-sign info-icon"></i>
+								</span>
+								<div class="lbl ng-binding">
+									<select id="PoS" name="PoS" ng-model="visit.pos" required tabindex="{{100 * ($index + 1)}}" title="Place of Service">
+										<option ng-value="11">11</option>
+										<option ng-value="12">12</option>
+										<option ng-value="20">20</option>
+										<option ng-value="21">21</option>
+										<option ng-value="22">22</option>
+										<option ng-value="23">23</option>
+										<option ng-value="24">24</option>
+										<option ng-value="25">25</option>
+										<option ng-value="26">26</option>
+										<option ng-value="31">31</option>
+										<option ng-value="32">32</option>
+										<option ng-value="33">33</option>
+										<option ng-value="34">34</option>
+										<option ng-value="50">50</option>
+										<option ng-value="51">51</option>
+										<option ng-value="52">52</option>
+										<option ng-value="53">53</option>
+										<option ng-value="54">54</option>
+										<option ng-value="55">55</option>
+										<option ng-value="56">56</option>
+										<option ng-value="61">61</option>
+										<option ng-value="62">62</option>
+										<option ng-value="65">65</option>
+										<option ng-value="71">71</option>
+										<option ng-value="72">72</option>
+										<option ng-value="81">81</option>
+										<option ng-value="91">91</option>
+										<option ng-value="95">95</option>
+										<option ng-value="96">96</option>
+										<option ng-value="99">99</option>
+									</select>
+									<div class="invalid-text">Invalid</div>
+								</div>
+							</div>
+							<div class="col-lg-2 col-xs-12 text-left">
+								<label class="small-lbl"><span class="redAster">*</span>DOS:</label>
+								<div class="lbl ng-binding">
+									<!-- <input class="w100p" name="dDos" ng-model="visit.dDos" required type="date">-->
+									<!-- <div ng-if="encounterForm.dDos.$invalid" class="invalid-text">Invalid Date</div>-->
+									<div class="input-group">
+										<div class="datepicker"
+												 date-max-limit="{{today}}"
+												 date-format="MM/dd/yyyy"
+												 selector="date-input">
+											<span class="btn btn-default icon input" ng-click="">
+												<i class="glyphicon glyphicon-calendar"></i>
+											</span>
+											<input class="form-control date-input" tabindex="{{100  * ($index + 1) + 1}}"
+														 ng-blur="visit.dDos = search.validateDate(visit.dDos) ? visit.dDos : null"
+														 ng-class="{'invalid':  !search.validateDate(visit.dDos) }" ng-model="visit.dDos"
+														 ng-required="search.validateDate(visit.dDos)" name="dos-{{$index}}" type="text"
+														 placeholder="MM/DD/YYYY" ng-minlength="10" ng-maxlength="10"
+														 ng-disabled="$index === 0">
+										</div>
+									</div>
+									<div ng-if="(!encounterForm['dos-' + $index].$pristine || encounterForm.$submitted) && !search.validateDate(visit.dDos)" class="returned-invalid">Invalid</div>
+
+								</div>
+							</div>
+							<div class="col-lg-2  col-xs-12  text-left">
+								<label class="small-lbl"><span class="redAster">*</span>Procedure:</label>
+								<div class="lbl ng-binding">
+									<input class="form-control" ng-blur="search.checkProcCode(visit.procCode,$index)" name="proc-{{$index}}" ng-model="visit.procCode" ng-pattern="/(\d{5})|([A-Za-z]{1}\d{4})/" ng-minlength="3" maxlength="8" ng-maxlength="8" ng-required="true" tabindex="{{100  * ($index + 1) + 2}}" type="text">
+									<div class="invalid-text">Invalid</div>
+								
+								</div>
+							</div>
+							<div class="col-lg-1 col-xs-12 text-left">
+								<label class="small-lbl">Mod:</label>
+								<div class="lbl ng-binding">
+									<input class="form-control" ng-blur="search.checkModCode(visit.mod,$index)"  name="mod-{{$index}}" ng-model="visit.mod" ng-maxlength="2" maxlength="2" ng-minlength="2" type="text" tabindex="{{100  * ($index + 1) + 3}}">
+									<div class="invalid-text">Invalid</div>
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-12 col-xs-12  text-left">
+								<label class="small-lbl"><span class="redAster">*</span>Diagnosis Pointer</label>
+								<div class="lbl ng-binding">
+									<!--									<select ng-model="visit.diagnosisCodePointers" tabindex="{{100  * ($index + 1) + 4}}" required>-->
+									<!---->
+									<!--										<option ng-if="code.val.toString().length" ng-repeat="code in search.icd track by $index" value="{{$index + 1}}">{{code.val}}</option>-->
+									<!-- </select>-->
+									<div class="input-group">
+										<input ng-focus="icdModal($index)" id="icd" class="form-control visible-readonly" ng-model="visit.diagnosisCodePointers" name="icd" readonly type="text" ng-required="true" autocomplete="on" tabindex="{{100  * ($index + 1) + 4}}">
+										<div class="invalid-text text-left">Please select a valid provider.</div>
+										<span ng-click="icdModal($index)" class="input-group-btn">
+											<span class="btn btn-default glyphicon glyphicon-plus"></span>
+										</span>
+									</div>
+									<div class="modal fade" id="icdModal-{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										<div class="modal-dialog" style="margin-top: 200px">
+											<div class="modal-content">
+												<div class="modal-header SectionHeader">
+
+													<button type="button" class="close" title="Close" data-dismiss="modal">
+														<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+													</button>
+													<h4 class="">Diagnosis Codes</h4>
+												</div>
+												<div class="modal-body">
+
+													<div ng-if="search.icd[0].val.length">
+														<h2>Selected Codes: {{visit.diagnosisCodePointers ? visit.diagnosisCodePointers.toString() : 'None' }}</h2>
+														<div class="modal-provider-container line-item" ng-repeat="code in search.icd track by $index"
+																 ng-class="{'error-line': search.icd[$index].check, 'active': visit.diagnosisCodePointers.indexOf($index + 1) > -1}">
+
+															<div class="text-left modal-provider-address"
+																	 ng-click="!search.icd[$index].check ? visit.diagnosisCodePointers = selectIcd(visit.diagnosisCodePointers,$index + 1,code.val) : null"
+																	 ng-if="code.val">
+																<label class="bold-lbl cursor-pointer">ICD{{$index + 1}}</label>
+
+
+																<label class="bold-lbl pull-right cursor-pointer">
+																	{{code.val}}
+
+																</label>
+
+
+															</div>
+														</div>
+													</div>
+													<div ng-hide="search.icd[0].val.length">
+														<h2>Please add diagnosis codes.</h2>
+													</div>
+												</div>
+												<div class="modal-footer">
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="invalid-text">Invalid</div>
+								</div>
+							</div>
+							<div class="col-lg-1 col-xs-12 text-left">
+								<label class="small-lbl"><span class="redAster">*</span>Qty:</label>
+								<div class="lbl ng-binding">
+									<input class="form-control w100" name="qty-{{$index}}" min="0" max="999" ng-min="0" ng-model="visit.qty" required style="max-width: 100%;" tabindex="{{100  * ($index + 1) + 5}}" type="number">
+									<div class="invalid-text">Invalid</div>
+									<!-- <br/>-->
+									<!-- <div ng-hide="visit.qty">-->
+									<!-- Choose a quantity-->
+									<!-- </div>-->
+								</div>
+							</div>
+							<div class="col-lg-2 col-xs-12 text-left">
+								<label class="small-lbl"><span class="redAster">*</span>RenderingProv NPI:</label>
+								<div class="lbl ng-binding">
+									<input class="form-control" name="npi-{{$index}}" ng-model="visit.npi" maxlength="10" ng-pattern="/\d{10}/" required tabindex="{{100  * ($index + 1) + 6}}" type="text">
+									<div ng-if="encounterForm['npi-' + $index].$invalid && (!encounterForm['npi-' + $index].$pristine || encounterForm.$submitted)" class="invalid-text">Invalid</div>
+								</div>
+							</div>
+							<span class="btn btn-default btn-sm remove-corner" ng-click="search.removeInput('visit', $index)" ng-if="search.visit.length > 1">
+								<span class="glyphicon glyphicon-remove pointer " title="Remove"></span>
+							</span>
+						</li>
+						<!-- add clone -->
+						<li class="add-item-container" ng-click="search.addVisit()" ng-if="search.visit.length < search.maxVisit">
+							<div class="add-item-background clearfix list-group-item slim-grid">
+
+								<div class="col-lg-2 col-sm-2 col-xs-12 text-left">
+									<label class="small-lbl"><span class="redAster">*</span>POS:</label>
+									<div class="lbl ng-binding">
+										<select id="PoS" name="" ng-model="visit.pos" title="Place of Service" value="11">
+											<option ng-value="11">11</option>
+											<option ng-value="12">12</option>
+											<option ng-value="20">20</option>
+											<option ng-value="21">21</option>
+											<option ng-value="22">22</option>
+											<option ng-value="23">23</option>
+											<option ng-value="24">24</option>
+											<option ng-value="25">25</option>
+											<option ng-value="26">26</option>
+											<option ng-value="31">31</option>
+											<option ng-value="32">32</option>
+											<option ng-value="33">33</option>
+											<option ng-value="34">34</option>
+											<option ng-value="50">50</option>
+											<option ng-value="51">51</option>
+											<option ng-value="52">52</option>
+											<option ng-value="53">53</option>
+											<option ng-value="54">54</option>
+											<option ng-value="55">55</option>
+											<option ng-value="56">56</option>
+											<option ng-value="61">61</option>
+											<option ng-value="62">62</option>
+											<option ng-value="65">65</option>
+											<option ng-value="71">71</option>
+											<option ng-value="72">72</option>
+											<option ng-value="81">81</option>
+											<option ng-value="91">91</option>
+											<option ng-value="95">95</option>
+											<option ng-value="96">96</option>
+											<option ng-value="99">99</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-2 col-xs-12 text-left">
+									<label class="small-lbl"><span class="redAster">*</span>DOS:</label>
+									<div class="lbl ng-binding">
+										<input class="w100p" name="" ng-model="visit.dDos" type="text">
+									</div>
+								</div>
+								<div class="col-sm-2 col-xs-12 text-left">
+									<label class="small-lbl"><span class="redAster">*</span>Procedure:</label>
+									<div class="lbl ng-binding">
+										<input name="" ng-model="visit.procCode" type="text">
+									</div>
+								</div>
+								<div class="col-sm-1 col-xs-12 text-left">
+									<label class="small-lbl">Mod:</label>
+									<div class="lbl ng-binding">
+										<input name="" ng-model="visit.mod" type="text">
+									</div>
+								</div>
+								<div class="col-sm-2 text-left">
+									<label class="small-lbl"><span class="redAster">*</span>Diagnosis Pointer:</label>
+									<div class="lbl ng-binding">
+										<select ng-model="visit.diagnosisCodePointers">
+											<option disabled ng-value="null" selected value="null">Choose...</option>
+											<option ng-if="code.val.toString().length" ng-repeat="code in search.icd track by $index" value="{{$index + 1}}">{{code.val}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-1 col-xs-12 text-left">
+									<label class="small-lbl"><span class="redAster">*</span>Qty:</label>
+									<div class="lbl ng-binding">
+										<input name="" ng-model="visit.qty" style="max-width: 100%;" type="number">
+										<!-- <br/>-->
+										<!-- <div ng-hide="visit.qty">-->
+										<!-- Choose a quantity-->
+										<!-- </div>-->
+									</div>
+								</div>
+								<div class="col-lg-2 col-xs-12 text-left">
+									<label class="small-lbl"><span class="redAster">*</span>RenderingProv NPI:</label>
+									<div class="lbl ng-binding">
+										<input ng-model="visit.npi" type="text">
+									</div>
+								</div>
+							</div>
+							<div class="add-item">Add +</div>
+						</li>
+					</ul>
+				</div>
+				<div class="submit-group float-none form-group ofl text-center">
+					<button class="btn btn-lg btn-primary" type="submit">Submit</button>
+					<button class="btn btn-lg clear-btn" ui-sref="encounter" ui-sref-opts="{reload: true}" type="button">Cancel</button>
+				</div>
+		
+			</form>
+			<br />
+<!--			<div ng-show="isArray(errorMessage)">-->
+<!--				<div ng-repeat="msg in errorMessage track by $index" class="alert alert-danger bg-danger danger ng-binding" ng-show="errorMessage !== '' && !alert.success">-->
+<!---->
+<!--					<ul>-->
+<!--						<li><span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span> {{msg}}</li>-->
+<!--					</ul>-->
+<!--				</div>-->
+<!--				<div ng-hide="isArray(errorMessage)">{{errorMessage}}</div>-->
+<!--			</div>-->
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="POSModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="margin-top: 0">
+		<div class="modal-content">
+			<div class="modal-header SectionHeader">
+
+				<button type="button" class="close" title="Close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="">POS Codes</h4>
+
+			</div>
+			<div class="modal-body">
+				<table border="1" cellpadding="5" cellspacing="0">
+					<tbody>
+						<tr class="rowcolor1">
+							<th scope="col" width="66"><strong>Code</strong></th>
+							<th scope="col" width="133"><strong>Name</strong></th>
+							<th scope="col" width="385"><strong>Description</strong></th>
+						</tr>
+
+
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">11</th>
+							<td width="133">Office</td>
+							<td width="385">Location, other than a hospital, skilled nursing facility (SNF), military treatment facility, community health center, State or local public health clinic, or intermediate care facility (ICF), where the health professional routinely provides health examinations, diagnosis, and treatment of illness or injury on an ambulatory basis.</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">12</th>
+							<td width="133">Home</td>
+							<td width="385">Location, other than a hospital or other facility, where the patient receives care in a private residence.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">13</th>
+							<td width="133">Assisted Living Facility</td>
+							<td width="385">
+								<p>Congregate residential facility with self-contained living units providing assessment of each resident's needs and on-site support 24 hours a day, 7 days a week, with the capacity to deliver or arrange for services including some health care and other services.&nbsp;&nbsp;</p>
+
+								<p>(Effective October 1, 2003)</p>
+							</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">14</th>
+							<td width="133">Group Home *</td>
+							<td width="385">
+								<p>A residence, with shared living areas, where clients receive supervision and other services such as social and/or behavioral services, custodial service, and minimal services (e.g., medication administration). &nbsp;</p>
+
+								<p>(Effective October 1, 2003)</p>
+							</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">15</th>
+							<td width="133">Mobile Unit</td>
+							<td width="385">
+								<p>A facility/unit that moves from place-to-place equipped to provide preventive, screening, diagnostic, and/or treatment services.</p>
+
+								<p>(Effective January 1, 2003)</p>
+							</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">16</th>
+							<td width="133">Temporary Lodging</td>
+							<td width="385">
+								<p>A short term accommodation such as a hotel, camp ground, hostel, cruise ship or resort where the patient receives care, and which is not identified by any other POS code.</p>
+
+								<p>(Effective January 1, 2008)</p>
+							</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">17</th>
+							<td width="133">Walk-in Retail Health Clinic</td>
+							<td width="385">A walk-in health clinic, other than an office, urgent care facility, pharmacy or independent clinic and not described by any other Place of Service code, that is located within a retail operation and provides, on an ambulatory basis, preventive and primary care services.&nbsp;(This code is available for use immediately with a final effective date of May 1, 2010)</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">18</th>
+							<td width="133">
+								Place of Employment-<br>
+								Worksite
+							</td>
+							<td width="385">A location, not described by any other POS code, owned or operated by a public or private entity where the patient is employed, and where a health professional provides on-going or episodic occupational medical, therapeutic or rehabilitative services to the individual. (This code is available for use effective January 1, 2013 but no later than May 1, 2013)</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">19</th>
+							<td width="133">Off Campus-Outpatient Hospital</td>
+							<td width="385">A portion of an off-campus hospital provider based department which provides diagnostic, therapeutic (both surgical and nonsurgical), and rehabilitation services to sick or injured persons who do not require hospitalization or institutionalization. &nbsp;(Effective January 1, 2016)</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">20</th>
+							<td width="133">
+								<p>Urgent Care Facility</p>
+
+								<p>&nbsp;</p>
+							</td>
+							<td width="385">
+								<p>Location, distinct from a hospital emergency room, an office, or a clinic, whose purpose is to diagnose and treat illness or injury for unscheduled, ambulatory patients seeking immediate medical attention.</p>
+
+								<p>(Effective January 1, 2003)</p>
+							</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">21</th>
+							<td width="133">Inpatient Hospital</td>
+							<td width="385">A facility, other than psychiatric, which primarily provides diagnostic, therapeutic (both surgical and nonsurgical), and rehabilitation services by, or under, the supervision of physicians to patients admitted for a variety of medical conditions.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">22</th>
+							<td width="133">On Campus-Outpatient Hospital</td>
+							<td width="385">A portion of a hospital's main campus which provides diagnostic, therapeutic (both surgical and nonsurgical), and rehabilitation services to sick or injured persons who do not require hospitalization or institutionalization. &nbsp;(Description change effective January 1, 2016)</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">23</th>
+							<td width="133">Emergency Room - Hospital</td>
+							<td width="385">A portion of a hospital where emergency diagnosis and treatment of illness or injury is provided.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">24</th>
+							<td width="133">Ambulatory Surgical Center</td>
+							<td width="385">A freestanding facility, other than a physician's office, where surgical and diagnostic services are provided on an ambulatory basis.</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">25</th>
+							<td width="133">Birthing Center</td>
+							<td width="385">A facility, other than a hospital's maternity facilities or a physician's office, which provides a setting for labor, delivery, and immediate post-partum care as well as immediate care of new born infants.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">26</th>
+							<td width="133">Military Treatment Facility</td>
+							<td width="385">A medical facility operated by one or more of the Uniformed Services. Military Treatment Facility (MTF) also refers to certain former U.S. Public Health Service (USPHS) facilities now designated as Uniformed Service Treatment Facilities (USTF).</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">27-30</th>
+							<td width="133">Unassigned</td>
+							<td width="385">N/A</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">31</th>
+							<td width="133">Skilled Nursing Facility</td>
+							<td width="385">A facility which primarily provides inpatient skilled nursing care and related services to patients who require medical, nursing, or rehabilitative services but does not provide the level of care or treatment available in a hospital.</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">32</th>
+							<td width="133">Nursing Facility</td>
+							<td width="385">A facility which primarily provides to residents skilled nursing care and related services for the rehabilitation of injured, disabled, or sick persons, or, on a regular basis, health-related care services above the level of custodial care to other than mentally retarded individuals.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">33</th>
+							<td width="133">Custodial Care Facility</td>
+							<td width="385">A facility which provides room, board and other personal assistance services, generally on a long-term basis, and which does not include a medical component.</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">34</th>
+							<td width="133">Hospice</td>
+							<td width="385">A facility, other than a patient's home, in which palliative and supportive care for terminally ill patients and their families are provided.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">35-40</th>
+							<td width="133">Unassigned</td>
+							<td width="385">N/A</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">41</th>
+							<td width="133">Ambulance - Land</td>
+							<td width="385">A land vehicle specifically designed, equipped and staffed for lifesaving and transporting the sick or injured.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">42</th>
+							<td width="133">Ambulance - Air or Water</td>
+							<td width="385">An air or water vehicle specifically designed, equipped and staffed for lifesaving and transporting the sick or injured.</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">43-48</th>
+							<td width="133">Unassigned</td>
+							<td width="385">N/A</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">49</th>
+							<td width="133">Independent Clinic</td>
+							<td width="385">
+								<p>A location, not part of a hospital and not described by any other Place of Service code, that is organized and operated to provide preventive, diagnostic, therapeutic, rehabilitative, or palliative services to outpatients only.</p>
+
+								<p>(Effective October 1, 2003)</p>
+							</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">50</th>
+							<td width="133">Federally Qualified Health Center</td>
+							<td width="385">A facility located in a medically underserved area that provides Medicare beneficiaries preventive primary medical care under the general direction of a physician.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">51</th>
+							<td width="133">Inpatient Psychiatric Facility</td>
+							<td width="385">A facility that provides inpatient psychiatric services for the diagnosis and treatment of mental illness on a 24-hour basis, by or under the supervision of a physician.</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">52</th>
+							<td width="133">Psychiatric Facility-Partial Hospitalization</td>
+							<td width="385">A facility for the diagnosis and treatment of mental illness that provides a planned therapeutic program for patients who do not require full time hospitalization, but who need broader programs than are possible from outpatient visits to a hospital-based or hospital-affiliated facility.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">53</th>
+							<td width="133">Community Mental Health Center</td>
+							<td width="385">A facility that provides the following services: outpatient services, including specialized outpatient services for children, the elderly, individuals who are chronically ill, and residents of the CMHC's mental health services area who have been discharged from inpatient treatment at a mental health facility; 24 hour a day emergency care services; day treatment, other partial hospitalization services, or psychosocial rehabilitation services; screening for patients being considered for admission to State mental health facilities to determine the appropriateness of such admission; and consultation and education services.</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">54</th>
+							<td width="133">Intermediate Care Facility/ Individuals with Intellectual Disabilities</td>
+							<td width="385">A facility which primarily provides health-related care and services above the level of custodial care to individuals but does not provide the level of care or treatment available in a hospital or SNF.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">55</th>
+							<td width="133">Residential Substance Abuse Treatment Facility</td>
+							<td width="385">A facility which provides treatment for substance (alcohol and drug) abuse to live-in residents who do not require acute medical care. Services include individual and group therapy and counseling, family counseling, laboratory tests, drugs and supplies, psychological testing, and room and board.</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">56</th>
+							<td width="133">Psychiatric Residential Treatment Center</td>
+							<td width="385">A facility or distinct part of a facility for psychiatric care which provides a total 24-hour therapeutically planned and professionally staffed group living and learning environment.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">57</th>
+							<td width="133">Non-residential Substance Abuse Treatment Facility</td>
+							<td width="385">
+								<p>A location which provides treatment for substance (alcohol and drug) abuse on an ambulatory basis.&nbsp; Services include individual and group therapy and counseling, family counseling, laboratory tests, drugs and supplies, and psychological testing.&nbsp;</p>
+
+								<p>(Effective October 1, 2003)</p>
+							</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">58-59</th>
+							<td width="133">Unassigned</td>
+							<td width="385">N/A</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">60</th>
+							<td width="133">Mass Immunization Center</td>
+							<td width="385">A location where providers administer pneumococcal pneumonia and influenza virus vaccinations and submit these services as electronic media claims, paper claims, or using the roster billing method. This generally takes place in a mass immunization setting, such as, a public health center, pharmacy, or mall but may include a physician office setting.</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">61</th>
+							<td width="133">Comprehensive Inpatient Rehabilitation Facility</td>
+							<td width="385">A facility that provides comprehensive rehabilitation services under the supervision of a physician to inpatients with physical disabilities. Services include physical therapy, occupational therapy, speech pathology, social or psychological services, and orthotics and prosthetics services.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">62</th>
+							<td width="133">Comprehensive Outpatient Rehabilitation Facility</td>
+							<td width="385">A facility that provides comprehensive rehabilitation services under the supervision of a physician to outpatients with physical disabilities. Services include physical therapy, occupational therapy, and speech pathology services.</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">63-64</th>
+							<td width="133">Unassigned</td>
+							<td width="385">N/A</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">65</th>
+							<td width="133">End-Stage Renal Disease Treatment Facility</td>
+							<td width="385">A facility other than a hospital, which provides dialysis treatment, maintenance, and/or training to patients or caregivers on an ambulatory or home-care basis.</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">66-70</th>
+							<td width="133">Unassigned</td>
+							<td width="385">N/A</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">71</th>
+							<td width="133">Public Health Clinic</td>
+							<td width="385">A facility maintained by either State or local health departments that provides ambulatory primary medical care under the general direction of a physician.&nbsp;</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">72</th>
+							<td width="133">Rural Health Clinic</td>
+							<td width="385">A certified facility which is located in a rural medically underserved area that provides ambulatory primary medical care under the general direction of a physician.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">73-80</th>
+							<td width="133">Unassigned</td>
+							<td width="385">N/A</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">81</th>
+							<td width="133">Independent Laboratory</td>
+							<td width="385">A laboratory certified to perform diagnostic and/or clinical tests independent of an institution or a physician's office.</td>
+						</tr>
+
+						<tr class="rowcolor2">
+							<th scope="row" width="66">82-98</th>
+							<td width="133">Unassigned</td>
+							<td width="385">N/A</td>
+						</tr>
+
+						<tr class="rowcolor1">
+							<th scope="row" width="66">99</th>
+							<td width="133">Other Place of Service</td>
+							<td width="385">Other place of service not identified above.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+
+			</div>
+		</div>
+	</div>
+</div>

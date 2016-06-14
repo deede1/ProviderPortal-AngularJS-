@@ -1,0 +1,25 @@
+﻿<div>
+    <strong>{{eligRecord.LobDescription}}</strong> - <span>{{eligRecord.EligibilityStatusDescription}}</span> on {{eligRecord.DateOfService}} <small><a href="#" ng-click="toggleShowMore()">{{showMoreAction}}...</a></small>
+    <br />
+    <div ng-show="showMore" style="padding-left:1em;">
+        Effective Date: {{eligRecord.EffectiveDate}}<br />
+        Term Date: {{eligRecord.TerminationDate}}<br />
+        <dl class="dl-horizontal">
+            <dt>Doctor Name</dt>
+            <dd>{{eligRecord.PcpName}}</dd>
+            <dt>IEHP ID</dt>
+            <dd>{{eligRecord.PcpId}}</dd>
+            <dt>County</dt>
+            <dd>{{eligRecord.County}}</dd>
+            <dt>Address</dt>
+            <dd>{{eligRecord.PcpAddress1}} {{eligRecord.PcpAddress2}} <br /> {{eligRecord.PcpCity}} {{eligRecord.PcpZip}} </dd>
+            <dt>Phone</dt>
+            <dd>{{eligRecord.PcpPhone}}</dd>
+            <dt>After Hours Phone</dt>
+            <dd>{{eligRecord.PcpPhoneAfterHours}}</dd>
+            <dt>{{"form_IPA" | translate}}</dt>
+            <dd>{{eligRecord.PcpIpa}}</dd>
+        </dl>
+    </div>
+    <span style="color:#999;font-size:.8em;">This report Expires {{eligRecord.DateOfService}}</span>
+</div>

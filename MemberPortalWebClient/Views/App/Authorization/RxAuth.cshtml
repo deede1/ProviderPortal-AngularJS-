@@ -1,0 +1,262 @@
+﻿@{
+    ViewBag.Title = "MedicalAuth";
+}
+
+<div class="panel">
+        <div simple-ajax-loader show="loading"></div>
+        <div style="position: relative;height:100%;width:100%;min-height:200px;">
+            <h2>Pharmacy Auth</h2>
+            <div id="Authorization" class="ngcloak" ng-hide="loading">
+                <div id="AuthHead" class="ContentWrapper container">
+                    <div class="hidden-print" style="margin-bottom:10px;float:left">
+                        <a href="@Url.RouteUrl("App", new { angularroutes = "Authorizations/Rx" })" class="hidden-print displayLoader"><span class="glyphicon glyphicon-circle-arrow-left" style="margin-right: .25em;"></span>Back</a> |
+                        <a href="" class="PrintAuthBtn"><span class="glyphicon glyphicon-print" style="margin-right: .25em;"></span>Print</a>
+                    </div>
+                    <div style="float:left;clear:left;">
+                        <div>
+                            Status:
+                            <strong>{{data.caseStatus}}</strong>
+                            <span ng-if="data.authEffectiveDateSpecified"> on {{data.authEffectiveDate | date:'MM/dd/yy'}}</span>
+                        </div>
+                        <div ng-if="data.authEffectiveDateSpecified && data.authTermDateSpecified">Start/End: {{data.authEffectiveDate | date:'MM/dd/yy'}} - {{data.authTermDate | date:'MM/dd/yy'}}</div>
+                    </div>
+
+                    <h2 style="float:right;margin:0;">Reference: {{data.rxId}}</h2>
+                    <div style="margin-top: 0;margin: 0 auto;width: 100px;margin-bottom: -10px;" class="visible-print">
+                        <img src="https://ww3.iehp.org/Images/IEHP_LOGO_w194xh106.png" style="width:100px;" />
+                    </div>
+                </div>
+
+                <div id="AuthBody">
+                    @* Member Details *@
+                    <div class="ContentWrapper container">
+                        <medhok-member-details member="data.member" />
+                    </div>
+
+
+                    @* Provider Details *@
+                    <div class="ContentWrapper container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 style="border-bottom:1px solid #333;">Provider Details</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12 col-sm-12 col-lg-6 col-print-6">
+                                <provider-tile provider="data.member.pcp" title="PCP" />
+                            </div>
+                            <div class="col-md-6 col-xs-12 col-sm-12 col-lg-6 col-print-6">
+                                <provider-tile ng-if="data.provider != null && data.provider.providerID != ''" provider="data.provider" title="Requesting Provider" />
+                            </div>
+                        </div>
+                        <div class="row" ng-if="data.pharmacy != null && data.pharmacy.pharmacyName != ''">
+                            <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                <fieldset>
+                                    <legend>Pharmacy</legend>
+                                    <div class="form-horizontal form-horizontal-short-groups">
+                                        <div class="form-group side-by-side col-xs-12">
+                                            <span>Name: </span>
+                                            <span>{{data.pharmacy.pharmacyName}}</span>
+                                        </div>
+                                        <div class="form-group side-by-side col-xs-12">
+                                            <span>NABP: </span>
+                                            <span>{{data.pharmacy.pharmacyNABP}}</span>
+                                        </div>
+                                        <div class="form-group side-by-side col-xs-12">
+                                            <span>Address:</span>
+                                            <span>
+                                                {{data.pharmacy.pharmacyAddress1}} {{data.pharmacy.pharmacyAddress2}}<br />
+                                                {{data.pharmacy.pharmacyCity}}, {{data.pharmacy.pharmacyState}} {{data.pharmacy.pharmacyZip}}
+                                            </span>
+                                        </div>
+                                        <div class="form-group side-by-side col-xs-12">
+                                            <span>Phone:</span>
+                                            <span>{{pharmacy.pharmacyPhone}}</span>
+                                        </div>
+                                        <div class="form-group side-by-side col-xs-12">
+                                            <span>Fax:</span>
+                                            <span>{{data.pharmacy.pharmacyFax}}</span>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ContentWrapper container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 style="border-bottom:1px solid #333;">Authorization Details</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group over-under col-xs-12">
+                                    <span>Rx Auth ID:</span>
+                                    <span>{{data.rxId}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group over-under col-xs-12">
+                                    <span>Status:</span>
+                                    <span>{{data.status}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group over-under col-xs-12" style="color:#666;">
+                                    <span>Date of Original Rx:</span>
+                                    <span>(Not Currently Supported)</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group over-under col-xs-12" style="color:#666;">
+                                    <span>Refills Remaining:</span>
+                                    <span>(Not Currently Supported)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group over-under col-xs-12">
+                                    <span>Drug Name:</span>
+                                    <span>{{data.drugName}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group over-under col-xs-12">
+                                    <span>NDC:</span>
+                                    <span>{{data.ndc}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group over-under col-xs-12">
+                                    <span>Quantity:</span>
+                                    <span>{{data.quantity}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group over-under col-xs-12" style="color:#666;">
+                                    <span>Diagnosis:</span>
+                                    <span>(Not Currently Supported)</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group over-under col-xs-12">
+                                    <span>SIG:</span>
+                                    <span ng-if="data.SIG == ''">None Specified</span>
+                                    <span ng-if="data.SIG != ''">{{data.SIG}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group over-under col-xs-12">
+                                    <span>Previous Therapy:</span>
+                                    <span ng-if="data.previousTherapy == ''">None Specified</span>
+                                    <span ng-if="data.previousTherapy != ''">{{data.previousTherapy}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group over-under col-xs-12">
+                                    <span>Medical Justification for Non-Forumulary Drug:</span>
+                                    <span ng-if="data.medJustificationNFDrug == ''">None Specified</span>
+                                    <span ng-if="data.medJustificationNFDrug != ''">{{data.medJustificationNFDrug}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    @* Documents and Correspondence *@
+                    <div class="container">
+
+                        @* Correspondence *@
+                        @*<fieldset class="hidden-print">
+                                <legend>Correspondence</legend>
+                                @if (Model.Correspondence.Count > 0)
+                                {
+                                    <table class="DocumentTable">
+                                        <tr>
+                                            <th style="text-align:left;">Description</th>
+                                            <th style="text-align:left;">Location</th>
+                                            <th style="text-align:left;">Status</th>
+                                            <th></th>
+                                        </tr>
+                                        @foreach (var item in Model.Correspondence)
+                                        {
+                                            <tr>
+                                                <td>@item.description</td>
+                                                <td>@item.createUser.siteLocation</td>
+                                                <td>@item.correspondanceStatus</td>
+                                                <td>
+                                                    <a href="@Url.Action("GetDocument", new { DocumentId = item.documentId })" target="_blank">View <span class="popNewWindow glyphicon glyphicon-new-window"></span></a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+
+                                }
+                                else
+                                {
+                                    <p>None Available.</p>
+                                }
+                            </fieldset>*@
+
+                        @* Documents *@
+                        @*<fieldset class="hidden-print">
+                                <legend>Documents</legend>
+                                @if (Model.Documents.Count > 0)
+                                {
+                                    <table class="DocumentTable">
+                                        <tr>
+                                            <th style="text-align:left;">Description</th>
+                                            <th style="text-align:left;">Type</th>
+                                            <th></th>
+                                        </tr>
+                                        @foreach (var item in Model.Documents)
+                                        {
+                                            <tr>
+                                                <td>@item.fileName</td>
+                                                <td>@item.documentType</td>
+                                                <td>
+                                                    <a href="@Url.Action("GetDocument", new { DocumentId = item.documentId })" target="_blank">View <span class="popNewWindow glyphicon glyphicon-new-window"></span></a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                }
+                                else
+                                {
+                                    <p>None Available.</p>
+                                }
+                            </fieldset>*@
+                    </div>
+
+                    <div class="container ContentWrapper AuthFooter">
+                        <p style="margin: 0 0 5px;">UPON ACCEPTANCE OF REFERRAL AND TREATMENT OF THE MEMBER, PHYSICIAN/ PROVIDER AGREES TO ACCEPT IEHP CONTRACTED RATES. This referral/authorization verifies medical necessity only.  Payments for services are dependent upon the Member's eligibility at the time services are rendered.</p>
+                        <p style="margin: 0 0 5px;">Criteria utilized in making this decision is available upon request by calling IEHP at (800) 440-4347.</p>
+                        <p style="margin: 0 0 5px;"><strong>*For members who have dual medical coverage, IEHP is always the secondary payor.</strong></p>
+                        <p style="margin: 0 0 5px;">Disclaimer: This is an authorization for services, not for payment. All standard coding rules will be applied upon receipt of the claim.</p>
+                        <p style="margin: 0 0 5px;">NOTICE: This facsimile/printout contains confidential information that is being transmitted to and is intended only for the use of the recipient named above. Reading, disclosure, discussion, dissemination, distribution, or copying of this information by anyone other than the named recipient or his or her employees or agents is strictly prohibited. If you have received this facsimile/printout in error, please immediately destroy it and notify us by telephone at (866) 725-4347.</p>
+
+                        @*@if (Model.Correspondence.Count > 0 || Model.Documents.Count > 0)
+                            {
+                                <p class="hidden-print">
+                                    <a href="https://get.adobe.com/reader/" target="_blank" title="Get Adobe Reader">
+                                        <img alt="Get Adobe Reader" src="@Url.Content("~/content/get_adobe_reader.gif")" />
+                                    </a>
+                                </p>
+                            }*@
+                    </div>
+                </div>
+
+                <div debug-tool class="ng-cloak">
+                    <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+                </div>
+            </div>
+        </div>
+</div>

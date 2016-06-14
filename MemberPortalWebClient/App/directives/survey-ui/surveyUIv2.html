@@ -1,0 +1,97 @@
+﻿
+
+<div ng-show="!SurveyIsFinshed">
+    <!--<div class="survey-header">
+        <div class="survey-details" ng-cloak>Survey Version {{SurveyDetail}}</div>
+    </div>-->
+
+    <div>
+        <a href="App/HealthCare/HASurvey/History">Go back to Surveys home</a>
+    </div>
+
+    <div class="panel" ng-cloak>
+        <div class="row">
+           
+        </div>
+        <form name="surveyform" novalidate>
+     
+            <div class="survey-container">
+                <div class="survey-window" ng-cloak>
+                    <div id="survey-section-name" class="survey-section-name">{{ActiveSectionName}}</div>
+                    <div class="survey-question-body">
+                        <div id="QuestionRender" class="question-label " ng-repeat="question in ActiveSection.Questions track by $index">
+
+                            <render-radio ng-if="question.InputType == 'radio' && question.DisplayTypeCode == '' && question.AnswerCount != '2' && question.Children.length != 2"></render-radio>
+                            <render-true-false-radio ng-if="question.InputType == 'radio' && question.DisplayTypeCode == '' && question.AnswerCount == '2' && !question.hasChildren"></render-true-false-radio>
+                            <render-computed-radio ng-if="question.InputType == 'radio[computedfield]' && question.DisplayTypeCode == ''"></render-computed-radio>
+                            <render-agree ng-if="question.InputType == 'AgreeDisagree'"></render-agree>
+                            <render-disable-children-radio ng-if="question.InputType == 'DisableChildren'"></render-disable-children-radio>
+
+                            <render-checkbox ng-if="question.InputType == 'checkbox' && question.DisplayTypeCode == ''"></render-checkbox>
+                            <span class="survey-question-span" ng-if="question.ParentQuestionId >'0' && question.InputType== 'blank'" ng-bind-html="question.QuestionText"></span>
+                            <render-checkbox-multigroup ng-if="(question.DisplayTypeCode == 'Table-OneColumnDisplay' || question.DisplayTypeCode == 'Table-TwoColumnDisplay')"></render-checkbox-multigroup>
+
+                            <render-user-input ng-if="question.InputType == 'text'"></render-user-input>
+                            <render-computed-user-input ng-if="question.InputType == 'text[computedfield]'"></render-computed-user-input>
+                            <render-calendar ng-if="question.InputType == 'calendar'"></render-calendar>
+
+                            <span class="survey-question-span" ng-if="question.ParentQuestionId == '0' && question.InputType== 'blank'" ng-bind-html="question.QuestionText"></span>
+                            <render-table ng-if="$index == '2' && question.DisplayTypeCode == 'Table-FiveColumnDisplay' && question.InputType != 'checkbox'"></render-table>
+                            <!--<render-computed-radio-table ng-if="question.DisplayTypeCode == 'Table' &&  question.InputType =='radio[computedfield]'"></render-computed-radio-table>-->
+
+                        </div>
+                        <div ng-if="language == 'EN'" class="help-block survey-required-value" style="float: right; margin-bottom: 0" ng-show="surveyform.$invalid">Please Fill Out All Required Fields</div>
+                        <div ng-if="language == 'ES'" class="help-block survey-required-value" style="float: right; margin-bottom: 0" ng-show="surveyform.$invalid">Por favor, rellene todos los campos requeridos</div>
+
+                    </div>
+
+                </div>
+                <simple-ajax-loader ng-cloak show="!surveySectionRecieved"></simple-ajax-loader>
+                <simple-error-box ng-cloak show="SurveyError" message="{{ErrorMsg}}"></simple-error-box>
+                <div ng-cloak>
+                    <div class="survey-section-counter col-md-4 pull-left">
+                        <span>{{'form_healthcare_section_Side_Panel_Sections' | translate}}: {{sectionOn}} of {{totalSections}}  </span>
+                    </div>
+
+                    <div class="survey-button-container col-sm-10 col-md-6 formButtons pull-right">
+                        <button type="button"
+                                class="btn btn-primary"
+                                ng-disabled="sectionOn == 1"
+                                ng-click="PreviousQuestionSection()">
+                            {{'form_healthcare_section_SurveyHistoryTakeSurveyFooterPrevious' | translate}}
+                        </button>
+
+                        <button type="submit"
+                                class="btn btn-primary"
+                                ng-disabled="!surveySectionRecieved"
+                                ng-hide="sectionOn == (totalSections - 1)"
+                                ng-click="NextQuestionSection(surveyform.$valid)">
+                            {{'form_healthcare_section_SurveyHistoryTakeSurveyFooterNext' | translate}}
+                        </button>
+                        <button type="submit"
+                                class="btn btn-primary"
+                                ng-show="sectionOn == (totalSections - 1)"
+                                ng-click="FinishSurvey(surveyform.$valid)">
+
+                            Finish
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div>
+        <a href="App/HealthCare/HASurvey/History">Go back to Surveys home</a>
+    </div>
+    <button type="button"
+            class="btn btn-primary"
+            ng-click="PrintSurvey()">
+        Print Survey
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            ng-click="PrintSurveyCopy()">
+        Print Active Section
+    </button>
+</div>
+<survey-finish ng-if="SurveyIsFinshed"></survey-finish>

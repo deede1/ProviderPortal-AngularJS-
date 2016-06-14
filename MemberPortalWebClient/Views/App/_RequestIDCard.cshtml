@@ -1,0 +1,171 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="row contentContainer frmSignIn">
+
+
+    <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15">
+        <div class="contentPanel">
+
+            <notifications-panel></notifications-panel>
+            <br />
+            <a href="App/Eligibility/TemporaryIdCard">
+                <div class="panelTile alignCenter col-xs-6">
+
+                    {{ 'nav_printTemporaryCard' | translate}}
+                </div>
+            </a>
+
+            <a href="App/Eligibility/RequestIdCard">
+                <div class="panelTile alignCenter col-xs-6 panelSelected">
+
+                    {{ 'nav_requestIEHPCard' | translate}}
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12  col-lg-push-3 col-md-push-3">
+
+        @*<div class="contentPanel subNavLink">
+                <ul>
+                    <li> <a href="App/Eligibility/TemporaryIdCard" class="subNavLink">{{'nav_printTemporaryCard' | translate }}</a> </li>
+                    <li class="subNavSelected">{{ 'nav_requestIEHPCard' | translate  }}</li>
+                </ul>
+            </div>*@
+
+        @*<div class="row">
+                <div class="subNavLink  col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-xs">
+                    <a href="App/Eligibility/TemporaryIdCard" class="subNavLink">{{'form_printTemporary' | translate }}</a>
+                </div>
+            </div>*@
+
+        <danger-box message="{{errorMessage}}"></danger-box>
+
+        <div class="panel">
+
+            <div class="padLeft15 padTop15">
+                <h1 class="pageTitle">{{"page_idcard_requestIDCard_title" | translate}}  </h1>
+                <p class="pageIntro"> {{"page_idcard_requestIDCard_intro" | translate}}  </p>
+            </div>
+
+            <form>
+                <div class="row clearfix">
+                    <div class="panelImageCont col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                        <img class="panelImage" src="@Url.Content("~/Content/Images/sm_IDCard.png")" />
+                    </div>
+                    <div class="col-lg-offset-1 col-lg-7 col-md-6">
+                        <h2> {{'form_requestHistory' | translate}}</h2>
+                        <p class="alert alert-info bg-info" ng-if="hasPendingChange"> {{'form_pendingRequestExists' | translate}}</p>
+                         
+                        <table class="table table-condensed table-striped">
+                            <thead>
+                                <tr>
+                                    <th>{{'form_dateRequested' | translate}}</th>
+                                    <th>{{'form_dateShipped' | translate}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in requestHistory">
+                                    <td>{{item.DateRequested | date:'MM/dd/yy'}}</td>
+                                    <td>{{item.DateShipped   | date:'MM/dd/yy'}}</td>
+                                    <td><span class="glyphicon glyphicon-remove" ng-click="RemoveIdCardRequest(item.ID)" alt="{{'form_delete' |translate}}" title="{{'form_delete' |translate}}"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="alert alert-info bg-info" ng-if="!hasPendingChange"> {{'form_noPendingRequestExists' | translate}}</p>
+
+                        <br /><br />
+                        <div class="row">
+                            <div class="formButtons col-lg-12 col-md-12 col-sm-11 col-xs-12">
+                                <button class="btn  btn-lg btn-primary  " ng-click="SubmitNewIdCardRequest()" ng-disabled="hasPendingChange"> {{'form_requestNewCard' | translate }}</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+     
+
+
+
+
+
+    <!--  place this in a directive per IEHPCard Category -->
+    <div class="contentLeft col-lg-3 col-md-3   col-sm-12 col-lg-pull-9 col-md-pull-9 col-sm-pull-0 hidden-xs">
+        <div class="contentPanel leftPanel_large">
+
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/Eligibility/TemporaryIdCard">
+                <div class="panelTile alignRight">
+
+                    <h2>{{ 'nav_printTemporaryCard' | translate}}</h2>
+                    <i class="btn_bak_printer" />
+                </div>
+            </a>
+
+            <a href="App/Eligibility/RequestIdCard">
+                <div class="panelTile alignRight panelSelected">
+
+                    <h2>{{ 'nav_requestIEHPCard' | translate}}</h2>
+                    <i class="btn_bak_request" />
+                </div>
+            </a>
+             
+
+
+            @*<div class="pageBannerContainer" ng-controller="SideNavCtrl">
+                    <div ng-if="currentLanguage == 'en-us'">
+                        <div class="leftBanner_TOCL_Yellow">IEHP Member ID Card TIPS</div>
+                        <div class="leftBanner_Verdana_White">
+                            <ul>
+                                <li>Do not share it</li>
+                                <li>Do not let someone else use it</li>
+                                <li>Keep it in a safe place</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div ng-if="currentLanguage == 'es-mx'">
+                        <div class="leftBanner_TOCL_Yellow _2em">RECOMENDACIONES para utilizar la Tarjeta de Identificación del Miembro de IEHP</div>
+                        <div class="leftBanner_Verdana_White">
+                            <ul>
+                                <li>No la comparta</li>
+                                <li>No permita que nadie más la use</li>
+                                <li>Guárdela en un lugar seguro</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <img id="homeBannerLeft" src="@Url.Content("~/Content/Images/panel_IDCard.png")" />
+                </div>*@
+
+
+        </div>
+    </div>
+
+
+    <div debug-tool class="ng-cloak">
+        <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+    </div>
+
+</div>
+
+    <script>
+        $('.navItemSelected').removeClass('navItemSelected');
+        $('#navbtn2 div').addClass('navItemSelected');
+    </script>
+
+
+    @* -------------- Dubug Stuff ---------------  *@
+
+

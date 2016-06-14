@@ -1,0 +1,1540 @@
+﻿ 
+<div class="posRelative">
+
+
+    <div id="eligibilitySearchResultsMemberIDCard">
+        <pp-temporary-member-id-card></pp-temporary-member-id-card>
+    </div>
+     
+
+    <div> 
+        <roster-title-header titleheaderparam="titleHeaderParam"></roster-title-header>
+
+        <div class="resultsHeaderVerificationID hidden">
+            Verification Number: {{verificationID}} on {{dateStamp}} at {{timeStamp}}
+        </div>
+    </div>
+
+
+     
+    <danger-box message="{{NotificationsErrorMessage}}"></danger-box>
+
+
+<div class="alignCenter roooosterResultsContainer"> 
+        <table id ="eligibilitySearchResultsTable" class="roooster table table-striped table-sortable padLeft0" ng-show="data.length">
+
+            <tbody>
+                <tr ng-repeat-start="item in data ">
+
+                    <td colspan="100%" style="position:relative" ng-class="{eligResMemNotFound : !item.LastName }">
+
+                        <div ng-if="item.EligibilityStatusDescription != 'On Hold'"
+                             class="eligSearchCriteriaContainer"
+                             ng-class="{            'eligEligible': item.EligibilityStatusDescription == 'Eligible',
+                                                 'eligDisenrolled': item.EligibilityStatusDescription == 'On Hold'
+                                                                 || item.EligibilityStatusDescription == 'Disenrolled'      }">
+
+
+                            <div class="eligSearchCriteria col-sm-12" ng-show="!item.LastName">
+                                <span class="padLeft5">
+                                    <span style="width: 25px"></span>
+                                    <span ng-switch on="item.RequestedType">
+                                        <span ng-switch-when="LastNameAndDateOfBirth">   Last Name:</span>
+                                        <span ng-switch-default>  {{ item.RequestedType | uppercase }}:</span>
+                                    </span>
+
+                                    {{ item.RequestedValue | uppercase }}
+
+                                    <span ng-if="item.RequestedType == 'LastNameAndDateOfBirth'">  DOB:{{ item.RequestedDateOfBirth }}  </span>
+
+                                    DOS:{{ item.RequestedDateOfService }}
+
+                                    Not found, please check your request.
+                                </span>
+                            </div>
+
+
+
+
+
+                            <div class="eligNotifications col-sm-6" ng-show="item.LastName && item.EffectiveDate && memberNotificationsList[item.IehpId].length >3">
+                                <i class="glyphicon glyphicon-star"></i> NOTIFICATIONS: {{ memberNotificationsList[item.IehpId] }}
+                            </div>
+
+                            <div class="eligNotifications col-sm-4" ng-show="!item.LastName">
+                                <!--MEMBER NOT FOUND!-->
+
+                            </div>
+                        </div>
+                        <div class="eligibilityResPanel col-sm-4 pad0"
+                             ng-class="{ 'eligInvalidResult' : item.EligibilityStatusDescription == 'On Hold'}"
+                             ng-show="item.LastName">
+                            <div class="row ">
+                                <label class="col-sm-6"> Member Name </label>
+                                <div ng-show="item.EffectiveDate"
+                                     class="col-sm-6 anchor urlLink padLeft0"
+                                     ng-click="viewMemberDetails(
+                                     item.FirstName,
+                                     item.LastName,
+                                     item.IehpId,
+                                     item.Address1,
+                                     item.Address2,
+                                     item.City,
+                                     item.State,
+                                     item.Zip,
+                                     item.Phone,
+                                     item.SpokenLanguage )"
+                                     uib-popover="Click to view member demographics"
+                                     popover-trigger="mouseenter"
+                                     popover-append-to-body="true">
+                                    {{ item.LastName }}, {{ item.FirstName }}
+                                </div>
+                                <div ng-show="!item.EffectiveDate"
+                                     class="col-sm-6  padLeft0">
+                                    {{ item.LastName }}, {{ item.FirstName }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-sm-6"> Eligible </label>
+                                <div class="col-sm-6 padLeft0"
+                                     ng-show="item.LastName != null"
+                                     ng-class="{ 'eligEligible':    item.EligibilityStatusDescription == 'Eligible',
+                                                 'eligDisenrolled': item.EligibilityStatusDescription == 'On Hold'
+                                                                 || item.EligibilityStatusDescription == 'Disenrolled' }">
+
+                                    {{ item.EligibilityStatusDescription }} on {{ item.DateOfService }}
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="item.EffectiveDate">
+                                <label class="col-sm-6"> Gender/ DOB </label>
+                                <div class="col-sm-6 padLeft0"> {{ item.Gender }} {{ item.DateOfBirth | date:'MM/dd/yyyy'}} </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-6"> IEHP ID </label>
+                                <div class="col-sm-6 padLeft0"> {{ item.IehpId }}</div>
+                            </div>
+                            <div class="row" ng-show="item.EffectiveDate">
+                                <label class="col-sm-6"> CIN </label>
+                                <div class="col-sm-6 padLeft0"> {{ item.Cin }} </div>
+                            </div>
+                            <div class="row" ng-show="item.EffectiveDate">
+                                <label class="col-sm-6"> Aid Code/ Cnty </label>
+                                <div class="col-sm-6 padLeft0"> {{ item.AidCode }} / {{ item.County.substring(0,10)}} ({{item.CountyId}})  </div>
+                            </div>
+                        </div>
+
+
+                        <div class="eligibilityResPanel col-sm-3 pad0" ng-show="item.EffectiveDate">
+                            <div ng-show="item.Lob == 'PGM'">
+                                <div class="row">
+                                    <label class=" col-sm-6">Plan </label>
+                                    <div class="col-sm-6 pad0"> Healthy Kids </div>
+                                </div>
+                                <div class="row">
+                                    <label class=" col-sm-6 ">Co-Pay Well Visit </label>
+                                    <div class="col-sm-6 pad0" ng-show="item.CoPayWell == 'N/A'"> $0.00 </div>
+                                    <div class="col-sm-6 pad0" ng-show="item.CoPayWell != 'N/A'"> ${{ item.CoPayWell }} </div>
+
+                                </div>
+                                <div class="row">
+                                    <label class=" col-sm-6 ">Co-Pay Sick Visit </label>
+                                    <div class="col-sm-6 pad0" ng-show="item.CoPaySick == 'N/A'">  $0.00 </div>
+                                    <div class="col-sm-6 pad0" ng-show="item.CoPaySick != 'N/A'">  $ {{item.CoPaySick  }} </div>
+                                </div>
+                                <div class="row">
+                                    <label class=" col-sm-6 ">Co-Pay ER Visit </label>
+                                    <div class="col-sm-6 pad0" ng-show="item.CoPayEr == 'N/A'">  $0.00</div>
+                                    <div class="col-sm-6 pad0" ng-show="item.CoPayEr != 'N/A'">  ${{ item.CoPayEr }} </div>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="item.Lob != 'PGM'">
+                                <label class="col-sm-6 "> Plan/Co-Pay </label>
+                                <div ng-show="item.Lob !== 'MED' && !item.LobDescription == 'Cal MediConnect'" class="col-sm-6 pad0"> {{ item.LobDescription }} / $XX.XX </div>
+                                <div ng-show="item.Lob !== 'MED' && item.Lob  == 'CMC'" class="col-sm-6 pad0"> MediCare/ $0.00 </div>
+                                <div ng-show="item.Lob  == 'MED' && item.PlanCat !== 'O'" class="col-sm-6 pad0"> Medi-Cal/ $0.00 </div>
+                                <div ng-show="item.Lob  == 'MED' && item.PlanCat  == 'O'" class="col-sm-6 pad0"> Open Access/ $0.00 </div>
+                            </div>
+
+
+                            <div class="row" ng-show="item.LobDescription ='MediCare' && (item.AidCode =='MF' || item.AidCode =='MD' || item.AidCode == 'MN')">
+                                <label class="col-sm-6 padRight0"> Medicare </label>
+                                <div class="col-sm-6 pad0">  CalMediConnect </div>
+                            </div>
+
+                            <div class="row" ng-show="item.LobDescription ='MediCare' &&  (item.AidCode =='MD')">
+                                <label class=" col-sm-6 padright0">
+                                    Eff. Date W/Medi-Cal
+                                </label>
+                                <div class="col-sm-6 pad0"> {{ item.datemedical }} - {{ item.asdda }} !!! </div>
+                            </div>
+
+
+                            <div class="row" ng-show="item.LobDescription =='Medi-Cal' ">
+                                <label class=" col-sm-6 padright0">
+                                    Medicare HIC#
+                                </label>
+                                <div class="col-sm-6 pad0"> {{ item.HICNumber }} !!! </div>
+                            </div>
+
+
+
+
+
+                            <div class="row">
+                                <label class="col-sm-6 padRight0"> Assigned PCP </label>
+
+
+                                <div class="col-sm-6 pad0 anchor urlLink"
+                                     ng-show="item.MedicareHIC != null && item.LobDescription == 'Medi-Cal'"
+                                     ng-click="viewPCPDetails( item )">
+                                    <span ng-show="item.LobDescription =='Open Access'">SEE YOUR MEDICARE DOCTOR </span>
+                                </div>
+
+                                <div class="col-sm-6 pad0 anchor urlLink"
+                                     ng-show="item.MedicareHIC == null && item.LobDescription != 'Medi-Cal'"
+                                     ng-click="viewPCPDetails( item )"
+                                     uib-popover=" Click to view PCP details"
+                                     popover-trigger="mouseenter"
+                                     popover-append-to-body="true">
+                                    <span ng-show="item.LobDescription !='Open Access'"> {{ item.PcpName  }} </span>
+                                    <span ng-show="item.LobDescription =='Open Access'">Open Access</span>
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-6 "> PCP ID </label>
+                                <div class="col-sm-6 pad0"> {{ item.PcpId }} </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-6 padRight0"> PCP Phone </label>
+                                <div class="col-sm-6 pad0"> {{ item.PcpPhone }} </div>
+                            </div>
+                        </div>
+
+                        <div class="eligibilityResPanel col-sm-4 pad0" ng-show="item.EffectiveDate">
+                            <div class="row">
+                                <label class="col-sm-6 pad0"> Eff. Date w/PCP </label>
+                                <div class="col-sm-6 pad0"> {{ item.EffectiveDate }} </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-6 pad0"> Assigned IPA </label>
+                                <div class="col-sm-6 pad0 anchor urlLink"
+                                     uib-popover="Click to view IPA details"
+                                     ng-click="viewAssignedIPA( item.Ipa, item.HospitalId)"
+                                     popover-trigger="mouseenter"
+                                     popover-append-to-body="true">{{ item.IpaDescription }}</div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-6 pad0"> Assigned Hospital </label>
+                                <div class="col-sm-6 pad0 anchor urlLink"
+                                     uib-popover=" Click to viev Hospital details"
+                                     ng-click="viewAssignedHospital( item.Ipa, item.HospitalId )"
+                                     popover-trigger="mouseenter"
+                                     popover-append-to-body="true">{{ item.HospitalName }}</div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-6 pad0"> Assigned Lab </label>
+                                <div class="col-sm-6 pad0"> {{ item.PcpAssignedLab }}</div>
+                            </div>
+                        </div>
+
+                        <div class="eligibilityResPanel eligIcons col-sm-1 padLeft0 padRight0 non-printable" ng-show="item.EffectiveDate">
+                            <div class="row padTop20">
+                                <img class="icon"
+                                     uib-popover= "Click" to view Urgent Care List"
+                                     ng-show="ProviderType !='ANC_NC'"
+                                     popover-trigger="mouseenter"
+                                     popover-append-to-body="true"
+                                     src="content/images/ico_urgentCareList.png" ng-click="viewUrgentCareList( item.IehpId )" />
+
+                                <img class="icon"
+                                     uib-popover="Medical Healthcare Record"
+                                     ng-show="ProviderType !='ANC_NC' && item.MedicalHistoryOptOut == false"
+                                     popover-trigger="mouseenter"
+                                     popover-append-to-body="true"
+                                     src="content/images/ico_medicalHistory.png" ng-click="viewMemberMedicalHistory( item.IehpId , item.DateOfService )" /><br />
+
+
+                                  
+                                <img class="icon"
+                                     uib-popover="Member Requested Access to be Restricted"
+                                     ng-show="ProviderType !='ANC_NC' && item.MedicalHistoryOptOut "
+                                     popover-trigger="mouseenter"
+                                     popover-append-to-body="true"
+                                     src="content/images/ico_medicalHistory_disabled.png" ng-click="viewMemberMedicalHistory( item.IehpId , item.DateOfService )" /><br />
+
+
+
+
+                                <img class="icon"
+                                     uib-popover="Care Plans & HRA"
+                                     ng-show="ProviderType !='ANC_NC'"
+                                     popover-trigger="mouseenter"
+                                     popover-append-to-body="true"
+                                     src="content/images/ico_carePlansHRA.png" ng-click="viewCarePlansHRA( item.IehpId )" />
+                                <img class="icon"
+                                     uib-popover="Print ID Card"
+                                     ng-show="ProviderType !='ANC_NC'"
+                                     popover-trigger="mouseenter"
+                                     popover-append-to-body="true"
+                                     src="content/images/ico_printIDCard.png" ng-click="viewMemberIDCard( item.IehpId,  item.Lob)" />
+                            </div>
+                        </div>
+
+
+
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr uib-collapse="!item.expand" ng-repeat-end="" class="details"></tr>
+
+            </tbody>
+        </table>
+
+
+         
+
+
+
+
+        <ul class="doNotShow">
+            <li id="XLSExportPlaceholder" style="width: 250px; background-color: white; margin: 10px;">
+                <table>
+                  
+                    <thead>
+                        
+                        <tr><th>----------------=----</th></tr>
+                        <tr>
+                            <th> 8888</th>
+                            <th>Member</th>
+                            <th>Status123</th>
+                            <th>Gender/DOB</th>
+                            <th>IEHP ID</th>
+                            <th>CIN</th>
+                            <th>Plan</th>
+                            <th>SSN</th>
+                            <th>Assigned PCP</th>
+                            <th>PCP ID</th>
+                            <th>PCP ID</th>
+                            <th>PCP Phone</th>
+                            <th>Assigned IPA</th>
+                            <th>Assigned Hospital</th>
+                            <th>Assigned Lab</th>
+                        </tr> 
+                         
+                     
+                </thead>   
+                    <tr ng-repeat="item in data">
+                        <td>asdasd</td>
+                        <td>{{ item.LastName }}, {{ item.FirstName }}</td>
+                        <td>{{item.EligibilityStatusDescription}}</td>
+                        <td>{{ item.Gender }} : {{ item.Da }} </td>
+                        <td>{{ item.Gender }} : {{ item.DateOfBirth | date:'MM/dd/yyyy'}}</td>
+                      
+                        <td>'{{ item.IehpId}}'</td>
+                        <td>{{ item.Cin }} </td>
+                        <td>{{ item.LobDescription }} </td>
+                        <td>{{ item.Ssn }} </td>
+                        <td>{{ item.PcpName }} </td>
+                        <td>'{{ item.PcpId }}'</td>
+                        <td>{{ item.PcpPhone }} </td>
+                        <td>{{ item.IpaDescription }} </td>
+                        <td>{{ item.HospitalName }} </td>
+                        <td>{{ item.AssignedLab }} </td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+
+    </div>
+
+
+    
+
+<div simple-ajax-loader show="loading"></div>
+    <danger-box message="{{errorMessage}}"></danger-box>
+
+
+
+    <pp-eligibility-member-details ></pp-eligibility-member-details>
+
+
+    <br/>
+
+    <pp-eligibility-pcp-details></pp-eligibility-pcp-details>
+</div>
+
+
+<script>
+    //$("#btnXLSExport").click(function (e) {
+    //    $('#XLSExportPlaceholder table tbody tr.ng-scope').removeAttr('class');
+    //    $('#XLSExportPlaceholder table tbody tr').removeAttr('ng-repeat');
+    //    $('#XLSExportPlaceholder table tbody tr td').removeAttr('class');
+    //    $('*').contents().each(function () {
+    //        if (this.nodeType === Node.COMMENT_NODE) {
+    //            $(this).remove();
+    //        }
+    //    });
+    //    window.open('data:application/vnd.ms-excel,' + $('#XLSExportPlaceholder').html());
+    //    e.preventDefault();
+    //});
+
+ 
+
+
+    $(document).ready(function () {
+        $('.btnPrint').click(function() {
+            window.print();
+        });  
+      
+    });
+
+     
+
+
+</script>
+
+
+<script>
+    (function($) {
+        $.fn.extend({
+            tableExport: function(options) {
+                var defaults = {
+                    separator: ',',
+                    ignoreColumn: [],
+                    tableName: 'yourTableName',
+                    type: 'csv',
+                    pdfFontSize: 14,
+                    pdfLeftMargin: 20,
+                    escape: 'true',
+                    htmlContent: 'false',
+                    consoleLog: 'true'
+                };
+
+                var options = $.extend(defaults, options);
+                var el = this;
+
+                var urlOpen = "";
+
+                if (defaults.type == 'csv' || defaults.type == 'txt') {
+
+                    // Header
+                    var tdData = "";
+                    $(el).find('thead').find('tr').each(function() {
+                        tdData += "\n";
+                        $(this).filter(':visible,.hideOnWebOnly').find('th').each(function (index, data) {
+                          if ($(this).css('display') != 'none')
+                            {
+                                if (defaults.ignoreColumn.indexOf(index) == -1) {
+                                    tdData += '"' + parseString($(this)) + '"' + defaults.separator;
+                                }
+                            }
+
+                        });
+                        tdData = $.trim(tdData);
+                        tdData = $.trim(tdData).substring(0, tdData.length - 1);
+                    });
+
+                    // Row vs Column
+                    $(el).find('tbody').find('tr').each(function() {
+                        tdData += "\n";
+                        $(this).filter(':visible,.hideOnWebOnly').find('td').each(function (index, data) {
+                          if ($(this).css('display') != 'none')
+                            {
+                                if (defaults.ignoreColumn.indexOf(index) == -1) {
+                                    tdData += '"' + parseString($(this)) + '"' + defaults.separator;
+                                }
+                            }
+                        });
+                        //tdData = $.trim(tdData);
+                        tdData = $.trim(tdData).substring(0, tdData.length - 1);
+                    });
+
+                    //output
+                    if (defaults.consoleLog == 'true') {
+                        console.log(tdData);
+                    }
+                    var base64data = "base64," + $.base64.encode(tdData);
+
+                      urlOpen = 'data:application/' + defaults.type + ';filename=exportData;' + base64data;
+                    console.log('>>' + defaults.type);
+
+                    //var fileExtension; 
+                    ////window.open(urlOpen);
+                    //switch (defaults.type) {
+                    //    case 'csv':
+                    //        fileExtension = 'txt'; break;
+                    //    case 'doc':
+                    //        fileExtension = 'doc'; break;
+                    //    case 'excel':
+                    //        fileExtension = 'xls'; break;
+                    //}
+
+                    //var link = document.createElement("a");
+                    //link.href = urlOpen; 
+                    ////set the visibility hidden so it will not effect on your web-layout
+                    //link.style = "visibility:hidden";
+                    //link.download =   "Eligibility." + fileExtension;
+
+                    ////this part will append the anchor tag and remove it after automatic click
+                    //document.body.appendChild(link);
+                    //link.click();
+                    //document.body.removeChild(link);
+
+
+                }  else if (defaults.type == 'excel' || defaults.type == 'doc' || defaults.type == 'powerpoint') {
+                    //console.log($(this).html());
+                    var excel = "<table style='font-family:Arial' border='1' borderColor='#D2D3D3' Padding='5' spacing='3'>";
+
+                  
+                    excel += "<tr><td style=' font-weight:bold;font-size:13pt;'>--- Confidential ---</td></tr>";
+
+                    // Header
+                    $(el).find('thead').find('tr').each(function() {
+                        excel += "<tr style='padding:10px;'>";
+                        $(this).filter(':visible').find('th').each(function(index, data) {
+                           // if ($(this).css('display') != 'none' )
+                             {
+                                if (defaults.ignoreColumn.indexOf(index) == -1) {
+                                    excel += "<td style='background-color:#0069AC;color:white;font-weight:bold;font-size:13pt;'>" + parseString($(this)) + "</td>";
+                                }
+                            }
+                        });
+                        excel += '</tr>';
+
+                    });
+
+
+                    // Row Vs Column
+                    var rowCount = 1;
+                    $(el).find('tbody').find('tr').each(function() {
+                        excel += "<tr>";
+                        var colCount = 0;
+                        $(this).filter(':visible').find('td').each(function(index, data) {
+                            if ($(this).css('display') != 'none') {
+                                if (defaults.ignoreColumn.indexOf(index) == -1) {
+                                    excel += "<td>" + parseString($(this)) + "</td>";
+                                }
+                            }
+                            colCount++;
+                        });
+                        rowCount++;
+                        excel += '</tr>';
+                    });
+                    excel += '</table>'
+
+                    if (defaults.consoleLog == 'true') {
+                        console.log(excel);
+                    }
+
+                    var excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:" + defaults.type + "' xmlns='http://www.w3.org/TR/REC-html40'>";
+                    excelFile += "<head>";
+                    excelFile += "<!--[if gte mso 9]>";
+                    excelFile += "<xml>";
+                    excelFile += "<x:ExcelWorkbook>";  
+                    excelFile += "<x:ExcelWorksheets>";
+                    excelFile += "<x:ExcelWorksheet>";
+                    excelFile += "<x:Name>";
+                    excelFile += "Eligibility";
+                    excelFile += "</x:Name>";
+                    excelFile += "<x:WorksheetOptions>";
+                    excelFile += "<x:DisplayGridlines/>";
+                    excelFile += "</x:WorksheetOptions>";
+                    excelFile += "</x:ExcelWorksheet>";
+                    excelFile += "</x:ExcelWorksheets>";
+                    excelFile += "</x:ExcelWorkbook>";
+                    excelFile += "</xml>";
+                    excelFile += "<![endif]-->";
+                    excelFile += "</head>";
+                    excelFile += "<body>";
+                    excelFile += excel;
+                    excelFile += "</body>";
+                    excelFile += "</html>";
+
+                    var base64data = "base64," + $.base64.encode(excelFile);
+
+                  
+                //    window.open('data:application/vnd.ms-' + defaults.type + ';filename=exportData.doc;' + base64data);
+                      urlOpen = 'data:application/vnd.ms-' + defaults.type + ';filename=exportData.doc;' + base64data;
+
+
+                } else if (defaults.type == 'png') {
+                    html2canvas($(el), {
+                        onrendered: function(canvas) {
+                            var img = canvas.toDataURL("image/png");
+                            window.open(img);
+
+
+                        }
+                    });
+                } else if (defaults.type == 'pdf') {
+              
+                    var doc = new jsPDF('p', 'pt', 'a4', true);
+                    doc.setFontSize(defaults.pdfFontSize); 
+
+                    // Header
+                    var startColPosition = defaults.pdfLeftMargin; 
+                    var colPosition = startColPosition + (25);
+                    doc.text(colPosition - 25, 15, "--- Confidential---");
+                    doc.text(colPosition - 25, 20,  $('#verificationID').html());
+
+                    $(el).find('thead').find('tr').each(function() {
+                        $(this).filter(':visible').find('th').each(function(index, data) {
+                            if ($(this).css('display') != 'none') {
+                                if (defaults.ignoreColumn.indexOf(index) == -1) {
+                                    var colPosition = startColPosition + (index * 50);
+                                    doc.text(colPosition, 20, parseString($(this)));
+                                }
+                            }
+                        });
+                    });
+
+
+                    // Row Vs Column
+                    var startRowPosition = 20;
+                    var page = 1;
+                    var rowPosition = 0;
+                    $(el).find('tbody').find('tr').each(function(index, data) {
+                        rowCalc = index + 1;
+
+                        if (rowCalc % 26 == 0) {
+                            doc.addPage();
+                            page++;
+                            startRowPosition = startRowPosition + 10;
+                        }
+                        rowPosition = (startRowPosition + (rowCalc * 10)) - ((page - 1) * 280);
+
+                        $(this).filter(':visible').find('td').each(function(index, data) {
+                            if ($(this).css('display') != 'none') {
+                                if (defaults.ignoreColumn.indexOf(index) == -1) {
+                                    var colPosition = startColPosition + (index * 50);
+                                    doc.text(colPosition, rowPosition, parseString($(this)));
+                                }
+                            }
+
+                        });
+
+                    });
+
+                    // Output as Data URI
+                 doc.output('datauri');
+                    return false;
+                }
+
+                //========================================
+                var fileExtension;
+                //window.open(urlOpen);
+                switch (defaults.type) {
+                    case 'csv':
+                        fileExtension = 'csv'; break;
+                    case 'doc':
+                        fileExtension = 'doc'; break;
+                    case 'excel':
+                        fileExtension = 'xls'; break;
+                }
+                console.log('FILE OUTPUT TO :' + fileExtension);
+
+                var link = document.createElement("a");
+               // var linkText = document.createTextNode('AABBCCCDD');
+               // link.appendChild(linkText);
+                link.href = urlOpen;
+                //set the visibility hidden so it will not effect on your web-layout
+                link.style = "visibility:hidden";
+                link.download = "Eligibility." + fileExtension;
+
+                //this part will append the anchor tag and remove it after automatic click
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                //========================================
+
+
+                function parseString(data) {
+
+                    if (defaults.htmlContent == 'true') {
+                        content_data = data.html().trim();
+                    } else {
+                        content_data = data.text().trim();
+                    }
+
+                    if (defaults.escape == 'true') {
+                        content_data = escape(content_data);
+                    } 
+
+                    return content_data;
+                }
+
+            }
+        });
+    })(jQuery);
+
+
+</script>
+
+
+<script>
+
+    /*jslint adsafe: false, bitwise: true, browser: true, cap: false, css: false,
+  debug: false, devel: true, eqeqeq: true, es5: false, evil: false,
+  forin: false, fragment: false, immed: true, laxbreak: false, newcap: true,
+  nomen: false, on: false, onevar: true, passfail: false, plusplus: true,
+  regexp: false, rhino: true, safe: false, strict: false, sub: false,
+  undef: true, white: false, widget: false, windows: false */
+    /*global jQuery: false, window: false */
+    //"use strict";
+
+    /*
+     * Original code (c) 2010 Nick Galbreath
+     * http://code.google.com/p/stringencoders/source/browse/#svn/trunk/javascript
+     *
+     * jQuery port (c) 2010 Carlo Zottmann
+     * http://github.com/carlo/jquery-base64
+     *
+     * Permission is hereby granted, free of charge, to any person
+     * obtaining a copy of this software and associated documentation
+     * files (the "Software"), to deal in the Software without
+     * restriction, including without limitation the rights to use,
+     * copy, modify, merge, publish, distribute, sublicense, and/or sell
+     * copies of the Software, and to permit persons to whom the
+     * Software is furnished to do so, subject to the following
+     * conditions:
+     *
+     * The above copyright notice and this permission notice shall be
+     * included in all copies or substantial portions of the Software.
+     *
+     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+     * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+     * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+     * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+     * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+     * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+     * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+     * OTHER DEALINGS IN THE SOFTWARE.
+    */
+
+    /* base64 encode/decode compatible with window.btoa/atob
+     *
+     * window.atob/btoa is a Firefox extension to convert binary data (the "b")
+     * to base64 (ascii, the "a").
+     *
+     * It is also found in Safari and Chrome.  It is not available in IE.
+     *
+     * if (!window.btoa) window.btoa = $.base64.encode
+     * if (!window.atob) window.atob = $.base64.decode
+     *
+     * The original spec's for atob/btoa are a bit lacking
+     * https://developer.mozilla.org/en/DOM/window.atob
+     * https://developer.mozilla.org/en/DOM/window.btoa
+     *
+     * window.btoa and $.base64.encode takes a string where charCodeAt is [0,255]
+     * If any character is not [0,255], then an exception is thrown.
+     *
+     * window.atob and $.base64.decode take a base64-encoded string
+     * If the input length is not a multiple of 4, or contains invalid characters
+     *   then an exception is thrown.
+     */
+
+    jQuery.base64 = (function($) {
+
+        var _PADCHAR = "=",
+            _ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
+            _VERSION = "1.0";
+
+
+        function _getbyte64(s, i) {
+            // This is oddly fast, except on Chrome/V8.
+            // Minimal or no improvement in performance by using a
+            // object with properties mapping chars to value (eg. 'A': 0)
+
+            var idx = _ALPHA.indexOf(s.charAt(i));
+
+            if (idx === -1) {
+                throw "Cannot decode base64";
+            }
+
+            return idx;
+        }
+
+
+        function _decode(s) {
+            var pads = 0,
+                i,
+                b10,
+                imax = s.length,
+                x = [];
+
+            s = String(s);
+
+            if (imax === 0) {
+                return s;
+            }
+
+            if (imax % 4 !== 0) {
+                throw "Cannot decode base64";
+            }
+
+            if (s.charAt(imax - 1) === _PADCHAR) {
+                pads = 1;
+
+                if (s.charAt(imax - 2) === _PADCHAR) {
+                    pads = 2;
+                }
+
+                // either way, we want to ignore this last block
+                imax -= 4;
+            }
+
+            for (i = 0; i < imax; i += 4) {
+                b10 = (_getbyte64(s, i) << 18) | (_getbyte64(s, i + 1) << 12) | (_getbyte64(s, i + 2) << 6) | _getbyte64(s, i + 3);
+                x.push(String.fromCharCode(b10 >> 16, (b10 >> 8) & 0xff, b10 & 0xff));
+            }
+
+            switch (pads) {
+            case 1:
+                b10 = (_getbyte64(s, i) << 18) | (_getbyte64(s, i + 1) << 12) | (_getbyte64(s, i + 2) << 6);
+                x.push(String.fromCharCode(b10 >> 16, (b10 >> 8) & 0xff));
+                break;
+
+            case 2:
+                b10 = (_getbyte64(s, i) << 18) | (_getbyte64(s, i + 1) << 12);
+                x.push(String.fromCharCode(b10 >> 16));
+                break;
+            }
+
+            return x.join("");
+        }
+
+
+        function _getbyte(s, i) {
+            var x = s.charCodeAt(i);
+
+            if (x > 255) {
+                throw "INVALID_CHARACTER_ERR: DOM Exception 5";
+            }
+
+            return x;
+        }
+
+
+        function _encode(s) {
+            if (arguments.length !== 1) {
+                throw "SyntaxError: exactly one argument required";
+            }
+
+            s = String(s);
+
+            var i,
+                b10,
+                x = [],
+                imax = s.length - s.length % 3;
+
+            if (s.length === 0) {
+                return s;
+            }
+
+            for (i = 0; i < imax; i += 3) {
+                b10 = (_getbyte(s, i) << 16) | (_getbyte(s, i + 1) << 8) | _getbyte(s, i + 2);
+                x.push(_ALPHA.charAt(b10 >> 18));
+                x.push(_ALPHA.charAt((b10 >> 12) & 0x3F));
+                x.push(_ALPHA.charAt((b10 >> 6) & 0x3f));
+                x.push(_ALPHA.charAt(b10 & 0x3f));
+            }
+
+            switch (s.length - imax) {
+            case 1:
+                b10 = _getbyte(s, i) << 16;
+                x.push(_ALPHA.charAt(b10 >> 18) + _ALPHA.charAt((b10 >> 12) & 0x3F) + _PADCHAR + _PADCHAR);
+                break;
+
+            case 2:
+                b10 = (_getbyte(s, i) << 16) | (_getbyte(s, i + 1) << 8);
+                x.push(_ALPHA.charAt(b10 >> 18) + _ALPHA.charAt((b10 >> 12) & 0x3F) + _ALPHA.charAt((b10 >> 6) & 0x3f) + _PADCHAR);
+                break;
+            }
+
+            return x.join("");
+        }
+
+
+        return {
+            decode: _decode,
+            encode: _encode,
+            VERSION: _VERSION
+        };
+
+    }(jQuery));
+
+
+</script>
+
+
+
+
+
+
+<script>
+
+    /**
+     * jsPDF
+     * (c) 2009 James Hall
+     * 
+     * Some parts based on FPDF.
+     */
+
+    var jsPDF = function () {
+
+        // Private properties
+        var version = '20090504';
+        var buffer = '';
+
+        var pdfVersion = '1.3'; // PDF Version
+        var defaultPageFormat = 'a4';
+        var pageFormats = { // Size in mm of various paper formats
+            'a3': [841.89, 1190.55],
+            'a4': [595.28, 841.89],
+            'a5': [420.94, 595.28],
+            'letter': [612, 792],
+            'legal': [612, 1008]
+        };
+        var textColor = '0 g';
+        var page = 0;
+        var objectNumber = 2; // 'n' Current object number
+        var state = 0; // Current document state
+        var pages = new Array();
+        var offsets = new Array(); // List of offsets
+        var lineWidth = 0.200025; // 2mm
+        var pageHeight;
+        var k; // Scale factor
+        var unit = 'mm'; // Default to mm for units
+        var fontNumber; // TODO: This is temp, replace with real font handling
+        var documentProperties = {};
+        var fontSize = 16; // Default font size
+        var pageFontSize = 16;
+
+        // Initilisation 
+        if (unit == 'pt') {
+            k = 1;
+        } else if (unit == 'mm') {
+            k = 72 / 25.4;
+        } else if (unit == 'cm') {
+            k = 72 / 2.54;
+        } else if (unit == 'in') {
+            k = 72;
+        }
+
+        // Private functions
+        var newObject = function () {
+            //Begin a new object
+            objectNumber++;
+            offsets[objectNumber] = buffer.length;
+            out(objectNumber + ' 0 obj');
+        }
+
+
+        var putHeader = function () {
+            out('%PDF-' + pdfVersion);
+        }
+
+        var putPages = function () {
+
+            // TODO: Fix, hardcoded to a4 portrait
+            var wPt = pageWidth * k;
+            var hPt = pageHeight * k;
+
+            for (n = 1; n <= page; n++) {
+                newObject();
+                out('<</Type /Page');
+                out('/Parent 1 0 R');
+                out('/Resources 2 0 R');
+                out('/Contents ' + (objectNumber + 1) + ' 0 R>>');
+                out('endobj');
+
+                //Page content
+                p = pages[n];
+                newObject();
+                out('<</Length ' + p.length + '>>');
+                putStream(p);
+                out('endobj');
+            }
+            offsets[1] = buffer.length;
+            out('1 0 obj');
+            out('<</Type /Pages');
+            var kids = '/Kids [';
+            for (i = 0; i < page; i++) {
+                kids += (3 + 2 * i) + ' 0 R ';
+            }
+            out(kids + ']');
+            out('/Count ' + page);
+            out(sprintf('/MediaBox [0 0 %.2f %.2f]', wPt, hPt));
+            out('>>');
+            out('endobj');
+        }
+
+        var putStream = function (str) {
+            out('stream');
+            out(str);
+            out('endstream');
+        }
+
+        var putResources = function () {
+            putFonts();
+            putImages();
+
+            //Resource dictionary
+            offsets[2] = buffer.length;
+            out('2 0 obj');
+            out('<<');
+            putResourceDictionary();
+            out('>>');
+            out('endobj');
+        }
+
+        var putFonts = function () {
+            // TODO: Only supports core font hardcoded to Helvetica
+            newObject();
+            fontNumber = objectNumber;
+            name = 'Helvetica';
+            out('<</Type /Font');
+            out('/BaseFont /' + name);
+            out('/Subtype /Type1');
+            out('/Encoding /WinAnsiEncoding');
+            out('>>');
+            out('endobj');
+        }
+
+        var putImages = function () {
+            // TODO
+        }
+
+        var putResourceDictionary = function () {
+            out('/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]');
+            out('/Font <<');
+            // Do this for each font, the '1' bit is the index of the font
+            // fontNumber is currently the object number related to 'putFonts'
+            out('/F1 ' + fontNumber + ' 0 R');
+            out('>>');
+            out('/XObject <<');
+            putXobjectDict();
+            out('>>');
+        }
+
+        var putXobjectDict = function () {
+            // TODO
+            // Loop through images
+        }
+
+
+        var putInfo = function () {
+            out('/Producer (jsPDF ' + version + ')');
+            if (documentProperties.title != undefined) {
+                out('/Title (' + pdfEscape(documentProperties.title) + ')');
+            }
+            if (documentProperties.subject != undefined) {
+                out('/Subject (' + pdfEscape(documentProperties.subject) + ')');
+            }
+            if (documentProperties.author != undefined) {
+                out('/Author (' + pdfEscape(documentProperties.author) + ')');
+            }
+            if (documentProperties.keywords != undefined) {
+                out('/Keywords (' + pdfEscape(documentProperties.keywords) + ')');
+            }
+            if (documentProperties.creator != undefined) {
+                out('/Creator (' + pdfEscape(documentProperties.creator) + ')');
+            }
+            var created = new Date();
+            var year = created.getFullYear();
+            var month = (created.getMonth() + 1);
+            var day = created.getDate();
+            var hour = created.getHours();
+            var minute = created.getMinutes();
+            var second = created.getSeconds();
+            out('/CreationDate (D:' + sprintf('%02d%02d%02d%02d%02d%02d', year, month, day, hour, minute, second) + ')');
+        }
+
+        var putCatalog = function () {
+            out('/Type /Catalog');
+            out('/Pages 1 0 R');
+            // TODO: Add zoom and layout modes
+            out('/OpenAction [3 0 R /FitH null]');
+            out('/PageLayout /OneColumn');
+        }
+
+        function putTrailer() {
+            out('/Size ' + (objectNumber + 1));
+            out('/Root ' + objectNumber + ' 0 R');
+            out('/Info ' + (objectNumber - 1) + ' 0 R');
+        }
+
+        var endDocument = function () {
+            state = 1;
+            putHeader();
+            putPages();
+
+            putResources();
+            //Info
+            newObject();
+            out('<<');
+            putInfo();
+            out('>>');
+            out('endobj');
+
+            //Catalog
+            newObject();
+            out('<<');
+            putCatalog();
+            out('>>');
+            out('endobj');
+
+            //Cross-ref
+            var o = buffer.length;
+            out('xref');
+            out('0 ' + (objectNumber + 1));
+            out('0000000000 65535 f ');
+            for (var i = 1; i <= objectNumber; i++) {
+                out(sprintf('%010d 00000 n ', offsets[i]));
+            }
+            //Trailer
+            out('trailer');
+            out('<<');
+            putTrailer();
+            out('>>');
+            out('startxref');
+            out(o);
+            out('%%EOF');
+            state = 3;
+        }
+
+        var beginPage = function () {
+            page++;
+            // Do dimension stuff
+            state = 2;
+            pages[page] = '';
+
+            // TODO: Hardcoded at A4 and portrait
+            pageHeight = pageFormats['a4'][1] / k;
+            pageWidth = pageFormats['a4'][0] / k;
+        }
+
+        var out = function (string) {
+            if (state == 2) {
+                pages[page] += string + '\n';
+            } else {
+                buffer += string + '\n';
+            }
+        }
+
+        var _addPage = function () {
+            beginPage();
+            // Set line width
+            out(sprintf('%.2f w', (lineWidth * k)));
+
+            // Set font - TODO
+            // 16 is the font size
+            pageFontSize = fontSize;
+            out('BT /F1 ' + parseInt(fontSize) + '.00 Tf ET');
+        }
+
+        // Add the first page automatically
+        _addPage();
+
+        // Escape text
+        var pdfEscape = function (text) {
+            return text.replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
+        }
+
+        return {
+            addPage: function () {
+                _addPage();
+            },
+            text: function (x, y, text) {
+                // need page height
+                if (pageFontSize != fontSize) {
+                    out('BT /F1 ' + parseInt(fontSize) + '.00 Tf ET');
+                    pageFontSize = fontSize;
+                }
+                var str = sprintf('BT %.2f %.2f Td (%s) Tj ET', x * k, (pageHeight - y) * k, pdfEscape(text));
+                out(str);
+            },
+            setProperties: function (properties) {
+                documentProperties = properties;
+            },
+            addImage: function (imageData, format, x, y, w, h) {
+
+            },
+            output: function (type, options) {
+                endDocument();
+                if (type == undefined) {
+                    return buffer;
+                }
+                if (type == 'datauri') {
+                    // document.location.href = 'data:application/pdf;base64,' + Base64.encode(buffer);
+                      var w = window.open('data:application/pdf;base64,' + Base64.encode(buffer), '_pdf');
+                      w.focus();
+                    return false;
+                    // Use Angular   angular.element($('#eligibilitySearchResults')).scope().openNewWindowTab('data:application/pdf;base64,' + Base64.encode(buffer));
+                    /*
+                        try {
+                            // This is the recommended method:
+                            var blob = new Blob([buffer], { type: 'application/octet-stream' });
+                        } catch (e) {
+                            // The BlobBuilder API has been deprecated in favour of Blob, but older
+                            // browsers don't know about the Blob constructor
+                            // IE10 also supports BlobBuilder, but since the `Blob` constructor
+                            //  also works, there's no need to add `MSBlobBuilder`.
+                            var bb = new (window.WebKitBlobBuilder || window.MozBlobBuilder);
+                            bb.append(buffer);
+                            var blob = bb.getBlob('application/octet-stream'); // <-- Here's the Blob
+                        }
+
+                    // Use the URL object to create a temporary URL
+                    var url = (window.webkitURL || window.URL).createObjectURL(blob);
+                    location.href = url; // <-- Download!
+
+                    */
+
+
+                }
+                // @TODO: Add different output options
+            },
+            setFontSize: function (size) {
+                fontSize = size;
+            }
+        }
+
+    };
+    
+
+</script>
+
+
+
+<script>
+
+
+    function sprintf() {
+        // Return a formatted string  
+        // 
+        // version: 903.3016
+        // discuss at: http://phpjs.org/functions/sprintf
+        // +   original by: Ash Searle (http://hexmen.com/blog/)
+        // + namespaced by: Michael White (http://getsprink.com)
+        // +    tweaked by: Jack
+        // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+        // +      input by: Paulo Ricardo F. Santos
+        // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+        // +      input by: Brett Zamir (http://brettz9.blogspot.com)
+        // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+        // *     example 1: sprintf("%01.2f", 123.1);
+        // *     returns 1: 123.10
+        // *     example 2: sprintf("[%10s]", 'monkey');
+        // *     returns 2: '[    monkey]'
+        // *     example 3: sprintf("[%'#10s]", 'monkey');
+        // *     returns 3: '[####monkey]'
+        var regex = /%%|%(\d+\$)?([-+\'#0 ]*)(\*\d+\$|\*|\d+)?(\.(\*\d+\$|\*|\d+))?([scboxXuidfegEG])/g;
+        var a = arguments, i = 0, format = a[i++];
+
+        // pad()
+        var pad = function(str, len, chr, leftJustify) {
+            if (!chr) chr = ' ';
+            var padding = (str.length >= len) ? '' : Array(1 + len - str.length >>> 0).join(chr);
+            return leftJustify ? str + padding : padding + str;
+        };
+
+        // justify()
+        var justify = function(value, prefix, leftJustify, minWidth, zeroPad, customPadChar) {
+            var diff = minWidth - value.length;
+            if (diff > 0) {
+                if (leftJustify || !zeroPad) {
+                    value = pad(value, minWidth, customPadChar, leftJustify);
+                } else {
+                    value = value.slice(0, prefix.length) + pad('', diff, '0', true) + value.slice(prefix.length);
+                }
+            }
+            return value;
+        };
+
+        // formatBaseX()
+        var formatBaseX = function(value, base, prefix, leftJustify, minWidth, precision, zeroPad) {
+            // Note: casts negative numbers to positive ones
+            var number = value >>> 0;
+            prefix = prefix && number && { '2': '0b', '8': '0', '16': '0x' }[base] || '';
+            value = prefix + pad(number.toString(base), precision || 0, '0', false);
+            return justify(value, prefix, leftJustify, minWidth, zeroPad);
+        };
+
+        // formatString()
+        var formatString = function(value, leftJustify, minWidth, precision, zeroPad, customPadChar) {
+            if (precision != null) {
+                value = value.slice(0, precision);
+            }
+            return justify(value, '', leftJustify, minWidth, zeroPad, customPadChar);
+        };
+
+        // doFormat()
+        var doFormat = function(substring, valueIndex, flags, minWidth, _, precision, type) {
+            var number;
+            var prefix;
+            var method;
+            var textTransform;
+            var value;
+
+            if (substring == '%%') return '%';
+
+            // parse flags
+            var leftJustify = false, positivePrefix = '', zeroPad = false, prefixBaseX = false, customPadChar = ' ';
+            var flagsl = flags.length;
+            for (var j = 0; flags && j < flagsl; j++)
+                switch (flags.charAt(j)) {
+                case ' ':
+                    positivePrefix = ' ';
+                    break;
+                case '+':
+                    positivePrefix = '+';
+                    break;
+                case '-':
+                    leftJustify = true;
+                    break;
+                case "'":
+                    customPadChar = flags.charAt(j + 1);
+                    break;
+                case '0':
+                    zeroPad = true;
+                    break;
+                case '#':
+                    prefixBaseX = true;
+                    break;
+                }
+
+            // parameters may be null, undefined, empty-string or real valued
+            // we want to ignore null, undefined and empty-string values
+            if (!minWidth) {
+                minWidth = 0;
+            } else if (minWidth == '*') {
+                minWidth = +a[i++];
+            } else if (minWidth.charAt(0) == '*') {
+                minWidth = +a[minWidth.slice(1, -1)];
+            } else {
+                minWidth = +minWidth;
+            }
+
+            // Note: undocumented perl feature:
+            if (minWidth < 0) {
+                minWidth = -minWidth;
+                leftJustify = true;
+            }
+
+            if (!isFinite(minWidth)) {
+                throw new Error('sprintf: (minimum-)width must be finite');
+            }
+
+            if (!precision) {
+                precision = 'fFeE'.indexOf(type) > -1 ? 6 : (type == 'd') ? 0 : void (0);
+            } else if (precision == '*') {
+                precision = +a[i++];
+            } else if (precision.charAt(0) == '*') {
+                precision = +a[precision.slice(1, -1)];
+            } else {
+                precision = +precision;
+            }
+
+            // grab value using valueIndex if required?
+            value = valueIndex ? a[valueIndex.slice(0, -1)] : a[i++];
+
+            switch (type) {
+            case 's':
+                return formatString(String(value), leftJustify, minWidth, precision, zeroPad, customPadChar);
+            case 'c':
+                return formatString(String.fromCharCode(+value), leftJustify, minWidth, precision, zeroPad);
+            case 'b':
+                return formatBaseX(value, 2, prefixBaseX, leftJustify, minWidth, precision, zeroPad);
+            case 'o':
+                return formatBaseX(value, 8, prefixBaseX, leftJustify, minWidth, precision, zeroPad);
+            case 'x':
+                return formatBaseX(value, 16, prefixBaseX, leftJustify, minWidth, precision, zeroPad);
+            case 'X':
+                return formatBaseX(value, 16, prefixBaseX, leftJustify, minWidth, precision, zeroPad).toUpperCase();
+            case 'u':
+                return formatBaseX(value, 10, prefixBaseX, leftJustify, minWidth, precision, zeroPad);
+            case 'i':
+            case 'd':
+            {
+                number = parseInt(+value);
+                prefix = number < 0 ? '-' : positivePrefix;
+                value = prefix + pad(String(Math.abs(number)), precision, '0', false);
+                return justify(value, prefix, leftJustify, minWidth, zeroPad);
+            }
+            case 'e':
+            case 'E':
+            case 'f':
+            case 'F':
+            case 'g':
+            case 'G':
+            {
+                number = +value;
+                prefix = number < 0 ? '-' : positivePrefix;
+                method = ['toExponential', 'toFixed', 'toPrecision']['efg'.indexOf(type.toLowerCase())];
+                textTransform = ['toString', 'toUpperCase']['eEfFgG'.indexOf(type) % 2];
+                value = prefix + Math.abs(number)[method](precision);
+                return justify(value, prefix, leftJustify, minWidth, zeroPad)[textTransform]();
+            }
+            default:
+                return substring;
+            }
+        };
+
+        return format.replace(regex, doFormat);
+    }
+
+</script>
+
+<script>
+    
+
+    /**
+    *
+    *  Base64 encode / decode
+    *  http://www.webtoolkit.info/
+    *
+    **/
+
+    var Base64 = {
+
+        // private property
+        _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+
+        // public method for encoding
+        encode: function (input) {
+            var output = "";
+            var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+            var i = 0;
+
+            input = Base64._utf8_encode(input);
+
+            while (i < input.length) {
+
+                chr1 = input.charCodeAt(i++);
+                chr2 = input.charCodeAt(i++);
+                chr3 = input.charCodeAt(i++);
+
+                enc1 = chr1 >> 2;
+                enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+                enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+                enc4 = chr3 & 63;
+
+                if (isNaN(chr2)) {
+                    enc3 = enc4 = 64;
+                } else if (isNaN(chr3)) {
+                    enc4 = 64;
+                }
+
+                output = output +
+                this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
+                this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+
+            }
+
+            return output;
+        },
+
+        // public method for decoding
+        decode: function (input) {
+            var output = "";
+            var chr1, chr2, chr3;
+            var enc1, enc2, enc3, enc4;
+            var i = 0;
+
+            input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+            while (i < input.length) {
+
+                enc1 = this._keyStr.indexOf(input.charAt(i++));
+                enc2 = this._keyStr.indexOf(input.charAt(i++));
+                enc3 = this._keyStr.indexOf(input.charAt(i++));
+                enc4 = this._keyStr.indexOf(input.charAt(i++));
+
+                chr1 = (enc1 << 2) | (enc2 >> 4);
+                chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+                chr3 = ((enc3 & 3) << 6) | enc4;
+
+                output = output + String.fromCharCode(chr1);
+
+                if (enc3 != 64) {
+                    output = output + String.fromCharCode(chr2);
+                }
+                if (enc4 != 64) {
+                    output = output + String.fromCharCode(chr3);
+                }
+
+            }
+
+            output = Base64._utf8_decode(output);
+
+            return output;
+
+        },
+
+        // private method for UTF-8 encoding
+        _utf8_encode: function (string) {
+            string = string.replace(/\r\n/g, "\n");
+            var utftext = "";
+
+            for (var n = 0; n < string.length; n++) {
+
+                var c = string.charCodeAt(n);
+
+                if (c < 128) {
+                    utftext += String.fromCharCode(c);
+                }
+                else if ((c > 127) && (c < 2048)) {
+                    utftext += String.fromCharCode((c >> 6) | 192);
+                    utftext += String.fromCharCode((c & 63) | 128);
+                }
+                else {
+                    utftext += String.fromCharCode((c >> 12) | 224);
+                    utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                    utftext += String.fromCharCode((c & 63) | 128);
+                }
+
+            }
+
+            return utftext;
+        },
+
+        // private method for UTF-8 decoding
+        _utf8_decode: function (utftext) {
+            var string = "";
+            var i = 0;
+            var c = c1 = c2 = 0;
+
+            while (i < utftext.length) {
+
+                c = utftext.charCodeAt(i);
+
+                if (c < 128) {
+                    string += String.fromCharCode(c);
+                    i++;
+                }
+                else if ((c > 191) && (c < 224)) {
+                    c2 = utftext.charCodeAt(i + 1);
+                    string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                    i += 2;
+                }
+                else {
+                    c2 = utftext.charCodeAt(i + 1);
+                    c3 = utftext.charCodeAt(i + 2);
+                    string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                    i += 3;
+                }
+
+            }
+
+            return string;
+        }
+
+    }
+
+</script>

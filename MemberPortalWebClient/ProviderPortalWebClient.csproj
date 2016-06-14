@@ -1,0 +1,1241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{05ADCD97-557E-49FE-9F35-7B06941C3695}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MemberPortalWebClient</RootNamespace>
+    <AssemblyName>MemberPortalWebClient</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\IEHPSecurityServices\WebApiSecurityServer\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Cors">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\LocalizationResource.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalizationResource.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\AllowOrigin.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ResourceLocalization_en.Designer.cs">
+      <DependentUpon>ResourceLocalization_en.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Models\ResourceLocalization_es.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceLocalization_es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App\developerTool\internalLoginTester.directive.js" />
+    <Content Include="App\account\keep-alive.directive.js" />
+    <Content Include="App\account\my-account\change-questions.html" />
+    <Content Include="App\account\my-account\change-questions.controller.js" />
+    <Content Include="App\account\my-account\my-account-navigation.controller.js" />
+    <Content Include="App\account\my-account\my-account-navigation.html" />
+    <Content Include="App\account\password-reset\password-reset.html" />
+    <Content Include="App\account\password-reset\password-reset.controller.js" />
+    <Content Include="App\account\password-reset\pr-step1.controller.js" />
+    <Content Include="App\account\password-reset\pr-step1.html" />
+    <Content Include="App\account\password-reset\pr-step2.html" />
+    <Content Include="App\account\password-reset\pr-step4.html" />
+    <Content Include="App\account\password-reset\pr-step4.controller.js" />
+    <Content Include="App\account\password-reset\pr-step3.controller.js" />
+    <Content Include="App\account\password-reset\pr-step3.html" />
+    <Content Include="App\account\registration\registration.routes.js" />
+    <Content Include="App\account\password-reset\pr-step2.controller.js" />
+    <Content Include="App\account\my-account\my-account.html" />
+    <Content Include="App\account\password-reset\password-reset.routes.js" />
+    <Content Include="App\account\my-account\my-account.routes.js" />
+    <Content Include="App\account\my-account\sub-user-accounts.html" />
+    <Content Include="App\account\my-account\sub-user-accounts.controller.js" />
+    <Content Include="App\account\my-account\change-email.html" />
+    <Content Include="App\account\my-account\change-email.controller.js" />
+    <Content Include="App\account\my-account\change-password.controller.js" />
+    <Content Include="App\account\my-account\change-password.html" />
+    <Content Include="App\behavioralHealth\Controllers\bhController.js" />
+    <Content Include="App\behavioralHealth\forms\autism\autism-form.controller.js" />
+    <Content Include="App\behavioralHealth\forms\autism\autism-form.html" />
+    <Content Include="App\behavioralHealth\Views\claimsSubmission.html" />
+    <Content Include="App\behavioralHealth\Views\memberHistory.html" />
+    <Content Include="App\components\MemberHealthRecord\printableContent.html" />
+    <Content Include="App\components\Rosters\Views\RosterCCMPlanReferrals.html" />
+    <Content Include="App\components\Rosters\Views\RosterCCMPlanTransfer.html" />
+    <Content Include="App\components\Rosters\Views\RosterCCMPR.html" />
+    <Content Include="App\components\Rosters\Views\RosterCCMPT.html" />
+    <Content Include="App\components\Rosters\Views\RosterHM_CareManagementReports_old.html" />
+    <Content Include="App\components\Rosters\Views\RosterH_C_C.html" />
+    <Content Include="App\components\Rosters\Views\RosterIPAAdmitters.html" />
+    <Content Include="App\components\Rosters\Views\_Roster.html" />
+    <Content Include="App\controllers\BehavioralHealth\BehavioralHealthFormsControllers.js" />
+    <Content Include="App\controllers\BehavioralHealth\HistoricalPageLoader.js" />
+    <Content Include="App\components\eligibility\eligibility-search-result.directive.html" />
+    <Content Include="App\components\eligibility\eligibility-search.directive.js" />
+    <Content Include="App\directives\fieldsetDrawer\fieldset-drawer.directive.js" />
+    <Content Include="App\directives\form\sameAs.js" />
+    <Content Include="App\directives\iehp-expression-box\iehp-expression-box.directive.js" />
+    <Content Include="App\directives\indicatorLight\indicator-light.directive.js" />
+    <Content Include="App\directives\prov-portal-iframe\prov-portal-iframe.html" />
+    <Content Include="App\directives\prov-portal-iframe\prov-portal-iframe.js" />
+    <Content Include="App\directives\remove-special-characters\removeSpecialCharacters.js" />
+    <Content Include="App\directives\searchBox\seachBox.js" />
+    <Content Include="App\directives\searchBox\searchBox.html" />
+    <Content Include="App\directives\zippy-box.directive.js" />
+    <Content Include="App\dofr\Controllers\dofrController.js" />
+    <Content Include="App\dofr\Views\dofr.html" />
+    <Content Include="App\healthEducation\Controllers\healthEducationController.js" />
+    <Content Include="App\healthEducation\Views\Referrals.html" />
+    <Content Include="App\healthEducation\Views\Status.html" />
+    <Content Include="App\hospital\Controllers\hospitalController.js" />
+    <Content Include="App\hospital\Views\nia.html" />
+    <Content Include="App\layout\left-navigation-p4p.directive.html" />
+    <Content Include="App\layout\left-navigation-p4p.directive.js" />
+    <Content Include="App\layout\left-navigation-rosters.directive.html" />
+    <Content Include="App\layout\left-navigation-rosters.directive.js" />
+    <Content Include="App\P4P\Controllers\P4PController.js" />
+    <Content Include="App\P4P\Views\default.html" />
+    <Content Include="App\P4P\Views\Entry.html" />
+    <Content Include="App\P4P\Views\EntryAsthmaProgram.html" />
+    <Content Include="App\P4P\Views\EntryDiabetes.html" />
+    <Content Include="App\P4P\Views\EntryDualChoiceAnnualVisit.html" />
+    <Content Include="App\P4P\Views\EntryPapScreen.html" />
+    <Content Include="App\P4P\Views\EntryPerinatalPostpartum.html" />
+    <Content Include="App\P4P\Views\EntryPM160.html" />
+    <Content Include="App\P4P\Views\EntryYellowCard.html" />
+    <Content Include="App\P4P\Views\StatusAsthmaProgram.html" />
+    <Content Include="App\P4P\Views\StatusDiabetes.html" />
+    <Content Include="App\P4P\Views\StatusDualChoice.html" />
+    <Content Include="App\P4P\Views\StatusPapScreen.html" />
+    <Content Include="App\P4P\Views\StatusPerinatalPostpartum.html" />
+    <Content Include="App\P4P\Views\StatusPM160.html" />
+    <Content Include="App\P4P\Views\StatusYellowCard.html" />
+    <Content Include="App\pharmacy\Controllers\pharmController.js" />
+    <Content Include="App\pharmacy\Views\PERStatus.html" />
+    <Content Include="App\pharmacy\Views\UpdateYourDirectory.html" />
+    <Content Include="App\remittance-advice\detail\pp-claims-ra-detail.directive.html" />
+    <Content Include="App\sbirt\Controllers\sbirtController.js" />
+    <Content Include="App\sbirt\Views\sbirt.html" />
+    <Content Include="App\services\actionService.js" />
+    <Content Include="App\services\authorizationStatus.service.js" />
+    <Content Include="App\services\error-codes.service.js" />
+    <Content Include="App\authorizations\authorization-search-results.directive.html" />
+    <Content Include="App\authorizations\authorization-search-results.directive.js" />
+    <Content Include="App\authorizations\authorization-search.directive.html" />
+    <Content Include="App\authorizations\authorization-status.html" />
+    <Content Include="App\authorizations\authorization-search.directive.js" />
+    <Content Include="App\authorizations\authorization-status.controller.js" />
+    <Content Include="App\authorizations\request\authorization-request.html" />
+    <Content Include="App\authorizations\request\AuthorizationRequestController.js" />
+    <Content Include="App\claims\claims-status.controller.js" />
+    <Content Include="App\claims\claims-status.css" />
+    <Content Include="App\claims\claims-status.html" />
+    <Content Include="App\developerTool\debugBar.html" />
+    <Content Include="App\developerTool\developerTool.js" />
+    <Content Include="App\components\eligibility\Eligibility.html" />
+    <Content Include="App\components\eligibility\EligibilityController.js" />
+    <Content Include="App\components\eligibility\EligibilityHome.html" />
+    <Content Include="App\components\eligibility\EligibilitySearchResults.html" />
+    <Content Include="App\components\eligibility\EligibilitySearchResultsController.js" />
+    <Content Include="App\directives\roster-tableheader-sort\RosterTableheaderSort.html" />
+    <Content Include="App\directives\roster-tableheader-sort\RosterTableheaderSort.js" />
+    <Content Include="App\encounter\encounter.css" />
+    <Content Include="App\encounter\encounter.spec.js" />
+    <Content Include="App\components\MemberHealthRecord\MemberAlerts.html" />
+    <Content Include="App\components\MemberHealthRecord\MemberAlertsController.js" />
+    <Content Include="App\components\MemberHealthRecord\MemberLabs.html" />
+    <Content Include="App\components\MemberHealthRecord\MemberLabsController.js" />
+    <Content Include="App\components\MemberHealthRecord\MemberRx.html" />
+    <Content Include="App\components\MemberHealthRecord\MemberRx.js" />
+    <Content Include="App\components\MemberHealthRecord\MemberVisits.html" />
+    <Content Include="App\components\MemberHealthRecord\MemberVisitsController.js" />
+    <Content Include="App\account\registration\register-form.controller.js" />
+    <Content Include="App\account\registration\registration.spec.js" />
+    <Content Include="App\account\registration\submit-form.controller.js" />
+    <Content Include="App\account\registration\verify-form.controller.js" />
+    <Content Include="App\components\Rosters\Controllers\RosterController.js" />
+    <Content Include="App\components\Rosters\Controllers\RosterHM_HMCMRController.js" />
+    <Content Include="App\components\Rosters\Controllers\RosterPartialViewController.js" />
+    <Content Include="App\components\Rosters\Views\RosterAssigned.html" />
+    <Content Include="App\components\Rosters\Views\RosterCCS.html" />
+    <Content Include="App\components\Rosters\Views\RosterDirectAncillary.html" />
+    <Content Include="App\components\Rosters\Views\_RosterDirectSpecialty.html" />
+    <Content Include="App\components\Rosters\Views\RosterDirectSpecialty.html" />
+    <Content Include="App\components\Rosters\Views\RosterEarlyStartRoster.html" />
+    <Content Include="App\components\Rosters\Views\RosterEncounterData.html" />
+    <Content Include="App\components\Rosters\Views\RosterHCC.html" />
+    <Content Include="App\components\Rosters\Views\RosterHealthManagement.html" />
+    <Content Include="App\components\Rosters\Views\RosterHM_AsthmaRoster.html" />
+    <Content Include="App\components\Rosters\Views\RosterHM_DiabetesRoster.html" />
+    <Content Include="App\components\Rosters\Views\RosterHome.html" />
+    <Content Include="App\components\Rosters\Views\RosterInitialHealthAssessment.html" />
+    <Content Include="App\components\Rosters\Views\RosterMCR.html" />
+    <Content Include="App\components\Rosters\Views\RosterNurseAdviseLine.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_ADHDMedication.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_BreastCancer.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_CervicalCancer.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_ChildhoodImmunizations.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_details_ADHD.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_details_BC.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_details_CC.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_details_CI.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_details_DC.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_details_WC015.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_details_WC36.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_details_WCA.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_DiabetesCare.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_WellCare015.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_WellCare36.html" />
+    <Content Include="App\components\Rosters\Views\RosterPC_WellCareAdolescent.html" />
+    <Content Include="App\components\Rosters\Views\RosterPreventiveCare.html" />
+    <Content Include="App\services\iehp-regex.service.js" />
+    <Content Include="App\services\legacy-login.service.js" />
+    <Content Include="App\services\memberLobTranslationService.js" />
+    <Content Include="App\shared\forms\different-than.directive.js" />
+    <Content Include="App\shared\forms\pp-form-member-info.directive.html" />
+    <Content Include="App\shared\forms\pp-form-member-info.directive.js" />
+    <Content Include="App\shared\forms\pp-form-provider-info.directive.html" />
+    <Content Include="App\shared\forms\pp-form-provider-info.directive.js" />
+    <Content Include="App\shared\forms\pp-form.css" />
+    <Content Include="App\shared\forms\pp-invalid-alert.directive.js" />
+    <Content Include="App\shared\forms\same-as.directive.js" />
+    <Content Include="App\shared\pp-format-date.directive.js" />
+    <Content Include="App\shared\pp-get-pdf.directive.html" />
+    <Content Include="App\shared\pp-get-pdf.directive.js" />
+    <Content Include="App\style-guide\StyleGuideController.js" />
+    <Content Include="App\style-guide\forms.html" />
+    <Content Include="App\layout\single-column-transparent.html" />
+    <Content Include="App\layout\single-column.html" />
+    <Content Include="App\layout\two-column-wide-right.html" />
+    <Content Include="App\style-guide\components.html" />
+    <Content Include="App\style-guide\naming-convention.html" />
+    <Content Include="App\style-guide\Navigation.html" />
+    <Content Include="App\style-guide\project-structure.html" />
+    <Content Include="App\style-guide\style-guide.routes.js" />
+    <Content Include="App\style-guide\standard-elements.html" />
+    <Content Include="App\style-guide\StyleGuide.css" />
+    <Content Include="App\configs\constants.js" />
+    <Content Include="App\controllers\BehavioralHealth\BhMemberHistoryController.js" />
+    <Content Include="App\components\CensusReport\CensusReportController.js" />
+    <Content Include="App\controllers\CapitationReportsController.js" />
+    <Content Include="App\finance\claims-ra.controller.js" />
+    <Content Include="App\encounter\encounter.controller.js" />
+    <Content Include="App\controllers\HomeController.js" />
+    <Content Include="App\components\MemberHealthRecord\MemberHealthRecordController.js" />
+    <Content Include="App\remittance-advice\detail\ra-detail.controller.js" />
+    <Content Include="App\claims\p4p-ra.controller.js" />
+    <Content Include="App\account\registration\register-form.html" />
+    <Content Include="App\account\registration\registration.controller.js" />
+    <Content Include="App\controllers\MemberPortalApp.js" />
+    <Content Include="App\controllers\MemberPortalApp.js" />
+    <Content Include="App\controllers\UrgentCareListController.js" />
+    <Content Include="App\customfilters\obfuscation\obfuscation.js" />
+    <Content Include="App\directives\account\change-email-form\changeEmailForm.html" />
+    <Content Include="App\directives\account\change-email-form\changeEmailForm.js" />
+    <Content Include="App\directives\account\change-security-questions-form\changeSecurityQuestionsForm.html" />
+    <Content Include="App\directives\account\change-security-questions-form\changeSecurityQuestionsForm.js" />
+    <Content Include="App\directives\account\change-security-questions-form\security-question\security-question.html" />
+    <Content Include="App\directives\account\change-security-questions-form\security-question\security-question.js" />
+    <Content Include="App\directives\account\login-form\loginForm-FloatLabels.html" />
+    <Content Include="App\directives\account\login-form\loginForm.js" />
+    <Content Include="App\directives\account\submit-new-password-form\submitNewPasswordForm.html" />
+    <Content Include="App\directives\account\submit-new-password-form\submitNewPasswordForm.js" />
+    <Content Include="App\directives\account\change-password-form\changePasswordForm.html" />
+    <Content Include="App\directives\account\change-password-form\changePasswordForm.js" />
+    <Content Include="App\directives\account\change-security-questions-form\changeSecurityQuestionsFormxxx.html" />
+    <Content Include="App\directives\account\change-security-questions-form\changeSecurityQuestionsFormxxx.js" />
+    <Content Include="App\directives\authorization-subnav\authorizationSubnav.html" />
+    <Content Include="App\directives\authorization-subnav\authorizationSubnav.js" />
+    <Content Include="App\directives\debug-tool\postRepeatDirective.js" />
+    <Content Include="App\layout\pp-breadcrumbs.directive.js" />
+    <Content Include="App\directives\navigation\chevron-toggle\ppChevronToggle.html" />
+    <Content Include="App\directives\navigation\chevron-toggle\ppChevronToggle.js" />
+    <Content Include="App\directives\pp-eligibility-disclaimer\ppEligibilityDisclaimer.html" />
+    <Content Include="App\directives\pp-eligibility-disclaimer\ppEligibilityDisclaimer.js" />
+    <Content Include="App\directives\pp-roster-title-header\ppRosterTitleHeader.html" />
+    <Content Include="App\directives\pp-roster-title-header\ppRosterTitleHeader.js" />
+    <Content Include="App\directives\pp-rosters-hm-asthma-details\ppRostersHMAsthmaDetails.html" />
+    <Content Include="App\directives\pp-rosters-hm-asthma-details\ppRostersHMAsthmaDetails.js" />
+    <Content Include="App\directives\pp-rosters-pc-childhoodimmuni-details\ppRostersPCCIDetails.html" />
+    <Content Include="App\directives\pp-rosters-pc-childhoodimmuni-details\ppRostersPCCIDetails.js" />
+    <Content Include="App\directives\pp-rosters-ccs-authorizations\ppRostersCCSAuthorizations.html" />
+    <Content Include="App\directives\pp-rosters-ccs-authorizations\ppRostersCCSAuthorizations.js" />
+    <Content Include="App\remittance-advice\detail\pp-claims-ra-detail.directive.js" />
+    <Content Include="App\remittance-advice\detail\pp-p4p-ra-detail.directive.html" />
+    <Content Include="App\remittance-advice\detail\pp-p4p-ra-detail.directive.js" />
+    <Content Include="App\directives\pp-rosters-hm-care-management-reports\RosterHM_CareManagementReports_members.html" />
+    <Content Include="App\directives\pp-rosters-hm-care-management-reports\RosterHM_CareManagementReports_members.js" />
+    <Content Include="App\shared\search-tables\pp-accordion-pane.directive.html" />
+    <Content Include="App\shared\search-tables\pp-accordion-pane.directive.js" />
+    <Content Include="App\shared\search-tables\pp-pagination-block.directive.html" />
+    <Content Include="App\shared\search-tables\pp-pagination-block.directive.js" />
+    <Content Include="App\directives\debug-tool\debugToolDataNode.html" />
+    <Content Include="App\directives\doctor-summary-expandable\doctorSummaryExpandable.js" />
+    <Content Include="App\directives\_drug-request\addressInfo.html" />
+    <Content Include="App\directives\_drug-request\addressInfo.js" />
+    <Content Include="App\directives\_drug-request\drugInput.html" />
+    <Content Include="App\directives\_drug-request\drugInput.js" />
+    <Content Include="App\directives\_drug-request\phoneInfo.html" />
+    <Content Include="App\directives\_drug-request\phoneInfo.js" />
+    <Content Include="App\directives\_eligibility-history-table-expandable\eligibilityHistoryTableExpandable.js" />
+    <Content Include="App\directives\_eligibility-summary-expandable\expandableEligibilitySummary.js" />
+    <Content Include="App\layout\header-login-out.directive.js" />
+    <Content Include="App\directives\_language-tabs\languageTabs.html" />
+    <Content Include="App\directives\_language-tabs\languageTabs.js" />
+    <Content Include="App\layout\left-navigation.directive.html" />
+    <Content Include="App\layout\left-navigation.directive.js" />
+    <Content Include="App\directives\materialRequest\pendingMaterialRequest.html" />
+    <Content Include="App\directives\materialRequest\pendingMaterialRequest.js" />
+    <Content Include="App\directives\notifications-panel\notificationsPanel.html" />
+    <Content Include="App\directives\notifications-panel\notificationsPanel.js" />
+    <Content Include="App\directives\pagination\pagination.html" />
+    <Content Include="App\directives\pagination\pagination.js" />
+    <Content Include="App\directives\password-compare\passwordCompare.js" />
+    <Content Include="App\directives\pp-claims-appeals-policy\ppClaimsAppealsPolicy.html" />
+    <Content Include="App\directives\pp-claims-appeals-policy\ppClaimsAppealsPolicy.js" />
+    <Content Include="App\directives\pp-eligibility-pcp-details\ppEligibilityPCPDetails.html" />
+    <Content Include="App\directives\pp-eligibility-pcp-details\ppEligibilityPCPDetails.js" />
+    <Content Include="App\directives\pp-eligibility-member-details\ppEligibilityMemberDetails.js" />
+    <Content Include="App\shared\search-tables\pp-search-type.directive.html" />
+    <Content Include="App\shared\search-tables\pp-search-type.directive.js" />
+    <Content Include="App\shared\search-tables\pp-sortable-table-header.directive.html" />
+    <Content Include="App\shared\search-tables\pp-sortable-table-header.directive.js" />
+    <Content Include="App\shared\search-tables\pp-table-tooltip.directive.html" />
+    <Content Include="App\shared\search-tables\pp-table-tooltip.directive.js" />
+    <Content Include="App\remittance-advice\pp-remittance-advice-table.directive.html" />
+    <Content Include="App\remittance-advice\pp-remittance-advice-table.directive.js" />
+    <Content Include="App\directives\pp-temporary-id-card\ppTemporaryIdCard.html" />
+    <Content Include="App\directives\pp-temporary-id-card\ppTemporaryIdCard.js" />
+    <Content Include="App\directives\_password-strength\passwordStrength.js" />
+    <Content Include="App\directives\provider-change-result\providerChangeResult.html" />
+    <Content Include="App\directives\provider-search-slider\providerSearchSlider.html" />
+    <Content Include="App\directives\provider-search-slider\providerSearchSlider.js" />
+    <Content Include="App\directives\debug-tool\debugTool.js" />
+    <Content Include="App\directives\doctorSearchMap\doctorSearchMap.html" />
+    <Content Include="App\directives\doctorSearchMap\doctorSearchMap.js" />
+    <Content Include="App\directives\immunizations\yellowCard.js" />
+    <Content Include="App\directives\account\password-reset-form\passwordResetForm.js" />
+    <Content Include="App\directives\account\password-reset-form\passwordResetForm.html" />
+    <Content Include="App\directives\provider-change-result\providerChangeResult.js" />
+    <Content Include="App\directives\account\registration-form\registrationForm.html" />
+    <Content Include="App\directives\account\registration-form\registrationForm.js" />
+    <Content Include="App\directives\show-errors\showErrors.js" />
+    <Content Include="App\directives\survey-ui\surveyHistory.html" />
+    <Content Include="App\directives\survey-ui\surveyUI.js" />
+    <Content Include="App\directives\survey-ui\surveyUI2ChoiceRadio.html" />
+    <Content Include="App\directives\survey-ui\surveyUIAgreement.html" />
+    <Content Include="App\directives\survey-ui\surveyUICalendar.html" />
+    <Content Include="App\directives\survey-ui\surveyUICheckboxMultiGroup.html" />
+    <Content Include="App\directives\survey-ui\surveyUICheckBoxQuestions.html" />
+    <Content Include="App\directives\survey-ui\surveyUIComputedRadioTable.html" />
+    <Content Include="App\directives\survey-ui\surveyUIDisableChildrenRadio.html" />
+    <Content Include="App\directives\survey-ui\surveyUIFinish.html" />
+    <Content Include="App\directives\survey-ui\surveyUIHistorySummary.html" />
+    <Content Include="App\directives\survey-ui\SurveyUIRadioComputedField.html" />
+    <Content Include="App\directives\survey-ui\surveyUIRadioQuestion.html" />
+    <Content Include="App\directives\survey-ui\surveyUISidePanelMemberPortal.html" />
+    <Content Include="App\directives\survey-ui\surveyUITable.html" />
+    <Content Include="App\directives\survey-ui\surveyUITextComputedField.html" />
+    <Content Include="App\directives\survey-ui\surveyUIUserInput.html" />
+    <Content Include="App\directives\survey-ui\surveyUIv2.html" />
+    <Content Include="App\directives\temporaryIdFrame\temporaryIdFrame.html" />
+    <Content Include="App\directives\temporaryIdFrame\temporaryIdFrame.js" />
+    <Content Include="App\account\login-page.controller.js" />
+    <Content Include="App\pages\Account\changeSecurityQuestions.html" />
+    <Content Include="App\pages\Account\changeEmail.html" />
+    <Content Include="App\pages\Account\changePassword.html" />
+    <Content Include="App\pages\Courses\history.html" />
+    <Content Include="App\pages\Courses\enrolled.html" />
+    <Content Include="App\pages\Courses\requested.html" />
+    <Content Include="App\pages\Eligibility\Current.html" />
+    <Content Include="App\pages\Eligibility\Historical.html" />
+    <Content Include="App\pages\HealthRecords\MemberAuthorizationLetter.html" />
+    <Content Include="App\pages\HealthRecords\PrescriptionRequest.html" />
+    <Content Include="App\pages\HealthRecords\RxReminder.html" />
+    <Content Include="App\pages\MaterialRequest\MaterialRequest.html" />
+    <Content Include="App\pages\Sitemap.html" />
+    <Content Include="App\pages\HealthRecords\RxPrescriptionDetails.html" />
+    <Content Include="App\pages\HealthRecords\ClaimDetails.html" />
+    <Content Include="App\pages\HealthRecords\RxPrescriptions.html" />
+    <Content Include="App\pages\HealthRecords\Claims.html" />
+    <Content Include="App\pages\notAuthorized.html" />
+    <Content Include="App\pages\passwordReset.html" />
+    <Content Include="App\layout\header-login-out.directive.html" />
+    <Content Include="App\pages\Account\registrationPage.html" />
+    <Content Include="App\directives\account\login-form\loginForm.html" />
+    <Content Include="App\account\login-page.html" />
+    <Content Include="App\pages\SurveyUI\HAsurvey.html" />
+    <Content Include="App\pages\SurveyUI\HASurveyHistory.html" />
+    <Content Include="App\account\registration\submit-form.html" />
+    <Content Include="App\account\registration\verify-form.html" />
+    <Content Include="App\services\behavioralHealthService.js" />
+    <Content Include="App\services\bhMemberHistoryService.js" />
+    <Content Include="App\services\dataInterceptorService.js" />
+    <Content Include="App\shared\hljs-retrieve\hljs-retrieve.directive.js" />
+    <Content Include="App\services\searchTypeService.js" />
+    <Content Include="App\surveys\survey.controller.js" />
+    <Content Include="App\surveys\surveys.routes.js" />
+    <Content Include="App\vision\Controllers\visionController.js" />
+    <Content Include="App\vision\Views\DiabetesCare.html" />
+    <Content Include="App\vision\Views\ICDCodes.html" />
+    <Content Include="App\vision\Views\VisionExceptionRequestStatus.html" />
+    <Content Include="App\vision\Views\VisionExceptionRequest.html" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\highlightjs-github-theme.css" />
+    <Content Include="Content\Images\ico_medicalHistory_disabled.png" />
+    <Content Include="Content\Images\provider-portal\subtle-patterns\grey\grey.png" />
+    <Content Include="Content\Images\provider-portal\subtle-patterns\grey\grey_%402X.png" />
+    <Content Include="Content\Images\provider-portal\subtle-patterns\grey\readme.txt" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="html\BehavioralHealthHome.html" />
+    <Content Include="App\behavioralHealth\forms\initialCoc\BHInitialCoc.html" />
+    <Content Include="App\behavioralHealth\forms\initPcp\BHInitialPcpReferral.html" />
+    <Content Include="App\behavioralHealth\forms\memberHistory\BHMemberHistoryViewer.html" />
+    <Content Include="App\components\CensusReport\CensusReport.html" />
+    <Content Include="html\CMC.html" />
+    <Content Include="App\finance\capitation-reports.html" />
+    <Content Include="html\Medi-Cal_HealthyKids_Formulary.html" />
+    <Content Include="App\components\MemberHealthRecord\MemberHealthRecord.html" />
+    <Content Include="App\behavioralHealth\forms\memberHistory\AddServicesHistorical.html" />
+    <Content Include="App\behavioralHealth\forms\memberHistory\CoordUpdateHistorical.html" />
+    <Content Include="App\behavioralHealth\forms\memberHistory\DischargePrePrintHistorical.html" />
+    <Content Include="App\behavioralHealth\forms\memberHistory\DischargeSummaryHistorical.html" />
+    <Content Include="App\behavioralHealth\forms\memberHistory\InitCOCHistoricalView.html" />
+    <Content Include="App\behavioralHealth\forms\memberHistory\InitPCPHistoricalView.html" />
+    <Content Include="App\account\registration\registration-home.html" />
+    <Content Include="App\components\Rosters\Views\RosterHM_CareManagementReports.html" />
+    <Content Include="html\UrgentCareList\default.html" />
+    <Content Include="Languages\en-us.txt" />
+    <Content Include="Languages\es-mx.txt" />
+    <Content Include="html\PharmacyHome.html" />
+    <Content Include="Content\Images\provider-portal\pp_favicon_v2.ico" />
+    <Content Include="Scripts\angular-animate.js" />
+    <Content Include="Scripts\angular-animate.min.js" />
+    <Content Include="Scripts\angular-aria.js" />
+    <Content Include="Scripts\angular-aria.min.js" />
+    <Content Include="Scripts\angular-cookies.js" />
+    <Content Include="Scripts\angular-cookies.min.js" />
+    <Content Include="Scripts\angular-csp.css" />
+    <Content Include="Scripts\angular-highlightjs.min.js" />
+    <Content Include="Scripts\angular-loader.js" />
+    <Content Include="Scripts\angular-loader.min.js" />
+    <Content Include="Scripts\angular-message-format.js" />
+    <Content Include="Scripts\angular-message-format.min.js" />
+    <Content Include="Scripts\angular-messages.js" />
+    <Content Include="Scripts\angular-messages.min.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-resource.js" />
+    <Content Include="Scripts\angular-resource.min.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-sanitize.js" />
+    <Content Include="Scripts\angular-sanitize.min.js" />
+    <Content Include="Scripts\angular-scenario.js" />
+    <Content Include="Scripts\angular-touch.js" />
+    <Content Include="Scripts\angular-touch.min.js" />
+    <Content Include="Scripts\angular-ui-router.js" />
+    <Content Include="Content\pdfs\PDRForm.pdf" />
+    <Content Include="Content\PharmacyPdfs\UniversalRelease.pdf" />
+    <Content Include="Content\pdfs\Autism Treatment Plan Requirement Questions_6MTH.PDF" />
+    <Content Include="Content\pdfs\Autism Treatment Plan Requirement Questions_FBA.PDF" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\errors.json" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-touch.min.js.map" />
+    <Content Include="Scripts\angular-sanitize.min.js.map" />
+    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular-resource.min.js.map" />
+    <Content Include="Scripts\angular-messages.min.js.map" />
+    <Content Include="Scripts\angular-message-format.min.js.map" />
+    <Content Include="Scripts\angular-loader.min.js.map" />
+    <Content Include="Scripts\angular-cookies.min.js.map" />
+    <Content Include="Scripts\angular-aria.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
+    <None Include="Scripts\jquery-1.12.0.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\checklist-model.js" />
+    <Content Include="Scripts\highlight.min.js" />
+    <Content Include="Scripts\jquery-1.12.0.js" />
+    <Content Include="Scripts\jquery-1.12.0.min.js" />
+    <Content Include="Scripts\jQuery.print.js" />
+    <Content Include="Scripts\ngMask.min.js" />
+    <Content Include="Scripts\PlupLoadScripts\moxie.js" />
+    <Content Include="Scripts\PlupLoadScripts\plupload.dev.js" />
+    <Content Include="Scripts\PlupLoadScripts\queue.js" />
+    <Content Include="App\controllers\UpaController.js" />
+    <Content Include="App\services\pluploadService.js" />
+    <Content Include="App\services\universalPriorAuthService.js" />
+    <Content Include="Content\plupload.css" />
+    <Content Include="html\UniversalPriorAuthorization.html" />
+    <Content Include="App\services\alertService.js" />
+    <Content Include="Content\angular-awesome-slider.min.css" />
+    <Content Include="Content\angular-datepicker.min.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Images\301.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Images\ajax-loader.gif" />
+    <Content Include="Content\Images\animated_loader_small.GIF" />
+    <Content Include="Content\Images\animated_loader_small_62x62.gif" />
+    <Content Include="Content\Images\bak_blue_gradient.jpg" />
+    <Content Include="Content\Images\bak_footer.gif" />
+    <Content Include="Content\Images\bak_gradient.jpg" />
+    <Content Include="Content\Images\bak_gradient.png" />
+    <Content Include="Content\Images\bak_header_gradient.png" />
+    <Content Include="Content\Images\bak_homepage_watermark.png" />
+    <Content Include="Content\Images\bak_login2.jpg" />
+    <Content Include="Content\Images\bak_login3.jpg" />
+    <Content Include="Content\Images\bak_login4.jpg" />
+    <Content Include="Content\Images\bak_navbar.gif" />
+    <Content Include="Content\Images\bak_worn_dots.png" />
+    <Content Include="Content\Images\banbtn_247.gif" />
+    <Content Include="Content\Images\banbtn_247.png" />
+    <Content Include="Content\Images\banbtn_ask.png" />
+    <Content Include="Content\Images\banbtn_EHR.png" />
+    <Content Include="Content\Images\banbtn_home_icd10.png" />
+    <Content Include="Content\Images\banbtn_IDCard.png" />
+    <Content Include="Content\Images\banbtn_PCP.png" />
+    <Content Include="Content\Images\banbtn_temp.png" />
+    <Content Include="Content\Images\banbtn_temp2.png" />
+    <Content Include="Content\Images\banbtn_temp3.png" />
+    <Content Include="Content\Images\banbtn_temp4.png" />
+    <Content Include="Content\Images\banbtn_temp5.png" />
+    <Content Include="Content\Images\banbtn_temp6.png" />
+    <Content Include="Content\Images\banner_1.png" />
+    <Content Include="Content\Images\banner_AskIEHP.png" />
+    <Content Include="Content\Images\banner_eligibility.png" />
+    <Content Include="Content\Images\banner_home.png" />
+    <Content Include="Content\Images\banner_login_1.jpg" />
+    <Content Include="Content\Images\banner_login_1b.jpg" />
+    <Content Include="Content\Images\banner_login_2.jpg" />
+    <Content Include="Content\Images\banner_login_2b.jpg" />
+    <Content Include="Content\Images\banner_login_3.jpg" />
+    <Content Include="Content\Images\banner_login_3b.jpg" />
+    <Content Include="Content\Images\banner_Resources.png" />
+    <Content Include="Content\Images\banner_UpdateContact.png" />
+    <Content Include="Content\Images\browser-sprite.png" />
+    <Content Include="Content\Images\btn_bak_ask.png" />
+    <Content Include="Content\Images\btn_bak_authorize.png" />
+    <Content Include="Content\Images\btn_bak_card.png" />
+    <Content Include="Content\Images\btn_bak_changemydoc.png" />
+    <Content Include="Content\Images\btn_bak_chemail.png" />
+    <Content Include="Content\Images\btn_bak_chpass.png" />
+    <Content Include="Content\Images\btn_bak_chsecquest.png" />
+    <Content Include="Content\Images\btn_bak_claims.png" />
+    <Content Include="Content\Images\btn_bak_courses.png" />
+    <Content Include="Content\Images\btn_bak_courses_available.png" />
+    <Content Include="Content\Images\btn_bak_courses_completed.png" />
+    <Content Include="Content\Images\btn_bak_courses_history.png" />
+    <Content Include="Content\Images\btn_bak_courses_scheduled.png" />
+    <Content Include="Content\Images\btn_bak_curelig.png" />
+    <Content Include="Content\Images\btn_bak_doctor.png" />
+    <Content Include="Content\Images\btn_bak_eligibility.png" />
+    <Content Include="Content\Images\btn_bak_faq.png" />
+    <Content Include="Content\Images\btn_bak_form.png" />
+    <Content Include="Content\Images\btn_bak_health.png" />
+    <Content Include="Content\Images\btn_bak_healthcare_survey.png" />
+    <Content Include="Content\Images\btn_bak_histelig.png" />
+    <Content Include="Content\Images\btn_bak_info.png" />
+    <Content Include="Content\Images\btn_bak_lab.png" />
+    <Content Include="Content\Images\btn_bak_mydoc.png" />
+    <Content Include="Content\Images\btn_bak_printer.png" />
+    <Content Include="Content\Images\btn_bak_request.png" />
+    <Content Include="Content\Images\btn_bak_resources.png" />
+    <Content Include="Content\Images\btn_bak_rx.png" />
+    <Content Include="Content\Images\btn_bak_updatemyinfo.png" />
+    <Content Include="Content\Images\btn_close.png" />
+    <Content Include="Content\Images\btn_EligibilityAddNewSearchField.jpg" />
+    <Content Include="Content\Images\btn_EligibilityAddNewSearchField_blur.jpg" />
+    <Content Include="Content\Images\btn_fontLarge.png" />
+    <Content Include="Content\Images\btn_fontLarge_hover.png" />
+    <Content Include="Content\Images\btn_fontNormal.png" />
+    <Content Include="Content\Images\btn_fontNormal_hover.png" />
+    <Content Include="Content\Images\btn_fontSmall.png" />
+    <Content Include="Content\Images\btn_fontSmall_hover.png" />
+    <Content Include="Content\Images\btn_modal_close_0.png" />
+    <Content Include="Content\Images\btn_modal_close_1.png" />
+    <Content Include="Content\Images\btn_navdiv.jpg" />
+    <Content Include="Content\Images\btn_register.png" />
+    <Content Include="Content\Images\btn_register_hover.png" />
+    <Content Include="Content\Images\btn_signin.png" />
+    <Content Include="Content\Images\btn_signout.png" />
+    <Content Include="Content\Images\btn_signout_hover.png" />
+    <Content Include="Content\Images\bullet_heart.png" />
+    <Content Include="Content\Images\debugtoolbackground.png" />
+    <Content Include="Content\Images\doctor-search-icons\map_icons_sprite_33x22_old.png" />
+    <Content Include="Content\Images\doctor-search-icons\map_icons_sprite_37x24_old.png" />
+    <Content Include="Content\Images\doctor-search-icons\ps_sprite.png" />
+    <Content Include="Content\Images\en-us_off.gif" />
+    <Content Include="Content\Images\en-us_on.gif" />
+    <Content Include="Content\Images\es-mx_off.gif" />
+    <Content Include="Content\Images\es-mx_on.gif" />
+    <Content Include="Content\Images\icons-png\action-black.png" />
+    <Content Include="Content\Images\icons-png\action-white.png" />
+    <Content Include="Content\Images\icons-png\alert-black.png" />
+    <Content Include="Content\Images\icons-png\alert-white.png" />
+    <Content Include="Content\Images\icons-png\arrow-d-black.png" />
+    <Content Include="Content\Images\icons-png\arrow-d-l-black.png" />
+    <Content Include="Content\Images\icons-png\arrow-d-l-white.png" />
+    <Content Include="Content\Images\icons-png\arrow-d-r-black.png" />
+    <Content Include="Content\Images\icons-png\arrow-d-r-white.png" />
+    <Content Include="Content\Images\icons-png\arrow-d-white.png" />
+    <Content Include="Content\Images\icons-png\arrow-l-black.png" />
+    <Content Include="Content\Images\icons-png\arrow-l-white.png" />
+    <Content Include="Content\Images\icons-png\arrow-r-black.png" />
+    <Content Include="Content\Images\icons-png\arrow-r-white.png" />
+    <Content Include="Content\Images\icons-png\arrow-u-black.png" />
+    <Content Include="Content\Images\icons-png\arrow-u-l-black.png" />
+    <Content Include="Content\Images\icons-png\arrow-u-l-white.png" />
+    <Content Include="Content\Images\icons-png\arrow-u-r-black.png" />
+    <Content Include="Content\Images\icons-png\arrow-u-r-white.png" />
+    <Content Include="Content\Images\icons-png\arrow-u-white.png" />
+    <Content Include="Content\Images\icons-png\audio-black.png" />
+    <Content Include="Content\Images\icons-png\audio-white.png" />
+    <Content Include="Content\Images\icons-png\back-black.png" />
+    <Content Include="Content\Images\icons-png\back-white.png" />
+    <Content Include="Content\Images\icons-png\bars-black.png" />
+    <Content Include="Content\Images\icons-png\bars-white.png" />
+    <Content Include="Content\Images\icons-png\bullets-black.png" />
+    <Content Include="Content\Images\icons-png\bullets-white.png" />
+    <Content Include="Content\Images\icons-png\calendar-black.png" />
+    <Content Include="Content\Images\icons-png\calendar-white.png" />
+    <Content Include="Content\Images\icons-png\camera-black.png" />
+    <Content Include="Content\Images\icons-png\camera-white.png" />
+    <Content Include="Content\Images\icons-png\carat-d-black.png" />
+    <Content Include="Content\Images\icons-png\carat-d-white.png" />
+    <Content Include="Content\Images\icons-png\carat-l-black.png" />
+    <Content Include="Content\Images\icons-png\carat-l-white.png" />
+    <Content Include="Content\Images\icons-png\carat-r-black.png" />
+    <Content Include="Content\Images\icons-png\carat-r-white.png" />
+    <Content Include="Content\Images\icons-png\carat-u-black.png" />
+    <Content Include="Content\Images\icons-png\carat-u-white.png" />
+    <Content Include="Content\Images\icons-png\check-black.png" />
+    <Content Include="Content\Images\icons-png\check-white.png" />
+    <Content Include="Content\Images\icons-png\clock-black.png" />
+    <Content Include="Content\Images\icons-png\clock-white.png" />
+    <Content Include="Content\Images\icons-png\cloud-black.png" />
+    <Content Include="Content\Images\icons-png\cloud-white.png" />
+    <Content Include="Content\Images\icons-png\comment-black.png" />
+    <Content Include="Content\Images\icons-png\comment-white.png" />
+    <Content Include="Content\Images\icons-png\delete-black.png" />
+    <Content Include="Content\Images\icons-png\delete-white.png" />
+    <Content Include="Content\Images\icons-png\edit-black.png" />
+    <Content Include="Content\Images\icons-png\edit-white.png" />
+    <Content Include="Content\Images\icons-png\eye-black.png" />
+    <Content Include="Content\Images\icons-png\eye-white.png" />
+    <Content Include="Content\Images\icons-png\forbidden-black.png" />
+    <Content Include="Content\Images\icons-png\forbidden-white.png" />
+    <Content Include="Content\Images\icons-png\forward-black.png" />
+    <Content Include="Content\Images\icons-png\forward-white.png" />
+    <Content Include="Content\Images\icons-png\gear-black.png" />
+    <Content Include="Content\Images\icons-png\gear-white.png" />
+    <Content Include="Content\Images\icons-png\grid-black.png" />
+    <Content Include="Content\Images\icons-png\grid-white.png" />
+    <Content Include="Content\Images\icons-png\heart-black.png" />
+    <Content Include="Content\Images\icons-png\heart-white.png" />
+    <Content Include="Content\Images\icons-png\home-black.png" />
+    <Content Include="Content\Images\icons-png\home-white.png" />
+    <Content Include="Content\Images\icons-png\info-black.png" />
+    <Content Include="Content\Images\icons-png\info-white.png" />
+    <Content Include="Content\Images\icons-png\location-black.png" />
+    <Content Include="Content\Images\icons-png\location-white.png" />
+    <Content Include="Content\Images\icons-png\lock-black.png" />
+    <Content Include="Content\Images\icons-png\lock-white.png" />
+    <Content Include="Content\Images\icons-png\mail-black.png" />
+    <Content Include="Content\Images\icons-png\mail-white.png" />
+    <Content Include="Content\Images\icons-png\minus-black.png" />
+    <Content Include="Content\Images\icons-png\minus-white.png" />
+    <Content Include="Content\Images\icons-png\navigation-black.png" />
+    <Content Include="Content\Images\icons-png\navigation-white.png" />
+    <Content Include="Content\Images\icons-png\phone-black.png" />
+    <Content Include="Content\Images\icons-png\phone-white.png" />
+    <Content Include="Content\Images\icons-png\plus-black.png" />
+    <Content Include="Content\Images\icons-png\plus-white.png" />
+    <Content Include="Content\Images\icons-png\power-black.png" />
+    <Content Include="Content\Images\icons-png\power-white.png" />
+    <Content Include="Content\Images\icons-png\recycle-black.png" />
+    <Content Include="Content\Images\icons-png\recycle-white.png" />
+    <Content Include="Content\Images\icons-png\refresh-black.png" />
+    <Content Include="Content\Images\icons-png\refresh-white.png" />
+    <Content Include="Content\Images\icons-png\search-black.png" />
+    <Content Include="Content\Images\icons-png\search-white.png" />
+    <Content Include="Content\Images\icons-png\shop-black.png" />
+    <Content Include="Content\Images\icons-png\shop-white.png" />
+    <Content Include="Content\Images\icons-png\star-black.png" />
+    <Content Include="Content\Images\icons-png\star-white.png" />
+    <Content Include="Content\Images\icons-png\tag-black.png" />
+    <Content Include="Content\Images\icons-png\tag-white.png" />
+    <Content Include="Content\Images\icons-png\user-black.png" />
+    <Content Include="Content\Images\icons-png\user-white.png" />
+    <Content Include="Content\Images\icons-png\video-black.png" />
+    <Content Include="Content\Images\icons-png\video-white.png" />
+    <Content Include="Content\Images\icons-svg\action-black.svg" />
+    <Content Include="Content\Images\icons-svg\action-white.svg" />
+    <Content Include="Content\Images\icons-svg\alert-black.svg" />
+    <Content Include="Content\Images\icons-svg\alert-white.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-d-black.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-d-l-black.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-d-l-white.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-d-r-black.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-d-r-white.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-d-white.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-l-black.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-l-white.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-r-black.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-r-white.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-u-black.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-u-l-black.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-u-l-white.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-u-r-black.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-u-r-white.svg" />
+    <Content Include="Content\Images\icons-svg\arrow-u-white.svg" />
+    <Content Include="Content\Images\icons-svg\audio-black.svg" />
+    <Content Include="Content\Images\icons-svg\audio-white.svg" />
+    <Content Include="Content\Images\icons-svg\back-black.svg" />
+    <Content Include="Content\Images\icons-svg\back-white.svg" />
+    <Content Include="Content\Images\icons-svg\bars-black.svg" />
+    <Content Include="Content\Images\icons-svg\bars-white.svg" />
+    <Content Include="Content\Images\icons-svg\bullets-black.svg" />
+    <Content Include="Content\Images\icons-svg\bullets-white.svg" />
+    <Content Include="Content\Images\icons-svg\calendar-black.svg" />
+    <Content Include="Content\Images\icons-svg\calendar-white.svg" />
+    <Content Include="Content\Images\icons-svg\camera-black.svg" />
+    <Content Include="Content\Images\icons-svg\camera-white.svg" />
+    <Content Include="Content\Images\icons-svg\carat-d-black.svg" />
+    <Content Include="Content\Images\icons-svg\carat-d-white.svg" />
+    <Content Include="Content\Images\icons-svg\carat-l-black.svg" />
+    <Content Include="Content\Images\icons-svg\carat-l-white.svg" />
+    <Content Include="Content\Images\icons-svg\carat-r-black.svg" />
+    <Content Include="Content\Images\icons-svg\carat-r-white.svg" />
+    <Content Include="Content\Images\icons-svg\carat-u-black.svg" />
+    <Content Include="Content\Images\icons-svg\carat-u-white.svg" />
+    <Content Include="Content\Images\icons-svg\check-black.svg" />
+    <Content Include="Content\Images\icons-svg\check-white.svg" />
+    <Content Include="Content\Images\icons-svg\clock-black.svg" />
+    <Content Include="Content\Images\icons-svg\clock-white.svg" />
+    <Content Include="Content\Images\icons-svg\cloud-black.svg" />
+    <Content Include="Content\Images\icons-svg\cloud-white.svg" />
+    <Content Include="Content\Images\icons-svg\comment-black.svg" />
+    <Content Include="Content\Images\icons-svg\comment-white.svg" />
+    <Content Include="Content\Images\icons-svg\delete-black.svg" />
+    <Content Include="Content\Images\icons-svg\delete-white.svg" />
+    <Content Include="Content\Images\icons-svg\edit-black.svg" />
+    <Content Include="Content\Images\icons-svg\edit-white.svg" />
+    <Content Include="Content\Images\icons-svg\eye-black.svg" />
+    <Content Include="Content\Images\icons-svg\eye-white.svg" />
+    <Content Include="Content\Images\icons-svg\forbidden-black.svg" />
+    <Content Include="Content\Images\icons-svg\forbidden-white.svg" />
+    <Content Include="Content\Images\icons-svg\forward-black.svg" />
+    <Content Include="Content\Images\icons-svg\forward-white.svg" />
+    <Content Include="Content\Images\icons-svg\gear-black.svg" />
+    <Content Include="Content\Images\icons-svg\gear-white.svg" />
+    <Content Include="Content\Images\icons-svg\grid-black.svg" />
+    <Content Include="Content\Images\icons-svg\grid-white.svg" />
+    <Content Include="Content\Images\icons-svg\heart-black.svg" />
+    <Content Include="Content\Images\icons-svg\heart-white.svg" />
+    <Content Include="Content\Images\icons-svg\home-black.svg" />
+    <Content Include="Content\Images\icons-svg\home-white.svg" />
+    <Content Include="Content\Images\icons-svg\info-black.svg" />
+    <Content Include="Content\Images\icons-svg\info-white.svg" />
+    <Content Include="Content\Images\icons-svg\location-black.svg" />
+    <Content Include="Content\Images\icons-svg\location-white.svg" />
+    <Content Include="Content\Images\icons-svg\lock-black.svg" />
+    <Content Include="Content\Images\icons-svg\lock-white.svg" />
+    <Content Include="Content\Images\icons-svg\mail-black.svg" />
+    <Content Include="Content\Images\icons-svg\mail-white.svg" />
+    <Content Include="Content\Images\icons-svg\minus-black.svg" />
+    <Content Include="Content\Images\icons-svg\minus-white.svg" />
+    <Content Include="Content\Images\icons-svg\navigation-black.svg" />
+    <Content Include="Content\Images\icons-svg\navigation-white.svg" />
+    <Content Include="Content\Images\icons-svg\phone-black.svg" />
+    <Content Include="Content\Images\icons-svg\phone-white.svg" />
+    <Content Include="Content\Images\icons-svg\plus-black.svg" />
+    <Content Include="Content\Images\icons-svg\plus-white.svg" />
+    <Content Include="Content\Images\icons-svg\power-black.svg" />
+    <Content Include="Content\Images\icons-svg\power-white.svg" />
+    <Content Include="Content\Images\icons-svg\recycle-black.svg" />
+    <Content Include="Content\Images\icons-svg\recycle-white.svg" />
+    <Content Include="Content\Images\icons-svg\refresh-black.svg" />
+    <Content Include="Content\Images\icons-svg\refresh-white.svg" />
+    <Content Include="Content\Images\icons-svg\search-black.svg" />
+    <Content Include="Content\Images\icons-svg\search-white.svg" />
+    <Content Include="Content\Images\icons-svg\shop-black.svg" />
+    <Content Include="Content\Images\icons-svg\shop-white.svg" />
+    <Content Include="Content\Images\icons-svg\star-black.svg" />
+    <Content Include="Content\Images\icons-svg\star-white.svg" />
+    <Content Include="Content\Images\icons-svg\tag-black.svg" />
+    <Content Include="Content\Images\icons-svg\tag-white.svg" />
+    <Content Include="Content\Images\icons-svg\user-black.svg" />
+    <Content Include="Content\Images\icons-svg\user-white.svg" />
+    <Content Include="Content\Images\icons-svg\video-black.svg" />
+    <Content Include="Content\Images\icons-svg\video-white.svg" />
+    <Content Include="Content\Images\ico_alerts.png" />
+    <Content Include="Content\Images\ico_alert_orange.png" />
+    <Content Include="Content\Images\ico_alert_red.png" />
+    <Content Include="Content\Images\ico_alert_yellow.png" />
+    <Content Include="Content\Images\ico_blob_people_1.png" />
+    <Content Include="Content\Images\ico_blueQuestion.png" />
+    <Content Include="Content\Images\ico_blueQuestion_off.png" />
+    <Content Include="Content\Images\ico_carePlansHRA.png" />
+    <Content Include="Content\Images\ico_csv.png" />
+    <Content Include="Content\Images\ico_doc_file.png" />
+    <Content Include="Content\Images\ico_elig_urgentCareList.png" />
+    <Content Include="Content\Images\ico_excel.jpg" />
+    <Content Include="Content\Images\ico_excel.png" />
+    <Content Include="Content\Images\ico_lock.png" />
+    <Content Include="Content\Images\ico_lungs.jpg" />
+    <Content Include="Content\Images\ico_medicalHistory.png" />
+    <Content Include="Content\Images\ico_pdf.png" />
+    <Content Include="Content\Images\ico_pdf_file.png" />
+    <Content Include="Content\Images\ico_pencil.png" />
+    <Content Include="Content\Images\ico_print.jpg" />
+    <Content Include="Content\Images\ico_print.png" />
+    <Content Include="Content\Images\ico_printIDCard.png" />
+    <Content Include="Content\Images\ico_redCross.png" />
+    <Content Include="Content\Images\ico_redCross_off.png" />
+    <Content Include="Content\Images\ico_reminder.png" />
+    <Content Include="Content\Images\ico_signin_passwordreset.png" />
+    <Content Include="Content\Images\ico_signin_register.png" />
+    <Content Include="Content\Images\ico_subnav_changeMyEmail.png" />
+    <Content Include="Content\Images\ico_subnav_changeMyPassword.png" />
+    <Content Include="Content\Images\ico_urgentCareList.png" />
+    <Content Include="Content\Images\ico_view_full_0.png" />
+    <Content Include="Content\Images\ico_view_grouped_0.png" />
+    <Content Include="Content\Images\ico_www.png" />
+    <Content Include="Content\Images\IEHPMemCard_memID.png" />
+    <Content Include="Content\Images\IEHPMemCard_memIDv2.png" />
+    <Content Include="Content\Images\IEHPMemCard_pcpCode.png" />
+    <Content Include="Content\Images\IEHP_Logo_en.png" />
+    <Content Include="Content\Images\IEHP_Logo_es.png" />
+    <Content Include="Content\Images\IEHP_LOGO_Survey.png" />
+    <Content Include="Content\Images\IEHP_LOGO_w116xh40.png" />
+    <Content Include="Content\Images\IEHP_LOGO_w194xh106.png" />
+    <Content Include="Content\Images\img_arrow_blue.png" />
+    <Content Include="Content\Images\img_arrow_blue_hover.png" />
+    <Content Include="Content\Images\img_note.png" />
+    <Content Include="Content\Images\lghtmesh.png" />
+    <Content Include="Content\Images\li_arrow_blue.png" />
+    <Content Include="Content\Images\li_arrow_ltgrey.png" />
+    <Content Include="Content\Images\Loader_100px.gif" />
+    <Content Include="Content\Images\memberfavicon3.ico" />
+    <Content Include="Content\Images\nav_sprites.png" />
+    <Content Include="Content\Images\nav_sprites.svg" />
+    <Content Include="Content\Images\noisy_grid.png" />
+    <Content Include="Content\Images\panel_AskIEHP.png" />
+    <Content Include="Content\Images\panel_Eligibility.png" />
+    <Content Include="Content\Images\panel_HealthRecords.png" />
+    <Content Include="Content\Images\panel_IDCard.png" />
+    <Content Include="Content\Images\panel_MedicalClaims.png" />
+    <Content Include="Content\Images\panel_MyDoctor.png" />
+    <Content Include="Content\Images\panel_Resources.png" />
+    <Content Include="Content\Images\panel_UpdateContactInfo.png" />
+    <Content Include="Content\Images\panel_youTube.png" />
+    <Content Include="Content\Images\password_strength_0.jpg" />
+    <Content Include="Content\Images\password_strength_1.jpg" />
+    <Content Include="Content\Images\password_strength_2.jpg" />
+    <Content Include="Content\Images\registration_keymap_info_en.png" />
+    <Content Include="Content\Images\registration_keymap_QM_en-us.png" />
+    <Content Include="Content\Images\registration_keymap_QM_es-mx.png" />
+    <Content Include="Content\Images\sm_Ask.png" />
+    <Content Include="Content\Images\sm_Email.gif" />
+    <Content Include="Content\Images\sm_Email.png" />
+    <Content Include="Content\Images\sm_IDCard.png" />
+    <Content Include="Content\Images\sm_MyDoctor.png" />
+    <Content Include="Content\Images\sm_Password.gif" />
+    <Content Include="Content\Images\sm_Password.png" />
+    <Content Include="Content\Images\sm_Resources.png" />
+    <Content Include="Content\loading-bar.css" />
+    <Content Include="Content\loading-bar.min.css" />
+    <Content Include="Content\Sounds\sndAlert.mp3" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="App\directives\pp-eligibility-member-details\ppEligibilityMemberDetails.html" />
+    <Content Include="App\finance\claims-ra.html" />
+    <Content Include="App\claims\claims-status.html" />
+    <Content Include="App\encounter\encounter.html" />
+    <Content Include="App\home\home.html" />
+    <Content Include="App\remittance-advice\detail\ra-detail.html" />
+    <Content Include="App\claims\p4p-ra.html" />
+    <Content Include="Scripts\angular-datepicker.min.js" />
+    <Content Include="Scripts\angular-filter.min.js" />
+    <Content Include="App\appModule.js" />
+    <Content Include="App\appRoute.js" />
+    <Content Include="App\claims\claims-status.controller.js" />
+    <Content Include="App\services\contentAuthorizationService.js" />
+    <Content Include="App\services\passwordStrength.js" />
+    <Content Include="App\services\requestedLanguage.js" />
+    <Content Include="App\services\memberIDCardService.js" />
+    <Content Include="App\shared\authorization\_medhokMemberDetails.html" />
+    <Content Include="App\directives\_provider-tile\providerTile.html" />
+    <Content Include="App\directives\debug-tool\debugTool.html" />
+    <Content Include="App\directives\my-doctor\myDoctor.html" />
+    <Content Include="App\directives\doctor-summary-expandable\doctorSummaryExpandable.html" />
+    <Content Include="App\directives\_eligibility-history-table-expandable\eligibilityHistoryTableExpandable.html" />
+    <Content Include="App\directives\_eligibility-summary-expandable\eligibilitySummaryExpandable.html" />
+    <Content Include="App\directives\immunizations\yellowCardTable.html" />
+    <Content Include="Content\dialogs.min.css" />
+    <Content Include="Content\jquery.mobile-1.4.5.css" />
+    <Content Include="Content\jquery.mobile-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.external-png-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.external-png-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.icons-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.icons-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.inline-png-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.inline-png-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.inline-svg-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.inline-svg-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.structure-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.structure-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.theme-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.theme-1.4.5.min.css" />
+    <Content Include="Content\Navigation.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="robots.txt" />
+    <Content Include="Scripts\angular-local-storage.js" />
+    <Content Include="Scripts\angular-local-storage.min.js" />
+    <Content Include="Scripts\angular-moment.js" />
+    <Content Include="Scripts\angular-moment.min.js" />
+    <Content Include="Scripts\angular-translate.js" />
+    <Content Include="Scripts\angular-translate.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
+    <Content Include="App\directives\_pending-pcp-change\pendingPcpChange.js" />
+    <Content Include="App\directives\_yellow-card-table\yellowCardTable.js" />
+    <Content Include="Scripts\angulartics-ga.js" />
+    <Content Include="Scripts\angulartics-ga.min.js" />
+    <Content Include="Scripts\angulartics.js" />
+    <Content Include="Scripts\angulartics.min.js" />
+    <Content Include="App\directives\directivesModule.js" />
+    <Content Include="App\directives\my-doctor\myDoctor.js" />
+    <Content Include="App\directives\_provider-tile\providerTile.js" />
+    <Content Include="App\directives\simple-error-box\simpleErrorBox.js" />
+    <Content Include="App\filters\filters.js" />
+    <Content Include="Scripts\App\NavigationApp.js" />
+    <Content Include="App\directives\simple-ajax-loader\simpleAjaxLoader.js" />
+    <Content Include="App\services\authServices.js" />
+    <Content Include="App\services\authStatusService.js" />
+    <Content Include="App\services\memberDataServices.js" />
+    <Content Include="App\services\searchTypeService.js" />
+    <Content Include="App\services\transformRequestAsFormPost.js" />
+    <Content Include="App\services\translateService.js" />
+    <Content Include="App\services\servicesModule.js" />
+    <Content Include="Content\Fonts\TypographyofCoopLight.eot">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\TypographyofCoopLight.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Content\PharmacyPdfs\AppointmentofRep.pdf" />
+    <Content Include="Content\PharmacyPdfs\MediCal Formulary Jan2016.pdf" />
+    <Content Include="Content\PharmacyPdfs\New PA UniversalForm v3.pdf" />
+    <Content Include="Content\PharmacyPdfs\UserGuide.pdf" />
+    <Content Include="Content\config\cao.js" />
+    <Content Include="Content\jasmine\cao.js" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <None Include="Properties\PublishProfiles\DEVAPP1 %28DEVAPP.iehp.org%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <Content Include="Scripts\dialogs-controllers.js" />
+    <Content Include="Scripts\dialogs-main.js" />
+    <Content Include="Scripts\dialogs.js" />
+    <Content Include="Scripts\dialogs.min.js" />
+    <None Include="Properties\PublishProfiles\PROD.pubxml" />
+    <None Include="Properties\PublishProfiles\Staging.pubxml" />
+    <None Include="Properties\PublishProfiles\DEVAPP1 UAT %28devapp.iehp.org%29.pubxml" />
+    <Content Include="Scripts\infobox.js" />
+    <Content Include="Scripts\JavaScriptPolyFills.js" />
+    <Content Include="Scripts\angular-ui-router.min.js" />
+    <Content Include="Scripts\angular-moment.min.js.map" />
+    <Content Include="Scripts\jquery.maskedinput.min.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.5.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.5.min.map" />
+    <Content Include="Scripts\jquery-1.12.0.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.5.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\loading-bar.js" />
+    <Content Include="Scripts\loading-bar.min.js" />
+    <Content Include="Scripts\lodash.js" />
+    <Content Include="Scripts\lodash.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\surveyClient\SurveyClientEngine.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls-0.11.2.min.js" />
+    <Content Include="Scripts\xdomain.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="App\directives\_pending-pcp-change\PendingPcpChangeRequest.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\App\Index.cshtml" />
+    <Content Include="App\pages\Courses\available.html" />
+    <Content Include="Scripts\version.json" />
+    <Content Include="Views\App\DebugModule.cshtml" />
+    <None Include="Web.PROD.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Staging.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.UAT.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\themes\base\images\" />
+    <Folder Include="Content\themes\smoothness\images\" />
+    <Folder Include="html\BehavioralHealth\" />
+    <Folder Include="html\MemberHistoryClassicForms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\LocalizationResource.en-US.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>LocalizationResource.en-US.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <EmbeddedResource Include="Models\ResourceLocalization_en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceLocalization_en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\ResourceLocalization_es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceLocalization_es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'UAT|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PROD|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51695</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51695/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

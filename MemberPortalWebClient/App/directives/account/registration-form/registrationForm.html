@@ -1,0 +1,692 @@
+﻿ <div id="passReset" class="registrationForm frmSignIn col-sm-12 col-xs-12     padLeft0 padRight0">
+
+
+    <div class="col-xs-12 col-sm-12 hidden-lg hidden-md zIndex1000 padLeft0 padRight0">
+        <language-tabs></language-tabs>
+    </div>
+
+    <div class="registrationTabs col-xs-12 col-sm-12 col-md-4 col-md-offset-7 zIndex1000 debug">
+        <a href="App/Account/Login">
+            <div class="col-xs-6 newButton btnSRP margin0 padLeft0 ">{{'form_signIn' | translate}}</div>
+        </a>
+        <a href="App/Account/PasswordReset">
+            <div class="col-xs-6 newButton btnSRP margin0 padRight0">{{'form_signInPage_header_resetPassword' | translate}}</div>
+        </a>
+    </div>
+
+
+
+
+    <div class="panel col-md-10 col-sm-12 col-md-push-1  ">
+        <!--<h1 class="padLeft20">{{'form_register'| translate}}</h1>-->
+ 
+        <div class="row formHeader">
+            <div class="col-md-8 alignLeft">
+                <h4> {{'form_register' | translate}} </h4>
+            </div>
+
+
+            <div class="col-md-4 zIndex1000 hidden-xs hidden-sm " style="padding-top:8px;">
+                <language-tabs></language-tabs>
+            </div>
+
+        </div>
+
+
+
+        <ul class="horizontal-progress-bar clearfix row  hidden-xs">
+            <li ng-class="{'complete': step > 1,'current': step == 1 }" class="col-md-3 col-sm-4">
+                <span class="formStep"><label>1</label>{{'form_memberDetails'| translate}}</span><span class="arrow-right"></span>
+            </li>
+            <li ng-class="{'complete': step > 2,'current': step == 2 }" class="col-md-3 col-sm-4">
+                <span class="formStep"><label>2</label>{{'form_password'| translate}}</span><span class="arrow-right"></span>
+            </li>
+            <li ng-class="{'complete': step > 3,'current': step == 3 }" class="col-md-3 col-sm-4">
+                <span class="formStep"><label>3</label>{{'form_emailCode'| translate}}</span><span class="arrow-right"></span>
+            </li>
+            <li ng-class="{'complete': step > 4,'current': step == 4 }" class="col-md-3 col-sm-4">
+                <span class="formStep"><label>4</label>{{'form_securityQuestions'| translate}}</span><span class="arrow-right"></span>
+            </li>
+        </ul>
+        <ul class="horizontal-progress-bar clearfix center row hidden-sm hidden-md hidden-lg pbXS" lang="{{currentCulture}}">
+            <li ng-class="{'complete': step > 1,'current': step == 1 }">
+                <span class="formStepXS"><label>1</label>{{'form_memberDetails'| translate}}</span>
+            </li>
+            <li ng-class="{'complete': step > 2,'current': step == 2 }">
+                <span class="formStepXS"><label>2</label>{{'form_emailVerification'| translate}}</span>
+            </li>
+            <li ng-class="{'complete': step > 3,'current': step == 3 }">
+                <span class="formStepXS"><label>3</label>{{'form_securityQuestion'| translate}}</span>
+            </li>
+            <li ng-class="{'complete': step > 4,'current': step == 4 }">
+                <span class="formStepXS"><label>4</label>{{'form_newPassword'| translate}}</span>
+            </li>
+        </ul>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 regKeyMap">
+                <!--<h2> {{"form_hint_registration_mapkeyhelp"|translate }} </h2>-->
+                <div class="hr"></div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <div class="helpPanel">
+                        {{"form_registrationTips_1_title" | translate}}
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <div class="helpPanel">
+                        <strong class="colorBlue2">  {{"form_registrationTips_2_title"| translate}}  </strong><br />
+                        <ul class="ulVerticalBullets">
+                            <li> {{"form_registrationTips_2_point1" | translate }} </li>
+                            <li> {{"form_registrationTips_2_point2" | translate }} </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <div class="helpPanel">
+                        <img ng-src="Content/Images/registration_keymap_QM_{{ currentLanguage }}.png?v=1" style="width:100%; max-width:120px;" />
+                    </div>
+                </div>
+
+                <!--<div class="col-xs-6 col-sm-3">
+                    <div class="helpPanel">
+                        <img src="/Content/Images/registration_keymap_info_en.png" style="width:100%; max-width:120px;" />
+                    </div>
+                </div>-->
+
+            </div>
+        </div>
+
+        <br />
+
+
+        <!--------------- STEP1   -------------->
+        <div ng-show="currentStep == 1">
+            <form id="stepOne"
+                  name="stepOne"
+                  class="form form-horizontal"
+                  novalidate
+                  role="form">
+                <div class="row ">
+                    <message-boxes info-message="{{infoMessage}}" success-message="{{successMessage}}" error-message="{{errorMessage}}"></message-boxes>
+                </div>
+
+                <div class="row">
+                    <div class="form-group clearfix" show-errors>
+                        <label class="col-sm-3 col-xs-12  col-xs-offset-1 control-label" for="SubscriberNumber"> {{"form_IEHPMemberID" |translate}} </label>
+                        <div class="col-md-5 col-sm-6 col-xs-12">
+
+                            <div class="input-group col-xs-11 col-xs-offset-1 col-sm-offset-0 ">
+                                <input id="subscriberNo"
+                                       class="form-control"
+                                       type="text"
+                                       name="SubscriberNumber"
+                                       placeholder="{{'form_hintIEHPMemberID' | translate}}"
+                                       ng-model="SubscriberNumber"
+                                       ng-maxlength="14"
+                                       ng-minlength="12"
+                                       ng-required="true"
+                                       maxlength="14"
+                                       ng-pattern="/^[0-9]{12,14}$/"
+                                       ng-readonly="StepOneComplete" />
+
+                                <span class="input-group-addon help-block-btn">
+                                    <i class="glyphicon glyphicon-question-sign" ng-click="showHelpModal('IEHPMemID')" ng-show=" !stepOne.SubscriberNumber.$valid"></i>
+                                    <label class="hideIcon hidden-xs" ng-class="{'showIcon' : stepOne.SubscriberNumber.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                </span>
+
+                                <i class="glyphicon glyphicon-ok hidden-xs" ng-class="{'show' : stepOne.SubscriberNumber.$valid}"></i>
+                                <!--<p class="col-md-10 help-block hide col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-1">{{"form_enterYourAnswer"| translate}}</p>-->
+                            </div>
+
+                          
+
+                                    <span class="formhint col-xs-12" ng-show="!stepOne.SubscriberNumber.$valid"> {{"form_hint_registration_memberID" |translate }} </span>
+
+                                    <span ng-class="{'show, formRegisterCorrectFormat' : stepOne.SubscriberNumber.$valid}" class="col-xs-10 hidden-sm hidden-md hidden-lg">
+                                        <i class="glyphicon glyphicon-ok" ng-class="{'show' : stepOne.SubscriberNumber.$valid}"></i>
+                                        <label class="hideIcon" ng-class="{'showIcon' : stepOne.SubscriberNumber.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                    </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix" show-errors>
+                        <label class="col-sm-3 col-xs-10  col-xs-offset-1 control-label" for="DateOfBirth"> {{"form_dateOfBirth" | translate}}</label>
+                        <div class="col-md-5 col-sm-6 col-xs-12" ng-controller="registrationPageController">
+                            <div class="input-group col-xs-11 col-xs-offset-1 col-sm-offset-0 ">
+                                <input class="form-control"
+                                       id="regDOB"
+                                       maxlength="10"
+                                       type="text"
+                                       name="DateOfBirth"
+                                       placeholder="{{'form_hintDOB'|translate}}"
+                                       ng-model="DateOfBirth"
+                                       ng-maxlength="10"
+                                       ng-minlength="10"
+                                       ng-required="true"
+                                       ng-keyup="addSlashesToDate($event)"
+                                       ng-readonly="StepOneComplete"
+                                       ng-pattern="/^((?:0[1-9])|(?:1[0-2]))\/((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))\/(\d{4})$/" />
+
+                                <span class="input-group-addon help-block-btn">
+                                    <!--<i class="glyphicon glyphicon-ok" ng-class="{'show' :  stepOne.DateOfBirth.$valid}"></i>-->
+                                    <label class="hideIcon" ng-class="{'showIcon' :  DateOfBirthIsValid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                </span>
+
+                                <i class="glyphicon glyphicon-ok hidden-xs" ng-class="{'show' : DateOfBirthIsValid}"></i>
+                            </div>
+
+                            <span class="formhint col-xs-12" ng-show="!DateOfBirthIsValid"> {{"form_hint_registration_DOB" | translate }} </span>
+                            <!--<p class="marginLeft40  help-block hide col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-1"> {{'form_exampleBirthDate'|translate}} </p>-->
+                            <p class="marginLeft20  help-block hide col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-1" ng-show="stepOne.DateOfBirth.$error.pattern"> {{'form_invalidDateFormat'|translate}} </p>
+
+                            <span ng-class="{'show, formRegisterCorrectFormat' : DateOfBirthIsValid }" class="col-xs-10 hidden-sm hidden-md hidden-lg">
+                                <i class="glyphicon glyphicon-ok" ng-class="{'show' : DateOfBirthIsValid}"></i>
+                                <label class="hideIcon" ng-class="{'showIcon' : DateOfBirthIsValid}"> {{"form_validation_correctFormat" | translate }} </label>
+                            </span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group clearfix" show-errors>
+                        <label class="col-sm-3 col-xs-12  col-xs-offset-1 control-label" for="PinCode"> {{"form_RegistrationOptIn" |translate}} </label>
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                            <div class="input-group  col-xs-11 col-xs-offset-1 col-sm-6 col-sm-offset-0 ">
+                                <div class="col-xs-1 pad0">
+                                    <input id="agreeCkBox"
+                                           name="agreeCkBox"
+                                           type="checkbox"
+                                           ng-model="isAuthorizedPerson"
+                                           ng-required="true" />
+                                </div>
+                                <div class="col-xs-10 alignLeft">
+                                    {{'form_iAgree'|translate}}
+                                </div>
+                            </div>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-0 alignLeft padTop10 padLeft0">
+                                {{'form_register_step1_authorizedConfirmation'|translate}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix" show-errors>
+                        <label class="col-sm-3 col-xs-12  col-xs-offset-1 control-label">  </label>
+                        <div class="col-md-9 col-md-offset-4 col-sm-6">
+                            <div class="col-sm-10 col-md-6   formButtons padTop20 ">
+                                <div simple-ajax-loader show="loadingRegStep1"></div>
+                                <button id="cancelRegStep1"
+                                        class="btn btn-primary"
+                                        ng-click="reloadRoute(); "
+                                        type="button">
+                                    {{"form_cancel" | translate}}
+                                </button>
+                                <button class="btn btn-primary"
+                                        id="submitRegStep1"
+                                        ng-click="StepOne()"
+                                        ng-disabled="!(stepOne.SubscriberNumber.$valid &&  DateOfBirthIsValid && isAuthorizedPerson) ">
+                                    {{"form_next" | translate}}
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!--------------- STEP2   -------------->
+        <div id="registrationFormPass" class="row padTop20" ng-show="currentStep == 2">
+            <p class="col-md-10 col-md-offset-1">{{'page_myinfo_updatePassword_intro'|translate}}</p>
+            <br />
+            <form name="stepTwo"
+                  class="form form-horizontal"
+                  role="form">
+                <div class="row">
+                    <message-boxes info-message="{{infoMessage}}" success-message="{{successMessage}}" error-message="{{errorMessage}}"></message-boxes>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group" show-errors>
+                        <label class="col-sm-3 col-sm-offset-2 col-xs-12 col-xs-offset-1 control-label" for="LastFour" ng-show="data.SsnOrPhone =='ssn'">   {{'form_lastFourOfSSN'| translate}} </label>
+                        <label class="col-sm-3 col-sm-offset-2 col-xs-12 col-xs-offset-1 control-label" for="txtLastFour" ng-show="data.SsnOrPhone =='phone'"> {{'form_lastFourOfPhone'| translate}} </label>
+                        <div class="col-md-5  col-sm-5 col-sm-offset-0 col-xs-12 col-xs-offset-1">
+                            <div class="input-group col-xs-11 ">
+                                <input id="txtLastFour"
+                                       class="form-control"
+                                       maxlength="4"
+                                       type="text"
+                                       name="LastFour"
+                                       placeholder="{{'form_hintLastFourPhone' | translate}}"
+                                       ng-model="LastFour"
+                                       ng-pattern="/^[0-9]{4,4}$/"
+                                       ng-required="true"
+                                       ng-readonly="StepOneComplete" />
+                                <span class="input-group-addon help-block-btn">
+                                    <!--<i class="glyphicon glyphicon-question-sign"></i>-->
+                                    <label class="hideIcon" ng-class="{'showIcon' : stepTwo.LastFour.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+
+                                </span>
+                                <i class="glyphicon glyphicon-ok hidden-xs" ng-class="{'show' : stepTwo.LastFour.$valid}"></i>
+
+                            </div>
+                            <p class="marginLeft40  help-block hide col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-1" ng-show="data.SsnOrPhone =='ssn'">             {{'form_exampleLastFourSSN' | translate}} </p>
+                            <p class="marginLeft40 col-md-10 help-block hide col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-1" ng-show="data.SsnOrPhone =='phone'">  {{'form_exampleLastFourPhone' | translate}} </p>
+
+                            <span ng-class="{'show, formRegisterCorrectFormat' : stepTwo.LastFour.$valid }" class="col-xs-10 hidden-sm hidden-md hidden-lg">
+                                <i class="glyphicon glyphicon-ok" ng-class="{'show' : stepTwo.LastFour.$valid}"></i>
+                                <label class="hideIcon" ng-class="{'showIcon' : stepTwo.LastFour.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix" show-errors ng-hide="data.IsCmc == true">
+                        <label class="col-sm-3 col-xs-12  col-sm-offset-2 col-xs-offset-1 control-label" for="PinCode"> {{"form_PCPPinCode" |translate}} </label>
+                        <div class="col-md-5  col-sm-5 col-sm-offset-0 col-xs-12 col-xs-offset-1">
+                            <div class="input-group col-xs-11 ">
+                                <input class="form-control"
+                                       maxlength="12"
+                                       type="text"
+                                       id="step2PinCode"
+                                       name="PinCode"
+                                       placeholder="{{'form_hintPCPPinCode' |translate}}"
+                                       ng-model="PinCode"
+                                       ng-maxlength="12"
+                                       ng-required="!data.IsCmc"
+                                       ng-pattern="/^[0-9a-zA-Z]{3,12}$/"
+                                       ng-readonly="StepOneComplete" />
+
+                                <span class="input-group-addon help-block-btn">
+                                    <i class="glyphicon glyphicon-question-sign" ng-click="showHelpModal('PCPPinCode')" ng-show=" !stepTwo.PinCode.$valid && !data.IsCmc "></i>
+                                    <label class="hideIcon" ng-class="{'showIcon' : stepTwo.PinCode.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                </span>
+
+                                <i class="glyphicon glyphicon-ok hidden-xs" ng-class="{'show' : stepTwo.PinCode.$valid}"></i>
+                            </div>
+
+                            <span class="formhint col-xs-12" ng-show="!stepTwo.PinCode.$valid"> {{"form_hint_registration_doctorPinCode" | translate }} </span>
+
+                            <span ng-class="{'show, formRegisterCorrectFormat' : stepTwo.PinCode.$valid }" class="col-xs-10 hidden-sm hidden-md hidden-lg">
+                                <i class="glyphicon glyphicon-ok" ng-class="{'show' : stepTwo.PinCode.$valid}"></i>
+                                <label class="hideIcon" ng-class="{'showIcon' : stepTwo.PinCode.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" show-errors>
+                        <label class="col-sm-3 col-sm-offset-2 col-xs-6 col-xs-offset-1 control-label" for="Email">{{'form_email'|translate}}</label>
+                        <div class="col-md-5  col-sm-5 col-sm-offset-0 col-xs-12 col-xs-offset-1">
+                            <div class="input-group col-xs-11 col-xs-offset-0">
+                                <input class="form-control"
+                                       type="email"
+                                       id="step2Email"
+                                       name="Email"
+                                       placeholder="{{'form_hintEmail'|translate}}"
+                                       ng-model="Email"
+                                       maxlength="100"
+                                       ng-maxlength="100"
+                                       ng-required="true"
+                                       ng-readonly="StepOneComplete"
+                                       ng-pattern="/^[a-zA-Z0-9\!\#\$\%\&\'\*\+\-\/\=\?\^\_\`\{\|\}\~\.]+@([a-z0-9]+[a-z0-9\-\.]+[a-z0-9]+|[a-z0-9]+)\.[a-zA-Z]+$/i" />
+
+                                <span class="input-group-addon help-block-btn">
+                                    <i class="glyphicon glyphicon-question-sign hidden-xs" ng-show=" !stepOne.SubscriberNumber.$valid"></i>
+                                    <label class="hideIcon" ng-class="{'showIcon' : stepTwo.Email.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                </span>
+
+                                <i class="glyphicon glyphicon-ok hidden-xs" ng-class="{'show' : stepTwo.Email.$valid}"></i>
+
+                            </div>
+                            <p class="marginLeft40 col-md-10 help-block hide col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-1"> {{'form_exampleEmail'|translate}}</p>
+                            <span ng-class="{'show, formRegisterCorrectFormat' : stepTwo.Email.$valid }" class="col-xs-10 hidden-sm hidden-md hidden-lg">
+                                <i class="glyphicon glyphicon-ok" ng-class="{'show' : stepTwo.Email.$valid}"></i>
+                                <label class="hideIcon" ng-class="{'showIcon' : stepTwo.Email.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" show-errors>
+                        <label class="col-sm-3 col-sm-offset-2  col-xs-12  col-xs-offset-1 control-label" for="Password"> {{'form_password'|translate}} </label>
+                        <div class="col-md-5  col-sm-5 col-sm-offset-0 col-xs-12 col-xs-offset-1">
+                            <i id="passwordStrengthIcon" class=" glyphicon glyphicon-ok  glyphIconAfter"></i>
+                            <div class="input-group col-xs-11 col-xs-offset-0">
+                                <input id="txtPassword1"
+                                       class="form-control"
+                                       maxlength="40"
+                                       type="Password"
+                                       name="Password"
+                                       placeholder="{{'form_hintPassword' | translate}}"
+                                       ng-keyup="checkPasswordStrength($event)"
+                                       ng-blur="checkPasswordStrength($event)"
+                                       ng-pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$/"
+                                       ng-model="Password"
+                                       ng-maxlength="40"
+                                       ng-minlength="6"
+                                       ng-required="true"
+                                       ng-readonly="StepOneComplete" />
+
+                                <span class="input-group-addon help-block-btn">
+                                    <i class="glyphicon glyphicon-question-sign" ng-show=" !stepTwo.Password.$valid"></i>
+                                    <label class="hideIcon" ng-class="{'showIcon' : stepTwo.Password.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                </span>
+                                <i class="glyphicon glyphicon-ok hidden-xs" ng-class="{'show' : stepTwo.Password.$valid}"></i>
+                            </div>
+                            <div id="passwordStrengthBar" class="col-xs-10 pad0 passwordStrength_0">
+                                <label id="passwordStrengthString" class="col-xs-11  col-lg-offset-5  pad0 padTop10 hideTemporarily margin0 alignCenter"></label>
+                            </div>
+
+                            <p class="marginLeft40 col-md-10 help-block hide col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-1"> {{'form_examplePassword'|translate}} </p>
+                            <span ng-class="{'show, formRegisterCorrectFormat' : stepTwo.Password.$valid }" class="col-xs-10 hidden-sm hidden-md hidden-lg">
+                                <i class="glyphicon glyphicon-ok" ng-class="{'show' : stepTwo.Password.$valid}"></i>
+                                <label class="hideIcon" ng-class="{'showIcon' : stepTwo.Password.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" show-errors>
+                        <label class="col-sm-3 col-sm-offset-2 col-xs-12  col-xs-offset-1 control-label" for="passwordConfirm"> {{'form_confirmPassword'|translate}}</label>
+                        <div class="col-md-5  col-sm-5 col-sm-offset-0 col-xs-12 col-xs-offset-1">
+                            <div class="input-group col-xs-11 col-xs-offset-0">
+                                <input id="txtPassword2"
+                                       class="form-control"
+                                       type="Password"
+                                       name="passwordConfirm"
+                                       ng-model="passwordConfirm"
+                                       ng-required="true"
+                                       compare-password-to="Password"
+                                       placeholder="{{'form_hintConfirmPassword' | translate}}" />
+                                <span class="input-group-addon help-block-btn">
+                                    <i class="glyphicon glyphicon-question-sign" ng-show=" !stepTwo.passwordConfirm.$valid"></i>
+                                    <label class="hideIcon" ng-class="{'showIcon' : stepTwo.passwordConfirm.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                </span>
+                                <i class="glyphicon glyphicon-ok hidden-xs" ng-class="{'show' : stepTwo.passwordConfirm.$valid}"></i>
+                            </div>
+                            <p class="marginLeft40 col-md-10 help-block hide col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-1">{{'form_exampleConfirmPassword' | translate}}</p>
+                            <span ng-class="{'show, formRegisterCorrectFormat' : stepTwo.passwordConfirm.$valid }" class="col-xs-10 hidden-sm hidden-md hidden-lg">
+                                <i class="glyphicon glyphicon-ok" ng-class="{'show' : stepTwo.passwordConfirm.$valid}"></i>
+                                <label class="hideIcon" ng-class="{'showIcon' : stepTwo.passwordConfirm.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group clearfix" show-errors>
+                        <label class="col-sm-3  col-xs-12  col-xs-offset-1 control-label">  </label>
+                        <div class="col-md-8 col-md-offset-5 col-sm-6 col-xs-12">
+
+                            <div class="formButtons input-group col-md-6 col-xs-12 col-xs-offset-0 col-sm-5  ">
+                                <div simple-ajax-loader show="loadingRegStep2"></div>
+                                <button id="cancelRegStep2"
+                                        class="btn btn-primary"
+                                        ng-click="reloadRoute()"
+                                        type="button">
+                                    {{"form_cancel" | translate}}
+                                </button>
+                                <button class="btn btn-primary"
+                                        id="submitRegStep2"
+                                        ng-click="StepTwo()"
+                                        ng-disabled="stepTwo.$invalid"
+                                        onclick="$(this).fadeOut('slow')">
+                                    {{"form_next" | translate}}
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!--------------- STEP3   -------------->
+        <div class="row padTop20" ng-show="currentStep == 3">
+
+            <div class="col-sm-7 col-sm-offset-3"><h3> {{'form_registrationEmailVerification_title'|translate}} </h3><br /><br /> </div>
+
+            <form name="stepThree"
+                  class="form form-horizontal"
+                  novalidate
+                  role="form">
+                <div class="row">
+                    <message-boxes info-message="{{infoMessage}}" success-message="{{successMessage}}" error-message="{{errorMessage}}"></message-boxes>
+                    <div class="form-group" show-errors>
+                        <label class="col-sm-3 col-md-offset-2 col-xs-12  col-xs-offset-1 control-label" for="EmailCode"> {{'form_verificationCode'|translate}} </label>
+                        <div class="col-md-4  col-sm-5 col-sm-offset-0 col-xs-12  ">
+                            <div class="input-group col-xs-11 col-xs-offset-1 col-md-offset-0">
+                                <input class="form-control"
+                                       maxlength="10"
+                                       type="text"
+                                       name="EmailCode"
+                                       placeholder="{{'form_hintRegistrationEmailCode'|translate}}"
+                                       ng-model="EmailCode"
+                                       ng-maxlength="10"
+                                       ng-minlength="4"
+                                       ng-required="true"
+                                       ng-readonly="StepOneComplete" />
+
+                                <span class="input-group-addon help-block-btn">
+                                    <i class="glyphicon glyphicon-question-sign" ng-show=" !stepThree.EmailCode.$valid"></i>
+                                    <label class="hideIcon" ng-class="{'showIcon' : stepThree.EmailCode.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                </span>
+
+                                <i class="glyphicon glyphicon-ok hidden-xs" ng-class="{'show' : stepThree.EmailCode.$valid}"></i>
+                            </div>
+                            <p class="marginLeft40   help-block hide col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-1">{{'form_exampleVerificationCode' | translate}}   </p>
+                            <span ng-class="{'show, formRegisterCorrectFormat' : stepThree.EmailCode.$valid }" class="col-xs-10 hidden-sm hidden-md hidden-lg">
+                                <i class="glyphicon glyphicon-ok" ng-class="{'show' : stepThree.EmailCode.$valid}"></i>
+                                <label class="hideIcon" ng-class="{'showIcon' : stepThree.EmailCode.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group clearfix" show-errors>
+                    <label class="col-sm-3 col-sm-offset-2 col-xs-12  col-xs-offset-1 control-label">  </label>
+                    <div class="col-md-5 col-md-offset-5  col-sm-5 col-sm-offset-0 col-xs-12 col-xs-offset-0">
+
+                        <div class=" formButtons input-group col-md-9  col-xs-12 col-xs-offset-0 col-sm-5  ">
+                            <div simple-ajax-loader show="loadingRegStep3"></div>
+                            <button id="cancelRegStep3"
+                                    class="btn btn-primary"
+                                    ng-click="reloadRoute()"
+                                    type="button">
+                                {{"form_cancel" | translate}}
+                            </button>
+                            <button class="btn btn-primary"
+                                    id="submitRegStep3"
+                                    ng-click="StepThree()"
+                                    ng-disabled="stepThree.$invalid"
+                                    onclick="$(this).fadeOut('slow')">
+                                {{"form_next" | translate}}
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!--------------- STEP4   -------------->
+        <div class="row" ng-show="currentStep == 4">
+            <form name="stepFour" role="form" class="formQuestions">
+                <message-boxes info-message="{{infoMessage}}" success-message="{{successMessage}}" error-message="{{errorMessage}}"></message-boxes>
+                <span class="col-sm-7 col-sm-offset-3 fontBold"> {{ 'registration_step4_note'|translate}}</span>
+                <ul style="padding:0">
+                    <li class="row form-inline padTop20">
+                        <div class="form-group col-xs-12" show-errors>
+                            <div class="form-inline col-xs-12">
+                                <label class="col-sm-3 alignRight control-label" for="">{{'form_question1'|translate}}</label>
+                                <div class="col-sm-7 col-xs-12 input-group">
+                                    <select class="col-lg-12 registerQA" ng-model="questionOne"
+                                            ng-required="true"
+                                            ng-options="item.question for item in AllQuestionsForCulture | excludeFrom:questionTwo | excludeFrom:questionThree"></select>
+                                </div>
+                            </div>
+                            <div class="form-inline col-xs-12">
+                                <div class="col-sm-3 col-xs-1"></div>
+                                <div class="col-sm-7 col-xs-12 col-md-offset-3 input-group">
+                                    <input type="text" class="form-control registerQA" name="answerOne"
+                                           ng-maxlength="20"
+                                           ng-minlength="4"
+                                           ng-required="true"
+                                           placeholder="{{'form_answer1'| translate}}"
+                                           ng-model="AnswerOne" />
+
+                                    <span class="input-group-addon help-block-btn questionIcon">
+                                        <i class="glyphicon glyphicon-question-sign " ng-show="!stepFour.answerOne.$valid"></i>
+                                        <label class="hideIcon hidden-xs" ng-class="{'showIcon' : stepFour.answerOne.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                    </span>
+
+                                    <i class="glyphicon glyphicon-ok hidden-xs" ng-class="{'show' : stepFour.answerOne.$valid}"></i>
+                                </div>
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-7 col-xs-12 col-md-offset-3 input-group">
+                                    <p class="col-sm-9 col-sm-offset-3 help-block hide pad0 ">{{'form_provideAnswer'| translate}}  </p>
+                                </div>
+
+                                <span ng-class="{'show, formRegisterCorrectFormat' : stepFour.answerOne.$valid }" class="col-xs-10 hidden-sm hidden-md hidden-lg">
+                                    <i class="glyphicon glyphicon-ok" ng-class="{'show' : stepFour.answerOne.$valid}"></i>
+                                    <label class="hideIcon" ng-class="{'showIcon' : stepFour.answerOne.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="row form-inline padTop20">
+                        <div class="form-group col-xs-12" show-errors>
+                            <div class="form-inline col-xs-12">
+                                <label class="col-sm-3 alignRight control-label" for="">  {{'form_question2'|translate}} </label>
+                                <div class="col-sm-7 col-xs-12 input-group">
+                                    <select class="col-lg-12 registerQA" ng-model="questionTwo"
+                                            ng-required="true"
+                                             ng-options="item.question for item in AllQuestionsForCulture | excludeFrom:questionOne | excludeFrom:questionThree"></select>
+                                </div>
+                            </div>
+                            <div class="form-inline col-xs-12">
+                                <div class="col-sm-3 col-xs-1"></div>
+                                <div class="col-sm-7 col-xs-12 col-md-offset-3 input-group">
+                                    <input type="text" class="form-control  registerQA" name="answerTwo"
+                                           ng-maxlength="20"
+                                           ng-minlength="4"
+                                           ng-required="true"
+                                           placeholder="{{'form_answer2'| translate}}"
+                                           ng-model="AnswerTwo" />
+                                    <span class="input-group-addon help-block-btn questionIcon">
+                                        <i class="glyphicon glyphicon-question-sign" ng-show="!stepFour.answerTwo.$valid"></i>
+                                        <label class="hideIcon hidden-xs" ng-class="{'showIcon' : stepFour.answerTwo.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                    </span>
+
+                                    <i class="glyphicon glyphicon-ok hidden-xs" ng-class="{'show' : stepFour.answerTwo.$valid}"></i>
+                                </div>
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-7 col-xs-12 col-md-offset-3 input-group">
+                                    <p class=" col-sm-9 col-sm-offset-3   help-block hide pad0 ">{{'form_provideAnswer'| translate}}  </p>
+                                </div>
+
+                                <span ng-class="{'show, formRegisterCorrectFormat' : stepFour.answerTwo.$valid }" class="col-xs-10 hidden-sm hidden-md hidden-lg">
+                                    <i class="glyphicon glyphicon-ok" ng-class="{'show' : stepFour.answerTwo.$valid}"></i>
+                                    <label class="hideIcon" ng-class="{'showIcon' : stepFour.answerTwo.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                </span>
+
+                            </div>
+                        </div>
+                    </li>
+                    <li class="row form-inline padTop20">
+                        <div class="form-group col-xs-12" show-errors>
+                            <div class="form-inline col-xs-12">
+                                <label class="col-sm-3 alignRight control-label" for=""> {{'form_question3'|translate}}  </label>
+                                <div class="col-sm-7 col-xs-12 input-group">
+                                    <select class="col-lg-12 registerQA" ng-model="questionThree" ng-required="true" 
+                                            ng-options="item.question for item in AllQuestionsForCulture | excludeFrom:questionOne | excludeFrom:questionTwo"></select>
+                                </div>
+                            </div>
+                            <div class="form-inline col-xs-12">
+                                <div class="col-sm-3 col-xs-1"></div>
+                                <div class="col-sm-7 col-xs-12 col-md-offset-3 input-group">
+                                    <input type="text" class="form-control col-lg-12 registerQA" name="answerThree" maxlength="30"
+                                           ng-maxlength="20"
+                                           ng-minlength="4"
+                                           ng-required="true"
+                                           placeholder="{{'form_answer3'| translate}}"
+                                           ng-model="AnswerThree" />
+                                    <span class="input-group-addon help-block-btn questionIcon">
+                                        <i class="glyphicon glyphicon-question-sign" ng-show="!stepFour.answerThree.$valid"></i>
+                                        <label class="hideIcon hidden-xs" ng-class="{'showIcon' : stepFour.answerThree.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                    </span>
+                                    <i class="glyphicon glyphicon-ok hidden-xs" ng-class="{'show' : stepFour.answerThree.$valid}"></i>
+                                </div>
+                                <div class="col-sm-3"></div><div class="col-sm-7 col-xs-12 col-md-offset-3 input-group">
+                                    <p class=" col-sm-9 col-sm-offset-3   help-block hide pad0 ">{{'form_provideAnswer'| translate}}  </p>
+                                </div>
+
+                                <span ng-class="{'show, formRegisterCorrectFormat' : stepFour.answerThree.$valid }" class="col-xs-10 hidden-sm hidden-md hidden-lg">
+                                    <i class="glyphicon glyphicon-ok" ng-class="{'show' : stepFour.answerThree.$valid}"></i>
+                                    <label class="hideIcon" ng-class="{'showIcon' : stepFour.answerThree.$valid}"> {{"form_validation_correctFormat" | translate }} </label>
+                                </span>
+
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group col-xs-12" show-errors>
+                            <div class="form-inline ">
+                                <label class="col-sm-3 alignRight control-label">  </label>
+                                <div class="col-sm-7 col-xs-12 input-group">
+
+                                    <div class="formButtons input-group col-xs-12 col-xs-offset-0 col-sm-10  ">
+                                        <div simple-ajax-loader show="loadingRegStep4"></div>
+                                        <button id="cancelRegStep4"
+                                                class="btn btn-primary"
+                                                ng-click="reloadRoute()"
+                                                type="button">
+                                            {{"form_cancel" | translate}}
+                                        </button>
+                                        <button class="btn btn-primary"
+                                                id="submitRegStep4"
+                                                ng-click="StepFour()"
+                                                ng-disabled="stepFour.$invalid"
+                                                onclick="$(this).fadeOut('slow')">
+                                            {{"form_next" | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+
+    <!--<div class="contentLeft col-lg-3 col-md-3   col-sm-12  col-lg-pull-9 col-md-pull-9 col-sm-pull-0  hidden-xs">
+        <div class="contentPanel leftPanel_med solidBackgroundBlue" ng-class="">
+            <div class="pageBannerContainer" ng-controller="SideNavCtrl">
+                <div ng-if="currentLanguage == 'en-us'">
+                    <div class="leftBanner_TOCL_Yellow font_2em">What you need to register:</div>
+                    <div class="leftBanner_Verdana_White">
+                        <ul>
+                            <li>Email</li>
+                            <li>IEHP ID Card</li>
+                            <li>Last 4 digits of your Social Security</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div ng-if="currentLanguage == 'es-mx'">
+                    <div class="leftBanner_TOCL_Yellow font_2em">¿Qué se necesita para registrarse? </div>
+                    <div class="leftBanner_Verdana_White">
+                        <ul>
+                            <li>Su Correo Electrónico </li>
+                            <li>Su Tarjeta de Identificación de IEHP</li>
+                            <li>Últimos 4 dígitos de Su Número de Seguro Social</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="center">
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>

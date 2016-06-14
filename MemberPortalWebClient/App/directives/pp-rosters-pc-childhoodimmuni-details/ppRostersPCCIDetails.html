@@ -1,0 +1,39 @@
+﻿<div class="  ppModalPane  padLeft0 padRight0 col-sm-12  ">
+
+    <div class="col-sm-12 padLeft0 padRight0">
+        <div class="col-xs-3">
+            <h2>Immunization Details </h2>
+        </div>
+        <div class="col-xs-9">
+            <label>Member</label>   {{ item.MemberLName }}, {{ item.MemberFName }}<br />
+            <label>IEHPID </label>  {{ item.SubscriberNumber }}-{{ item.PersonNumber }}
+            <label>DOB</label>      {{ item.DateOfBirth }}
+            <label>Phone</label>    {{ item.MemberPhone }}
+        </div>
+    </div>
+
+
+
+
+    <div ng-repeat="t in j">
+
+        <table class="col-sm-3 rosterSubChild" ng-show="RowList[j[t]].length">
+            <tr>
+                <th class="header">Shot Given </th>
+                <th class="header">Date Of Service </th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="item in  RowList[j[t]] "> 
+                    <td> {{ item.ServiceType }} </td>
+                    <td> {{ item.ServiceDate }} </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <danger-box message="{{errorMessage}}"></danger-box>
+
+</div>
+ 

@@ -1,0 +1,152 @@
+﻿@{
+    Layout = null;
+
+}
+
+<div id="printTempCard" class="row contentContainer frmSignIn">
+
+
+    <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15 non-printable">
+        <div class="contentPanel">
+
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/Eligibility/TemporaryIdCard">
+                <div class="panelTile alignCenter col-xs-6  panelSelected">
+                    {{ 'nav_printTemporaryCard' | translate}}
+                </div>
+            </a>
+
+            <a href="App/Eligibility/RequestIdCard">
+                <div class="panelTile alignCenter col-xs-6 ">
+                    {{ 'nav_requestIEHPCard' | translate}}
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+    <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12  col-lg-push-3 col-md-push-3">
+
+        @*<div class="contentPanel subNavLink non-printable">
+                <ul>
+                    <li class="subNavSelected">{{ 'nav_printTemporaryCard' | translate  }}</li>
+                    <li> <a href="App/Eligibility/RequestIdCard" class="subNavLink">{{'nav_requestIEHPCard' | translate }}</a> </li>
+
+                </ul>
+            </div>*@
+
+        <div class="contentPanel1 panel solidBackgroundOffwhite">
+            <center>
+                <div class="pad20">
+                    <h1 class="pageTitle alignLeft"> {{"page_idcard_printTemporaryCard_title" | translate}} </h1>
+                    <p class="pageIntro non-printable alignLeft"> {{"page_idcard_printTemporaryCard_intro" | translate}}</p>
+                </div>
+                @*<div class="row">
+            <div class="subNavLink   hidden-xs  col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a href="App/Eligibility/RequestIdCard" class="subNavLink">{{'form_requestReplacement' | translate }}</a>
+            </div>
+        </div>*@
+
+                <div ng-show="1==1" id="printTempCardCont" onclick="window.print()" class="non-printable hidden-xs">
+                    <img id="imgPrintTempCard" src="@Url.Content("~/Content/Images/btn_bak_printer.png")"/><br/>
+                    {{'form_clickToPrint'|translate}}
+                </div>
+
+                <info-box message="{{infoMessage}}"></info-box>
+                <danger-box message="{{errorMessage}}"></danger-box>
+
+
+                <div class="col-sm-6 printable">
+                    <div ng-show="1==1" class="tempIDCard panel panelMed" style="background-color: #ffffff !important; max-width: 400px;">
+                        <img class="printable" ng-src="data:image/png;base64, {{ $root.IEHPTemporaryIDCardFrontSide }} "/>
+                        <div id="IDCardExpirationDate">
+                            Expiration Date/ Fecha de Vencimiento {{ expirationDate }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 printable">
+                    <div ng-if="1==1" class="tempIDCard panel panelMed" style="background-color: #ffffff !important; max-width: 400px;">
+                        <img class="printable" ng-src="data:image/png;base64, {{ $root.IEHPTemporaryIDCardBackSide }} "/>
+                        <div id="IDCardExpirationDate">
+                            Expiration Date/ Fecha de Vencimiento {{ expirationDate }}
+                        </div>
+                    </div>
+                </div>
+            </center>
+
+            <div id="divIframeCont" class="panel panelMed" style="background-color: #ffffff !important;">
+                <temporary-id-frame></temporary-id-frame>
+            </div>
+        </div>
+    </div>
+
+    <!--  place this in a directive per IEHPCard Category -->
+
+    <div class="non-printable contentLeft col-lg-3 col-md-3   col-sm-12 col-lg-pull-9 col-md-pull-9 col-sm-pull-0 hidden-xs">
+        <div class="contentPanel leftPanel_large">
+
+
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/Eligibility/TemporaryIdCard">
+                <div class="panelTile alignRight panelSelected">
+
+                    <h2>{{ 'nav_printTemporaryCard' | translate}}</h2>
+                    <i class="btn_bak_printer" />
+                </div>
+            </a>
+
+            <a href="App/Eligibility/RequestIdCard">
+                <div class="panelTile alignRight">
+
+                    <h2>{{ 'nav_requestIEHPCard' | translate}}</h2>
+                    <i class="btn_bak_request" />
+                </div>
+            </a>
+
+             
+
+            @*<div class="pageBannerContainer" ng-controller="SideNavCtrl">
+                    <div ng-if="currentLanguage == 'en-us'">
+                        <div class="leftBanner_TOCL_Yellow">IEHP Member ID Card TIPS</div>
+                        <div class="leftBanner_Verdana_White">
+                            <ul>
+                                <li>Do not share it</li>
+                                <li>Do not let someone else use it</li>
+                                <li>Keep it in a safe place</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div ng-if="currentLanguage == 'es-mx'"  >
+                        <div class="leftBanner_TOCL_Yellow _2em">RECOMENDACIONES para utilizar la Tarjeta de Identificación del Miembro de IEHP</div>
+                        <div class="leftBanner_Verdana_White">
+                            <ul>
+                                <li>No la comparta</li>
+                                <li>No permita que nadie más la use</li>
+                                <li>Guárdela en un lugar seguro</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <img id="homeBannerLeft" src="@Url.Content("~/Content/Images/panel_IDCard.png")" />
+                </div>*@
+
+
+        </div>
+    </div>
+
+
+</div>
+
+    <script>
+        $('.navItemSelected').removeClass('navItemSelected');
+        $('#navbtn2 div').addClass('navItemSelected');
+    </script>
+
+    @* -------------- Dubug Stuff ---------------  *@
+
+

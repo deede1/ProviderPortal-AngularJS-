@@ -1,0 +1,34 @@
+﻿<div class="contentPanel1 contentRight contentContainer" ng-controller="CapitationReportsController">
+    <div class="form panel">
+        <div class="PPView">
+            <h1>Capitation Reports</h1>
+            <p class="pageIntro">
+                Through the Provider Portal our IEHP Direct Providers can access their monthly capitation summary and detail reports.
+                The summary report shows the enrollment and capitation by aid code category and the detail report lists all of the Provider’s Members, along with their demographic and payment data.
+                Both reports include the current month totals as well as retroactivity.
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Capitation Details</th>
+                        <th>Capitation Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td ng-click="GetCapitationSummary()">
+                            <a href="#"><img id="pdfImg" alt="" src="Content/Images/ico_pdf.png" width="20" height="20">&nbsp; View Summary </a>
+                        </td>  
+                        <td ng-click="GetCapitationDetails()">
+                            <a href="#"><img id="pdfImg" alt="" src="Content/Images/ico_pdf.png" width="20" height="20">&nbsp; View Detail </a>
+                        </td>  
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="claims-status" simple-ajax-loader show="summaryLoader"></div>
+    <div id="claims-status" simple-ajax-loader show="detailLoader"></div>
+    <div id="capitationError" class="text-center"></div>
+</div>
+

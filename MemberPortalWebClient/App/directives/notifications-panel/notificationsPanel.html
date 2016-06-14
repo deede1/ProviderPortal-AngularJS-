@@ -1,0 +1,24 @@
+﻿ 
+
+<div class="alertHeader"> {{'page_notifications_panelTitle'| translate }}  </div>
+<div class="notificationsPanel">
+    <div ng-if="!haveNotifications" class="noNotificationsAvailable"> {{'page_notifications_noneAvailable' |translate}}</div>
+    <ul class="alertUL">
+        <li id="alert_{{alert.AlertId}}" ng-if="currentLanguage == 'en-us'" ng-repeat="alert in alertList" ng-click="showModal('alertNotification',alert.AlertDescriptionEnglish, alert.AlertId)">
+            <!--<img id="alert_{{alert.AlertId}}" src="@Url.Content(" ~ />Content/Images/ico_alert_orange.png")" />--> 
+            <any ng-switch="alert.AlertType">
+                <any ng-switch-when="ADDR">        {{'page_notifications_addressVerification'| translate }}   </any>
+                <any ng-switch-when="FLU">         {{'page_notifications_fluShotDue'| translate }}            </any>
+                <any ng-switch-when="HRACN">       {{'page_notifications_healthRiskAssessment'| translate }}  </any>
+            </any>
+        </li>
+        <li id="alert_{{alert.AlertId}}" ng-if="currentLanguage == 'es-mx'" ng-repeat="alert in alertList" ng-click="showModal('alertNotification',alert.AlertDescriptionSpanish, alert.AlertI)">
+             <!--<img src="@Url.Content(" ~ />Content/Images/ico_alert_orange.png")" />--> 
+            <any ng-switch="alert.AlertType">
+                <any ng-switch-when="ADDR">        {{'page_notifications_addressVerification'| translate }}   </any>
+                <any ng-switch-when="FLU">         {{'page_notifications_fluShotDue'| translate }}            </any>
+                <any ng-switch-when="HRACN">       {{'page_notifications_healthRiskAssessment'| translate }}  </any>
+            </any>
+        </li>
+    </ul>
+</div>

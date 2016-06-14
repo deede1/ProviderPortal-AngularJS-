@@ -1,0 +1,150 @@
+﻿@{
+    Layout = null;
+}
+@*<p><a href="@Url.RouteUrl("App", new{angularroutes="Eligibility"})">Back</a></p>*@
+
+
+
+
+
+        <div class="row contentContainer frmSignIn">
+
+    <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15">
+        <div class="contentPanel">
+
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/Eligibility/Current">
+                <div class="panelTile alignCenter col-xs-6">
+                    {{ 'form_currentStatus' | translate}}
+                </div>
+            </a>
+            <a href="App/Eligibility/Historical">
+                <div class="panelTile alignCenter col-xs-6 panelSelected">
+                    {{ 'nav_memberEligbilityHistory' | translate}}
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+    <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12  col-lg-push-3 col-md-push-3">
+
+
+        @*<div class="contentPanel subNavLink">
+                <ul>
+                    <li><a href="App/Eligibility/Current" class="subNavLink">{{'form_currentStatus' | translate }}</a></li>
+                    <li class="subNavSelected">{{ 'nav_memberEligbilityHistory' | translate  }}</li>
+                </ul>
+            </div>*@
+
+
+        @*<div class="row">
+                <div class="subNavLink hidden-xs col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a href="App/Eligibility/Current" class="subNavLink">{{'form_current' | translate }}</a>
+                </div>
+            </div>*@
+
+        <div class="panel panelFull  ">
+
+            <div class="padLeft15 padTop15">
+                <h1 class="pageTitle"> {{"page_elig_eligibilityHistory_title" | translate}}</h1>
+                <p class="pageIntro"> {{"page_elig_eligibilityHistory_intro" | translate}}</p>
+            </div>
+
+
+
+            <div simple-ajax-loader show="loading"></div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <info-box message="{{infoMessage}}"></info-box>
+                    <danger-box message="{{errorMessage}}"></danger-box>
+
+                    @*<span class="bg-info ng-cloak" style="padding:10px;border-radius:5px;" ng-hide="loading">{{'form_current'| translate}}</span>*@
+                    <div ng-if="elig00.length > 0">
+                        <h3>Medicare</h3>
+                        <div eligibility-history-table elig-array="elig00"></div>
+                    </div>
+                    <div ng-if="elig01.length > 0">
+                        <h3>Medi-Cal</h3>
+                        <div eligibility-history-table elig-array="elig01"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--  place this in a directive per Eligibility Category -->
+    <div class="contentLeft col-lg-3 col-md-3 col-sm-12 col-lg-pull-9 col-md-pull-9 col-sm-pull-0 hidden-xs">
+        <div class="contentPanel leftPanel_large">
+
+            <notifications-panel></notifications-panel>
+            <br />
+
+
+            <a href="App/Eligibility/Current">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'form_currentStatus' | translate}}</h2>
+                    <i class="btn_checkMark" />
+                </div>
+            </a>
+
+            <a href="App/Eligibility/Historical">
+                <div class="panelTile alignRight panelSelected">
+                    <h2>{{ 'nav_memberEligbilityHistory' | translate}}</h2>
+                    <i class="btn_eligHistory" />
+                </div>
+            </a>
+             
+
+
+            @*<div class="pageBannerContainer" ng-controller="SideNavCtrl">
+
+                    <div ng-if="currentLanguage == 'en-us'">
+                        <div class="leftBanner_TOCL_Yellow font_2em">Tips for keeping your IEHP Membership: </div>
+                        <div class="leftBanner_Verdana_White">
+                            <ul>
+                                <li>Update your information with your County Eligibility Worker</li>
+                                <li>Respond to all requests from your County Eligibility Worker</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div ng-if="currentLanguage == 'es-mx'">
+                        <div class="leftBanner_TOCL_Yellow font_2em">Consejos para mantener la membresía con IEHP: </div>
+                        <div class="leftBanner_Verdana_White">
+                            <ul>
+                                <li>Actualice su información con su Representante de Elegibilidad del Condado</li>
+                                <li>Responda a todas las peticiones de su Representante de Elegibilidad del Condado</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="center">
+                        <img class="vertBanner" src="@Url.Content("~/Content/Images/banner_eligibility.png")" />
+                    </div>
+                </div>*@
+
+
+        </div>
+    </div>
+</div>
+
+
+        <script>
+            $('.navItemSelected').removeClass('navItemSelected');
+            $('#navbtn1 div').addClass('navItemSelected');
+        </script>
+
+
+        @* -------------- Dubug Stuff ---------------  *@
+
+        <div debug-tool class="ng-cloak">
+            <debug-tool-data-node name="HistoricalEligibility" data="HistoricalEligibility"></debug-tool-data-node>
+        </div>
+

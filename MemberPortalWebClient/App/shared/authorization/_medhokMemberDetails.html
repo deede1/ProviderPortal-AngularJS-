@@ -1,0 +1,48 @@
+﻿<div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 style="border-bottom:1px solid #333;">Member Details</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-horizontal form-horizontal-short-groups">
+                <div class="form-group side-by-side col-xs-12">
+                    <span>IEHP ID:</span>
+                    <span>{{member.memberId}}</span>
+                </div>
+                <div class="form-group side-by-side col-xs-12">
+                    <span>Patient:</span>
+                    <span>{{member.fullName}}</span>
+                </div>
+                <div class="form-group side-by-side col-xs-12" ng-if="member.gender != null && member.gender != ''">
+                    <span>Gender:</span>
+                    <span>{{member.gender}}</span>
+                </div>
+                <div class="form-group side-by-side col-xs-12">
+                    <span>DOB:</span>
+                    <span>{{member.dateOfBirth | date:'M/d/yyyy'}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-horizontal form-horizontal-short-groups" ng-if="member.memberAddresses != null && member.memberAddresses.length > 0">
+                <div class="form-group side-by-side col-xs-12">
+                    <span>Address:</span>
+                    <span>
+                        {{member.memberAddresses[0].address1}} {{member.memberAddresses[0].address2}}<br />
+                        {{member.memberAddresses[0].city}}, {{member.memberAddresses[0].state}} {{member.memberAddresses[0].zip}}
+                    </span>
+                </div>
+                <div class="form-group side-by-side col-xs-12">
+                    <span>Phone:</span>
+                    <span>{{member.memberAddresses[0].phone}}</span>
+                </div>
+                <div class="form-group side-by-side col-xs-12">
+                    <span>LOB:</span>
+                    <span>{{data.lineOfBusiness}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+﻿<div class="row contentContainer frmSignIn">
+
+
+    <!--  place this in a directive per HealthRecords Category -->
+    <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15">
+        <div class="contentPanel">
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/HealthRecords/RxPrescriptions">
+                <div class="panelTile alignCenter col-xs-6 ">
+                    {{ 'form_rxPrescriptions' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/MedicalClaims">
+                <div class="panelTile alignCenter col-xs-6 panelSelected">
+                    {{ 'nav_medicalClaims' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/ImmunizationRecords">
+                <div class="panelTile alignCenter col-xs-6">
+                    {{ 'nav_immunizationRecords' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/LabWork">
+                <div class="panelTile alignCenter col-xs-6">
+                    {{ 'nav_labResults' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/Authorizations/All">
+                <div class="panelTile alignCenter col-xs-6 col-xs-offset-3">
+                    {{ 'nav_authorizations' | translate}}
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+
+    <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12  col-lg-push-3 col-md-push-3">
+
+
+        <!--<div class="contentPanel subNavLink">
+            <ul>
+                <li><a href="App/HealthRecords/RxPrescriptions" class="subNavLink">{{'form_rxPrescriptions' | translate }}</a> </li>
+                <li class="subNavSelected">{{'form_medicalClaims' | translate }} </li>
+                <li><a href="App/HealthRecords/ImmunizationRecords" class="subNavLink">{{'form_immunizationRecords' | translate }}</a> </li>
+                <li><a href="App/HealthRecords/LabWork" class="subNavLink">{{'form_labWork' | translate }}</a> </li>
+                <li><a href="App/HealthRecords/Authorizations/All" class="subNavLink">{{'form_authorizations' | translate }}</a> </li>
+            </ul>
+        </div>-->
+
+
+
+
+        <info-box ng-if="agegroup == 'Age 13-17'" class="center" message="{{'page_healthrec_medicalClaims_13thru17' | translate}}"></info-box>
+
+
+        <!--<p class="pageDisclaimer" ng-if="agegroup == '18+'">{{"page_healthrec_medicalClaims_disclaimer" | translate}}</p>-->
+        <!--<p class="pageDisclaimer" ng-if="agegroup != '18+'">{{"page_healthrec_medicalClaims_under18" | translate}}</p>-->
+
+
+        <div class="panel">
+            <div class="padLeft15 padTop15">
+                <h1 class="pageTitle"> {{"page_healthrec_medicalClaims_title" | translate}} </h1>
+                <p class="pageIntro">  {{"page_healthrec_medicalClaims_intro" | translate}} </p>
+            </div>
+            <simple-ajax-loader show="loading"></simple-ajax-loader>
+            <div class="row" ng-if="agegroup != 'Age 13-17'">
+                <div class="col-md-12">
+
+
+                    <table class="table table-condensed table-striped" ng-show="errorMessage == '' && data.Headers.length > 0">
+                        <thead>
+                        <tr class="header">
+                            <th style="width: 9em; text-align: center;">{{'form_serviceDate'| translate}}</th>
+                            <th>{{'form_providerOfService'| translate}}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-cloak ng-repeat="item in PagedMedicalClaims[currentPage]">
+                            <td style="text-align: center;">{{item.DateOfServiceStart | date:'MM/dd/yy'}}</td>
+                            <td>{{item.ProvOfServiceFNameMi}} {{item.ProvOfServiceLName}}</td>
+                            <td><a class="btn btn-xs btn-default" href="App/HealthRecords/MedicalClaims/{{item.ClaimNumber}}"> {{'form_view'|translate}} <span class="glyphicon glyphicon-eye-open"></span></a></td>
+                        </tr>
+                        </tbody>
+                        <tfoot class="noPrint" ng-cloak ng-show="PagedMedicalClaims.length > 1">
+                        <tr>
+                            <td class="noPrint alignRight" colspan="6" style="padding: 0;">
+                                <ul id="paginationFooter" class="pagination noPrint" style="margin-top: 5px;">
+                                    <li ng-class="{disabled: currentPage == 0}">
+                                        <a href ng-click="prevPage()">« {{'form_pagingPrevious'|translate}}</a>
+                                    </li>
+                                    <li ng-repeat="n in  range(PagedMedicalClaims.length, currentPage, currentPage + gap)"
+                                        ng-class="{active: n  == currentPage}"
+                                        ng-click="setPage(n)">
+                                        <a href ng-bind="n + 1">1</a>
+                                    </li>
+                                    <li ng-class="{disabled: (currentPage) == PagedMedicalClaims.length -1}">
+                                        <a href ng-click="nextPage()">{{'form_padingNext'|translate}} »</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <info-box message="{{infoMessage}}"></info-box>
+                    <danger-box message="{{errorMessage}}"></danger-box>
+                </div>
+            </div>
+        </div>
+        <div debug-tool class="ng-cloak">
+            <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+        </div>
+    </div>
+
+    <!--  place this in a directive per HealthRecords Category -->
+    <div class="contentLeft leftPanel_large col-lg-3 col-md-3   col-sm-12 col-lg-pull-9 col-md-pull-9 col-sm-pull-0 hidden-xs">
+        <div class="contentPanel leftPanel_large">
+            <notifications-panel></notifications-panel>
+            <br />
+            <a href="App/HealthRecords/RxPrescriptions">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'form_rxPrescriptions' | translate}}</h2>
+                    <i class="btn_bak_rx" />
+                </div>
+            </a>
+            <a href="App/HealthRecords/MedicalClaims">
+                <div class="panelTile alignRight panelSelected">
+                    <h2>{{ 'nav_medicalClaims' | translate}}</h2>
+                    <i class="btn_bak_claims" />
+                </div>
+            </a>
+            <a href="App/HealthRecords/ImmunizationRecords">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_immunizationRecords' | translate}}</h2>
+                    <i class="btn_bak_form" />
+                </div>
+            </a>
+            <a href="App/HealthRecords/LabWork">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_labResults' | translate}}</h2>
+                    <i class="btn_bak_lab" />
+                </div>
+            </a>
+            <a href="App/HealthRecords/Authorizations/All">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_authorizations' | translate}}</h2>
+                    <i class="btn_bak_authorize" />
+                </div>
+            </a>
+            <!--<div class="pageBannerContainer" ng-controller="SideNavCtrl">
+                <div ng-if="currentLanguage == 'en-us'">
+                    <div class="leftBanner_TOCL_Yellow textShadow">Power with knowledge. Watch our "<span class="fontWhite">How to Get Care</span>" videos!</div>
+                    <div class="leftBanner_Verdana_White">View your health records in this self service portal.</div>
+                </div>
+                <div ng-if="currentLanguage == 'es-mx'">
+                    <div class="leftBanner_TOCL_Yellow textShadow">Informarse es la clave. ¡Vea nuestros videos sobre  "<span class="fontWhite">Cómo obtener Atención Médica</span>"!</div>
+                    <div class="leftBanner_Verdana_White">Revise sus registros médicos en este portal de autoservicio.</div>
+                </div>
+                <div id="clickYT" class="leftBannerH3 center">
+                    <img class="vertBanner" ng-src="{{urlBase}}/Content/Images/panel_MedicalClaims.png" /> <br /><br />
+                    <a target="_new" href="https://www.youtube.com/channel/UCrX2w-mgNlvOmyLSBgGCP5A"><img ng-src="{{urlBase}}/Content/Images/panel_youTube.png" /></a>
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+</div>

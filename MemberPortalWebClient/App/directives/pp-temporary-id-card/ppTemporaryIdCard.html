@@ -1,0 +1,52 @@
+﻿<div class="contentPanel1 panel solidBackgroundOffwhite memTempCardContainer  ">
+    <center>
+
+
+        <div class="ppTitle ppSearchResults non-printable">
+            IEHP Member ID Card
+            <div class="rosters_icons non-printable" ng-show="showPrintIcons && ShowMemberIDCard">
+                <ul class="ulLiHorizontal">
+                    <li class="btnPrint"  onclick="window.print();"><img src="Content/Images/ico_print.png"/></li>
+                    <!-- <li id="btnCSVExport" onclick="$('.eligSearchResults').tableExport({ type: 'csv', escape: 'false' });"><img src="Content/Images/ico_csv.png"/></li>
+                    <li id="btnXLSExport" onclick="$('#XLSExportPlaceholder').tableExport({ type: 'excel', escape: 'false' });"><img src="Content/Images/ico_excel.png"/></li>
+                    <li id="btnDOCExport" onclick="$('.eligSearchResults').tableExport({ type: 'doc', escape: 'false' });"><img src="Content/Images/ico_doc_file.png"/></li>
+                    <li id="btnPDFExport" onclick="$('.eligSearchResults').tableExport({ type: 'pdf', escape: 'false' });"><img src="Content/Images/ico_pdf_file.png"/></li>
+                    -->
+                   </ul>
+            </div>
+
+        </div>
+
+        <br/>
+
+
+
+        <div id="ticLoader" class="ppMemberIDCardContainerLoader" simple-ajax-loader show="loadingTempMemberIDCard"></div>
+
+        <div class="col-sm-6 printable">
+            <div class="tempIDCard panel panelMed  "> 
+
+                <img class="memCardIDImage" ng-show="ShowMemberIDCard" ng-src="data:image/png;base64, {{  IEHPTemporaryIDCardFrontSide  }} "/>
+                <div id="IDCardExpirationDate" ng-show="ShowMemberIDCard">
+                    Expiration Date/ Fecha de Vencimiento {{ expirationDate }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 printable">
+            <div class="tempIDCard panel panelMed">
+                
+                <!--<div class="ppMemberIDCardContainerLoader  " simple-ajax-loader show="loadingTempMemberIDCard"></div>-->
+
+                <img class="memCardIDImage" ng-show="ShowMemberIDCard" ng-src="data:image/png;base64, {{  IEHPTemporaryIDCardBackSide  }} "/>
+                <div id="IDCardExpirationDate" ng-show="ShowMemberIDCard">
+                    Expiration Date/ Fecha de Vencimiento {{ expirationDate }}
+                </div>
+            </div>
+        </div>
+
+
+    </center>
+ 
+</div>
+ 

@@ -1,0 +1,43 @@
+﻿  
+<!--<li id="ppMemberPCPContainer"
+    class="ppMemberDataContainer ppModalPane"
+    style="width: 425px;">-->
+
+<div id="ppMemberPCPContainer" class="ppMemberDataContainer ppModalPane col-sm-12">
+ 
+    <div class="modal-header">
+        <h2 class="subTitle"> Assigned PCP </h2>
+    </div>
+
+    <ul class="horizUL" ng-model="item">
+        <li class="row alignCenter">
+            <table>
+                <tr><td class="header">Provider </td>   <td> {{ item.PcpName | uppercase  }}  </td></tr>
+                <tr><td class="header">Address </td>    <td> {{ item.PcpAddress1 }} <div ng-if="item.PcpAddress2 !=''"><br/>{{ item.PcpAddress2 }}</div> </td></tr> 
+                <tr><td class="header"> </td><td> {{ item.PcpCity }} </td></tr>
+                <tr><td class="header"> </td><td> {{ item.PcpState }} {{ item.PcpZip.substring(0,5) }}</td></tr>
+                <tr><td class="header">Phone</td>       <td> {{ item.PcpPhone }} </td></tr>
+                <tr><td class="header">After Hours</td> <td> {{ item.PcpPhoneAfterHours }} </td></tr>
+                <tr><td class="header">Fax </td>        <td> {{ item.PcpFax }} </td></tr>
+                <tr><td class="header">Access </td>     <td> {{ item.PcpAccess }} </td></tr>
+
+            </table>
+        </li>
+        <li class="row alignCenter">
+            <table>
+                <tr><td class="header">Gender </td>     <td> {{ item.PcpGender }} </td></tr>
+                <tr><td class="header">Type/ LOB</td>   <td> {{ item.LobDescription }} </td></tr>
+                <tr><td class="header">Age Limits </td> <td> {{ item.PcpAgeLimits }} </td></tr>
+                <tr><td class="header">IPA </td>        <td> {{ item.IpaDescription }} </td></tr>
+                <tr><td class="header">Hospital </td>   <td> {{ item.HospitalName }} </td></tr>
+                <!--<tr><td class="header">Bus</td>         <td> {{ item.PcpBus }} </td></tr>-->
+                <tr><td class="header">Bus Route</td>   <td> {{ item.PcpBusRoute }} </td></tr>
+
+                <tr><td class="header" style="height: 70px;"> </td> <td>    </td></tr> 
+            </table>
+        </li>
+    </ul>
+</div>
+
+
+    <!--</li>-->

@@ -1,0 +1,57 @@
+﻿<div class="ppTitle   non-printable isDirective"
+     ng-class="  titleHeaderParam.titleBackgroundClass ? titleHeaderParam.titleBackgroundClass : 'ppSearchResults'   ">
+
+
+    {{ titleHeaderParam.title }}{{ titleHeaderParam.boundTitle }}
+
+
+    <div class="rosters_icons rosters_view_icons non-printable" ng-show="titleHeaderParam.displayViewOptionFull  || titleHeaderParam.displayViewOptionGrouped ">
+        <ul class="ulLiHorizontal">
+            <li id="btnFullView"
+                ng-show="titleHeaderParam.displayViewOptionFull"
+                class="icon_selected"
+                uib-popover="Full View"
+                popover-trigger="mouseenter"
+                popover-append-to-body="true"
+                onclick="$('.icon_selected').removeClass('icon_selected'); $(this).addClass('icon_selected');"
+                ng-click="toggleView()">
+                <img src="Content/Images/ico_view_full_0.png"/>
+            </li>
+            <li id="btnGroupView"
+                ng-show="titleHeaderParam.displayViewOptionGrouped"
+                uib-popover="Grouped View"
+                popover-trigger="mouseenter"
+                popover-append-to-body="true"
+                onclick="$('.icon_selected').removeClass('icon_selected'); $(this).addClass('icon_selected');"
+                ng-click="toggleView()">
+                <img src="Content/Images/ico_view_grouped_0.png"/>
+            </li>
+        </ul>
+    </div>
+    <div class="rosters_icons non-printable"  >
+        <ul class="ulLiHorizontal">
+            <li class="btnPrint"
+                uib-popover="Click to Print - coming soon"
+                popover-trigger="mouseenter"
+                popover-append-to-body="true"><img src="Content/Images/ico_print.png"/>
+            </li>
+
+            <li id="btnCSVExport" ng-click="openCSVFile({ProviderNumber: providernumber, ProviderTaxId: providertaxid  ,IPA: ipacode, IsAPIPaging:false, PageNumber:1, RowsPerPage:1000, Sort: []})"
+                uib-popover="{{csvbubbletitle}}"
+                popover-trigger="mouseenter"
+                popover-append-to-body="true">
+                <img src="Content/Images/ico_csv.png" />
+            </li>
+
+            <!--<li id="btnXLSExport" onclick="$('#XLSExportPlaceholder').tableExport({ type: 'excel', escape: 'false' });"><img src="/Content/Images/ico_excel.png"/></li>
+            <li id="btnDOCExport" onclick="$('.eligSearchResults').tableExport({ type: 'doc', escape: 'false' });"><img src="/Content/Images/ico_doc_file.png"/></li>-->
+            <!--<li id="btnPDFExport" 
+                uib-popover="Click to download PDF file - coming soon"
+                popover-trigger="mouseenter"
+                popover-append-to-body="true"><img src="Content/Images/ico_pdf_file.png"/>
+            </li>-->
+        </ul>
+    </div>
+</div>
+
+

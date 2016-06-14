@@ -1,0 +1,65 @@
+﻿<div class=""> 
+	<div class="form panel">
+		<h1 class="pageTitle">Change Email </h1>
+	</div>
+	<section>
+		<uib-alert close="alert.success=''" ng-hide="!alert.success" type="success">
+			{{alert.success}}
+		</uib-alert>
+		<form ng-hide="alert.success" class="pp-form text-left" name="changePasswordForm" ng-submit="submit(changePasswordForm)" novalidate>
+			<div class="form-section">
+				<ol class="list-group">
+					<li class="clearfix list-group-item with-background">
+						<div class="col-md-6 col-xs-12 text-left">
+							<label class="bold-lbl req">Current Password:</label>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input name="password" ng-class="{'ng-invalid':error}" ng-model="form.password" required tabindex="1" type="password">
+							<div class="invalid-text">
+								Current password is incorrect. Please re-enter and try again.
+							</div>
+
+						</div>
+					</li>
+					<li class="clearfix list-group-item with-background">
+						<div class="col-md-6 col-xs-12 text-left">
+							<label class="bold-lbl req">New Email:</label>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input name="newEmail" ng-model="form.newEmail" required tabindex="2" type="email">
+							<div class="invalid-text">
+								Please enter a valid email address.
+							</div>
+
+						</div>
+					</li>
+					<li class="clearfix list-group-item with-background">
+						<div class="col-md-6 col-xs-12 text-left">
+							<label class="bold-lbl req">Confirm New Email:</label>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input name="chkNewEmail" ng-model="form.chkNewEmail" required same-as="form.newEmail" tabindex="3" type="email">
+							<div class="invalid-text">Email does not match.</div>
+						</div>
+					</li>
+				</ol>
+			</div>
+
+			<div class="center-block col-md-3 float-none form-group">
+				<button class="btn btn-block btn-lg btn-primary" tabindex="4" type="submit">Submit</button>
+			</div>
+		</form>
+
+		<uib-alert close="alert.warning=''" ng-hide="!alert.warning" type="danger">
+			{{alert.warning}}
+		</uib-alert>
+
+		<!-- Adding this taglib becuase I want to use the spring framework to access the resource bundle -->
+		<!-- <div class="form-group text-center">-->
+		<!-- <p class="copy-help">-->
+		<!-- Need help? Call us.<br>-->
+		<!-- <strong>12345678</strong> Mon-Fri, 8am-5:30pm PST-->
+		<!-- </p>-->
+		<!-- </div>-->
+	</section>
+</div>

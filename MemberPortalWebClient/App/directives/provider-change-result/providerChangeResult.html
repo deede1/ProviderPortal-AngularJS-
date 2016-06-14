@@ -1,0 +1,108 @@
+﻿<div class="clearfix search-result-provider-details" ng-init="showDetails = false">
+    <div >
+        <div class="row">
+            <div class="col-md-12">
+                <strong class="providerDetailsProvider" ng-class="{'big-text': showDetails}">{{provider.FullName}}</strong>
+                <a class="pull-right" ng-click="showDetails = !showDetails" ng-hide="showDetails" style="margin-right:-10px;">{{"form_showDetails" | translate}} <span class="glyphicon glyphicon-chevron-down"></span></a>
+                <a class="pull-right" ng-click="showDetails = !showDetails" ng-show="showDetails" style="margin-right:-10px;">{{"form_hideDetails" |translate}} <span class="glyphicon glyphicon-chevron-up"></span></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12" ng-show="showDetails" style="padding-top:10px;">
+                <span  class="providerDetailsSubHeader">{{"form_providerDetails" | translate}}</span>
+            </div>
+            <div class="col-sm-12 ">
+                <div class="table-row">
+                    <div><label>{{"form_specialties" | translate}}:</label></div>
+                    <div>{{provider.Specialty1Desc}}{{provider.Specialty2Desc != "" ? ", " + provider.Specialty2Desc : ""}}{{provider.Specialty3Desc != "" ? ", " + provider.Specialty3Desc : ""}}</div>
+                </div>
+                <div class="table-row">
+                    <div><label>{{"form_boardCertified"| translate}}:</label></div>
+                    <div>{{provider.BoardCert}}</div>
+                </div>
+                <div class="table-row">
+                    <div><label>{{"form_spokenLanguages" | translate}}:</label></div>
+                    <div>{{provider.Langs}}</div>
+                </div>
+                <div class="table-row">
+                    <div><label>{{"form_gender" | translate}}:</label></div>
+                    <div>{{provider.Gender}}</div>
+                </div>
+                <div class="table-row" ng-show="showDetails">
+                    <div><label>{{"form_providerID" | translate}}</label></div>
+                    <div><span>{{provider.ProvId}}</span></div>
+                </div>
+                <div class="table-row" ng-show="showDetails">
+                    <div><label>NPI:</label></div>
+                    <div><span>{{provider.Npi}}</span></div>
+                </div>
+                <div class="table-row" ng-show="showDetails">
+                    <div><label>{{"form_licence" | translate }}:</label></div>
+                    <div><span>{{provider.LicenseNo}}</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="showDetails">
+        <ul class="list-unstyled">
+            <li class="row" ng-repeat="item in provider.Locations" style="margin-top:5px;">
+                <div class="col-md-12">
+                    <fieldset>
+                        <legend class="providerDetailsSubHeader" style="font-weight:bold; margin-bottom:10px;">{{'form_location' | translate}}</legend>
+                        <div class="col-sm-6">
+                            <div class="table-row">
+                                <div><label>{{'form_address'|translate}}:</label></div>
+                                <div>
+                                    {{item.StreetAddr}}<br />
+                                    {{item.CityStZip}}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="table-row">
+                                <div><label>{{'form_phone'|translate}}:</label></div>
+                                <div>{{item.Phone}}</div>
+                            </div>
+                            <div class="table-row">
+                                <div><label>{{'form_fax'|translate}}:</label></div>
+                                <div>{{item.Fax}}</div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend class="providerDetailsSubHeader" style="font-weight:bold;margin-bottom:10px;"> {{'form_contracts' | translate }} </legend>
+                        <danger-box message="{{errorMessage}}"></danger-box>
+                        <ol class="contract-list list-unstyled contract-details">
+                            <li ng-repeat="contract in item.ContractedServices" class="providerDetailsContractedServices col-sm-6">
+                                <div class="col-sm-12 details-box clearfix">
+                                    <div>
+                                        <div><label>{{'form_hospital'|translate}}:</label></div>
+                                        <div style="padding-left:0.5em;"><span>{{contract.Hospital}}</span></div>
+                                    </div>
+                                    <div>
+                                        <div><label>{{"form_IPA" | translate}}:</label></div>
+                                        <div style="padding-left:0.5em;">{{contract.IpaName}}</div>
+                                    </div>
+                                    <hr />
+                                    <div>
+                                        <span ng-hide="isCompatible(contract.IpaCode, member.Ipa)">
+                                            
+                                            <p style="text-align: center;font-size: inherit;">* <em>May Impact Pending Authorizations</em> *</p>
+                                            <hr />
+                                        </span>
+                                        
+                                    </div>
+                                    <button ng-click="selectPcp(provider, contract)" style="height: 2.5em;padding: 0.5em;width: 100%;"> {{'form_changeToThisDoctor' | translate}} </button>
+                                </div>
+                            </li>
+                        </ol>
+                    </fieldset>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</div>

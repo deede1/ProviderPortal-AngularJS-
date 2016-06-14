@@ -1,0 +1,848 @@
+﻿<div class="contentPanel1 ContentWrapper contentRight" id="AuthRequest">
+    <!--<div class="padLeft15 padTop15">
+        <h1 class="pageTitle">Authorization Request</h1>
+    </div>-->
+    <div class="row">
+        <div class="form panel">
+            <h1>Authorization Request</h1>
+        </div>
+        <div id="preliminaryMessage" class="text-info" style="padding: 5px;">
+            <label>UPON ACCEPTANCE OF REFERRAL AND TREATMENT OF THE MEMBER, THE PHYSICIAN/PROVIDER AGREES TO ACCEPT IEHP CONTRACTED RATES. This referral/authorization verifies medical necessity only. Payments for services are dependent upon the Member's eligibility at the time services are rendered.</label>
+        </div>
+        <div class="required-field-message col-md-12" style="padding: 0;text-align: center">
+            <strong class="body-label"><span class="redAster">*</span> denotes a required field</strong>
+        </div>
+    </div>
+    <div simple-ajax-loader show="loading"></div>
+    <div class="row">
+        <form name="prelimauthRequestForm" novalidate ng-submit="submitForm(prelimauthRequestForm)" ng-if="prelimSearch">
+            <a class="clear" ng-click="Clear()" ng-show="showClear">
+                <span class="close-btn glyphicon glyphicon-remove"></span>
+            </a>
+            <span class="search-type" ng-click="Clear()" ng-if="type.string"
+                  ng-mouseenter="setShowClear(true)" ng-mouseleave="setShowClear(false)" ng-style="{'opacity' : showClear ? 0 : 1}">{{type.string}}</span>
+            <div class="SectionHeader col-md-12 ">
+                <h4>Member/Provider Identification</h4>
+            </div>
+            <ol class="list-group">
+                <li class="slimGrid list-group-item clearfix">
+                    <div class="col-xs-12 col-md-6  CMS-valign-label">
+                        <label class="bold-lbl req"><strong>IEHP ID:</strong></label>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="relativeCont">
+                            <search-box method1="updateIDType(IdQuery)" method2="Clear()" placeholder="Enter ID SSN or CIN" inputname="memberIdInput"></search-box>
+                         
+                        </div>
+                        <span class="invalid-msg txt-left" ng-if="prelimauthRequestForm.memberIdInput.$invalid  &&  prelimauthRequestForm.$submitted">ID is Required</span>
+                        <span class="invalid-msg text-left" ng-if="!type.string && !prelimauthRequestForm.memberIdInput.$pristine">Please enter a valid Member ID.</span>
+                    </div>
+                </li>
+                <li class="slimGrid list-group-item clearfix">
+                    <div class="col-xs-12 col-md-6">
+                        <label class="bold-lbl req"><strong>Are you submitting a correction to an existing authorization?</strong></label>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="radio-group tiles">
+                            <input type="radio" name="decisionAuthRad" title="Select Yes or No" id="patientOptionsRadiosY" value="yes" ng-model="decisionAuth" ng-checked="decisionAuth==='yes'">
+                            <label ng-class="{'active': decisionAuth==='yes'}" for="patientOptionsRadiosY">Yes</label>
+                            <input type="radio" name="decisionAuthRad" title="Select Yes or No" id="patientOptionsRadiosN" value="no" ng-model="decisionAuth" ng-checked="decisionAuth==='no'">
+                            <label ng-class="{'active': decisionAuth==='no'}" for="patientOptionsRadiosN">No</label>
+                        </div>
+                    </div>
+                </li>
+                <li class="clearfix list-group-item slim-grid" ng-if="decisionAuth==='yes'">
+                    <div class="col-xs-12 col-md-6">
+                        <label class="bold-lbl req" style="margin-left: 9px;"><strong>Authorization Number you are requesting an update for:</strong></label>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <input class="form-control input-sm" ng-model="authNum" type="text" name="authnumInput" required />
+                        <span class="invalid-msg text-left" ng-if="prelimauthRequestForm.authnumInput.$invalid && prelimauthRequestForm.$submitted">Authorization Number is required.</span>
+                    </div>
+                </li>
+                <li class="clearfix list-group-item slim-grid" ng-if="decisionAuth==='yes'">
+                    <div class="col-xs-12 col-md-6">
+
+                        <label class="bold-lbl req" style="margin-left: 9px;"><strong>Update Type Requested:</strong> <span class="redAster" ng-if="updateType==='Extension'" style="color: #2980b9; font-size: .8em;">(Contact IEHP if extension is required)</span></label>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+
+                        <div class="radio-group tiles">
+                            <input type="radio" name="updateTypeRad" id="optionsRadios5" value="Redirection" ng-model="updateType" ng-checked="updateType==='Redirection'" required>
+                            <label ng-class="{'active': updateType==='Redirection'}" for="optionsRadios5">Redirection</label>
+                            <input type="radio" name="updateTypeRad" id="optionsRadios6" value="Codeaddition" ng-model="updateType" ng-checked="updateType==='Codeaddition'" required>
+                            <label ng-class="{'active': updateType==='Codeaddition'}" for="optionsRadios6">Code Addition/Change</label>
+                            <input type="radio" name="updateTypeRad" id="optionsRadios7" value="Extension" ng-model="updateType" ng-checked="updateType==='Extension'" required>
+                            <label ng-class="{'active': updateType==='Extension'}" for="optionsRadios7">Extension</label>
+                            <input type="radio" name="updateTypeRad" id="optionsRadios4" value="QuantityChange" ng-model="updateType" ng-checked="updateType==='QuantityChange'" required>
+                            <label ng-class="{'active': updateType==='QuantityChange'}" for="optionsRadios4">Quantity Change</label>
+                        </div>
+                        <span class="invalid-msg text-left" ng-if="prelimauthRequestForm.updateTypeRad.$invalid && prelimauthRequestForm.$submitted">Update Type is required.</span>
+                    </div>
+
+                </li>
+                <li class="slimGrid list-group-item clearfix">
+                    <div class="col-xs-12 col-md-6 text-left">
+                        <label class="bold-lbl req"><strong>Requesting Provider:</strong></label>
+                    </div>
+                    <div class="col-md-6 col-xs-12 left-border text-left">
+                        <div class="input-group" style="width: 100%;">
+                            <input class="form-control" name="requestingProviderInput" title="Please Select A Requesting Provider" ng-model="RequestingProvider.Name" required readonly type="text" placeholder="Search Provider">
+                        </div>
+                        <a ng-click="searchprovider()" id="searchProviderBtn" class="btn btn-default input icon glyphicon glyphicon-search"></a>
+                        <span class="invalid-msg text-left" ng-if="prelimauthRequestForm.requestingProviderInput.$invalid && prelimauthRequestForm.$submitted">Requesting Provider is required.</span>
+                    </div>
+                </li>
+
+                <li class="list-group-item clearfix" ng-if="prelimSearch">
+                    <div class="col-md-12">
+                        <button class="btn btn-submit" type="submit">
+                            Continue
+                        </button>
+                    </div>
+                </li>
+
+            </ol>
+
+        </form>
+
+
+
+
+
+
+        <form name="authRequestForm" novalidate ng-submit="submitForm(authRequestForm)" ng-if="MemberInfo">
+            <div>
+                <div class="SectionHeader col-md-12 ">
+                    <h4>Member Information</h4>
+                </div>
+                <div class="form-section">
+                    <ol class="list-group">
+                        <li class="clearfix list-group-item slim-grid">
+                            <div class="col-md-3">
+                                <div class="col-md-1 text-left">
+                                    <label class="bold-lbl">Name:</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="lbl ng-binding">{{MemberInfo.MemberLastName}}, {{MemberInfo.MemberFirstName}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-1 text-left">
+                                    <label class="bold-lbl">Age:</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="lbl ng-binding">{{MemberInfo.MemberAge}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-1 text-left">
+                                    <label class="bold-lbl">DOB:</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="lbl ng-binding">{{MemberInfo.MemberDateOfBirth | noTime}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-1 text-left">
+                                    <label class="bold-lbl">IEHP ID:</label>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="lbl ng-binding">{{MemberInfo.SubscriberNumber}}</span>
+                                </div>
+                            </div>
+
+                        </li>
+
+                        <li class="clearfix list-group-item slim-grid">
+                            <div class="col-md-3">
+                                <div class="col-md-1 text-left long">
+                                    <label class="bold-lbl">Address:</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="lbl ng-binding">
+                                        {{MemberInfo.MemberAddress1}}<span ng-if="MemberInfo.MemberAddress1">,</span>{{MemberInfo.MemberAddress2}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-1">
+                                    <label class="bold-lbl">City:</label>
+                                </div>
+                                <div class="col-md-2 text-left">
+                                    <span class="lbl ng-binding">{{MemberInfo.MemberCity}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-1 long">
+                                    <label class="bold-lbl">State-Zip:</label>
+                                </div>
+                                <div class="col-md-2 text-left">
+                                    <span class="lbl ng-binding">{{MemberInfo.MemberState}} {{MemberInfo.MemberZip | zipcode}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-1">
+                                    <label class="bold-lbl">Phone:</label>
+                                </div>
+                                <div class="col-md-2 text-left">
+                                    <span class="lbl ng-binding">{{MemberInfo.MemberPhone | tel}}</span>
+                                </div>
+                            </div>
+
+                        </li>
+                        <li class="clearfix list-group-item slim-grid">
+                            <div class="col-md-3">
+                                <div class="col-md-1">
+                                    <label class="bold-lbl">Plan:</label>
+                                </div>
+                                <div class="col-md-2 text-left">
+                                    <span class="lbl ng-binding">{{MemberInfo.MemberLob}}</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div class="SectionHeader col-md-12">
+                    <h4>Requesting Provider Information</h4>
+                </div>
+                <div class="form-section">
+                    <ol class="list-group">
+                        <li class="clearfix list-group-item slim-grid">
+                            <div class="col-md-3">
+                                <div class="col-md-1 text-left">
+                                    <label class="bold-lbl">Name:</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="lbl ng-binding">{{ReferringProviderInfo.ProviderLastName}}<span ng-if="ReferringProviderInfo.ProviderFirstName && ReferringProviderInfo.ProviderLastName">,</span>{{ReferringProviderInfo.ProviderFirstName}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-1 text-left">
+                                    <label class="bold-lbl">Phone:</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="lbl ng-binding">{{ReferringProviderInfo.ProviderPhone|tel}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-1 text-left">
+                                    <label class="bold-lbl">Fax:</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="lbl ng-binding">{{ReferringProviderInfo.ProviderPhone | tel}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-1">
+                                    <label class="bold-lbl">NPI#:</label>
+                                </div>
+                                <div class="col-md-2 text-left">
+                                    <span class="lbl ng-binding">{{ReferringProviderInfo.ProviderNpi}}</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="clearfix list-group-item slim-grid">
+                            <div class="col-md-3">
+                                <div class="col-md-1 text-left long">
+                                    <label class="bold-lbl">Address:</label>
+
+                                </div>
+                                <div class="col-md-2 long">
+                                    <span class="lbl ng-binding">{{ReferringProviderInfo.ProviderAddr}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-1 text-left">
+                                    <label class="bold-lbl">City:</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="lbl ng-binding">
+                                        {{ReferringProviderInfo.ProviderCity}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-1 long">
+                                    <label class="bold-lbl ">State-Zip:</label>
+                                </div>
+                                <div class="col-md-2 text-left">
+                                    <span class="lbl ng-binding">CA {{ReferringProviderInfo.ProviderZip}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-1">
+                                    <label class="bold-lbl">Date:</label>
+                                </div>
+                                <div class="col-md-2 text-left">
+                                    <span class="lbl ng-binding">{{ReferringProviderInfo.LastUpdated}}</span>
+                                </div>
+                            </div>
+
+                        </li>
+                        <li class="clearfix list-group-item slim-grid">
+                            <div class="col-md-3">
+                                <div class="col-md-2">
+                                    <label class="bold-lbl">Provider Signature:</label>
+                                </div>
+                                <div class="col-md-2 text-left">
+                                    <span class="lbl ng-binding">On File</span>
+                                </div>
+                            </div>
+
+                        </li>
+                    </ol>
+
+                </div>
+                <div class="SectionHeader col-md-12 ">
+                    <h4>Service Information</h4>
+                </div>
+                <div class="form-section">
+                    <ol class="list-group">
+                        <li class="clearfix list-group-item slim-grid">
+
+                            <div class="col-xs-12 col-md-6 text-left">
+                                <label class="bold-lbl req">Service Requested:</label>
+                            </div>
+                            <div class="col-sm-6 col-xs-12 left-border text-left">
+                                <div class="input-group" style="width: 100%;">
+                                    <input class="form-control" name="requestingServiceInput" title="Please Select A Requesting Service" ng-model="RequestingService.SpecialtyDesc" required readonly type="text" placeholder="Search Service">
+                                </div>
+
+                                <a ng-click="searchservice()" id="searchServiceBtn" class="btn btn-default input icon glyphicon glyphicon-search"></a>
+
+                                <span class="invalid-msg text-left" ng-if="authRequestForm.requestingServiceInput.$invalid && authRequestForm.$submitted">Service Requested is required.</span>
+                            </div>
+                        </li>
+                        <li class="clearfix list-group-item slim-grid" ng-if="RequestingService">
+                            <div class="col-xs-12 col-md-6 text-left">
+                                <label class="bold-lbl req">Servicing Provider:&nbsp;<strong style="font-size: 10.88px; color: #2980b9">(Must refer to specialist within network)</strong></label>
+                            </div>
+                            <div class="col-sm-6 col-xs-12 left-border text-left">
+                                <div class="input-group" style="width: 100%;">
+                                    <input class="form-control" name="referredToProviderInput" title="Please Select A Referred-To Provider" ng-model="referredToProvider" required readonly type="text" placeholder="Search Provider">
+                                </div>
+                                <a ng-click="openModal('ReferredToProviderModal');searchReferredToprovider('mdgrp')" id="searchRefferedToProviderBtn" class="btn btn-default input icon glyphicon glyphicon-search"></a>
+                                <span class="invalid-msg text-left" ng-if="authRequestForm.referredToProviderInput.$invalid && authRequestForm.$submitted">Servicing Provider is required.</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div ng-show="ReferredToProvider_Information">
+                    <div class="SectionHeader col-md-12 ">
+                        <h4>Servicing Provider Demographics</h4>
+                    </div>
+                    <div class="form-section">
+                        <div class="form-section">
+                            <ol class="list-group">
+                                <li class="clearfix list-group-item slim-grid">
+                                    <div class="col-md-3">
+                                        <div class="col-md-1 text-left">
+                                            <label class="bold-lbl">Name:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span class="lbl ng-binding">{{ReferredToProvider_Information.ProviderName}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="col-md-1 text-left long">
+                                            <label class="bold-lbl">Specialty:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span class="lbl ng-binding">{{RequestingService.SpecialtyDesc}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="col-md-1 text-left">
+                                            <label class="bold-lbl">NPI#:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span class="lbl ng-binding">{{ReferredToProvider_Information.Npi}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="col-md-1 text-left long">
+                                            <label class="bold-lbl">Address:</label>
+
+                                        </div>
+                                        <div class="col-md-2 long">
+                                            <span class="lbl ng-binding">{{ReferredToProvider_Information.Addr.Addr1}}{{ReferredToProvider_Information.Addr.Addr2}}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix list-group-item slim-grid">
+                                    <div class="col-md-3">
+                                        <div class="col-md-1 text-left long">
+                                            <label class="bold-lbl">State-Zip:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span class="lbl ng-binding">CA {{ReferredToProvider_Information.Addr.Zip}} </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="col-md-1 text-left">
+                                            <label class="bold-lbl">Phone:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span class="lbl ng-binding">{{ReferredToProvider_Information.Addr.Phone|tel}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="col-md-1 text-left">
+                                            <label class="bold-lbl">Fax:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span class="lbl ng-binding">{{ReferredToProvider_Information.Addr.Fax|tel}}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+
+
+                        <div class="form-section">
+                            <ol class="list-group">
+                                <li class="clearfix list-group-item slim-grid">
+                                    <div class="col-xs-12 col-md-6 text-left">
+                                        <label class="bold-lbl req">Place of Service:</label>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 left-border text-left">
+                                        <div class="input-group" style="width: 100%;">
+                                            <input class="form-control" name="service_RequestedInput" title="Please Select A Service" ng-model="service_Requested.ServiceTypeDesc" required readonly type="text" placeholder="Search Service">
+                                        </div>
+                                        <a ng-click="search_RequestedService()" id="search_ServiceBtn" class="btn btn-default input icon glyphicon glyphicon-search"></a>
+                                        <span class="invalid-msg text-left" ng-if="authRequestForm.service_RequestedInput.$invalid && authRequestForm.$submitted">Place of Service is required.</span>
+                                    </div>
+                                </li>
+                                <li class="clearfix list-group-item slim-grid" ng-if="service_Requested !=null&& service_Requested.ServiceTypeDesc !='Office' && service_Requested.ServiceTypeDesc !='DME'&& service_Requested.ServiceTypeDesc !='Home Health' && service_Requested.ServiceTypeDesc !='Independant Lab'&& service_Requested.ServiceTypeDesc !='NonEmergent Trans' ">
+                                    <div class="col-xs-12 col-md-6 text-left">
+                                        <label class="bold-lbl req">Facility:</label>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 left-border text-left">
+                                        <div class="input-group" style="width: 100%;">
+                                            <input class="form-control" name="service_RequestedLocationInput" title="Please Select A Location/Facility" ng-model="service_RequestedLocation" required readonly type="text" placeholder="Search Location/Facility">
+                                        </div>
+                                        <a ng-click="search_RequestedLocService()" id="search_ServiceLocBtn" class="btn btn-default input icon glyphicon glyphicon-search" style="right: 9px;"></a>
+                                        <span class="invalid-msg text-left" ng-if="authRequestForm.service_RequestedLocationInput.$invalid && authRequestForm.$submitted">Facility is required.</span>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="SectionHeader col-md-12 ">
+                            <h4>Service Priority </h4>
+
+                        </div>
+                        <div class="form-section">
+                            <ol class="list-group">
+
+                                <li class="clearfix list-group-item slim-grid">
+                                    <div class="col-xs-6 lft-algn">
+                                        <label class="bold-lbl">Is the Authorization a patient request?</label>
+                                    </div>
+                                    <div class="col-xs-6 lft-algn">
+                                        <div class="radio-group tiles">
+                                            <input type="radio" name="decisionPatientRequestYesRad" title="Select Yes or No" id="patientReqRadiosY" value="yes" ng-model="patientReqAuth" ng-checked="patientReqAuth==='yes'">
+                                            <label ng-class="{'active': patientReqAuth==='yes'}" for="patientReqRadiosY">Yes</label>
+                                            <input type="radio" name="decisionPatientRequestNoRad" title="Select Yes or No" id="patientReqRadiosN" value="no" ng-model="patientReqAuth" ng-checked="patientReqAuth==='no'">
+                                            <label ng-class="{'active': patientReqAuth==='no'}" for="patientReqRadiosN">No</label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix list-group-item slim-grid" ng-if="patientReqAuth==='no'">
+                                    <div class="col-xs-6 lft-algn">
+                                        <label class="bold-lbl req">Service Priority</label>
+                                    </div>
+                                    <div class="col-xs-6 lft-algn">
+                                        <div class="radio-group tiles">
+                                            <input type="radio" name="refferalTypeRad" id="optionsRadios8" value="Expedited" ng-model="referralType" ng-checked="referralType==='Expedited'" ng-change="ClearICD()">
+                                            <label ng-class="{'active': referralType==='Expedited'}" for="optionsRadios8">Expedited</label>
+                                            <input type="radio" name="refferalTypeRad" id="optionsRadios9" value="StandardPReService" ng-model="referralType" ng-checked="referralType==='StandardPReService'" ng-change="ClearICD()">
+                                            <label ng-class="{'active': referralType==='StandardPReService'}" for="optionsRadios9">Standard Pre-Service</label>
+                                            <input type="radio" name="refferalTypeRad" id="optionsRadios10" value="StandardPostService" ng-model="referralType" ng-checked="referralType==='StandardPostService'" ng-change="ClearICD()">
+                                            <label ng-class="{'active': referralType==='StandardPostService'}" for="optionsRadios10">Standard Post-Service</label>
+                                        </div>
+
+                                    </div>
+                                    <div>
+                                        <div class="col-xs-12" ng-if="referralType==='Expedited'">
+                                            <div class="text-danger bg-danger" style="font-size: .8em; padding: 10px; margin-top: 10px;">
+                                                Urgent is defined as a situation where the time frame making a non-urgent decision could result in the following:
+                                                Could Seriously jeopardize the life or health of the member, or the member's ability to regian maximum function
+                                                based on prudent layperson's judgment, or in the opinion of a practicioner with knowledge of the member's medical condition, would subject the member to severe
+                                                pain that cannot be adequately managed without the care or treatment that is the subject of the request.
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-xs-offset-6" ng-if="referralType==='StandardPReService'">
+                                            <div class="input-group">
+                                                <div class="datepicker"
+                                                     date-max-limit="{{today}}"
+                                                     date-format="MM/dd/yyyy"
+                                                     selector="date-input">
+                                                    <span class="btn btn-default icon input" ng-click="" style="top: 18px;">
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                    </span>
+                                                    <label class="small-lbl">Appt Date:</label>
+                                                    <input class="form-control date-input"
+                                                           ng-model="predate"
+                                                           name="predos" type="text"
+                                                           ng-change="ClearICD()">
+                                                    <span ng-if="!validatePreDate(predate)" class="invalid-msg">pre service can not be earlier than today.</span>
+                                                    <!--<span ng-if="authRequestForm.predos.$invalid && (!authRequestForm.predos.$pristine || authRequestForm.$submitted)" class="invalid-msg">pre service date is required.</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-xs-offset-6" ng-if="referralType==='StandardPostService'">
+                                            <div class="input-group">
+                                                <div class="datepicker"
+                                                     date-max-limit="{{today}}"
+                                                     date-format="MM/dd/yyyy"
+                                                     selector="date-input">
+                                                    <span class="btn btn-default icon input" ng-click="" style="top: 18px;">
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                    </span>
+                                                    <label class="small-lbl req">Appt Date:</label>
+                                                    <input class="form-control date-input"
+                                                           ng-class="{'invalid': !validatePostDate(postdate) }" ng-model="postdate"
+                                                           required name="postdos" type="text"
+                                                           ng-change="ClearICD()">
+                                                    <span ng-if="!validatePostDate(postdate)" class="invalid-msg">post service must be within the past 30 days.</span>
+                                                    <span ng-if="authRequestForm.postdos.$invalid && (!authRequestForm.postdos.$pristine || authRequestForm.$submitted)" class="invalid-msg">post service date is required.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="SectionHeader col-md-12 ">
+                            <h4 style="display: inline-block;">ICD Codes</h4>
+                            <span style="color: #fff0f5; font-size: 10.86px;">Select Service Priority and/or Appt Date before entering ICD codes, ICD codes will be cleared if the Priority or Appt Date is modified</span>
+                        </div>
+                        <div class="form-section">
+                            <ol class="list-group" style="position: relative;">
+                                <li class="clearfix list-group-item slim-grid">
+                                    <span class="redAster" style="position: absolute; top: 1px; left: 5px;">*</span>
+                                    <span class="invalid-msg text-left" style="position: absolute; left: 15px; top: 2px;" ng-if="!icd[0] && authRequestForm.$submitted">At least one primary diagnosis (ICD code) must be selected.</span>
+                                    <div class="col-sm-3 col-xs-12 text-left" ng-repeat="code in icd track by $index">
+                                        <label class="small-lbl">ICD {{$index + 1}}:</label>
+                                        <div class="lbl ng-binding">
+                                            <div class="input-group">
+                                                <span class="btn btn-default icon input" ng-click="removeICDInput( $index)">
+                                                    <i class="center-icon glyphicon glyphicon-remove"></i>
+                                                </span>
+                                                <input name="icd-{{$index}}" ng-model="code.val" ng-blur="checkIcdCode(code.val,$index)" required type="text">
+                                                <div ng-if="authRequestForm['icd-' + $index].$invalid && (!authRequestForm['icd-' + $index].$pristine || authRequestForm.$submitted)" class="invalid-msg">icd code is required.</div>
+                                                <div ng-if="checkDuplicateICD(code.val,$index) && code.val" class="invalid-msg">Duplicate ICD Code</div>
+                                                <div ng-if="!icd[$index].check" class="invalid-msg">invaid ICD code</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- add clone-->
+                                    <div class="add-item-container col-sm-3 col-xs-12 cursor-pointer text-left" ng-if="icd.length < maxIcd" ng-click="addIcd()">
+                                        <div class="add-item-background cursor-pointer">
+                                            <label class="small-lbl cursor-pointer">ICD {{icd.length + 1}}:</label>
+                                            <div class="lbl ng-binding">
+                                                <div class="input-group">
+                                                    <input class="cursor-pointer" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="add-item">Add +</div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="SectionHeader col-md-12 ">
+                            <h4>CPT Codes</h4>
+                        </div>
+                        <div class="form-section">
+                            <ol class="list-group" style="position: relative">
+                                <li class="clearfix list-group-item slim-grid">
+                                    <span class="redAster" style="position: absolute; top: 1px; left: 5px;">*</span>
+                                    <span class="invalid-msg text-left" style="position: absolute; left: 15px; top: 2px;" ng-if="!cptArray[0] && authRequestForm.$submitted">At least one procedure (CPT code) must be selected.</span>
+                                    <div class="col-xs-12 text-left" ng-repeat="code in cptArray track by $index">
+                                        <div class="col-sm-4 col-xs-12 lbl ng-binding">
+                                            <label class="small-lbl">CPT {{$index + 1}}:</label>
+                                            <label class="small-lbl" style="color: #2980b9">{{cptArray[$index].CodeDesc}}</label>
+                                            <div class="input-group">
+                                                <span class="btn btn-default icon input" ng-click="removeCPTInput($index)">
+                                                    <i class="center-icon glyphicon glyphicon-remove"></i>
+                                                </span>
+                                                <input name="cpt-{{$index}}" ng-model="ccode" ng-blur="checkcptCode(ccode,$index)" type="text" required>
+                                                <div ng-if="(cptArray[$index].cptcodeCheck === false && cptArray[$index].cptcodeCheck !== 'duplicate') && (!authRequestForm['cpt-' + $index].$pristine || authRequestForm.$submitted)" class="invalid-msg">Invalid CPT Code</div>
+                                                <div ng-if="cptArray[$index].showDuplicateCPTError" class="invalid-msg">Duplicate CPT Code</div>
+                                                <div ng-if="authRequestForm['cpt-' + $index].$invalid && (!authRequestForm['cpt-' + $index].$pristine || authRequestForm.$submitted)" class="invalid-msg">
+                                                    cpt code is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-xs-12 text-left">
+                                            <label class="small-lbl">Modifier:</label>
+                                            <div class="lbl ng-binding">
+                                                <div class="input-group">
+                                                    <input name="modefierInput-{{$index}}" ng-model="modefier" ng-blur="checkModefierCode(modefier,$index)" type="text">
+                                                    <div ng-if="!cptArray[$index].validModCode && (!authRequestForm['modefierInput-' + $index].modefierInput.$pristine || authRequestForm.$submitted)" class="invalid-msg">A valid Modifier is required.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 col-xs-12 text-left">
+                                            <label class="small-lbl"><span class="redAster">*</span>Qty:(numeric only)</label>
+                                            <div class="lbl ng-binding">
+                                                <input name="qty-{{$index}}" ng-model="qty" min="1" max="9999" required style="width: 100%;" type="number">
+                                                <div ng-if="authRequestForm['qty-' + $index].$invalid && (!authRequestForm['qty-' + $index].$pristine || authRequestForm.$submitted)" class="invalid-msg">A valid Quantity is required.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="clearfix list-group-item slim-grid">
+                                    <!-- add clone-->
+                                    <div class="add-item-container col-md-12 cursor-pointer text-left" ng-if="cptArray.length < maxCpt" ng-click="AddCPT()">
+                                        <div class="add-item-background cursor-pointer">
+                                            <div class="col-sm-4 col-xs-12 lbl ng-binding">
+                                                <label class="small-lbl">CPT {{cptArray.length + 1}}:</label>
+                                                <div class="input-group">
+                                                    <span class="btn btn-default icon input">
+                                                        <i class="center-icon glyphicon glyphicon-remove"></i>
+                                                    </span>
+                                                    <input name="cpt-{{$index}}" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-xs-12 text-left">
+                                                <label class="small-lbl">Modifier:</label>
+                                                <div class="lbl ng-binding">
+                                                    <div class="input-group">
+                                                        <input name="modefierInput" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2 col-xs-12 text-left">
+                                                <label class="small-lbl"><span class="redAster">*</span>Qty:(numeric only)</label>
+                                                <div class="lbl ng-binding">
+                                                    <input name="qty-{{$index}}" ng-model="qty" type="number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="add-item">Add +</div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+
+                    <div class="SectionHeader col-md-12 ">
+                        <h4>Special Instructions/Comments</h4>
+                    </div>
+                    <div class="form-section">
+                        <ol class="list-group">
+                            <li class="clearfix list-group-item slim-grid">
+                                <div class="col-xs-12">
+                                    <div>
+                                        <textarea ng-model="comment" title="500 characters or less" placeholder="Special Instructions / Comments"
+                                                  name="commentTextArea" rows="5"
+                                                  class="form-control input-sm" maxlength="500"></textarea>
+                                        <div ng-if="authRequestForm.commentTextArea.$invalid && (!authRequestForm.commentTextArea.$pristine || authRequestForm.$submitted)" class="invalid-msg">500 characters or less.</div>
+
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="SectionHeader col-md-12 ">
+                        <h4>Attach Supporting Documents</h4>
+                    </div>
+                    <div class="form-section" style="position: relative">
+                        <span class="redAster">*</span>
+                        <span class="invalid-msg text-left" style="position: absolute; left: 9px; top: 27px;" ng-if="authRequestForm.$submitted">Required</span>
+                        <ol class="list-group">
+                            <li class="clearfix list-group-item slim-grid">
+                                <div class="form-section">
+                                    <div>
+                                        <strong class="body-label">Up to 8 PDF or Word files,</strong>
+                                        <strong class="body-label">10 MB per file maximum size</strong>
+
+                                    </div>
+                                    <span class="root-font-size" style="color: #636363">Note: Dragging and dropping files into browser window may navigate away from page</span>
+
+
+                                    <div id="plupLoadUploader" style="margin-bottom: 30px;">Your browser does not support this feature</div>
+
+
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+
+                </div>
+
+
+                <div style="text-align: center; margin-top: 10px;">
+                    <button id="SubmitRequestAuthForm" type="submit" href="#" class="btn button.icon singleSearchButton" style="width: 150px">Submit </button>
+                    <button class="btn button.icon clear-btn singleSearchButton" id="resetFormButton" ng-click="ResetForm(authRequestForm)" style="width: 150px;">
+                        Cancel
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+
+
+        <div class="alert alert-danger validationMessages lft-algn" role="alert" ng-if="authRequestForm.$submitted && errorMessage!='' ">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="validationMsg">{{errorMessage}}</span>
+        </div>
+        <!--<div class="alert alert-danger validationMessages lft-algn" role="alert" ng-if="authRequestForm.$submitted && !icd[0] && MemberInfo">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="validationMsg">At least one primary diagnosis (ICD code) must be selected</span>
+        </div>
+        <div class="alert alert-danger validationMessages lft-algn" role="alert" ng-if="authRequestForm.$submitted && !cptArray[0] && MemberInfo">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="validationMsg">At least one procedure (CPT code) must be selected</span>
+        </div>-->
+    </div>
+
+</div>
+
+
+<div class="modal fade AuthReqModal" id="RquestingServiceModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 200px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                <h4 class="modal-title">Service Requested</h4>
+                <input id="serviceSearchInput1" class="form-control" type="search" ng-model="RequestingServicefilter" placeholder="Service Search">
+            </div>
+        </div>
+        <div class="modal-body" style="background-color: #fff;">
+            <ul>
+                <li ng-repeat="l in RequestingServiceList|filter:RequestingServicefilter" ng-click="setRequestingService(l)">
+
+                    {{l.SpecialtyDesc}}
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade AuthReqModal" id="RquestingProviderModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 200px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                <h4 class="modal-title">Requesting Provider</h4>
+                <input id="providerSearchInput" class="form-control" type="search" ng-model="RequestingProviderfilter" placeholder="Provider Search">
+            </div>
+            <div class="modal-body">
+                <div class="modal-provider-container" ng-repeat="l in RequestingProviderList | filter: RequestingProviderfilter">
+
+                    <div class="lft-algn modal-provider-name">
+                        <span><strong class="body-label">{{l.Name}}</strong></span>
+
+                        <span style="float: right">
+                            <strong class="body-label"> NPI # {{l.ProvId}}</strong>
+                        </span>
+
+                    </div>
+                    <div class="lft-algn modal-provider-address" ng-repeat="a in l.CustAddresses">
+                        <span style="color: #686868" class="pointer" ng-click="setRequestingProvider(l,a)">{{a}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade AuthReqModal" id="ReferredToProviderModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 200px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                <h4 class="modal-title">Servicing Providers</h4>
+                <input id="ReferredproviderSearchInput" class="form-control" type="search" ng-model="ReferredToProvider" placeholder="Provider Search">
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-target="#medicalGroups" data-toggle="tab" ng-click="searchReferredToprovider('mdgrp')">Medical Groups</a></li>
+                    <li><a data-target="#individualProviders" data-toggle="tab" ng-click="searchReferredToprovider('individual')">Individual Providers</a></li>
+                    <li ng-if="facilities"><a data-target="#facility" data-toggle="tab" ng-click="searchReferredToprovider('facility')">Facility</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="medicalGroups" class="tab-pane fade in active">
+                        <div class="modal-provider-container" ng-repeat="g in ReferredToProviderInfo|filter:ReferredToProvider">
+                            <div class="lft-algn modal-provider-name">
+                                <span><strong class="body-label">{{g.ProviderName}}</strong></span>
+                                <span style="float: right">
+                                    <strong class="body-label"> NPI # {{g.Npi}}</strong>
+                                </span>
+                            </div>
+                            <div class="lft-algn modal-provider-address" ng-repeat="a in g.AddressList" ng-click="setReferringProvider(g,a);">
+                                <span style="color: #686868" class="pointer">{{a.Addr1}}{{a.Addr2}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="individualProviders" class="tab-pane fade">
+                        <div class="modal-provider-container" ng-repeat="g in ReferredToProviderInfo|filter:ReferredToProvider">
+                            <div class="lft-algn modal-provider-name">
+                                <span><strong class="body-label">{{g.ProviderName}}</strong></span>
+                                <span style="float: right">
+                                    <strong class="body-label"> NPI # {{g.Npi}}</strong>
+                                </span>
+                            </div>
+                            <div class="lft-algn modal-provider-address" ng-repeat="a in g.AddressList" ng-click="setReferringProvider(g,a)">
+                                <span style="color: #686868" class="pointer">{{a.Addr1}}{{a.Addr2}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="facility" class="tab-pane fade">
+                        <ul>
+                            <li ng-repeat="f in facilities">{{f.IsMedgroup}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade AuthReqModal" id="Rquesting_ServiceModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 200px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                <h4 class="modal-title">Place of Service</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li ng-repeat="l in Requesting_ServiceList" ng-click="setRequesting_Service(l)">
+                        {{l.ServiceTypeDesc}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade AuthReqModal" id="facilities_Modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 200px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+                <h4 class="modal-title">Service Location/Facility</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li ng-repeat="l in Requesting_ServiceList" ng-click="setRequesting_Service(l)">
+                        {{l.ServiceTypeDesc}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

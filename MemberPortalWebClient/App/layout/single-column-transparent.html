@@ -1,0 +1,13 @@
+﻿<div class="row contentContainer">
+
+    <div class="col-lg-12">
+        <div class="content-pane transparent"  ng-class="{'fullscreen':fullscreen}">
+            <div ui-view="content"></div>
+        </div>
+    </div>
+
+    <div debug-tool class="ng-cloak">
+        <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+    </div>
+
+</div>

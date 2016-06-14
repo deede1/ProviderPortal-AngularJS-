@@ -1,0 +1,56 @@
+﻿
+
+<div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h2 class="modal-title">Survey Summary Viewer</h2>
+        </div>
+        <div class="modal-body" style="max-height:400px; overflow:auto">
+            <div class="survey-container survey-print-container">
+                <div>
+                    <div id="divtoprint">
+                        <div ng-if="!items.Summaries.length == 0" class="text-center">
+                            <div><h3 style="margin:0">{{surveySummaryInfo.SurveyDescription}}</h3><span>{{surveySummaryInfo.ResponseCompletedOn | date}} </span> </div>
+                        </div>
+                        <div>
+                            <ul class="survey-summary-list" style="padding-left:20px;">
+                                <li>
+                                    <div class="row">
+                                        <div class="text-left" style="margin: 0 0 15px 0;" ng-repeat="summary in items.Summaries">
+                                            <h4>{{$index + 1}}. {{summary.ItemSummaryName}}</h4>
+                                            <div style="padding-left:15px;">
+                                                <h3 style="font-size:10pt;margin:0 0 7px 0;" ng-if=" summary.TotalScoreBMI !='' ">{{'form_healthcare_section_Survey_Resource_Catagory_Score' | translate}}: {{summary.TotalScoreBMI}}</h3>
+                                                <h3 style="font-size:10pt;margin:0 0 7px 0;">{{summary.SummaryDescrition}}</h3>
+                                                <div class="non-printable" ng-if="summary.ReferenceLinks.length > '0'">
+                                                    <div class="survey-summary-resource-links">{{'form_healthcare_section_Survey_Resource_Links' | translate}}</div>
+                                                    <div ng-bind-html="summary.ReferenceLinks"></div>
+                                                </div>
+                                            </div>
+                                            <hr style="border-top: 1px solid #f1f1f1;
+" />
+                                        </div>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <div ng-if="items.Summaries.length == 0">
+                <div>
+                    <h4 style="text-align: center">
+                        No summary available for this survey.
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div ng-controller="surveyHistoryController" class="modal-footer">
+            <button class="btn btn-primary" ng-click="PrintSummary();">Print this Summary</button>
+            <button class="btn btn-warning" ng-click="cancel()">Close Summary</button>
+        </div>
+    </script>
+</div>

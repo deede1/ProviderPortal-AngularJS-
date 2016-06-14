@@ -1,0 +1,77 @@
+﻿<div class="row contentContainer">
+    <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs contentLeft">
+        <img id="homeBannerLeft" ng-src="{{urlBase}}/Content/Images/panel_HealthRecords.png" />
+        <br />
+        <div id="note1">
+            <h3>
+                IEHP<br /> 24-Hour Nurse<br />
+                Advice Line<br /><br /> 1-888-244-IEHP (4347)
+            </h3>
+        </div>
+    </div>
+    <div class="col-lg-9 col-md-9  col-sm-9 col-xs-12 contentRight">
+        <h1> {{"page_healthrec_medicalClaims_title" | translate}} </h1>
+        <p> {{"page_healthrec_medicalClaims_intro" | translate}} </p>
+        <div class="panel">
+            <simple-ajax-loader show="loading"></simple-ajax-loader>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <info-box message="{{infoMessage}}"></info-box>
+                    <danger-box message="{{errorMessage}}"></danger-box>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-6">
+                    <h2>Member Details</h2>
+                    <p><strong>Patient Name</strong>:{{data.Headers[0].MbrLastName}}, {{data.Headers[0].MbrFirstName}} </p>
+                    <p><strong>Age (at time of service)</strong>:{{data.Headers[0].MbrAgeAtTimeOfService}}</p>
+                    <p><strong>SubscriberNumber</strong>:{{data.Headers[0].SubscriberNumber}}</p>
+                </div>
+
+                <div class="col-md-6">
+                    <h3>Provider of Service Details</h3>
+                    
+                    <p><strong>Name</strong>:{{data.Headers[0].ProvOfServiceFNameMi}} {{data.Headers[0].ProvOfServiceLName}}</p>
+                </div>
+
+                <div class="col-md-12">
+                    <h3>Claim Details</h3>
+                    <p><strong>Claim Number</strong>:{{data.Headers[0].ClaimNumber}}</p>
+                    <p><strong>Date Received</strong>:{{data.Headers[0].DateOfServiceStart | date:'M/d/yyyy'}}</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Claim Line Items</h2>
+                    <table class="table table-condensed table-striped">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">#</th>
+                                <th style="min-width:7em;text-align:center;">Service Date</th>
+                                <th>Procedure</th>
+                                <th>Procedure Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in data.ClaimLines">
+                                <td style="vertical-align: top;text-align: center;"><div style="background-color: #337ab7;border: 1px solid #2e6da4;padding: .3em 0.3em;font-weight: bold;color: #fff;border-radius: 3px;">{{item.LineNo}}</div></td>
+                                <td style="text-align:center;">{{item.ServiceDate | date:'M/d/yyyy'}}</td>
+                                <td style="text-align: center;">{{item.ProcedureCode}}</td>
+                                <td>{{item.ProcDescription}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div debug-tool class="ng-cloak">
+            <debug-tool-data-node name="Data" data="rx"></debug-tool-data-node>
+        </div>
+    </div>
+</div>

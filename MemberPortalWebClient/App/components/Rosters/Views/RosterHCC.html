@@ -1,0 +1,72 @@
+﻿
+<prov-portal-iframe pagetitle="HCC" pageurl="{{IFRAME_PAGE_URL_ROSTER_HCCROSTER}}">
+</prov-portal-iframe>
+
+
+<!--<div class="posRelative">
+
+
+
+    <h1 class="WorkInProgress">!!WORK IN PROGRESS!!</h1>
+
+    <div class="form panel">
+        <h1 class="pageTitle"> CCS Roster </h1>
+        <p class="pageIntro ">
+            
+            California Children Services (CCS) is a statewide program which provides for medical care, equipment, rehabilitation and case management services to eligible children with physically handicapping medical conditions. The roster below identifies assigned Members who are in the CCS program and provides information that may aid with the coordination of care.
+        </p>
+    </div>
+
+
+    <roster-title-header title=" HCC Roster  "></roster-title-header>
+
+  
+
+    <div class="row alignCenter">
+
+
+
+        <results-pagination ng-show="data.RosterList"></results-pagination>
+
+
+        <table class="roster col-sm-12">
+            <thead>
+            <tr class="header">
+                <th>Name </th>
+                <th>LOB </th>
+                <th>IEHP ID </th>
+                <th>DOB </th>
+                <th>Phone </th>
+                <th>HbA1c Test </th>  
+                <th>Neph Test </th>
+                <th>Eye Test </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in data.RosterList   ">
+                <td>{{ item.MemberFName }} {{ item.MemberLName }} </td>
+                <td>{{ item.LineOfBusinessD }} </td>
+                <td>
+                    <div class="anchor" ng-click="viewMemDetails( item.iehpId)">
+                        {{ item.IehpId }} <i class="  glyphicon glyphicon-info-sign"></i>
+                    </div>
+                </td>
+                <td>{{ item.DateOfBirth }} </td>
+                <td>{{ item.MemberPhone }} </td>
+                <td>{{ item.Hit }} </td>
+                <td>{{ item.DiabetesHitPephrology }} </td>
+                <td>{{ item.DiabetesHitEye }} </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div simple-ajax-loader show="loading"></div>
+    <danger-box message="{{errorMessage}}"></danger-box>
+
+
+
+
+
+
+</div>-->

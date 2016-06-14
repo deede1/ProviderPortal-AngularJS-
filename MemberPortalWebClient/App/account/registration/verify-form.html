@@ -1,0 +1,23 @@
+﻿<form class="pp-form text-left" name="verifyForm" ng-submit="submit(verifyForm.$valid)" novalidate>
+	<h1 class="pad-md text-center">
+		Step 2: <span class="step-color">Verify</span>
+	</h1>
+	<div class="help-text text-center">A verification link has been sent to your email. <br/>Please check your email to continue to the next step.</div>
+<!--	<ol class="list-group">-->
+<!--		<li class="clearfix list-group-item with-background">-->
+<!--			<div class="col-md-5 float-none center-block">-->
+<!--				<label class="bold-lbl">Verification Code</label>-->
+<!--				<input name="verificationCode" ng-model="form.verificationCode" ng-pattern="/.{8}/" required type="text" />-->
+<!--				<pp-invalid-alert form="verifyForm" name="verificationCode">Invalid Code</pp-invalid-alert>-->
+<!--			</div>-->
+<!--		</li>-->
+<!---->
+<!--	</ol>-->
+
+<!--	<div class="form-group col-md-3 float-none center-block">-->
+<!--		<button class="btn btn-block btn-lg btn-primary" ui-sref="registration.registerForm">Back</button>-->
+<!--	</div>-->
+
+
+</form>			
+<uib-alert close="alert=''" ng-hide="!alert" type="danger">{{alert}}</uib-alert>

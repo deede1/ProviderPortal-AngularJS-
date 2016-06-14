@@ -1,0 +1,10 @@
+﻿<th class="selectable" ng-class="{active: search.predicate === modifier}">
+	<span ng-transclude></span>
+<!--	<span ng-style="{visibility: predicate === modifier ? 'visible' : 'hidden'}">tset</span>-->
+	<!--<span class="glyphicon" ng-class="reverse ? \'glyphicon-chevron-up\' : \'glyphicon-chevron-down\'"></span>-->
+	<span class="sorting-modifiers">
+<!--		<span ng-if="reverse && predicate === modifier" class="predicate">▴</span>-->
+		<span ng-class="{reverse: search.reverse && search.predicate === modifier}" class="predicate">▾</span>
+	</span>
+
+</th>

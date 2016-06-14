@@ -1,0 +1,287 @@
+﻿<div id="MedicationRequestFormStart" class="row contentContainer frmSignIn">
+    <!--  place this in a directive per HealthRecords Category -->
+    <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15">
+        <div class="contentPanel">
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/HealthRecords/RxPrescriptions">
+                <div class="panelTile alignCenter col-xs-6 ">
+                    {{ 'form_rxPrescriptions' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/MedicalClaims">
+                <div class="panelTile alignCenter col-xs-6 panelSelected">
+                    {{ 'nav_medicalClaims' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/ImmunizationRecords">
+                <div class="panelTile alignCenter col-xs-6">
+                    {{ 'nav_immunizationRecords' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/LabWork">
+                <div class="panelTile alignCenter col-xs-6">
+                    {{ 'nav_labResults' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/Authorizations/All">
+                <div class="panelTile alignCenter col-xs-6 col-xs-offset-3">
+                    {{ 'nav_authorizations' | translate}}
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12  col-lg-push-3 col-md-push-3">
+        <h1 class="pageTitle" ng-show="data.lobName === 'Medi-Cal'"> {{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medi_Cal" | translate}} </h1>
+        <h1 class="pageTitle" ng-show="data.lobName === 'Medicare'"> {{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medicare" | translate}} </h1>
+        <!--<p class="pageIntro"> {{"page_healthrec_prescriptionRequest_intro" | translate}} </p>-->
+        <div class="row panel">
+            <div ng-show="successfulSubmit" class="text-center" style="margin: 15px 15px 10px 15px;">
+                <success-box message="{{'form_SuccessfulSubmit' | translate}}"></success-box>
+                <p class="fontBold">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_SubmittedThankyou" | translate}} {{data.rxCaseNumber}}</p>
+                <p class="fontBold" ng-show="data.lobName === 'Medicare'">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medicare_Submitted" | translate}}</p>
+                <p class="fontBold" ng-show="data.lobName === 'Medi-Cal'">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medi_Cal_Submitted" | translate}}</p>
+                <p class="fontBold">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_SubmittedQuestions" | translate}}</p>
+                <button class="btn btn-md btn-primary hidden-print" type="button" ng-click="printPdf()">{{"form_clickToPrint" | translate}}</button>
+                <button class="btn btn-md btn-primary hidden-print" type="button" ng-show="toggleForm" ng-click="toggleForm = false">{{"form_showForm" | translate}}</button>
+                <button class="btn btn-md btn-primary hidden-print" type="button" ng-hide="toggleForm" ng-click="toggleForm = true">{{"form_hideForm" | translate}}</button>
+            </div>
+            <div ng-show="submitError" class="text-center" style="margin: 15px 15px 10px 15px;">
+                <danger-box message="{{'form_unableSubmitYourRequest' | translate}}"></danger-box>
+                <p class="fontBold font">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_SubmittedError" | translate}}</p>
+            </div>
+            <form name="prescriptionForm" role="form" class="form form-horizontal" ng-hide="loading || toggleForm || submitError" novalidate="novalidate">
+                <!-- Member Info -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="padTop20 fontBold">{{"page_ask_askIEHP_highlight" | translate}}</p>
+                        <div class="form-group hidden-print">
+                            <label class="control-label col-sm-12 padBottom10">
+                                <span>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Requestor" | translate}}</span>
+                            </label>
+                            <div class="btn-group col-md-12 col-sm-12 col-xs-12 ">
+                                <div style="display: inline-block" class="row">
+                                    <label class="btn btn-primary" ng-model="radioRequestor" btn-radio="false" ng-required="!radioRequestor" ng-disabled="successfulSubmit">{{"form_yes" | translate}}</label>
+                                    <label class="btn btn-primary" ng-model="radioRequestor" btn-radio="true" ng-required="radioRequestor" ng-disabled="successfulSubmit">{{"form_no" | translate}}</label>
+                                    <label class="fontRed" ng-show="submitted && radioRequestor === ''">This field is Required.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-hide="radioRequestor === '' || radioRequestor">
+                            <div class="col-sm-12" ng-show="data.lobName === 'Medicare'">
+                                <input type="checkbox" ng-model="Attestation" ng-disabled="successfulSubmit">
+                                <p style="display: inline;">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medicare_Attestation" | translate}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Requestor Info -->
+                <div class="row">
+                    <!--Medicare Only Message-->
+                    <div class="row" ng-show="data.lobName === 'Medicare' && radioRequestor">
+                        <div class="col-sm-12">
+                            <p>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medicare_Instructions_part1" | translate}}</p>
+                            <p>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medicare_Instructions_part2" | translate}}</p>
+                            <p>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medicare_Instructions_part3" | translate}}</p>
+                            <p>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medicare_Instructions_part4" | translate}}</p>
+                            <a target="_blank" href="Content/PharmacyPdfs/AppointmentofRep.pdf">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medicare_AOR" | translate}}</a>
+                        </div>
+                    </div>
+                    <!--Medi-Cal Only Message-->
+                    <div class="row" ng-show="data.lobName === 'Medi-Cal' && radioRequestor">
+                        <div class="col-sm-12">
+                            <p>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_Medi_Cal_Instructions" | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div ng-hide="radioRequestor === '' || radioRequestor">
+                    <div ng-show="data.lobName === 'Medi-Cal' || Attestation">
+                        <!-- Member Information -->
+                        <div class="row col-xs-12">
+                            <h3 class="underlinedBorder print-header">{{"form_memberInformation" | translate}}</h3>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-offset-1 col-print-2 col-print-offset-1 control-label">
+                                    <span>{{"form_memberID" | translate}}</span>
+                                </label>
+                                <div class="col-sm-3 col-print-3">
+                                    <p class="form-control-static form-nonEditable">{{data.memberId | obfuscateValue}}</p>
+                                </div>
+                                <label class="col-sm-2 col-print-2 control-label">
+                                    <span>{{"form_member" | translate}}</span>
+                                </label>
+                                <div class="col-sm-4 col-print-4 capFirstLetter">
+                                    <p class="form-control-static form-nonEditable">{{data.firstName | obfuscateValue}} {{data.lastName | obfuscateValue}}</p>
+                                </div>
+                                <div class="clearfix"></div>
+                                <label class="col-sm-2 col-sm-offset-1 col-print-2 col-print-offset-1 control-label">
+                                    <span>{{"form_address_line1" | translate}}</span>
+                                </label>
+                                <div class="col-sm-3 col-print-3">
+                                    <p class="form-control-static form-nonEditable">{{data.Address1 | obfuscateValue}}</p>
+                                </div>
+                                <label class="col-sm-2 col-print-2 control-label">
+                                    <span>{{"form_city" | translate}}</span>
+                                </label>
+                                <div class="col-sm-4 col-print-4">
+                                    <p class="form-control-static form-nonEditable">{{data.City | obfuscateValue}}</p>
+                                </div>
+                                <div class="clearfix"></div>
+                                <label class="col-sm-2 col-sm-offset-1 col-print-2 col-print-offset-1 control-label">
+                                    <span>{{"form_state" | translate}}</span>
+                                </label>
+                                <div class="col-sm-3 col-print-3">
+                                    <p class="form-control-static form-nonEditable">{{data.State | obfuscateValue}}</p>
+                                </div>
+                                <label class="col-sm-2 col-print-2 control-label">
+                                    <span>{{"form_zip" | translate}}</span>
+                                </label>
+                                <div class="col-sm-4 col-print-4">
+                                    <p class="form-control-static form-nonEditable">{{data.Zip | obfuscateValue}}</p>
+                                </div>
+                                <div class="clearfix"></div>
+                                <label class="col-sm-2 col-sm-offset-1 col-print-2 col-print-offset-1 control-label">
+                                    <span>{{"form_dateOfBirth" | translate}}</span>
+                                </label>
+                                <div class="col-sm-3 col-print-3">
+                                    <p class="form-control-static form-nonEditable">{{data.dateOfBirth | date:"MM/dd/yyyy" | obfuscateValue}}</p>
+                                </div>
+                                <label class="col-sm-2 col-print-2 control-label">
+                                    <span>{{"form_phone" | translate}}</span>
+                                </label>
+                                <div class="col-sm-4 col-print-4">
+                                    <p class="form-control-static form-nonEditable">{{data.phone | obfuscateValue}}</p>
+                                </div>
+                                <div class="clearfix"></div>
+                                <phone-info number="data.alternatePhone" my-style="col-sm-2 col-sm-offset-1 col-print-2 col-print-offset-1">{{"form_alternatePhone" | translate}}</phone-info>
+                            </div>
+                            <!-- Alternate Contact Phone Number-->
+                        </div>
+                        <!-- Doctor Info -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h3 class="underlinedBorder print-header">{{"form_doctorInformation" | translate}}</h3>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3 col-print-3">
+                                        <strong style="color: #d70024; font-size: 18px;">*</strong><span>{{"form_doctorName" | translate}}</span>
+                                    </label>
+                                    <div class="col-sm-9 col-print-9 padBottom10">
+                                        <input class="form-control" type="text" name="DoctorName" ng-model="data.doctorName" placeholder="{{'form_doctorName' | translate}}" maxlength="60" required ng-pattern="/^[A-Za-z]*\.?(\s?[A-Za-z])*$/" ng-disabled="successfulSubmit" minlength="3">
+                                        <span class="fontRed" ng-show="prescriptionForm.DoctorName.$error.pattern">This is an invalid doctor name.</span>
+                                        <span class="fontRed" ng-show="submitted && prescriptionForm.DoctorName.$error.required">{{"page_healthEd_required_field" | translate}}</span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <phone-info number="data.doctorPhone" my-style="col-sm-3 col-print-3">{{"form_officePhone" | translate}} </phone-info>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Medication Info -->
+                        <drug-input></drug-input>
+
+                        <!-- Additional Info -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="underlinedBorder print-header">{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_AdditionalInformationTitle" | translate}}</h3>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">
+                                        <span>{{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_AdditionalInformation" | translate}}</span>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" ng-model="data.additionalInformation" rows="3" placeholder="{{'page_healthrec_rxPrescriptions_DrugCoverageDetermination_AdditionalInformationTitle' | translate}}" ng-disabled="successfulSubmit" maxlength="500"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Expedite Medicare Only -->
+                        <div class="row infoIcon" ng-show="data.lobName === 'Medicare'">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-sm-12 expedite">
+                                        <input type="checkbox" ng-model="data.expedited" ng-disabled="successfulSubmit" style="float:left">
+                                        <h2 class="control-label print-header" style="display:inline">
+                                            {{"page_healthrec_rxPrescriptions_DrugCoverageDetermination_ExpeditedCheck" | translate}}
+                                            <i id="iconExpDef" class="glyphicon glyphicon-question-sign @*iconOnLeft*@" onclick="toggleBubble('ExpDef');"></i>
+                                        </h2>
+                                        <info-box id="ExpDef" style="top:-300px" class="infoBox hidden-print padRight15 padLeft20" message="{{'page_healthrec_rxPrescriptions_DrugCoverageDetermination_ExpeditedHelp' | translate}}" onclick="toggleBubble('ExpDef');"></info-box>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="row">
+                            <div class="form-group formButtons col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-print">
+                                <button type="button" class="btn btn-lg btn-primary" ng-click="SubmitDrugRequest()" ng-disabled="edit || prescriptionForm.$invalid || successfulSubmit">{{"form_submit" | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div ng-if="loading" class="padTop50 text-center">
+                <h2 class="alignCenter">{{"form_requestIsBeingProcessed" | translate}}</h2>
+                <simple-ajax-loader show="loading"></simple-ajax-loader>
+            </div>
+        </div>
+    </div>
+    <!--  place this in a directive per HealthRecords Category -->
+    <div class="contentLeft leftPanel_large col-lg-3 col-md-3 col-sm-12 col-lg-pull-9 col-md-pull-9 col-sm-pull-0  hidden-xs">
+        <div class="contentPanel leftPanel_large hidden-xs"> 
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/HealthRecords/RxPrescriptions">
+                <div class="panelTile alignRight panelSelected">
+                    <h2>{{ 'form_rxPrescriptions' | translate}}</h2>
+                    <i class="btn_bak_rx" />
+                </div>
+            </a> 
+            <a href="App/HealthRecords/MedicalClaims">
+                <div class="panelTile alignRight"> 
+                    <h2>{{ 'nav_medicalClaims' | translate}}</h2>
+                    <i class="btn_bak_claims" />
+                </div>
+            </a> 
+            <a href="App/HealthRecords/ImmunizationRecords">
+                <div class="panelTile alignRight"> 
+                    <h2>{{ 'nav_immunizationRecords' | translate}}</h2>
+                    <i class="btn_bak_form" />
+                </div>
+            </a> 
+            <a href="App/HealthRecords/LabWork">
+                <div class="panelTile alignRight"> 
+                    <h2>{{ 'nav_labResults' | translate}}</h2>
+                    <i class="btn_bak_lab" />
+                </div>
+            </a> 
+            <a href="App/HealthRecords/Authorizations/All">
+                <div class="panelTile alignRight"> 
+                    <h2>{{ 'nav_authorizations' | translate}}</h2>
+                    <i class="btn_bak_authorize" />
+                </div>
+            </a>
+             
+
+            <!--<div class="pageBannerContainer" ng-controller="SideNavCtrl"> 
+                <div ng-if="currentLanguage == 'en-us'">
+                    <div class="leftBanner_TOCL_Yellow textShadow">Power with knowledge. Watch our "<span class="fontWhite">How to Get Care</span>" videos!</div>
+                    <div class="leftBanner_Verdana_White"> </div>
+                </div>
+                <div ng-if="currentLanguage == 'es-mx'">
+                    <div class="leftBanner_TOCL_Yellow textShadow">Informarse es la clave. ¡Vea nuestros videos sobre  "<span class="fontWhite">Cómo obtener Atención Médica</span>"!</div>
+                    <div class="leftBanner_Verdana_White"> </div>
+                </div>
+                <div id="clickYT" class="leftBannerH3 center">
+                    <img class="vertBanner" ng-src="{{urlBase}}/Content/Images/panel_MedicalClaims.png" /> <br /><br />
+                    <a target="_new" href="https://www.youtube.com/channel/UCrX2w-mgNlvOmyLSBgGCP5A"><img ng-src="{{urlBase}}/Content/Images/panel_youTube.png" /></a>
+                </div> 
+           </div>--> 
+        </div>
+        <div debug-tool class="ng-cloak">
+            <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+        </div>
+    </div>
+</div>

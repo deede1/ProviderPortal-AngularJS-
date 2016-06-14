@@ -1,0 +1,1394 @@
+﻿
+<!DOCTYPE html>
+
+<head>
+
+</head>
+<body>
+    <div class="noPrint no-pointer-events" >
+        <div class="noPrint IE8-no-pointer-events"></div>
+        <form id="frmAddServices" name="frmAddServices">
+            <table width="600px" border="0" cellpadding=0 cellspacing=0>
+                <tr>
+                    <td align="center">
+                        <img src="../HistoricalHTMLImages/RequestForAdditionalServices.gif" width="639" height="31">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <input type="button" value="BH Form History" id=search name=search class="button">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2">
+                        <table align="left" width="550">
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    MEMBER INFORMATION
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table width="600px" cellpadding="0" cellspacing="3">
+                                        <tr>
+                                            <td id="hdr" name="hdr">
+                                                Name
+                                            </td>  
+                                            <td id="hdr" name="hdr">
+                                                IEHP ID
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                DOB
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                Age
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                Sex
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="info" name="info">
+                                                <span id="memberName"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberSubno"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberDob"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberAge"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberSex"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="hdr" name="hdr" colspan="2">
+                                                Address
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                City
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                ST
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                Zip
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="info" name="info" colspan="2">
+                                                <span id="memberStreet"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberCity"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberState"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberZip"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="hdr" name="hdr">
+                                                Phone
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                County
+                                            </td>
+                                            <td id="hdr" name="hdr" colspan="2">
+                                                Medi-Cal #
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                LOB
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="info" name="info">
+                                                <span id="memberPhone"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberCounty"></span>
+                                            </td>
+                                            <td id="info" name="info" colspan="2">
+                                                <span id="memberMediCalNumber"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <span id="memberLOB"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    PROVIDER INFORMATION
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table width="600px" cellpadding="0" cellspacing="3">
+                                        <tr>
+                                            <td id="hdr" name="hdr">
+                                                Practitioner Requesting Initial Authorization
+                                            </td>
+                                            <td id="hdr" name="hdr">
+                                                ID
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="info" name="info">
+                                                <!--Provider Name-->
+                                                <span id="providerName"></span>
+                                            </td>
+                                            <td id="info" name="info">
+                                                <!--Provider ID-->
+                                                <span id="providerId"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table width="600px" cellpadding="0" cellspacing="3">
+                                        <tr>
+                                            <td id="info" name="info" style="font-size: 9pt;">
+                                                Member Signed Release<input type="radio" id="rdoRelease" name="rdoRelease" value="1" style="font-size: 9pt;">Yes<input type="radio" id="rdoRelease" name="rdoRelease" value="0" style="font-size: 9pt;">No
+                                                (If No, this information will NOT be forwarded to the PCP)
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    CURRENT STATUS OF CASE
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table width="600px" cellpadding="0" cellspacing="3">
+                                        <tr>
+                                            <td style="color: #005da3;">
+                                                High Risk Factors:
+                                            </td>
+                                            <td id=CurContainment name=CurContainment style="font-size: 8pt; font-family: arial; color: red;">
+                                                (Select either NONE or at least one High Risk Factor with at least one containment Action Plan)
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="625px" cellpadding="0" cellspacing="0" border=0 id="HRFactorS">
+                                        <tr>
+                                            <td colspan="2">
+                                                <table width="625px" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td id="hdr" style="BORDER-bottom: #c3c3c3 1px solid;" colspan="2">
+                                                            1. <input type="checkbox" id="ckHRNone" name="ckHRNone">None
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td id=hdr style="width: 75px;">
+                                                            2. Suicidal
+                                                        </td>
+                                                        <td align="left">
+                                                            - Severity Level:
+                                                            <input type="radio" id="radSuicidalLevel" name="radSuicidalLevel" value=1> Mild
+                                                            <input type="radio" id="radSuicidalLevel" name="radSuicidalLevel" value=2> Moderate
+                                                            <input type="radio" id="radSuicidalLevel" name="radSuicidalLevel" value=3> Severe
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent2" colspan="2">
+                                                <span id=SuicidalPlan name=SuicidalPlan style="color: red; text-transform: lowercase">a. </span>Containment Plan:
+                                                <span style="color: #000000;">
+                                                    <input type="checkbox" id="ckSuicidalNoHarm" name="ckSuicidalNoHarm"> No Harm Contract
+                                                    <input type="checkbox" id="ckSuicidalComplex" name="ckSuicidalComplex"> Requested IEHP Complex Case Management Assistance
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent2" colspan="2">
+                                                <span style="color: red; text-transform: lowercase">b. </span>Higher/More Intense Level of Care
+                                                <span style="color: #000000;">
+                                                    <input type="checkbox" id="ckSuicidalIncOutPat" name="ckSuicidalIncOutPat"> Increased OutpatientVisit Frequency
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent2" colspan="2">
+                                                <span style="color: red; text-transform: lowercase">c. </span>Referred for additional services
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent>
+                                                <input type="checkbox" id="ckSuicidalIntensive" name="ckSuicidalIntensive"> Intensive Outpatient Program
+                                            </td>
+                                            <td id=indent>
+                                                <input type="checkbox" id="ckSuicidalCommunity" name="ckSuicidalCommunity"> Community Based Services
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent nowrap style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                <input type="checkbox" id="ckSuicidalPsychiatric" name="ckSuicidalPsychiatric"> Psychiatric Hospital Based Services
+                                            </td>
+                                            <td id=indent style="BORDER-bottom: #c3c3c3 1px solid;" nowrap>
+                                                <input type="checkbox" id="ckSuicidalOther" name="ckSuicidalOther"> Other:
+                                                <input type="text" id="txtSuicidalOther" name="txtSuicidalOther" maxlength="100" style="width: 250px;">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="625px" cellpadding="0" cellspacing="0" id="HRFactorH">
+                                        <tr>
+                                            <td colspan="2">
+                                                <table>
+                                                    <tr>
+                                                        <td id=hdr>
+                                                            3. Homicidal
+                                                        </td>
+                                                        <td align="left">
+                                                            - Severity Level:
+                                                            <input type="radio" id="radHomicidalLevel" name="radHomicidalLevel" value=1> Mild
+                                                            <input type="radio" id="radHomicidalLevel" name="radHomicidalLevel" value=2> Moderate
+                                                            <input type="radio" id="radHomicidalLevel" name="radHomicidalLevel" value=3> Severe
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent2 colspan="2">
+                                                <span id=HomicidalPlan name=HomicidalPlan style="color: red; text-transform: lowercase">a. </span>Containment Plan:
+                                                <span style="color: #000000;">
+                                                    <input type="checkbox" id="ckHomicidalNoHarm" name="ckHomicidalNoHarm"> No Harm Contract
+                                                    <input type="checkbox" id="ckHomicidalComplex" name="ckHomicidalComplex"> Requested IEHP Complex Case Management Assistance
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent2" colspan="2">
+                                                <span style="color: red; text-transform: lowercase">b. </span>Higher/More Intense Level of Care
+                                                <span style="color: #000000;">
+                                                    <input type="checkbox" id="ckHomicidalIncOutPat" name="ckHomicidalIncOutPat"> Increased OutpatientVisit Frequency
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent2" colspan="2">
+                                                <span style="color: red; text-transform: lowercase">c. </span>Referred for additional services
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent">
+                                                <input type="checkbox" id="ckHomicidalIntensive" name="ckHomicidalIntensive"> Intensive Outpatient Program
+                                            </td>
+                                            <td id="indent">
+                                                <input type="checkbox" id="ckHomicidalCommunity" name="ckHomicidalCommunity"> Community Based Services
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent" nowrap style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                <input type="checkbox" id="ckHomicidalPsychiatric" name="ckHomicidalPsychiatric"> Psychiatric Hospital Based Services
+                                            </td>
+                                            <td id="indent" style="BORDER-bottom: #c3c3c3 1px solid;" nowrap>
+                                                <input type="checkbox" id="ckHomicidalOther" name="ckHomicidalOther"> Other:
+                                                <input type="text" id="txtHomicidalOther" name="txtHomicidalOther" maxlength="100" style="width: 250px;">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="625px" cellpadding="0" cellspacing="0" border=0 id="HRFactorGD">
+                                        <tr>
+                                            <td colspan="2">
+                                                <table cellpadding=0 cellspacing=0>
+                                                    <tr>
+                                                        <td id=hdr>
+                                                            4. Gravely Disabled
+                                                        </td>
+                                                        <td align="left">
+                                                            - Severity Level:
+                                                            <input type="radio" id="radGDLevel" name="radGDLevel" value=1> Mild
+                                                            <input type="radio" id="radGDLevel" name="radGDLevel" value=2> Moderate
+                                                            <input type="radio" id="radGDLevel" name="radGDLevel" value=3> Severe
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent2" colspan="2">
+                                                <span id=GravelyPlan name=GravelyPlan style="color: red; text-transform: lowercase">a. </span>Containment Plan:
+                                                <span style="color: #000000;">
+                                                    <input type="checkbox" id="ckGDComplex" name="ckGDComplex"> Requested IEHP Complex Case Management Assistance
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent2" colspan="2">
+                                                <span style="color: red; text-transform: lowercase">b. </span>Higher/More Intense Level of Care
+                                                <span style="color: #000000;">
+                                                    <input type="checkbox" id="ckGDIncOutPat" name="ckGDIncOutPat"> Increased OutpatientVisit Frequency
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent2" colspan="2">
+                                                <span style="color: red; text-transform: lowercase">c. </span>Referred for additional services
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent">
+                                                <input type="checkbox" id="ckGDIntensive" name="ckGDIntensive"> Intensive Outpatient Program
+                                            </td>
+                                            <td id="indent">
+                                                <input type="checkbox" id="ckGDCommunity" name="ckGDCommunity"> Community Based Services
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent" nowrap style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                <input type="checkbox" id="ckGDPsychiatric" name="ckGDPsychiatric"> Psychiatric Hospital Based Services
+                                            </td>
+                                            <td id="indent" style="BORDER-bottom: #c3c3c3 1px solid;" nowrap>
+                                                <input type="checkbox" id="ckGDOther" name="ckGDOther"> Other:
+                                                <input type="text" id="txtGDOther" name="txtGDOther" maxlength="100" style="width: 250px;">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="625px" cellpadding="0" cellspacing="0" id="HRFactorAN">
+                                        <tr>
+                                            <td colspan="2">
+                                                <table cellpadding=0 cellspacing=0>
+                                                    <tr>
+                                                        <td id=hdr>
+                                                            5. Abuse or Neglect
+                                                        </td>
+                                                        <td align="left">
+                                                            - Severity Level:
+                                                            <input type="radio" id="radAbuseLevel" name="radAbuseLevel" value=1> Mild
+                                                            <input type="radio" id="radAbuseLevel" name="radAbuseLevel" value=2> Moderate
+                                                            <input type="radio" id="radAbuseLevel" name="radAbuseLevel" value=3> Severe
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent2" colspan="2">
+                                                <span id=AbusePlan name=AbusePlan style="color: red; text-transform: lowercase">a. </span>Containment Plan:
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent">
+                                                <input type="checkbox" id="ckAbuseReport" name="ckAbuseReport"> Report Filed with Protective Services
+                                            </td>
+                                            <td id="indent">
+                                                <input type="checkbox" id="ckAbuseComplex" name="ckAbuseComplex"> Requested IEHP Complex Case Management Assistance
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent" colspan="2">
+                                                Date:
+                                                <input type="text" id="txtAbuseReport" maxlength=10 name="txtAbuseReport" style="width: 165px;" onblur="js_is_date(this)">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent2" colspan="2">
+                                                <span style="color: red; text-transform: lowercase">b. </span>Higher/More Intense Level of Care
+                                                <span style="color: #000000;">
+                                                    <input type="checkbox" id="ckAbuseIncOutPat" name="ckAbuseIncOutPat"> Increased OutpatientVisit Frequency
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent2" colspan="2">
+                                                <span style="color: red; text-transform: lowercase">c. </span>Referred for additional services
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent">
+                                                <input type="checkbox" id="ckAbuseIntensive" name="ckAbuseIntensive"> Intensive Outpatient Program
+                                            </td>
+                                            <td id="indent">
+                                                <input type="checkbox" id="ckAbuseCommunity" name="ckAbuseCommunity"> Community Based Services
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent" nowrap style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                <input type="checkbox" id="ckAbusePsychiatric" name="ckAbusePsychiatric"> Psychiatric Hospital Based Services
+                                            </td>
+                                            <td id="indent" style="BORDER-bottom: #c3c3c3 1px solid;" nowrap>
+                                                <input type="checkbox" id="ckAbuseOther" name="ckAbuseOther"> Other:
+                                                <input type="text" id="txtAbuseOther" name="txtAbuseOther" maxlength="100" style="width: 250px;">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    CRITICAL INCIDENTS SINCE LAST AUTHORIZATION
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table width="600px" cellpadding="0" cellspacing="3">
+                                        <tr>
+                                            <td id=CritContainment name=CritContainment style="font-size: 8pt; font-family: arial; color: red;">
+                                                (Select either NONE or at least one High Risk Factor with at least one containment Action Plan)
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="625px" cellpadding="0" cellspacing="0" id="CriticalIncidents">
+                                        <tr>
+                                            <td colspan="2">
+                                                <table width="625px" cellpadding=0 cellspacing=0>
+                                                    <tr>
+                                                        <td id="hdr" colspan="2" style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            1. <input type="checkbox" id="ckCINone" name="ckCINone" onclick="return EDCriticlIncidents()">None
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td id="hdr" width=135px nowrap>
+                                                            2. Suicide Attempt
+                                                        </td>
+                                                        <td>
+                                                            - Life Threatening
+                                                            <input type="radio" id="radSuicideLife" name="radSuicideLife" value=1> Yes
+                                                            <input type="radio" id="radSuicideLife" name="radSuicideLife" value=2> No
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" id=indent2>
+                                                Action Taken
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent" colspan=2>
+                                                <table width="600px" cellpadding=0 cellspacing=0>
+                                                    <tr>
+                                                        <td valign=top>
+                                                            <input type="checkbox" id="ckSuicideComplex" name="ckSuicideComplex">
+                                                        </td>
+                                                        <td valign=top>
+                                                            Requested IEHP Complex Case Management Assistance
+                                                        </td>
+                                                        <td valign=top>
+                                                            <input type="checkbox" id="ckSuicideEval" name="ckSuicideEval">
+                                                        </td>
+                                                        <td valign=top>
+                                                            Member Evaluated for Psychiatric Hospitalization
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td valign=top style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            <input type="checkbox" id="ckSuicide5150" name="ckSuicide5150">
+                                                        </td>
+                                                        <td valign=top style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            Member Placed on 5150 Hold and Admitted
+                                                        </td>
+                                                        <td valign=top style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            <input type="checkbox" id="ckSuicideOP" name="ckSuicideOP">
+                                                        </td>
+                                                        <td valign=top style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            Outpatient Containment of Suicide Risk-No Harm Contract
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <table cellpadding=0 cellspacing=0>
+                                                    <tr>
+                                                        <td id="hdr">
+                                                            3. Adverse Medication Reaction
+                                                        </td>
+                                                        <td>
+                                                            - Life Threatening
+                                                            <input type="radio" id="radMedLife" name="radMedLife" value=1> Yes
+                                                            <input type="radio" id="radMedLife" name="radMedLife" value=2> No
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" id="indent2">
+                                                Action Taken
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent" colspan=2>
+                                                <table width="600px" cellpadding=0 cellspacing=0>
+                                                    <tr>
+                                                        <td valign=top>
+                                                            <input type="checkbox" id="ckMedComplex" name="ckMedComplex">
+                                                        </td>
+                                                        <td valign=top>
+                                                            Requested IEHP Complex Case Management Assistance
+                                                        </td>
+                                                        <td valign=top>
+                                                            <input type="checkbox" id="ckMedDisc" name="ckMedDisc">
+                                                        </td>
+                                                        <td valign=top>
+                                                            Discontinued Medication that Caused Adverse Reaction
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td valign=top style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            <input type="checkbox" id="ckMedTitrate" name="ckMedTitrate">
+                                                        </td>
+                                                        <td valign=top style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            Titrated Dosage to Reduce Reaction To Acceptable Level
+                                                        </td>
+                                                        <td valign=top style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            <input type="checkbox" id="ckMedAdd" name="ckMedAdd">
+                                                        </td>
+                                                        <td valign=top style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            Added Additional Medication
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <table cellpadding=0 cellspacing=0>
+                                                    <tr>
+                                                        <td id="hdr">
+                                                            4. Other <input type="text" id="txtCIOther" name="txtCIOther" maxlength=150 style="width: 250px">
+                                                        </td>
+                                                        <td>
+                                                            - Life Threatening
+                                                            <input type="radio" id="radOther" name="radOther" value=1> Yes
+                                                            <input type="radio" id="radOther" name="radOther" value=2> No
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" id=indent2>
+                                                Action Taken
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="indent" colspan=2>
+                                                <table width="600px" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td valign="top">
+                                                            <input type="checkbox" id="ckOtherComplex" name="ckOtherComplex">
+                                                        </td>
+                                                        <td valign="top">
+                                                            Requested IEHP Complex Case Management Assistance
+                                                        </td>
+                                                        <td valign="top">
+                                                            <input type="checkbox" id="ckOtherDisc" name="ckOtherDisc">
+                                                        </td>
+                                                        <td valign="top">
+                                                            Discontinued Medication that Caused Adverse Reaction
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td valign="top" style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            <input type="checkbox" id="ckOtherTitrate" name="ckOtherTitrate">
+                                                        </td>
+                                                        <td valign="top" style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            Titrated Dosage to Reduce Reaction To Acceptable Level
+                                                        </td>
+                                                        <td valign="top" style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            <input type="checkbox" id="ckOtherAdd" name="ckOtherAdd">
+                                                        </td>
+                                                        <td valign="top" style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                            Added Additional Medication
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td id="line" name="line">
+                                    <table border="0" width="600px">
+                                        <tr>
+                                            <td id="hdr" name="hdr" colspan=2 style="border-bottom: 1px solid #c3c3c3;">
+                                                Presenting Problems - <span style="font-weight: 500; font-size: 8pt; color: red;">(Select At Least One from Below)</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="600px" cellpadding="1px" cellspacing="0px">
+                                        <tr>
+                                            <td colspan="6" align="center" id="hdr3" name="hdr3" nowrap>
+                                                Rating of Level of Severity:
+                                                <a href="LevelofSeverityDesc.asp" target="_blank" title="The member has few symptoms other than the minimum criteria needed. Symptoms result in no more than minor impairment in social or occupational functioning.">1=Mild;</a>
+                                                <a href="LevelofSeverityDesc.asp" target="_blank" title="Intermediate between Mild and Severe.  Symptoms or functional impairment between 'mild' and 'severe' are present.">2=Moderate;</a>
+                                                <a href="LevelofSeverityDesc.asp" target="_blank" title="The member has many more symptoms than the minimum criteria specify, or some symptoms are especially severe, or functioning in society or at work is especially compromised.">3=Severe;</a>
+                                                Leave Blank if not applicable
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="hdr3" name="hdr3">
+                                                &nbsp;
+                                            </td>
+                                            <td id="hdr3" name="hdr3" style="border-right: 1px solid #C3C3C3;">
+                                                1&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;3
+                                            </td>
+                                            <td id="hdr3" name="hdr3">
+                                                &nbsp;
+                                            </td>
+                                            <td id="hdr3" name="hdr3" style="border-right: 1px solid #C3C3C3;">
+                                                1&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;3
+                                            </td>
+                                            <td id="hdr3" name="hdr3">
+                                                &nbsp;
+                                            </td>
+                                            <td id="hdr3" name="hdr3">
+                                                1&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;3
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Anxiety
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoAnxiety" name="rdoAnxiety" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoAnxiety" name="rdoAnxiety" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoAnxiety" name="rdoAnxiety" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Assaultive Behavior
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoAssultive" name="rdoAssultive" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoAssultive" name="rdoAssultive" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoAssultive" name="rdoAssultive" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Hallucination <input type="checkbox" id="chkAuditory" name="chkAuditory" style="font-size: 8pt;">Auditory<input type="checkbox" id="chkVisual" name="chkVisual" style="font-size: 8pt;">Visual
+                                            </td>
+                                            <td nowrap>
+                                                <input type="radio" id="rdoHallucination" name="rdoHallucination" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoHallucination" name="rdoHallucination" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoHallucination" name="rdoHallucination" value="3" style="width: 8pt;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Depression
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoDepression" name="rdoDepression" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoDepression" name="rdoDepression" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoDepression" name="rdoDepression" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Conduct Disorder
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoConduct" name="rdoConduct" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoConduct" name="rdoConduct" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoConduct" name="rdoConduct" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Paranoia
+                                            </td>
+                                            <td nowrap>
+                                                <input type="radio" id="rdoParanoia" name="rdoParanoia" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoParanoia" name="rdoParanoia" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoParanoia" name="rdoParanoia" value="3" style="width: 8pt;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Sleep Disorder
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoSleep" name="rdoSleep" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoSleep" name="rdoSleep" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoSleep" name="rdoSleep" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Attention Problems
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoAttention" name="rdoAttention" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoAttention" name="rdoAttention" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoAttention" name="rdoAttention" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Dissociative Process
+                                            </td>
+                                            <td nowrap>
+                                                <input type="radio" id="rdoDissociative" name="rdoDissociative" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoDissociative" name="rdoDissociative" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoDissociative" name="rdoDissociative" value="3" style="width: 8pt;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Weight Change
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoWeight" name="rdoWeight" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoWeight" name="rdoWeight" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoWeight" name="rdoWeight" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Concentration Difficulty
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoConcentration" name="rdoConcentration" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoConcentration" name="rdoConcentration" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoConcentration" name="rdoConcentration" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Substance Abuse
+                                            </td>
+                                            <td nowrap>
+                                                <input type="radio" id="rdoSubstance" name="rdoSubstance" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoSubstance" name="rdoSubstance" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoSubstance" name="rdoSubstance" value="3" style="width: 8pt;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Isolation
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoIsolation" name="rdoIsolation" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoIsolation" name="rdoIsolation" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoIsolation" name="rdoIsolation" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Confusion
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoConfusion" name="rdoConfusion" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoConfusion" name="rdoConfusion" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoConfusion" name="rdoConfusion" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Eating Disorder
+                                            </td>
+                                            <td nowrap>
+                                                <input type="radio" id="rdoEating" name="rdoEating" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoEating" name="rdoEating" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoEating" name="rdoEating" value="3" style="width: 8pt;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Obsessive/Compulsive
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoObsessive" name="rdoObsessive" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoObsessive" name="rdoObsessive" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoObsessive" name="rdoObsessive" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Dementia
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3;">
+                                                <input type="radio" id="rdoDementia" name="rdoDementia" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoDementia" name="rdoDementia" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoDementia" name="rdoDementia" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3">
+                                                Other <input type="text" id="txtOther" name="txtOther" style="font-size: 8pt;" maxlength=25>
+                                            </td>
+                                            <td nowrap>
+                                                <input type="radio" id="rdoOtherProblem" name="rdoOtherProblem" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoOtherProblem" name="rdoOtherProblem" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoOtherProblem" name="rdoOtherProblem" value="3" style="width: 8pt;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap id="hdr3" name="hdr3" style="border-bottom: 1px solid #c3c3c3;">
+                                                Aggressive Behavior
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3; border-bottom: 1px solid #c3c3c3;">
+                                                <input type="radio" id="rdoAggressive" name="rdoAggressive" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoAggressive" name="rdoAggressive" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoAggressive" name="rdoAggressive" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3" style="border-bottom: 1px solid #C3C3C3;">
+                                                Dizziness, Light-Headed
+                                            </td>
+                                            <td nowrap style="border-right: 1px solid #C3C3C3; border-bottom: 1px solid #c3c3c3;">
+                                                <input type="radio" id="rdoDizziness" name="rdoDizziness" value="1" style="width: 8pt;">
+                                                <input type="radio" id="rdoDizziness" name="rdoDizziness" value="2" style="width: 8pt;">
+                                                <input type="radio" id="rdoDizziness" name="rdoDizziness" value="3" style="width: 8pt;">
+                                            </td>
+                                            <td nowrap id="hdr3" name="hdr3" style="border-bottom: 1px solid #C3C3C3;">
+                                                &nbsp;
+                                            </td>
+                                            <td nowrap style="border-bottom: 1px solid #C3C3C3;">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Explanation of Reduction of Member's Symptoms and Improvement of Member's Functioning and Goals for Additional Treatment:<br>
+                                    <textarea rows="4" cols="20" id="textExplain" name="textExplain" style="width: 625px; font-size: 10pt; font-family: arial; text-transform: capitalize;" pref="" onkeyup="if (this.value.length < 500) {this.pref = this.value} else {this.value = this.pref;};"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    Treatment Progress / Improvement
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table width="600px" cellpadding="0" cellspacing="3">
+                                        <tr>
+                                            <td style="font-size: 8pt; font-family: arial; color: red;">
+                                                (Must Select N/A or select at least one Action Taken with Progress/Improvement Rating)
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="625px" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td id="hdr" colspan=2>
+                                                1. If Applicable, How Have Chemical Dependency Issues Been Addressed?
+                                        <tr>
+                                            <td id=indent3 colspan="2">
+                                                <input type="checkbox" id="ckNACD" name="ckNACD" onclick="return EDChemicalDependency()"> N/A (Evaluated and No Presenting Substance Abuse Problem)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 colspan="2">
+                                                <input type="radio" id="radCD" name="radCD" value=1> Substance Abuse Counseling Provided as part of this treatment
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 colspan="2" style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                <input type="radio" id="radCD" name="radCD" value=2> Referral has been made to Substance Abuse Practitioner or Program
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=hdr colspan="2">
+                                                1a. Rating of Improvement of Substance Abuse Problem
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 colspan="2">
+                                                <input type="radio" id="rdoSubAbuse" name="rdoSubAbuse" value=1> No Improvement - Member still abusing Substance
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 colspan="2">
+                                                <input type="radio" id="rdoSubAbuse" name="rdoSubAbuse" value=2> Reduction in quantity and frequency of Substance use
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 colspan="2" style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                <input type="radio" id="rdoSubAbuse" name="rdoSubAbuse" value=3> Abstinence - Member is Sober and committed to Recovery
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=hdr colspan="2">
+                                                2. Treatment Recommendations:
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 colspan="2">
+                                                <input type="radio" id="rdoTreatRec" name="rdoTreatRec" value=1> Continue Initial Treatment Plan Unchanged
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 colspan="2">
+                                                <input type="radio" id="rdoTreatRec" name="rdoTreatRec" value=2> Reduce Frequency of Visits to not exhaust benefits before end of calendar year
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent2 colspan="2">
+                                                Refer for Additional Service to be Provided by:
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent nowrap>
+                                                <input type="checkbox" id="ckCDTRPCP" name="ckCDTRPCP"> PCP for Medication Management
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="ckCDTRComm" name="ckCDTRComm"> Community Resource
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent colspan="2" style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                <input type="checkbox" id="ckCDTROther" name="ckCDTROther"> Other Plan/ Comments:&nbsp;
+                                                <input type="text" id="txtCDTROther" name="txtCDTROther" style="width: 430px" maxlength="100">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=hdr colspan="2">
+                                                3. Member Compliance with Recommendations:
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3>
+                                                <input type="radio" id="radCDComp" name="radCDComp" value=1> Excellent Follow Through
+                                            </td>
+                                            <td>
+                                                <input type="radio" id="radCDComp" name="radCDComp" value=2> Partial Compliance
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                <input type="radio" id="radCDComp" name="radCDComp" value=3> Non-Compliant
+                                            </td>
+                                            <td style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                <input type="radio" id="radCDComp" name="radCDComp" value=4 onfocus='return fadselm(this, this.value, 1)' onclick='return fads(this, this.value, 4, 1)'> Other&nbsp;
+                                                <input type="text" id="txtCDCompOther" name="txtCDCompOther" style="width: 315px" maxlength="100">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td id=hdr colspan="2">
+                                                4. After Care Plan:
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 colspan="2">
+                                                <input type="radio" id="radAfterCare" name="radAfterCare" value=1> No Further Services are Expected to be Needed After Treatment is Completed
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 colspan="2">
+                                                <input type="radio" id="radAfterCare" name="radAfterCare" value=2> Refer Member Back to PCP to Manage Psychotropic Medication Once Member is Stabilized
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 colspan="2">
+                                                <input type="radio" id="radAfterCare" name="radAfterCare" value=3> Refer Member to Community Resources Such as Self Help Groups
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 colspan="2" style="BORDER-bottom: #c3c3c3 1px solid;">
+                                                <input type="radio" id="radAfterCare" name="radAfterCare" value=4 onfocus='return fadselm(this, this.value, 1)' onclick='return fads(this, this.value, 4, 1)'> Other Plan/Comments:
+                                                <input type="text" id="txtCDACOther" name="txtCDACOther" style="width: 440px" maxlength="100">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    CURRENT MEDICATIONS <span style="font-weight: 500; color: red; font-size: 8pt">(Last 6 Months As Reported to IEHP)</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table id="medicationTable" border="0" width="600px">
+                                        <thead>
+                                            <tr>
+                                                <td id="hdr" name="hdr">
+                                                    Medication
+                                                </td>
+                                                <td id="hdr" name="hdr">
+                                                    Quantity
+                                                </td>
+                                                <td id="hdr" name="hdr">
+                                                    Days Supplied
+                                                </td>
+                                                <td id="hdr" name="hdr">
+                                                    Date Filled
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+
+                                    </table>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table border="0" width="600px">
+                                        <tr>
+                                            <td colspan=3>
+                                                <table border="0" width="600px" id=Axis12 name=Axis12>
+                                                    <tr>
+                                                        <td id="hdr" name="hdr" colspan="3">
+                                                            Diagnosis
+                                                            <span id="diagnosisSpan" style="font-weight: 500; color: red; font-size: 8pt"></span>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td id="hdr" name="hdr" colspan=3 style="font-size: 8pt; text-indent: 20px;">
+                                                            AXIS I - Primary Diagnosis
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 585px; font-size: 8pt; text-indent: 20px;" colspan=3>
+                                                            <span id="primaryDiag"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td id="hdr" name="hdr" colspan=3 style="font-size: 8pt; text-indent: 20px;" nowrap>
+                                                            AXIS I - Secondary Diagnosis
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 585px; font-size: 8pt; text-indent: 20px;" colspan=3>
+                                                            <span id="secondaryDiag"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td id="hdr" name="hdr" style="font-size: 8pt; text-indent: 20px;" nowrap colspan="3">
+                                                            AXIS II - Developmental Disorders and Personality Disorders
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 585px; font-size: 8pt; text-indent: 20px;" colspan=3>
+                                                            <span id="axis2Diag"></span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td id="hdr" name="hdr" style="font-size: 8pt; text-indent: 20px;" colspan=3>
+                                                AXIS III - Physical Disorders and Conditions - Optional <span style="font-weight: 500; color: red; font-size: 8pt">(Enter a Valid Axis III Code)</span>
+                                                <input type=text id=txtAxisIII name=txtAxisIII maxlength=6 style="width: 100px;" readonly>
+                                            </td>
+                                        </tr>
+
+                                        <table border="0" width="600px" id=Axis4 name=Axis4>
+                                            <tr>
+                                                <td id="hdr" name="hdr" style="font-size: 8pt; text-indent: 20px;" colspan=2>
+                                                    AXIS IV - Severity of Psychosocial Stressors
+                                                </td>
+                                            </tr>
+
+
+
+                                            <tr>
+                                                <td id="GAFDesc" name="GAFDesc" style="font-size: 8pt;" colspan="3"></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="font-size: 8pt; text-indent: 20px;">
+                                                    <input type="checkbox" id=Family name=Family onclick="return false;">
+                                                    <a> Problems with Primary Support Group/Family </a>
+                                                </td>
+                                                <td style="font-size: 8pt;">
+                                                    <input type="checkbox" id=Educational name=Educational onclick="return false;">
+                                                    <a> Educational Problems </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 8pt; text-indent: 20px;">
+                                                    <input type="checkbox" id=SocialEnv name=SocialEnv onclick="return false;">
+                                                    <a> Interpersonal or Problems Related to the Social Enviornment </a>
+                                                </td>
+                                                <td style="font-size: 8pt;">
+                                                    <input type="checkbox" id=Occupational name=Occupational onclick="return false;">
+                                                    <a> Occupational Problems </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 8pt; text-indent: 20px;">
+                                                    <input type="checkbox" id=Legal name=Legal onclick="return false;">
+                                                    <a> Problems Related to Interaction with the Legal System/Crime </a>
+                                                </td>
+                                                <td style="font-size: 8pt;">
+                                                    <input type="checkbox" id=Housing name=Housing onclick="return false;">
+                                                    <a> Housing Problems </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 8pt; text-indent: 20px;">
+                                                    <input type="checkbox" id=AccessHealth name=AccessHealth onclick="return false;">
+                                                    <a> Problems with Access to Health Care </a>
+                                                </td>
+                                                <td style="font-size: 8pt;">
+                                                    <input type="checkbox" id=Economic name=Economic onclick="return false;">
+                                                    <a> Economic Problems </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 8pt; text-indent: 20px;" colspan=2>
+                                                    <input type="checkbox" id=OtherPsychosocial name=OtherPsychosocial onclick="return false;">
+                                                    <a> Other Psychosocial and Enviornmental Problems </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td id="hdr" name="hdr" style="font-size: 8pt; text-indent: 20px;" nowrap colspan="3">
+                                                    <a href="GAFDesc.asp" target="_blank">AXIS V - Global Assessment of Functioning (GAF)</a>: Current
+                                                    <input id="txtAxisCurGaf" name="txtAxisCurGaf" style="font-size: 8pt; width: 60px;" maxlength=3 readonly>
+                                                    Highest in last year
+                                                    <input id="txtAxisHiGaf" name="txtAxisHiGaf" style="font-size: 8pt; width: 60px;" readonly>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </table>
+                            </tr>
+
+
+                            <tr>
+                                <td id="hdr" name="hdr">
+                                    SERVICE REQUESTED
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="line" name="line">
+                                    <table width="625px" cellpadding="0" cellspacing="0" id="ServiceRequested">
+                                        <tr>
+                                            <td id="info" name="info" style="color: red; font-size: 8pt;" colspan=3>
+                                                <span id=srvRequested name=SrvRequested>(Select at least one service)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=hdr>
+                                                Description
+                                            </td>
+                                            <td id=hdr>
+                                                CPT Code
+                                            </td>
+                                            <td id=hdr>
+                                                Requested Frequency
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=info3>
+                                                <input type=checkbox id=ckMedMgmt name=ckMedMgmt>Medication Management
+                                            </td>
+                                            <td id=info3>
+
+                                                <select id=txtMedMgmt name=txtMedMgmt>
+                                                    <option value="">Choose a CPT</option>
+                                                    <option value=99212>99212</option>
+                                                    <option value=99213>99213</option>
+                                                </select>
+                                            </td>
+                                            <td id=info3>
+                                                <select id=MedMgmt name=MedMgmt>
+                                                    <option value=0>Choose a Frequency</option>
+                                                    <option value=1>Twice a Week</option>
+                                                    <option value=2>Weekly</option>
+                                                    <option value=3>Twice a Month</option>
+                                                    <option value=4>Monthly</option>
+                                                    <option value=5>Quarterly</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=info3>
+                                                <input type=checkbox id=ckIndTher name=ckIndTher>Individual Therapy (45-50 min)
+                                            </td>
+                                            <td id=info3>
+                                                90806<input type=hidden value=90806 maxlength=5 id=txtIndTher name=txtIndTher>
+                                            </td>
+                                            <td id=info3>
+                                                <select id=IndTher name=IndTher>
+                                                    <option value=0>Choose a Frequency</option>
+                                                    <option value=1>Twice a Week</option>
+                                                    <option value=2>Weekly</option>
+                                                    <option value=3>Twice a Month</option>
+                                                    <option value=4>Monthly</option>
+                                                    <option value=5>Quarterly</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=info3>
+                                                <input type=checkbox id=ckFamTher name=ckFamTher>Family Therapy
+                                            </td>
+                                            <td id=info3>
+                                                90847<input type=hidden value=90847 maxlength=5 id=txtFamTher name=txtFamTher>
+                                            </td>
+                                            <td id=info3>
+                                                <select id=FamTher name=FamTher>
+                                                    <option value=0>Choose a Frequency</option>
+                                                    <option value=1>Twice a Week</option>
+                                                    <option value=2>Weekly</option>
+                                                    <option value=3>Twice a Month</option>
+                                                    <option value=4>Monthly</option>
+                                                    <option value=5>Quarterly</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=info3>
+                                                <input type=checkbox id=ckGrpTher name=ckGrpTher>Group Therapy
+                                            </td>
+                                            <td id=info3>
+                                                90853<input type=hidden value=90853 maxlength=5 id=txtGrpTher name=txtGrpTher>
+                                            </td>
+                                            <td id=info3>
+                                                <select id=GrpTher name=GrpTher>
+                                                    <option value=0>Choose a Frequency</option>
+                                                    <option value=1>Twice a Week</option>
+                                                    <option value=2>Weekly</option>
+                                                    <option value=3>Twice a Month</option>
+                                                    <option value=4>Monthly</option>
+                                                    <option value=5>Quarterly</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=info3>
+                                                <input type=checkbox id=ckOtherTher name=ckOtherTher>Other
+                                            </td>
+                                            <td id=info3>
+
+                                                <select id=cptOtherTher name=cptOtherTher>
+                                                    <option value=0>Choose a CPT</option>
+                                                    <option value="90791">90791</option>
+                                                    <option value="90792">90792</option>
+                                                    <option value="90832">90832</option>
+                                                    <option value="90833">90833</option>
+                                                    <option value="90834">90834</option>
+                                                    <option value="90846">90846</option>
+                                                    <option value="90847">90847</option>
+                                                    <option value="90853">90853</option>
+                                                    <option value="90862">90862</option>
+                                                    <option value="96101">96101</option>
+                                                    <option value="96118">96118</option>
+                                                    <option value="96372">96372</option>
+                                                    <option value="99212">99212</option>
+                                                    <option value="99213">99213</option>
+                                                    <option value="99222">99222</option>
+                                                    <option value="99223">99223</option>
+                                                    <option value="99233">99233</option>
+                                                    <option value="99238">99238</option>
+                                                    <option value="99252">99252</option>
+                                                    <option value="99253">99253</option>
+                                                    <option value="99307">99307</option>
+                                                    <option value="99308">99308</option>
+                                                    <option value="90785">90785</option>
+                                                    <option value="90791">90791</option>
+                                                    <option value="90792">90792</option>
+                                                    <option value="90832">90832</option>
+                                                    <option value="90833">90833</option>
+                                                    <option value="90834">90834</option>
+                                                    <option value="90837">90837</option>
+                                                    <option value="90839">90839</option>
+                                                    <option value="90846">90846</option>
+                                                    <option value="90847">90847</option>
+                                                    <option value="90849">90849</option>
+                                                    <option value="90853">90853</option>
+                                                    <option value="90870">90870</option>
+
+                                                    <option value="96101">96101</option>
+                                                    <option value="96102">96102</option>
+                                                    <option value="96103">96103</option>
+                                                    <option value="96118">96118</option>
+                                                    <option value="96119">96119</option>
+                                                    <option value="96120">96120</option>
+                                                    <option value="96150">96150</option>
+                                                    <option value="96151">96151</option>
+                                                    <option value="96152">96152</option>
+                                                    <option value="96153">96153</option>
+                                                    <option value="96154">96154</option>
+                                                    <option value="96372">96372</option>
+                                                    <option value="99201">99201</option>
+                                                    <option value="99202">99202</option>
+                                                    <option value="99203">99203</option>
+                                                    <option value="99204">99204</option>
+                                                    <option value="99205">99205</option>
+                                                    <option value="99211">99211</option>
+                                                    <option value="99212">99212</option>
+                                                    <option value="99213">99213</option>
+                                                    <option value="99307">99307</option>
+                                                    <option value="99308">99308</option>
+                                                </select>
+                                            </td>
+                                            <td id=info3>
+                                                <select id=OtherTher name=OtherTher>
+                                                    <option value=0>Choose a Frequency</option>
+                                                    <option value=1>Twice a Week</option>
+                                                    <option value=2>Weekly</option>
+                                                    <option value=3>Twice a Month</option>
+                                                    <option value=4>Monthly</option>
+                                                    <option value=5>Quarterly</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id=indent3 style="border-bottom: 1px solid #c3c3c3;">
+                                                Next Appointment Date with Member.
+                                            </td>
+                                            <td style="border-bottom: 1px solid #c3c3c3;" colspan=2>
+                                                <input type=text id=txtApptDate name=txtApptDate maxlength=10 onblur="check_date(this)">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td id=indent3 style="border-bottom: 1px solid #c3c3c3;"></td>
+                                            <td style="border-bottom: 1px solid #c3c3c3;" colspan=2>
+                                                <input type=hidden id=txtStartDate name=txtStartDate maxlength=10 onblur="check_date(this)">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                        </table>
+            </table>
+        </form>
+    </div>
+    <tr>
+        <td style="text-align: center">
+            <br><br>
+            <input value="Print Form" id="sb" name="Print" onclick="window.print();" type="button">
+
+            <br><br><br><br>
+        </td>
+    </tr>
+</body>
+
+
+<script type="text/javascript">
+
+    <!--var data = @Html.Raw(JsonConvert.SerializeObject(this.Model));-->
+    $(function() {
+        loadHistoricalFormValues(data);
+    });
+
+</script>

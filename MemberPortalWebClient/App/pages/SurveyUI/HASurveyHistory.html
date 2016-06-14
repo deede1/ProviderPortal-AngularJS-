@@ -1,0 +1,64 @@
+﻿
+    <div class="row contentContainer frmSignIn">
+
+
+    <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg">
+        <div class="contentPanel  ">
+            <notifications-panel></notifications-panel>
+            <br />
+        </div>
+    </div>
+
+    <div>
+        <div class=" contentRight col-lg-9 col-md-9 col-lg-push-3 col-md-push-3 ">
+
+
+            <div class="panelMed panel">
+
+                <div class="padLeft15 padTop15">
+                    <h1>{{ 'form_healthcare_section_Title' | translate }} </h1>
+                    <p class="pageIntro ng-binding">{{'form_healthcare_Survey_Introduction' | translate}}</p>
+
+                </div>
+                <div class="survey-container">
+                    <div class="survey-window" style="height:100%">
+                        <!-- ng repeat loop to load corresponding lists of things -->
+
+                        <show-survey-history></show-survey-history>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="non-printable contentLeft col-lg-3 col-md-3 col-lg-pull-9 col-md-pull-9 hidden-xs ">
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <div class="contentPanel leftPanel_large solidBackgroundBlue">
+
+                <div class="pageBannerContainer  ">
+
+
+
+                    <div>
+                        <div class="leftBanner_TOCL_Yellow font_2em">{{'form_healthcare_section_Side_Panel_Title' | translate }}</div>
+                        <div class="leftBanner_Verdana_White">
+
+                            <ul>
+                                <li>
+                                    <span>{{'form_healthcare_section_SurveyHistoryPanelText1' | translate }}</span>
+                                </li>
+                                <li>
+                                    <span>{{'form_healthcare_section_SurveyHistoryPanelText2' | translate }}</span>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

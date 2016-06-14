@@ -1,0 +1,73 @@
+﻿<div class="">
+	<div class="form panel">
+		<h1 class="pageTitle">Change Security Questions </h1>
+		<p class="pageIntro ">
+			Change your security questions to a new set of questions.
+		</p> 
+	</div>
+	<section>
+		<uib-alert close="alert.success=''" ng-hide="!alert.success" type="success">
+			{{alert.success}}
+		</uib-alert>
+		<form ng-hide="alert.success" class="pp-form text-left" name="changePasswordForm" ng-submit="submit(changePasswordForm)" novalidate>
+			<div class="form-section">
+				<div class="list-group">
+					<div class="clearfix list-group-item with-background">
+						<div class="col-md-6 col-xs-12 text-left">
+							<label class="bold-lbl req">Current Password:</label>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input name="password" ng-class="{'ng-invalid':error}" ng-model="form.password" ng-required="true" type="password">
+							<div class="invalid-text"></div>
+							<div class="returned-invalid" ng-if="error">
+								Current password is incorrect. Please re-enter and try again.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="list-group" ng-repeat="pair in form.QaPairs">
+
+					<div class="clearfix list-group-item with-background">
+
+						<div class="col-md-12">
+							<label class="bold-lbl req">Security Question #{{$index + 1}}</label>
+							<select class="form-control" name="question-{{$index}}" ng-change="filterQuestions()" ng-model="pair.questionId" required>
+								<option value="">Select a security question</option>
+								<option ng-disabled="selectedQuestions.indexOf(question.id) !== -1" ng-repeat="question in verifyQuestions" value="{{question.id}}">{{question.question}}</option>
+							</select>
+							<div class="invalid-text"></div>
+							<div class="returned-invalid" ng-if="pair.duplicate === true && pair.duplicate !== undefined">Duplicate Question</div>
+
+						</div>
+
+					</div>
+					<div class="clearfix list-group-item with-background">
+
+						<div class="col-md-12">
+							<label class="bold-lbl req">Answer</label>
+							<input class="form-control" ng-model="pair.answer" required type="text" value=""/>
+							<div class="invalid-text">Please enter an answer for the selected question.</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="center-block col-md-3 float-none form-group">
+				<button class="btn btn-block btn-lg btn-primary" tabindex="4" type="submit">Submit</button>
+			</div>
+		</form>
+
+		<uib-alert close="alert.warning=''" ng-hide="!alert.warning" type="danger">
+			{{alert.warning}}
+		</uib-alert>
+
+		<!-- Adding this taglib becuase I want to use the spring framework to access the resource bundle -->
+		<!-- <div class="form-group text-center">-->
+		<!-- <p class="copy-help">-->
+		<!-- Need help? Call us.<br>-->
+		<!-- <strong>12345678</strong> Mon-Fri, 8am-5:30pm PST-->
+		<!-- </p>-->
+		<!-- </div>-->
+	</section>
+</div>

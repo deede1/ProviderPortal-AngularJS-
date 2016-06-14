@@ -1,0 +1,32 @@
+﻿<div class="form-group">
+    <label class="control-label col-sm-2">Street Address</label>
+    <div class="col-sm-10">
+        <input class="form-control" type="text" ng-model="data.Address" placeholder="Street Address" maxlength="30" required>
+        <label class="error fontRed" ng-show="emptyField(form, data.Address)">This field is required.</label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-2">Apt</label>
+    <div class="col-sm-10">
+        <input class="form-control" type="text" placeholder="(eg.) #105">
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-2">City</label>
+    <div class="col-sm-10">
+        <input class="form-control" type="text" ng-model="data.City" placeholder="City" maxlength="30" required char-only>
+        <label class="error fontRed" ng-show="emptyField(form, data.City)">This field is required.</label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-2">State</label>
+    <div class="col-sm-4">
+        <input class="form-control" type="text" ng-model="data.State" placeholder="State" maxlength="2" required char-only>
+        <label class="error fontRed" ng-show="emptyField(form, data.State)">This field is required.</label>
+    </div>
+    <label class="control-label col-sm-2">Zip</label>
+    <div class="col-sm-4">
+        <input class="form-control" type="text" ng-model="data.Zip" placeholder="Zip" maxlength="9" required num-only>
+        <label class="error fontRed" ng-show="emptyField(form, data.Zip)">This field is required.</label>
+    </div>
+</div>

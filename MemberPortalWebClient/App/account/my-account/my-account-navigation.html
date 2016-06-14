@@ -1,0 +1,13 @@
+﻿<div class="contentPanel non-printable side-navigation-container">
+	<div>
+		<pp-breadcrumbs title="My Account"></pp-breadcrumbs>
+		<nav class="side-navigation">
+			<a ui-sref="my-account.change-password" ui-sref-opts="{reload: true}" ui-sref-active="active">Change Password</a>
+			<a ui-sref="my-account.change-email" ui-sref-opts="{reload: true}" ui-sref-active="active">Change Email</a>
+			<a ui-sref="my-account.change-questions" ui-sref-opts="{reload: true}" ui-sref-active="active">Change Security Questions</a>
+			<a ui-sref="my-account.sub-user-accounts" ui-sref-opts="{reload: true}" ui-sref-active="active" ng-if="isOwner">Sub User Accounts</a>
+
+
+		</nav>
+	</div>
+</div>  

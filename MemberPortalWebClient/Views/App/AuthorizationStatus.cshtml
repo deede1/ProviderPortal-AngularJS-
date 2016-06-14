@@ -1,0 +1,334 @@
+﻿@{
+    Layout = null;
+
+}
+
+
+<div class="row contentContainer PPView">   
+
+    <div class="registrationForm   col-sm-12 col-xs-12 padLeft0 padRight0   ">
+
+        <!-- MOBILE -->
+        <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15">
+            <div class="contentPanel" ng-controller="SideNavCtrl">
+
+                <notifications-panel></notifications-panel>
+                <br />
+
+                <a href="App/MyInformation/UpdateContactInfo">
+                    <div class="panelTile alignCenter col-xs-6 panelSelected">
+                        {{ 'nav_myContactInformation' | translate}}
+                    </div>
+                </a>
+
+                <a href="App/MyInformation/ChangeEmail">
+                    <div class="panelTile alignCenter col-xs-6">
+                        {{ 'nav_changeMyEmail' | translate}}
+                    </div>
+                </a>
+
+                <a href="App/MyInformation/ChangePassword">
+                    <div class="panelTile alignCenter col-xs-6 col-xs-offset-3">
+                        {{'nav_changeMyPassword' | translate }}
+                    </div>
+                </a>
+
+            </div>
+        </div>
+         
+        <div class="contentRight col-lg-10 col-md-9 col-sm-12 col-xs-12  col-lg-push-2 col-md-push-3  ">
+            <div class="contentPanel1">
+                <div class="form panel">
+                    <div class="padLeft15 padTop15">
+                        <h1 class="pageTitle"> Authorization Status </h1>
+                        <p class="pageIntro"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+                    </div>
+
+                    <div simple-ajax-loader show="loading"></div>
+
+                    <div class="row">
+                        @*<div class="col-md-12">
+                    <message-boxes info-message="{{infoMessage}}" success-message="{{successMessage}}" error-message="{{errorMessage}}"></message-boxes>
+                </div>*@
+
+                        <div ng-show="errorMessage == ''">
+                            @*<div class="col-md-12">
+                        <h2 class="underlined">{{"page_myinfo_updateContactInfo_myCurrentInfo" | translate}}</h2>
+                    </div>*@
+
+                        </div>
+
+                        @*<form id="frmEligibilitySearch" role="form" name="eligibilitySearch" novalidate ng-submit="SubmitEligibilitySearch()">*@
+
+                            <div class="row contentPanel pad20" ng-controller="EligibilityController">
+                                <h2> Search</h2>
+
+                           @*     <ul id="eligSearchBy_SSN" class="eligSearch">
+                <li><input type="text" name="SSN" id="tbx_SSNSearch" placeholder="Search by SSN" ng-focus="aaaddNewSearchRow('eligSearchBy_SSN','SSN')" /> <input type="text" name="SSN_DOS" placeholder="Date of Service" /> </li>
+            </ul>
+       <ul id="eligSearchBy_CIN" class="eligSearch">
+        <li><input type="text" name="CIN" id="tbx_CINSearch" placeholder="Search by CIN" ng-focus="addNewSearchRow('eligSearchBy_CIN','CIN')" /> <input type="text" name="CIN_DOS" placeholder="Date of Service" /> </li>
+    </ul> 
+
+                                <ul id="eligSearchBy_IEHPID" class="eligSearch">
+                                    <li><input type="text" placeholder="Search by IEHP ID " ng-focus="aaaddNewSearchRow('eligSearchBy_IEHPID','IEHPID')" /> <input type="text" placeholder="Date of Service" /> </li>
+                                </ul>
+                                <ul id="eligSearchBy_LASTNAME" class="eligSearch">
+                            <li> <input type="text" placeholder="Last Name " ng-focus="addNewSearchRow('eligSearchBy_LASTNAME','LASTNAME')"/> <input type="text" placeholder="Date of Birth"/> </li>
+                        </ul>*@
+
+
+
+
+
+
+
+                                <div class="Spotlight ContentWrapper" style="margin-bottom: 1em;">
+                             
+
+                                   
+
+                                        <form name="AuthSearchBar" class="SearchBar form-inline ng-scope ng-valid ng-dirty" >
+                                   
+                                            <ul class="clearfix">
+                                                <li class="details-toggle" ng-click="(SearchBox == '' || SearchBox == null ? showDetails(1) : showDetails(0))">
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+
+                                                            <input class="form-control ng-valid ng-dirty" type="text" placeholder="Search by ID" ng-keyup="SearchStringChange()" ng-model="SearchBox">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="details SearchTip ng-hide" ng-show="ActiveDetails == 1">
+                                                        <h5>Search Options</h5>
+                                                        <div>
+                                                            <ul class="list-unstyled">
+                                                                <li class="row"><label class="col-xs-6">Subscriber Number:</label><em class="col-xs-6">201401999999</em></li>
+                                                                <li class="row"><label class="col-xs-6">Social Security Number:</label><em class="col-xs-6">999-99-9999</em></li>
+                                                                <li class="row"><label class="col-xs-6">CIN:</label><em class="col-xs-6">99999999A</em></li>
+                                                                <li class="row">
+                                                                    <label class="col-xs-6">Reference Number:</label>
+                                                                    <em class="col-xs-6">
+                                                                        <strong>H</strong>9999999 (Medical) <br>
+                                                                        <strong>R</strong>999999 (Rx) <br>
+                                                                        <strong>0</strong>999999 (Vision)
+                                                                    </em>
+                                                                </li>
+                                                                <li>The leading alpha character (R, H) or 0 (vision) is required when searching by ID's.</li>
+                                                            </ul>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                                <li   class="details-toggle mouseover " ng-click="showDetails(2)">
+                                                    <span class="ng-binding">Any Type</span>
+                                                    <div class="glyphicon glyphicon-chevron-down"></div>
+                                                    <div class="details ng-hide" ng-show="ActiveDetails == 2">
+                                                        <h5>Authorization types</h5>
+                                                        <div>
+                                                            <!-- ngRepeat: type in Type.types --><div class="ng-scope" ng-repeat="type in Type.types">
+                                                                <div class="checkbox">
+                                                                    <label class="ng-binding">
+                                                                        <input id="cbxAuthStatusTypeMedical" class="zIndex1000" type="checkbox" checked="checked" ng-click="Type.ToggleValues(type)" ng-checked="Type.selection.indexOf(type) > -1" ng-disabled="Type.selection.length == 1 &amp;&amp; Type.selection.indexOf(type) == 0"> Medical
+                                                                    </label>
+                                                                </div>
+                                                            </div><!-- end ngRepeat: type in Type.types --><div class="ng-scope" ng-repeat="type in Type.types">
+                                                                <div class="checkbox">
+                                                                    <label class="ng-binding">
+                                                                        <input type="checkbox" checked="checked" ng-click="Type.ToggleValues(type)" ng-checked="Type.selection.indexOf(type) > -1" ng-disabled="Type.selection.length == 1 &amp;&amp; Type.selection.indexOf(type) == 0"> Rx
+                                                                    </label>
+                                                                </div>
+                                                            </div><!-- end ngRepeat: type in Type.types --><div class="ng-scope" ng-repeat="type in Type.types">
+                                                                <div class="checkbox">
+                                                                    <label class="ng-binding">
+                                                                        <input type="checkbox" checked="checked" ng-click="Type.ToggleValues(type)" ng-checked="Type.selection.indexOf(type) > -1" ng-disabled="Type.selection.length == 1 &amp;&amp; Type.selection.indexOf(type) == 0"> Vision
+                                                                    </label>
+                                                                </div>
+                                                            </div><!-- end ngRepeat: type in Type.types -->
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                                <li class="details-toggle date-range mouseover" ng-click="showDetails(3)">
+                                                    <span class="ng-binding">11/11/2015 - 11/16/2015</span>
+                                                    <div class="glyphicon glyphicon-chevron-down"></div>
+                                                    <div class="details ng-hide" ng-show="ActiveDetails == 3">
+                                                        <h5>Date Range</h5>
+                                                        <div>
+                                                            <div class="form-group DateRangeOption" ng-click="DateRange.setActiveType(1)" ng-class="{Active: DateRange.ActiveType == 1}">
+                                                                <div class="ActiveIcon">
+                                                                    <div class="glyphicon glyphicon-ok"></div>
+                                                                </div>
+                                                                <div class="DateRangeOptionLabel" ng-show="DateRange.ActiveType != 1"></div>
+                                                                <span>
+                                                                    Last
+                                                                    <input disabled="disabled" class="form-control ng-pristine ng-valid ng-valid-number ng-valid-max ng-valid-min" style="padding: 0px 0.25em; width: 3.5em; height: 2em; text-align: center; display: inline-block;" type="number" min="1" max="30" step="1" value="5" ng-click="DateRange.setActiveType(1)" ng-model="DateRange.Relative.DaysBack" ng-disabled="DateRange.ActiveType != 1" ng-blur="DateRange.UpdateRange()"> days. <em>(1-30 days)</em>
+                                                                </span>
+                                                            </div>
+                                                            <hr>
+                                                            <div class="form-inline DateRangeOption Active" ng-click="DateRange.setActiveType(2)" ng-class="{Active: DateRange.ActiveType == 2}">
+                                                                <div class="ActiveIcon">
+                                                                    <div class="glyphicon glyphicon-ok"></div>
+                                                                </div>
+                                                                <div class="DateRangeOptionLabel ng-hide" ng-show="DateRange.ActiveType != 2"></div>
+                                                                <input name="FromDate" class="ng-valid success ng-valid-pattern ng-dirty" ng-model="DateRange.Explicit.From" ng-disabled="DateRange.ActiveType != 2" ng-class="{ success: AuthSearchBar.FromDate.$valid, danger: AuthSearchBar.FromDate.$invalid }" ng-blur="DateRange.UpdateRange()" ng-pattern="/^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$/">
+                                                                -
+                                                                <input name="ThroughDate" class="ng-valid success ng-valid-pattern ng-dirty" ng-model="DateRange.Explicit.To" ng-disabled="DateRange.ActiveType != 2" ng-class="{ success: AuthSearchBar.ThroughDate.$valid, danger: AuthSearchBar.ThroughDate.$invalid }" ng-blur="DateRange.UpdateRange()" ng-pattern="/^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$/">
+                                                                <div>
+                                                                    <em>Example: mm/dd/yyyy</em>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="ng-hide" ng-show="DateRange.Any == true">
+                                                            <div class="form-inline DateRangeOption ng-hide" ng-click="DateRange.setActiveType(3)" ng-show="DateRange.Any == true" ng-class="{Active: DateRange.ActiveType == 3}">
+                                                                <div class="ActiveIcon">
+                                                                    <div class="glyphicon glyphicon-ok"></div>
+                                                                </div>
+                                                                <div class="DateRangeOptionLabel" ng-click="DateRange.setActiveType(3)" ng-show="DateRange.ActiveType != 3"></div>
+                                                                <div><strong>Any</strong> - <em>Available only in conjuction with ID specified</em></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <button class="btn btn-primary" type="submit" ng-click="Search()">
+                                                        <span class="glyphicon glyphicon-search"></span> <strong>Search</strong>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                            <div class="ajaxSpinner ng-hide" ng-show="showAjaxSpinner"><img src="./content/loader2.gif"></div>
+                                        </form>
+                                         
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                @*<input type="button" class="btn" value="Cancel" />
+                                <input type="submit" class="btn" value="Go"/>*@
+
+                            </div>
+                        @*</form>*@
+
+                        <li id="SSN" class="hideTemporarily"><input type="text" istemplate="1" name="SSN" value="" placeholder="Search by SSN" onfocusin="addNewRowSearchItem('SSN')" /> <input type="text" name="SSN_DOS" placeholder="Date of Service" /> </li>
+                        <li id="CIN" class="hideTemporarily"><input type="text" istemplate="1" name="CIN" value="" placeholder="Search by CIN " onfocusin="addNewRowSearchItem('CIN')" /> <input type="text" name="CIN_DOS" placeholder="Date of Service" /> </li>
+                        <li id="IEHPID" class="hideTemporarily"><input type="text" istemplate="1" name="IEHPID" placeholder="Search by IEHP ID " onfocusin="addNewRowSearchItem('IEHPID')" /> <input type="text" name="IEHPID_DOS" placeholder="Date of Service" /> </li>
+                        <li id="LASTNAME" class="hideTemporarily"><input type="text" istemplate="1" name="LASTNAME" placeholder="Last Name " onfocusin="addNewRowSearchItem('LASTNAME')" /> <input type="text" name="LASTNAME_DOB" placeholder="Date of Birth" /> </li>
+
+                    </div>
+
+
+
+
+
+
+                    <div class="row contentPanel posRelative">
+                        <div class="rosters_icons">
+                            <ul class="ulLiHorizontal">
+                                <li><img src="Content/Images/ico_print.jpg" /></li>
+                                <li><img src="Content/Images/ico_excel.jpg" /></li>
+
+                            </ul>
+                        </div>
+
+
+
+                        <br/><br/>
+
+
+                        <div class="row alignCenter">
+                            <table class="roster col-sm-12  table table-striped table-sortable">
+                                <thead>
+                                    <tr class="header sorting">
+                                        <th ng-click="order('MemberFName', reverse)"> Requested</th>
+                                        <th ng-click="order('LineOfBusinessD', reverse)"> Classification </th>
+                                        <th ng-click="order('IehpId', reverse)"> Member </th>
+                                        <th ng-click="order('DateOfBirth', reverse)"> Auth #</th>
+                                        <th ng-click="order('MemberPhone', reverse)"> Status </th>
+                                        <th ng-click="order('MemberPhone', reverse)">View </th> 
+                                         
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in data.RosterList   ">
+                                        <td>{{ item.MemberFName }}  {{   item.MemberLName }} </td>
+                                        <td>{{ item.LineOfBusinessD }} </td>
+                                        <td>
+                                            <div class="anchor" ng-click="viewMemDetails( item.iehpId)">
+                                                {{ item.IehpId }} <i class="  glyphicon glyphicon-info-sign"></i>
+                                            </div>
+                                        </td>
+                                        <td>{{ item.DateOfBirth }}      </td>
+                                        <td>{{ item.MemberPhone }}      </td>
+                                        <td>{{ item.DrugName }}         </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+                        <div simple-ajax-loader show="loading"></div>
+                        <danger-box message="{{errorMessage}}"></danger-box>
+
+
+                    </div>
+
+
+
+                </div>
+
+            </div> 
+
+           
+
+        </div>
+
+
+
+
+        <!-- DESKTOP LEFTPANEL -->
+        <div class="contentLeft   col-md-3  col-lg-2  col-sm-2 col-xs-12 col-lg-pull-10 col-md-pull-9  col-xs-pull-0">
+            @*<div class="hidden-xs hidden-sm">
+                <notifications-panel></notifications-panel>
+                <br />
+            </div>*@
+            <div class="contentPanel leftPanel_sm panelBanner">
+                <div class="pageBannerContainer" ng-controller="SideNavCtrl">
+                    <div class="leftBanner_Verdana_White">
+                        <left-navigation></left-navigation>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         
+    </div>
+</div>
+
+
+<script>
+    function addNewRowSearchItem(searchType) {
+
+        return;// disable 
+        var availableElemCount = 0;
+        $("input[name='"+ searchType +"']").not("[isTemplate=1]").each(function () {
+            console.log('val=' + $(this).val());
+            if ($(this).val() === '')
+                availableElemCount ++;
+        });
+        console.log('availElem ct=' + availableElemCount);
+        if (availableElemCount == 1)
+          angular.element('#' + searchType).scope().addNewSearchRow('eligSearchBy_' + searchType, searchType); 
+    }; 
+</script>

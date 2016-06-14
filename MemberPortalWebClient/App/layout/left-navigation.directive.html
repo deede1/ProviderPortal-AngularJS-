@@ -1,0 +1,108 @@
+﻿<div class="side-navigation-container non-printable">
+    <div>
+        <nav class="side-navigation">
+            <a ui-sref="home" ui-sref-active="active">Home</a>
+            <a ng-if="siteItem['NAV.ELIG']" ui-sref="eligibility" ui-sref-active="active">Eligibility</a>
+            <a ng-if="siteItem['NAV.ROST']" ui-sref="rosters" ui-sref-active="active">Rosters</a>
+            <a ng-show="siteItem['NAV.ENC']" ui-sref="encounter" ui-sref-active="active">Encounter</a>
+            <div ng-show="siteItem['NAV.VSN']">
+                <a ui-sref="vision" ui-sref-active="active"><pp-chevron-toggle state="vision"></pp-chevron-toggle>Vision</a>
+                <div class="sub-section" ng-show="'vision' | includedByState">
+                    <a ng-show="siteItem['VSN.VER']" ui-sref="vision.ver" ui-sref-active="active">Vision Exception Request</a>
+                    <a ng-show="siteItem['VSN.VERS']" ui-sref="vision.vers" ui-sref-active="active" >Vision Exception Request Status</a>
+                    <a ng-show="siteItem['VSN.DIA']" ui-sref="vision.diabetes" ui-sref-active="active">Diabetes Care</a>
+                    <a ng-show="siteItem['VSN.ICD']" ui-sref="vision.icdcodes" ui-sref-active="active">ICD Codes</a>
+                </div>
+            </div>
+            <div ng-show="siteItem['NAV.RX']">
+                <a ui-sref="pharmacy" ui-sref-active="active"><pp-chevron-toggle state="pharmacy"></pp-chevron-toggle>Pharmacy</a>
+                <div class="sub-section" ng-show="'pharmacy' | includedByState">
+                    <a ng-show="siteItem['RX.DIR']" ui-sref="pharmacy.DIR" ui-sref-active="active">Update Your Directory</a>
+                    <a ng-show="siteItem['RX.PER']" ui-sref="pharmacy.PER" ui-sref-active="active">PER Status</a>
+                    <a ng-show="siteItem['RX.UPA']"ui-sref-opts="{reload: true}" ui-sref="pharmacy.UPA" ui-sref-active="active">Rx PA/CD Auth Request</a>
+                    <a ng-show="!siteItem['RX.MCHK']" ui-sref="pharmacy.FRMLY.MDCAL" ui-sref-active="active">Medi-Cal & Healthy Kids Formulary</a>
+                    <a ng-show="!siteItem['RX.CMC']" ui-sref="pharmacy.FRMLY.CMC" ui-sref-active="active">CMC Formulary</a>
+                </div>
+            </div>
+            <div ng-show="siteItem['NAV.CLARA']">
+                <a ui-sref="home" ui-sref-active="active"><pp-chevron-toggle state="claims"></pp-chevron-toggle>Claims & RA's</a>
+                <div class="sub-section" ng-show="'claims' | includedByState">
+                    <a ng-show="siteItem['CLARA.STAT']" ui-sref="claims.status" ui-sref-active="active">Claims Status</a>
+                    <a ng-show="siteItem['CLARA.P4PRA'] || true" ui-sref-opts="{reload: true}" ui-sref="claims.p4pra" ui-sref-active="active" >P4P RA's</a>
+                </div>
+            </div>
+            <div ng-show="siteItem['NAV.BEH']">
+                <a ui-sref="bh" ui-sref-active="active"><pp-chevron-toggle state="bh"></pp-chevron-toggle>Behavioral Health</a>
+                <div class="sub-section" ng-show="'bh' | includedByState">
+                    <!--<a ng-show="!siteItem['BEH.INIT']" ui-sref="bh.pcp" ui-sref-active="active">Initial Referral</a>
+                    <a ng-show="!siteItem['BEH.COC']" ui-sref="bh.coc" ui-sref-active="active">Coordination of Care</a>-->
+                    <a ui-sref="bh.pcp" ui-sref-opts="{reload: true}"ui-sref-active="active">Initial Referral</a>
+                    <a ui-sref="bh.coc" ui-sref-opts="{reload: true}"ui-sref-active="active">Coordination of Care</a>
+                    <a ui-sref="bh.autism" ui-sref-opts="{reload: true}" ui-sref-active="active">Autism Forms</a>
+                    <a ui-sref="bh.promis" ui-sref-active="active">PROMIS Survey</a>
+                    <a ng-show="siteItem['BEH.CLA']" ui-sref="bh.claims" ui-sref-active="active">Claims Submission</a>
+                    <a ng-show="siteItem['BEH.MEH']" ui-sref="bh.memberhistory" ui-sref-active="active">Member History</a>
+                    <!--<a  ui-sref="bh.memberhistory" ui-sref-active="active">Member History</a>-->
+                </div>
+            </div>
+            <div ng-show="siteItem['NAV.HOSP']">
+                <a ui-sref="hospital.nia" ui-sref-active="active"><pp-chevron-toggle state="hospital"></pp-chevron-toggle>Hospital</a>
+                <div class="sub-section" ng-show="'hospital' | includedByState">
+                    <a ng-show="siteItem['HOSP.NIA']" ui-sref="hospital.nia" ui-sref-active="active">NIA Radiology Authorization</a>
+                </div>
+            </div>
+            <div ng-show="siteItem['NAV.AUTR']">
+                <a ui-sref="authorizations.status" ui-sref-active="active"><pp-chevron-toggle state="authorizations"></pp-chevron-toggle>Authorizations</a>
+                <div class="sub-section" ng-show="'authorizations' | includedByState">
+                    <a ng-show="siteItem['AUTR.STAT']" ui-sref="authorizations.status" ui-sref-active="active">Status</a>
+                    <a ng-show="siteItem['AUTR.REQ'] "ui-sref="authorizations.request" ui-sref-active="active">Request</a>
+                </div>
+            </div>
+            <div ng-show="siteItem['NAV.FIN']">
+                <a ui-sref="finance.remittance" ui-sref-active="active"><pp-chevron-toggle state="finance"></pp-chevron-toggle>Finance</a>
+                <div class="sub-section" ng-show="'finance' | includedByState">
+                    <a ng-if="siteItem['FIN.CAP']" ui-sref="finance.capitation" ui-sref-active="active">Capitation Reports</a>
+                    <a ng-if="siteItem['FIN.REM']" ui-sref-opts="{reload: true}"ui-sref="finance.remittance" ui-sref-active="active">Remittance Advice</a>
+                </div>
+            </div>
+            <!--<div >
+                <a ui-sref="finance.remittance" ui-sref-active="active"><pp-chevron-toggle state="finance"></pp-chevron-toggle>Finance</a>
+                <div class="sub-section" ng-show="'finance' | includedByState">
+                    <a ng-show="siteItem['FIN.CAP']" ui-sref="finance.capitation" ui-sref-active="active">Capitation Reports</a>
+                    <a  ui-sref="finance.remittance" ui-sref-active="active">Remittance Advice</a>
+                </div>
+            </div>-->
+            <a ng-show="siteItem['NAV.CEN']" ui-sref="censusreport" ui-sref-active="active">Census Reports</a>
+            <a ng-show="siteItem['NAV.FORM']" ui-sref="test" ui-sref-active="active" class="disabled">Formulary</a>
+            <a ng-show="siteItem['NAV.P4P']" ui-sref="P4P" ui-sref-active="active"  >P4P</a>
+            <a ng-show="siteItem['NAV.VIS']" ui-sref="vision" ui-sref-active="active">Vision</a>
+            <!--<a ng-show="siteItem['NAV.DOFR']" ui-sref="dofr" ui-sref-active="active">DOFR</a>-->
+            <div ng-show="siteItem['NAV.HED']">
+                <a ui-sref="healthEducation.referrals" ui-sref-active="active" ><pp-chevron-toggle state="healthEducation"></pp-chevron-toggle>Health Education</a>
+                <div class="sub-section" ng-show="'healthEducation' | includedByState">
+                    <a ng-show="siteItem['HED.REF']" ui-sref="healthEducation.referrals" ui-sref-active="active">Referrals</a>
+                    <a ng-show="siteItem['HED.REFSTAT']" ui-sref="healthEducation.referralstatus" ui-sref-active="active">Referrals Status</a>
+                </div>
+            </div> 
+ 
+            <a ng-show="siteItem['NAV.WDI']" ui-sref="test" ui-sref-active="active" class="disabled">Western Diabetes Institute</a>
+            <a ng-show="siteItem['NAV.ADM']" ui-sref="test" ui-sref-active="active" class="disabled">Administration</a>
+            <a ui-sref="styleguide.elements" ui-sref-active="active">Style Guide</a>
+            <!--<div>
+                <a ui-sref="surveys" ui-sref-active="active"><pp-chevron-toggle state="surveys"></pp-chevron-toggle>Surveys</a>
+                <div class="sub-section" ng-show="'surveys' | includedByState">
+                    <a ui-sref="surveys.page1" ui-sref-active="active">page 1</a>
+                    <a ui-sref="surveys.page2" ui-sref-active="active">page 2</a>
+                </div>
+            </div>-->
+            <div ng-show="siteItem['NAV.SRV']">
+                <a ui-sref="surveys" ui-sref-active="active"><pp-chevron-toggle state="surveys"></pp-chevron-toggle>Surveys</a>
+                <div class="sub-section" ng-show="'surveys' | includedByState">
+                    <a ng-show="siteItem['SRV.PG1']"  ui-sref="surveys.page1" ui-sref-active="active">page 1</a>
+                    <a ng-show="siteItem['SRV.PG2']"  ui-sref="surveys.page2" ui-sref-active="active">page 2</a>
+                </div>
+            </div>
+            
+        </nav>
+    </div>
+</div>

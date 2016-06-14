@@ -1,0 +1,210 @@
+﻿@{
+    ViewBag.Title = "All";
+}
+
+@*<p><a href="@Url.RouteUrl("App", new { angularroutes = "Authorizations" })">Back</a></p>*@
+ 
+
+
+<div class="row contentContainer frmSignIn">
+
+
+    <!--  place this in a directive per HealthRecords Category -->
+    <div class="contentLeft  col-xs-12 hidden-sm hidden-md hidden-lg padBottom15">
+        <div class="contentPanel">
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/HealthRecords/RxPrescriptions">
+                <div class="panelTile alignCenter col-xs-6  ">
+                    {{ 'form_rxPrescriptions' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/MedicalClaims">
+                <div class="panelTile alignCenter col-xs-6">
+                    {{ 'nav_medicalClaims' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/ImmunizationRecords">
+                <div class="panelTile alignCenter col-xs-6 ">
+                    {{ 'nav_immunizationRecords' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/LabWork">
+                <div class="panelTile alignCenter col-xs-6 ">
+                    {{ 'nav_labResults' | translate}}
+                </div>
+            </a>
+            <a href="App/HealthRecords/Authorizations/All">
+                <div class="panelTile alignCenter col-xs-6 col-xs-offset-3 panelSelected">
+                    {{ 'nav_authorizations' | translate}}
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="contentRight col-lg-9 col-md-9 col-sm-12 col-xs-12  col-lg-push-3 col-md-push-3">
+        @*<div class="contentPanel  subNavLink  ">
+                <ul>
+                    <li><a href="App/HealthRecords/RxPrescriptions" class="subNavLink">{{'nav_pharmacyPrescriptions' | translate }}</a> </li>
+                    <li><a href="App/HealthRecords/MedicalClaims" class="subNavLink">{{'nav_medicalClaims' | translate }}</a> </li>
+                    <li><a href="App/HealthRecords/ImmunizationRecords" class="subNavLink">{{'nav_immunizationRecords' | translate }}</a> </li>
+                    <li><a href="App/HealthRecords/LabWork" class="subNavLink">{{'nav_labResults' | translate }}</a> </li>
+                    <li class="subNavSelected">{{'nav_authorizations' | translate }}</li>
+                </ul>
+            </div>*@
+
+
+        <div class="panel padLeft15 padRight15  ">
+            <h1 class="pageTitle padTop15">     {{"page_healthrec_allAuthorizations_title" | translate}}      </h1>
+            <div style="position:relative" class="infoIcon">
+                <p class="pageIntro">
+                    <div id="allAuthsIPADef" class="infoBox info" style="top:-62px;left:27px;">
+                        <info-box class="infoIcon" message=" {{ 'icohelp_IPANetworkProvider' | translate }} ">
+                        </info-box>
+                    </div>
+
+                    {{"page_healthrec_allAuthorizations_intro" | translate}}
+
+                    <br /><br />
+
+                    {{'form_yourCurrentIPA'|translate}}
+                    <strong style="color:black"> {{IPAName }} </strong>
+
+                    <i id="iconIPADef" class="glyphicon glyphicon-question-sign @*iconOnLeft*@" onclick="toggleBubble('allAuthsIPADef');">
+                    </i>
+                </p>
+            </div>
+
+            <p class="pageDisclaimer"> {{"page_healthrec_allAuthorizations_disclaimer" | translate}}   </p>
+
+
+
+
+            @*<info-box ng-if="agegroup == 'Age 13-17'" class="center" message="{{'page_healthrec_authorizations_13thru17' | translate}}"></info-box>*@
+            <info-box ng-if="agegroup == 'Age 13-17'" class="center" message="{{'page_healthrec_auth_medical_13thru17' | translate}}"></info-box>
+            <info-box ng-if="agegroup == 'Age 13-17'" class="center" message="{{'page_healthrec_auth_pharmacy_13thru17' | translate}}"></info-box>
+            @*<info-box id="infoBox" class="center" message="No authorizations found. "></info-box>*@
+
+
+
+
+            <message-boxes info-message="{{infoMessage}}" success-message="{{successMessage}}" error-message="{{errorMessage}}"></message-boxes>
+            <div simple-ajax-loader show="loading"></div>
+
+
+            @*<div class="row">
+                    <div class="subNavLink  col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <a href="App/HealthRecords/RxPrescriptions" class="subNavLink">{{'form_rxPrescriptions' | translate }}</a>
+                        <a href="App/HealthRecords/MedicalClaims" class="subNavLink">{{'form_medicalClaims' | translate }}</a>
+                        <a href="App/HealthRecords/ImmunizationRecords" class="subNavLink">{{'form_immunizationRecords' | translate }}</a>
+                        <a href="App/HealthRecords/LabWork" class="subNavLink">{{'form_labWork' | translate }}</a>
+                    </div>
+                </div>*@
+
+
+            <div ng-if="agegroup != 'Age 13-17' && data.length >0 ">
+
+                <authorization-subnav></authorization-subnav>
+
+                <div simple-ajax-loader show="loading"></div>
+
+                <div id="authCont" class="col-md-12 padLeft0 padRight0">
+                    <table class="table table-striped" ng-show="errorMessage == '' && data.length > 0">
+                        <thead class="header">
+                            <tr>
+                                <th> {{"form_date" | translate}} </th>
+                                <th> {{"form_authorization" | translate}} </th>
+                                <th> {{"form_serviceType" | translate}} </th>
+                                <th> {{"form_status" | translate}}</th>
+                                @*<th> {{"form_requestingProvider" | translate}} </th>
+                                    <th> {{"form_servicingProvider" | translate}} </th>*@
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in data |orderBy:'-receivedDate'" ng-show="item.reviewDecision !='Canceled'">
+                                <td> {{item.receivedDate | date:'MM/dd/yy'}}</td>
+                                <td> {{item.eventNumber}} </td>
+                                <td> {{TypeOfService(item)}} </td>
+                                <td> {{DetermineStatus(item)}}</td>
+                                @*<td> requesting prov name  </td>
+                                    <td> servicing prov name </td>*@
+                                <td ng-init="item.hasMemberLetter = true">
+                                    <span ng-hide="item.hasMemberLetter">{{"page_healthrec_allAuthorizations_notFound" | translate}}</span>
+                                    <span class="btn btn-xs" 
+                                          ng-click="ViewMemberLetter(item.eventNumber)" 
+                                          ng-show="TypeOfService(item) == 'Medical' && item.hasMemberLetter && item.reviewDecision =='Approved'" 
+                                          analytics-on="click" 
+                                          analytics-event="view-member-letter" 
+                                          analytics-category="authorizations">{{'form_view'|translate}} <span class="glyphicon glyphicon-eye-open"></span></span>
+
+                                    @* HIDDEN PER JOHN 4.30.2015 <span class="btn btn-xs" ng-click="DownloadMemberLetter(item.eventNumber)" ng-show="TypeOfService(item) == 'Medical'">{{'form_download'|translate}} <span class="glyphicon glyphicon-download-alt"></span></span>*@
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+
+    <!--  create a  directive in Authorization Category -->
+    <div class="contentLeft col-lg-3 col-md-3   col-sm-12 col-lg-pull-9 col-md-pull-9 col-sm-pull-0 hidden-xs">
+        <div class="contentPanel leftPanel_large">
+
+            <notifications-panel></notifications-panel>
+            <br />
+
+            <a href="App/HealthRecords/RxPrescriptions">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'form_rxPrescriptions' | translate}}</h2>
+                    <i class="btn_bak_rx" />
+                </div>
+            </a>
+
+            <a href="App/HealthRecords/MedicalClaims">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_medicalClaims' | translate}}</h2>
+                    <i class="btn_bak_claims" />
+                </div>
+            </a>
+
+            <a href="App/HealthRecords/ImmunizationRecords">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_immunizationRecords' | translate}}</h2>
+                    <i class="btn_bak_form" />
+                </div>
+            </a>
+            <a href="App/HealthRecords/LabWork">
+                <div class="panelTile alignRight">
+                    <h2>{{ 'nav_labResults' | translate}}</h2>
+                    <i class="btn_bak_lab" />
+                </div>
+            </a>
+
+            <a href="App/HealthRecords/Authorizations/All">
+                <div class="panelTile alignRight panelSelected">
+                    <h2>{{ 'nav_authorizations' | translate}}</h2>
+                    <i class="btn_bak_authorize" />
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div debug-tool class="ng-cloak">
+        <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+    </div>
+</div>
+

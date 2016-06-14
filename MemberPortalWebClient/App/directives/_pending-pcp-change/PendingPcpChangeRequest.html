@@ -1,0 +1,31 @@
+﻿<div ng-show="data.length > 0">
+    <div class="alert alert-info" role="alert">
+        <span><span class="glyphicon glyphicon-bell"></span> {{"form_pendingPCPChangeRequest" | translate}}  </span>
+        <a class="pull-right" href="" ng-click="showDetails = !showDetails"> {{"form_details" | translate}}</a>
+        <div ng-show="showDetails" class="row" style="border-top: 1px solid;padding-top: 10px;margin-top: 10px;">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>{{"form_doctorNameID" | translate}}</th>
+                        <th>{{"form_effectiveDate" | translate}}</th> 
+                        <th>{{"form_hospital" | translate}}</th>
+                        <th>{{"form_IPA" | translate}}</th> 
+                        <th>{{"form_requestedDate" | translate}} </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in data">
+                        <td>{{item.NewProviderFName}} {{item.NewProviderLName}} ({{item.NewProviderNumber}})</td>
+                        <td>{{item.EffectiveDate | date:"MM/dd/yyyy"}}</td> 
+                        <td>{{item.NewProviderHospitalName}}</td>
+                        <td>{{item.NewProviderIpaName}} </td> 
+                        <td>{{item.CreateDate | date:'MM/dd/yyyy'}}</td>
+                        <td><span class="glyphicon glyphicon-remove" ng-click="cancelRequest(item.ID)"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--<div debug-tool data="data" class="ng-cloak"></div>-->
+        </div>
+    </div>
+</div>

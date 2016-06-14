@@ -1,0 +1,172 @@
+﻿@{
+    Layout = null;
+}
+<div class="row contentContainer PPView Rosters">
+
+    <div class="registrationForm frmSignIn col-sm-12 col-xs-12 padLeft0 padRight0   ">
+
+        <!-- MOBILE -->
+        <div class="   col-xs-12 hidden-sm hidden-md hidden-lg padBottom15 non-printable">
+            <div class="contentPanel" ng-controller="SideNavCtrl">
+                <notifications-panel></notifications-panel>
+                <br/>
+            </div>
+        </div>
+
+        <div class="contentRight col-lg-10 col-md-9 col-sm-12 col-xs-12  col-lg-push-2 col-md-push-3  ">
+
+            <div class="contentPanel1">
+                <div class="form panel pad10  ">
+                    <div class="padLeft15 padTop15">
+                        <h1 class="pageTitle"> Rosters </h1>
+                        <p class="pageIntro">
+                             Lorem dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                            laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
+                            suscipit lobortis nisl ut aliquip ex ea commodo consequat 1-800-888-1111.
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div ng-show="errorMessage == ''"></div>
+                        <div class="row contentPanel pad20">
+                            <div ui-view="content@rosters"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div debug-tool class="ng-cloak">
+                <debug-tool-data-node name="Data" data="data"></debug-tool-data-node>
+            </div>
+        </div>
+        <!-- DESKTOP LEFTPANEL -->
+        <div class="contentLeft   col-md-3 col-lg-2   col-sm-2 col-xs-12 col-lg-pull-10 col-md-pull-9  col-xs-pull-0">
+            <div class="contentPanel leftPanel_sm panelBanner leftNav">
+                <div class="pageBannerContainer" ng-controller="SideNavCtrl">
+                    <div class="leftBanner_Verdana_White">
+						<pp-breadcrumbs title="Rosters"></pp-breadcrumbs>
+                        <ul class="non-printable">
+                            <li>
+                                <div id="rostAR" ui-sref="rosters.AR" ui-sref-active="navItemSelected" class="panelTile alignRight">
+                                    <h2>Assigned Roster</h2>
+                                </div>
+                            </li>
+                            <li>
+                                <div id="rostCCS" ui-sref="rosters.CCS" ui-sref-active="navItemSelected" class="panelTile alignRight  ">
+                                    <h2>CCS</h2>
+                                </div>
+                            </li>
+                            <li>
+                                <div id="rostDA" ui-sref="rosters.DA" ui-sref-active="navItemSelected" class="panelTile alignRight  ">
+                                    <h2>Direct Ancillary</h2>
+                                </div>
+                            </li>
+                            <li ui-sref-active="navItemSelected">
+                                <div id="rostDS" class="panelTile alignRight" ui-sref="rosters.DS">
+                                    <h2>
+                                        <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right':!('rosters.DS' | includedByState), 'glyphicon-chevron-down': ('rosters.DS' | includedByState) }"></span>Direct Specialty
+                                    </h2>
+                                </div>
+                                <div class="subNavContainer">
+                                    <ul id="subnav_rostDS" class="ulTabs subNavRosters" ng-show="'rosters.DS' | includedByState">
+                                        <li id="rostDSCTH" ui-sref-active="subnavItemSelected" ui-sref="rosters.DS.CTH">Corona/ Temecula/ Hemet </li>
+                                        <li id="rostDSHD" ui-sref-active="subnavItemSelected" ui-sref="rosters.DS.HD"> High Desert </li>
+                                        <li id="rostDSLD" ui-sref-active="subnavItemSelected" ui-sref="rosters.DS.LD"> Low Desert </li>
+                                        <li id="rostDSR" ui-sref-active="subnavItemSelected" ui-sref="rosters.DS.R"> Riverside </li>
+                                        <li id="rostDSSBP" ui-sref-active="subnavItemSelected" ui-sref="rosters.DS.SBP"> San Bernardino Proper </li>
+                                        <li id="rostDSWSB" ui-sref-active="subnavItemSelected" ui-sref="rosters.DS.WSB"> West San Bernardino </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div id="rostESR" ui-sref="rosters.ESR" ui-sref-active="navItemSelected" class="panelTile alignRight  ">
+                                    <h2> Early Start Roster </h2>
+                                </div>
+                            </li>
+                            <li>
+                                <div id="rostED" ui-sref="rosters.ED" ui-sref-active="navItemSelected" class="panelTile alignRight  ">
+                                    <h2> Encounter Data </h2>
+                                </div>
+                            </li>
+                            <li>
+                                <div id="rostIHA" ui-sref="rosters.IHA" ui-sref-active="navItemSelected" class="panelTile alignRight  ">
+                                    <h2> Initial Health Assessment </h2>
+                                </div>
+                            </li>
+                            <li>
+                                <div id="rostCCM" ui-sref="rosters.CCM" ui-sref-active="navItemSelected" class="panelTile alignRight  ">
+                                    <h2> CCM </h2>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div id="rostHCC" ui-sref="rosters.HCC" ui-sref-active="navItemSelected" class="panelTile alignRight  ">
+                                    <h2> HCC </h2>
+                                </div>
+                            </li>
+                            <li ui-sref-active="navItemSelected">
+                                <div id="rostHM" class="panelTile alignRight" ui-sref="rosters.HM">
+                                    <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right':!('rosters.HM' | includedByState), 'glyphicon-chevron-down': ('rosters.HM' | includedByState) }"></span>
+                                    <h2> Health Management </h2>
+                                </div>
+                                <div class="subNavContainer">
+                                    <ul id="subnavHealthManagement" class="ulTabs subNavRosters" ng-show="'rosters.HM' | includedByState">
+                                        <li id="rostHMAR" ui-sref-active="subnavItemSelected" ui-sref="rosters.HM.AR">Asthma Roster</li>
+                                        <li id="rostHMCMR" ui-sref-active="subnavItemSelected" ui-sref="rosters.HM.CMR">Care Management Reports</li>
+                                        <li id="rostHMDR" ui-sref-active="subnavItemSelected" ui-sref="rosters.HM.DR">Diabetes Roster </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <div id="rostMCR" ui-sref="rosters.MCR" ui-sref-active="navItemSelected" class="panelTile alignRight  ">
+                                    <h2>(IPA's) MCR </h2>
+                                </div>
+                            </li>
+                            <li>
+                                <div id="rostNA" ui-sref="rosters.NA" ui-sref-active="navItemSelected" class="panelTile alignRight  ">
+                                    <h2> Nurse Advice Line </h2>
+                                </div>
+                            </li>
+                            <li ui-sref-active="navItemSelected">
+                                <div id="rostPC" class="panelTile alignRight" ui-sref="rosters.PC">
+                                    <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right':!('rosters.PC' | includedByState), 'glyphicon-chevron-down': ('rosters.PC' | includedByState) }"></span>
+                                    <h2> Preventive Care </h2>
+                                </div>
+                                <div class="subNavContainer">
+                                    <ul id="subnavPreventiveCare" class="ulTabs subNavRosters" ng-show="'rosters.PC' | includedByState">
+                                        <li id="rostPCCI" ui-sref-active="subnavItemSelected" ui-sref="rosters.PC.CI">Childhood Immunizations</li>
+                                        <li id="rostPCWC015" ui-sref-active="subnavItemSelected" ui-sref="rosters.PC.WC015">Well Care (0-15months)</li>
+                                        <li id="rostPCWC36" ui-sref-active="subnavItemSelected" ui-sref="rosters.PC.WC36">Well Care (3-6 years) </li>
+                                        <li id="rostPCWCA" ui-sref-active="subnavItemSelected" ui-sref="rosters.PC.WCA">Well Care (Adolescent) </li>
+                                        <li id="rostPCBC" ui-sref-active="subnavItemSelected" ui-sref="rosters.PC.BC">Breast Cancer Screen </li>
+                                        <li id="rostPCCC" ui-sref-active="subnavItemSelected" ui-sref="rosters.PC.CC">Cervical Cancer Screen </li>
+                                        <li id="rostPCDC" ui-sref-active="subnavItemSelected" ui-sref="rosters.PC.DC">Diabetes Care </li>
+                                        <li id="rostPCADHD" ui-sref-active="subnavItemSelected" ui-sref="rosters.PC.ADHD">ADHD (Followup Care) </li>
+                                    </ul>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+</div>
+
+
+<style>
+    /*div
+    {
+        border: 1px solid lime;
+
+    }*/
+</style>
+ 
+
+
+
+ 

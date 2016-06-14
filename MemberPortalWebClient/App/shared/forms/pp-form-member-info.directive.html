@@ -1,0 +1,87 @@
+﻿<div>
+    <div class="col-md-12 col-xs-12 SectionHeader">
+        <h4>Member Information</h4>
+    </div>
+</div>
+
+<div class="form-section dark-span">
+    <ol class="list-group">
+
+        <li class="list-group-item clearfix">
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">Name:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberFirstName | titleCase | infoNotAvailable}} {{data.MemberLastName | titleCase | infoNotAvailable}}</span>
+            </div>
+            <div class="col-md-3  col-xs-12  lft-algn">
+                <label class="body-label fit-demographic-information-label">Gender:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberGender | infoNotAvailable}}</span>
+            </div>
+            <div class="col-md-3  col-xs-12  lft-algn">
+                <label class="body-label fit-demographic-information-label">DOB:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberDateOfBirth | date: 'MM/dd/yyyy' | infoNotAvailable}}</span>
+            </div>
+            <div class="col-md-3 col-xs-12  lft-algn">
+                <label class="body-label fit-demographic-information-label">Age:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberAge | infoNotAvailable}}</span>
+            </div>
+
+        </li>
+
+        <li class="list-group-item clearfix">
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">Address:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberAddress2 + " " + data.MemberAddress1 | titleCase | infoNotAvailable}}</span>
+            </div>
+            <div class="col-md-3  col-xs-12  lft-algn">
+                <label class="body-label fit-demographic-information-label">City:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberCity | titleCase | infoNotAvailable}}</span>
+            </div>
+            <div class="col-md-3  col-xs-12  lft-algn">
+                <label class="body-label fit-demographic-information-label">State-Zip:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberState | infoNotAvailable}}, {{data.MemberZip | zip | infoNotAvailable}}</span>
+            </div>
+            <div class="col-md-3 col-xs-12  lft-algn">
+                <label class="body-label fit-demographic-information-label">Phone:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberPhone | tel | infoNotAvailable}}</span>
+            </div>
+
+        </li>
+        <li class="list-group-item clearfix">
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">IEHP ID:</label>
+                <span class="lbl fit-demographic-information-span" id="MemberId" ng-cloak>{{data.SubscriberNumber | infoNotAvailable}}</span>
+            </div>
+            <div class="col-md-3  col-xs-12  lft-algn">
+                <label class="body-label fit-demographic-information-label">CIN:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberCin | infoNotAvailable}}</span>
+            </div>
+            <div class="col-md-3  col-xs-12  lft-algn">
+                <label class="body-label fit-demographic-information-label">MediCare:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberMedicareNumber | infoNotAvailable}}</span>
+            </div>
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">Medi-Cal:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberMedicalNumber | infoNotAvailable}}</span>
+            </div>
+
+        </li>
+        <li class="list-group-item clearfix">
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">LOB:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberLob | infoNotAvailable}}</span>
+            </div>
+            <div class="col-md-3  col-xs-12  lft-algn">
+                <label class="body-label fit-demographic-information-label">County:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberCounty | infoNotAvailable}}</span>
+            </div>
+            <div class="col-md-3  col-xs-12  lft-algn">
+                <label class="body-label fit-demographic-information-label">Aid Code:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberPlanAidCode | infoNotAvailable}}</span>
+            </div>
+            <div class="col-md-3 col-xs-12 lft-algn">
+                <label class="body-label fit-demographic-information-label">Group:</label>
+                <span class="lbl fit-demographic-information-span">{{data.MemberGroup | infoNotAvailable}}</span>
+            </div>
+        </li>
+    </ol>
+</div>

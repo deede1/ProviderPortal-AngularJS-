@@ -1,0 +1,44 @@
+﻿<div class="row survey-question-bottom-border">
+    <div class="col-md-8 col-sm-8 col-xs-12 survey-question-span-inner" ng-bind-html="question.QuestionText"></div>
+    <ng-form name="innerForm">
+        <div class="btn-group survey-ui-button-background  col-md-4">
+            <div ng-if="answer.ItemDisplayName != 'Blank'" ng-repeat="answer in question.Answers track by $index">
+                
+                <div class="row survey-margin-bottom-5px" ng-if="answer.ItemDisplayValue !=='None of the above'">
+                    <input type="checkbox"
+                           id="{{question.QuestionText  + $index}}"
+                           name="{{question.QuestionText}}"
+                           class="survey-checkbox-buttons col-md-1"
+                           ng-model="checkBox"
+                           ng-click="RecordCheckBoxClick(this,question,$index)"
+                           ng-required="!question.isChecked"
+                           ng-checked="answer.isChecked"
+                           ng-disabled="answer.isDisabled || answer.isHidden"/>
+
+                    <div class="col-md-8">
+                        <span class="survey-answer">{{answer.ItemDisplayName}}</span>
+                    </div>
+                </div>
+                <div class="row" ng-if="answer.ItemDisplayValue === 'None of the above'">
+
+                    <input type="checkbox"
+                           name="{{question.QuestionText}}"
+                           id="{{question.QuestionText  + $index}}"
+                           class="survey-checkbox-buttons col-md-1"
+                           ng-model="checkBox"
+                           ng-click="RecordCheckBoxClickNOA(this,question,$index)"
+                           ng-required="!question.isChecked"
+                           ng-checked="answer.isChecked" />
+                    <div class="col-md-8">
+                        <span class="survey-answer">{{answer.ItemDisplayName}}</span>
+                    </div>
+
+                </div>
+            </div>
+            <span ng-if="language == 'EN'" ng-show="innerForm.$invalid && nextClicked" class="help-block survey-required-value">Select an option</span>
+            <span ng-if="language=='ES'" ng-show="innerForm.$invalid && nextClicked" class="help-block survey-required-value">Seleccione una opcion</span>
+        </div>
+
+    </ng-form>
+</div>
+<!--&& nextClicked--> 

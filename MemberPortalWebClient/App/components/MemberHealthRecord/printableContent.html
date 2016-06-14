@@ -1,0 +1,375 @@
+﻿<div class="contentPanel" id="MHR-printable-content">
+    <div id="panels-container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="panel-header-title print">Member Demographics</span>
+            </div>
+            <div class="panel-body collapsable">
+                <div>
+                    <form class="form-section">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td colspan="100%" style="border: 0;">
+                                        <div class="col-xs-4">
+                                            <div class="row">
+                                                <label class="col-xs-6">Name:</label>
+                                                <div class="col-xs-6 info">{{Demo.LastName|titleCase}},{{Demo.FirstName|titleCase}}</div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-xs-6">Gender:</label>
+                                                <div class="col-xs-6 info">{{Demo.Gender | gender}}</div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-xs-6">DOB:</label>
+                                                <div class="col-xs-6 info">{{Demo.DateOfBirth | noTime}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="row">
+                                                <label class="col-xs-6">IEHP ID:</label>
+                                                <div class="col-xs-6 info">{{Demo.SubscriberId}}</div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-xs-6">Email:</label>
+                                                <div class="col-xs-6 info">{{Demo.Email}}</div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-xs-6">Address:</label>
+                                                <div class="col-xs-6 info">{{Demo.Address}} {{Demo.Address2}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="row">
+                                                <label class="col-xs-6">City:</label>
+                                                <div class="col-xs-6 info">{{Demo.City}}</div>
+                                            </div>  
+                                            <div class="row">
+                                                <label class="col-xs-6">State-Zip:</label>
+                                                <div class="col-xs-6 info">{{Demo.State}} {{Demo.Zip|zipcode}}</div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-xs-6">MobilePhone:</label>
+                                                <div class="col-xs-6 info">{{Demo.MobilePhone | tel}}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="100%" style="border: 0;">
+                                        <div class="col-xs-4">
+                                            <div class="row">
+                                                <label class="col-xs-6">HomePhone:</label>
+                                                <div class="col-xs-6 info">{{Demo.HomePhone|tel}}</div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-xs-6">WorkPhone:</label>
+                                                <div class="col-xs-6 info">{{Demo.WorkPhone}}</div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="row">
+                                                <label class="col-xs-6">Preferred Written Language:</label>
+                                                <div class="col-xs-6 info">{{Demo.PreferredWrittenLanguage}}</div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xs-4">
+
+                                            <div class="row">
+                                                <label class="col-xs-6">Preferred Spoken Language:</label>
+                                                <div class="col-xs-6 info">{{Demo.PreferredSpokenLanguage}}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="panel-header-title print">Reminders/Alerts</span>
+            </div>
+            <div class="table panel-body">
+                <table class="table table-striped">
+                    <thead ng-if="PAlerts.length>0">
+                        <tr class="sorting">
+                            <th>
+                                Message:
+                            </th>
+                            <th>
+                                Member Acknowledgement Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="PAlerts" ng-repeat="alert in PAlerts">
+                            <td>{{alert.AlertText}}</td>
+                            <td>{{alert.MemberAcknowledgementDate|noTime}}</td>
+                        </tr>
+                        <tr ng-if="!PAlerts.length>0">
+                            <td>No Records</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="panel-header-title print">Medical Visits(Past 12 months)</span>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped" id="Pmedical-visits">
+                    <thead ng-if="PVisits">
+                        <tr>
+                            <th>
+                                Admit Date
+                            </th>
+                            <th>
+                                ThruDate
+                            </th>
+                            <th>
+                                ca claim
+                            </th>
+                            <th>
+                                cadx1
+                            </th>
+                            <th>
+                                CaprimDate
+                            </th>
+                            <th>
+                                Days
+                            </th>
+                            <th>
+                                DOS
+                            </th>
+                            <th>
+                                dx Description
+                            </th>
+                            <!--<th>
+                                Pos
+                            </th>
+                            <th>
+                                ProvSubId
+                            </th>-->
+                            <!--<th>
+                                Source
+                            </th>-->
+                        </tr>
+                    </thead>
+                    <tbody  >
+                        <tr ng-repeat="visit in PVisits">
+                            <td>
+                                {{visit.admitDate|noTime}}
+                            </td>
+                            <td>
+                                {{visit.thruDate|noTime}}
+                            </td>
+                            <td>
+                                {{visit.caClaim}}
+                            </td>
+                            <td>
+                                {{visit.cadx1}}
+                            </td>
+                            <td>
+                                {{visit.caprimDate|noTime}}
+                            </td>
+                            <td>
+                                {{visit.days}}
+                            </td>
+                            <td>
+                                {{visit.dos|noTime}}
+                            </td>
+                            <td  >
+                                {{visit.dxDesc}}
+                            </td>
+                            <!--<td>
+                                {{visit.pos}}
+                            </td>
+                            <td>
+                                {{visit.provSubId}}
+                            </td>-->
+                            <!--<td>
+                                {{visit.source}}
+                            </td>-->
+                        </tr>
+                        <tr ng-if="!PVisits">
+                            <td>No Records</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+
+
+
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <span class="panel-header-title print">Rx History(Past 12 months)</span>
+
+            </div>
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-striped" id="pharmacy-info">
+                        <thead ng-if="PRx">
+                        <tr>
+                            <th>
+                                OrderDate
+                            </th>
+                            <th>
+                                DrugName
+                            </th>
+                            <th>
+                                DaysSupply
+                            </th>
+                            <th>
+                                MetricQuantity
+                            </th>
+                            <th>
+                                PhrmName
+                            </th>
+
+                            <th>
+                                Phys Name
+                            </th>
+                            <th>
+                                Type
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-if="PRx" ng-repeat="rx in PRx">
+                            <td>{{rx.OrderDate|noTime}}</td>
+                            <td>{{rx.DrugName}}</td>
+                            <td>{{rx.DaysSupply}}</td>
+                            <td>{{rx.MetricQuantity}}</td>
+                            <td>{{rx.PhrmName}}</td>
+
+                            <td>{{rx.PhysLastName}},{{rx.PhysFirstName}}</td>
+                            <td>{{rx.Type}}</td>
+                        </tr>
+                            <tr ng-if="!PRx">
+                                <td>
+                                    No Records
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <span class="panel-header-title print">Lab Information(Past 12 months)</span>
+
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped" id="lab-info">
+                    <thead ng-if="PLabs.length>0">
+                    <tr>
+
+                        <th>
+                            Date Of Service
+                        </th>
+                        <th>
+                            Test Code
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>Result</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr  ng-repeat="lab in PLabs">
+
+
+                        <td>{{lab.dos}}</td>
+                        <td>{{lab.testcode}}</td>
+                        <td>{{lab.desc}}</td>
+                        <td>{{lab.result}}</td>
+
+                    </tr>
+
+                    <tr ng-if="PLabs.length===0">
+                        <td>No Records</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <span class="panel-header-title print">Immunizations</span>
+            </div>
+            <div class="panel-body">
+                <div id="immunizationDetail">
+                    <form class="form-horizontal" ng-if="Immunizations">
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6 text-left" ng-if="Immunizations">
+                                        <label>Had Chickenpox:</label>
+                                        <span ng-bind="Immunizations['ImmunizationDetails'].HadChickenpox? 'Yes': 'No'"></span>
+
+                                    </div>
+                                    <div class="col-xs-6 text-left" ng-if="Immunizations">
+                                        <label>Had Measles:</label>
+                                        <span ng-bind="Immunizations['ImmunizationDetails'].HadMeasles ? 'Yes':'No'"></span>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <table id="vaccinesTableOuter" class="table table-striped">
+                    <thead ng-if="Immunizations">
+                    <th> Vaccine Type</th>
+                    <th>Data Given</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="Immunizations" ng-repeat="(key, value) in Immunizations">
+                        <td>
+                            {{key}}
+                        </td>
+                        <td>
+                            <table id="vaccinesTable">
+                                <tbody>
+                                <tr ng-if="v.DateGivenFormatted" ng-repeat="v in value">
+                                    <td>{{v.DateGivenFormatted|date}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr ng-if="!Immunizations">
+                        <td>
+                            No Records
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
